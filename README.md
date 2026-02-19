@@ -20,6 +20,9 @@ I'm dedicated to pushing this project forward and making improvements. Whether y
 
 This game features 5 different tracks with detailed visuals to provide a great user experience.
 
+## My changes
+ * Updated the input system to use Unity's new input system
+ * Added controller support
 
 Here is a video showing some gameplay of the project  [https://youtu.be/NfiscJR_nQY](https://youtu.be/NfiscJR_nQY), 
 and the rest of the videos can be found on my [YouTube Channel](https://www.youtube.com/c/ishaan35).
