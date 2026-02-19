@@ -139,12 +139,12 @@
     <Compile Include="Assets\colliderInAir.cs" />
     <Compile Include="Assets\Scripts\ChainChompBall.cs" />
     <Compile Include="Assets\SampleScenes\Scripts\PlaceTargetWithMouse.cs" />
+    <Compile Include="Assets\Scripts\PlayerControls.cs" />
     <Compile Include="Assets\Scripts\CameraRotateAntigravity.cs" />
     <Compile Include="Assets\Scripts\ScoreCount.cs" />
     <Compile Include="Assets\Spherical Skybox\Move.cs" />
     <Compile Include="Assets\Scripts\General\Rotator.cs" />
     <Compile Include="Assets\Scripts\AntiGravityExitRotate.cs" />
-    <Compile Include="Assets\Scripts\PlayerControls.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Editor Default Resources\nu Assets\Shared\Shaders\CanvasSelection.shader" />
