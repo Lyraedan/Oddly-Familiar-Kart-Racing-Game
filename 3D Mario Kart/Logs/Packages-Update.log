@@ -92,3 +92,16 @@ The following packages were updated:
   com.unity.visualeffectgraph from version 11.0.0 to 12.1.7
 The following packages were removed:
   com.unity.render-pipelines.lightweight@10.4.0
+
+=== Thu Feb 19 20:03:51 2026
+
+Packages were changed.
+Update Mode: updateDependencies
+
+The following packages were updated:
+  com.unity.collab-proxy from version 1.15.17 to 1.17.7
+  com.unity.ide.rider from version 3.0.14 to 3.0.18
+  com.unity.ide.visualstudio from version 2.0.15 to 2.0.17
+  com.unity.purchasing from version 4.1.4 to 4.5.2
+  com.unity.render-pipelines.universal from version 12.1.7 to 12.1.9
+  com.unity.visualeffectgraph from version 12.1.7 to 12.1.9
