@@ -1,9 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
+
+    // Oh my sweet jesus christ. Refactoring this is gonna SUCK
+
     [HideInInspector]
     public bool Boost = false;
 
@@ -192,78 +196,62 @@ public class Player : MonoBehaviour
     private bool IN_WATER = false;
     public Transform propeller;
 
-
     public Camerafollow Cam;
 
-    public class PlayerInput
-    {
-        public static string DRIFT = "Drift";
-        public static string ACCELERATE = "Accelerate";
-        public static string REVERSE = "Reverse";
-        public static string USE_ITEM = "Use Item";
-        public static string TRICK = "Trick";
-        public static string STEER_LEFT = "Steer Left";
-        public static string STEER_RIGHT = "Steer Right";
-        public static string GLIDER_UP = "Glider Up";
-        public static string GLIDER_DOWN = "Glider Down";
-        public static string LOOK_BEHIND = "Look Behind";
-    }
 
     // Start is called before the first frame update
+    /// <summary>
+    /// Unity Start method. Initializes references and sets up initial state.
+    /// </summary>
     void Start()
     {
         kartMat.SetVector("Vector4_70BBF882", new Vector4(0, 0, 0, 0));
-
         rb = GetComponent<Rigidbody>();
         Right_Wheel_Drift_PS = DriftPS.transform.GetChild(0).gameObject;
         Left_Wheel_Drift_PS = DriftPS.transform.GetChild(1).gameObject;
-
         FrontLeftTire = Tires.transform.GetChild(0).GetChild(0).gameObject;
         FrontRightTire = Tires.transform.GetChild(1).GetChild(0).gameObject;
-
         playersounds = GetComponent<PlayerSounds>();
         item_manager = GetComponent<ItemManager>();
         lapCounter = GetComponent<LapCounter>();
-
         rotateStrengthWithStar = desired_rotate_strength + 15;
-
         allOpponents = GameObject.FindGameObjectsWithTag("Opponent");
-
         for (int i = 0; i < TireParents.Length; i++)
         {
             tireLocalPositions[i] = TireParents[i].transform.localPosition;
         }
-
     }
 
+    /// <summary>
+    /// Unity Update method. Handles trick input and drift input.
+    /// </summary>
     private void Update()
     {
-        if (trickAvailable && Input.GetButtonDown(PlayerInput.TRICK) && REALCURRENTSPEED > 40 && !GLIDER_FLY)
+        if (trickAvailable && PlayerControls.GetButtonDown(PlayerControls.TRICK) && REALCURRENTSPEED > 40 && !GLIDER_FLY)
         {
-
             trickAvailable = false;
             trickBoostPending = true;
             StartCoroutine(trickJump());
         }
-        //drift input
-        if(RACE_MANAGER.RACE_STARTED && !item_manager.isBullet && !RACE_MANAGER.RACE_COMPLETED)
+        // Drift input
+        if (RACE_MANAGER.RACE_STARTED && !item_manager.isBullet && !RACE_MANAGER.RACE_COMPLETED)
         {
             Drift();
         }
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// Unity FixedUpdate method. Handles all physics and per-frame logic.
+    /// </summary>
     void FixedUpdate()
     {
-
-        if (GLIDER_FLY )
+        if (GLIDER_FLY)
         {
             groundRayDist = 3;
         }
         else if (JUMP_PANEL || antiGravity)
         {
             groundRayDist = 2;
-
         }
         else
         {
@@ -272,7 +260,7 @@ public class Player : MonoBehaviour
 
         mario_face();
 
-        //if the race has started, but not completed
+        // If the race has started, but not completed
         if (RACE_MANAGER.RACE_STARTED && !item_manager.isBullet && !RACE_MANAGER.RACE_COMPLETED)
         {
             AccelBeforeStartDust.GetChild(0).GetComponent<ParticleSystem>().Stop();
@@ -280,8 +268,8 @@ public class Player : MonoBehaviour
             transform.GetChild(0).GetChild(0).GetComponent<Animator>().SetBool("StartTurbo", false);
             playersounds.effectSounds[11].Stop();
 
-            //before start boost
-            if(beforeStartAccelTime > 1 && beforeStartAccelTime < 2)
+            // Before start boost
+            if (beforeStartAccelTime > 1 && beforeStartAccelTime < 2)
             {
                 Boost_time = 1;
                 playersounds.effectSounds[13].Play();
@@ -290,11 +278,11 @@ public class Player : MonoBehaviour
                 playersounds.Mario_Boost_Sounds[3].Play();
                 for (int i = 0; i < BoostBurstPS.transform.childCount; i++)
                 {
-                    BoostBurstPS.transform.GetChild(i).GetComponent<ParticleSystem>().Play(); //left and right included
+                    BoostBurstPS.transform.GetChild(i).GetComponent<ParticleSystem>().Play();
                 }
-                for(int i = 0; i < 60; i++)
+                for (int i = 0; i < 60; i++)
                 {
-                    if (Input.GetButton(PlayerInput.ACCELERATE))
+                    if (PlayerControls.GetButton(PlayerControls.ACCELERATE))
                     {
                         currentspeed = Mathf.SmoothStep(currentspeed, boost_speed, 2f * Time.deltaTime);
                     }
@@ -305,7 +293,6 @@ public class Player : MonoBehaviour
             {
                 Move();
                 Steer();
-
             }
 
             player_animations();
@@ -314,10 +301,8 @@ public class Player : MonoBehaviour
             GroundNormalRotation();
             tireDirtEffect();
 
-
-
-            //dust particles
-            if (REALCURRENTSPEED > 30 && !drift_left && !drift_right && !GLIDER_FLY && !JUMP_PANEL && !Input.GetButton(PlayerInput.REVERSE) && grounded && !item_manager.isBullet && Is_Dirt_Track)
+            // Dust particles
+            if (REALCURRENTSPEED > 30 && !drift_left && !drift_right && !GLIDER_FLY && !JUMP_PANEL && !PlayerControls.GetButton(PlayerControls.REVERSE) && grounded && !item_manager.isBullet && Is_Dirt_Track)
             {
                 dustParticles.GetChild(0).GetComponent<ParticleSystem>().Play();
                 dustParticles.GetChild(1).GetComponent<ParticleSystem>().Play();
@@ -326,16 +311,12 @@ public class Player : MonoBehaviour
             {
                 dustParticles.GetChild(0).GetComponent<ParticleSystem>().Stop();
                 dustParticles.GetChild(1).GetComponent<ParticleSystem>().Stop();
-
             }
-            
-            
 
             exhaustDust.GetChild(0).GetComponent<ParticleSystem>().Stop();
             exhaustDust.GetChild(1).GetComponent<ParticleSystem>().Stop();
 
-
-            //constant subtract of boost time
+            // Constant subtract of boost time
             if (Boost_time > 0)
             {
                 Boost_time -= Time.deltaTime;
@@ -351,69 +332,51 @@ public class Player : MonoBehaviour
                 Boost_time = 0;
                 max_speed = desiredMaxSpeed;
                 Boost = false;
-
             }
         }
-        //if you are a bullet
+        // If you are a bullet
         else if (item_manager.isBullet)
         {
             Ray ground = new Ray(transform.position, -transform.up);
             RaycastHit hit;
-
             Vector3 lookat = item_manager.path.GetChild(item_manager.currentWayPoint).position;
-
             float dir = 0;
-            if(antiGravity)
+            if (antiGravity)
                 rb.AddRelativeForce(Vector3.down * 5000 * Time.deltaTime, ForceMode.Acceleration);
             else
-            {
                 rb.AddForce(Vector3.down * 5000 * Time.deltaTime, ForceMode.Acceleration);
-            }
             if (Physics.Raycast(ground, out hit, 10, mask))
             {
-                //ground normal rotation
+                // Ground normal rotation
                 transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.FromToRotation(transform.up * 2, hit.normal) * transform.rotation, 7.5f * Time.deltaTime);
-
-
-                //MOVE FORWARD
+                // Move forward
                 currentspeed = 130;
                 rb.velocity = transform.forward * currentspeed;
             }
-            //angle calc
+            // Angle calc
             Vector3 myangle = lookat - transform.position;
             Vector3 angle = Vector3.Cross(transform.forward, myangle);
             dir = Vector3.Dot(angle, transform.up);
-
-
             float none = 0;
-
-            // maybe get dir, and make float y lerp to that dir value, and then rotate y axis (space.self) according to that y value or something
-
-            //float y = Mathf.SmoothDamp(transform.eulerAngles.y, transform.eulerAngles.y + dir, ref none, 2.5f * Time.deltaTime);
             y = Mathf.SmoothDamp(y, dir, ref none, 2.5f * Time.deltaTime);
-
-
-
             transform.Rotate(0, y / 6, 0, Space.Self);
         }
-        else if(!RACE_MANAGER.RACE_STARTED && !RACE_MANAGER.RACE_COMPLETED) //before race starts
+        // Before race starts
+        else if (!RACE_MANAGER.RACE_STARTED && !RACE_MANAGER.RACE_COMPLETED)
         {
             GroundNormalRotation();
-            if (Input.GetButton(PlayerInput.ACCELERATE))
+            if (PlayerControls.GetButton(PlayerControls.ACCELERATE))
             {
                 transform.GetChild(0).GetChild(0).GetComponent<Animator>().SetBool("StartTurbo", true);
                 tires[2].transform.Rotate(-90 * Time.deltaTime * 75 / 5.5f, 0, 0);
                 tires[3].transform.Rotate(-90 * Time.deltaTime * 75 / 5.5f, 0, 0);
-
                 AccelBeforeStartDust.GetChild(0).GetComponent<ParticleSystem>().Play();
                 AccelBeforeStartDust.GetChild(1).GetComponent<ParticleSystem>().Play();
-
                 if (!playersounds.effectSounds[11].isPlaying)
                 {
                     playersounds.effectSounds[11].Play();
                 }
                 beforeStartAccelTime += Time.deltaTime;
-
             }
             else
             {
@@ -430,7 +393,6 @@ public class Player : MonoBehaviour
 
         if (RACE_MANAGER.RACE_COMPLETED)
         {
-
             raceEndTime += Time.deltaTime;
             steerOnPath();
             moveOnPath();
@@ -441,12 +403,12 @@ public class Player : MonoBehaviour
                 for (int i = 0; i < 2; i++)
                 {
                     ParticleSystem currentboost = Boost_PS.transform.GetChild(i).GetComponent<ParticleSystem>();
-                    currentboost.Stop();                         
+                    currentboost.Stop();
                 }
             }
-            if(lapCounter.endPosition < 6)
+            if (lapCounter.endPosition < 6)
             {
-                if(raceEndTime % 4 < 0.2f)
+                if (raceEndTime % 4 < 0.2f)
                 {
                     MarioFace.material = faces[2];
                 }
@@ -454,19 +416,15 @@ public class Player : MonoBehaviour
                 {
                     MarioFace.material = faces[3];
                 }
-
             }
             else
             {
                 AnimatorStateInfo animationState = Driver.GetCurrentAnimatorStateInfo(0);
                 AnimatorClipInfo[] myAnimatorClip = Driver.GetCurrentAnimatorClipInfo(0);
-
                 float time = animationState.length;
                 float progress = animationState.normalizedTime % 1;
-
                 float currTime = time * progress;
-
-                if(currTime < 3.25 || currTime > 4.1)
+                if (currTime < 3.25 || currTime > 4.1)
                 {
                     MarioFace.material = faces[7];
                 }
@@ -474,25 +432,17 @@ public class Player : MonoBehaviour
                 {
                     MarioFace.material = faces[4];
                 }
-
             }
         }
-
-
 
         kartAnims();
         blinking();
         lookAtOpponent();
 
-
         if (trickBoostPending && !JUMP_PANEL)
         {
             transform.localRotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, transform.localEulerAngles.y, transform.localEulerAngles.z), 1f * Time.deltaTime);
         }
-
-        
-
-
     }
 
 
@@ -1358,7 +1308,7 @@ public class Player : MonoBehaviour
         if(GLIDER_FLY)
         {
             Vector3 newVel = rb.velocity;
-            if (!Input.GetButton(PlayerInput.GLIDER_DOWN))
+            if (!PlayerControls.GetButton(PlayerControls.GLIDER_DOWN))
             {
                 newVel.y *= 0.75f;
             }
@@ -1370,7 +1320,7 @@ public class Player : MonoBehaviour
         }
         if (GLIDER_FLY)
         {
-            if (!Input.GetButton(PlayerInput.ACCELERATE))
+            if (!PlayerControls.GetButton(PlayerControls.ACCELERATE))
             {
                 currentspeed = Mathf.Lerp(currentspeed, 65, 2 * Time.deltaTime);
             }
@@ -1381,7 +1331,7 @@ public class Player : MonoBehaviour
         }
 
         //accelerate
-        if (Input.GetButton(PlayerInput.ACCELERATE))
+        if (PlayerControls.GetButton(PlayerControls.ACCELERATE))
         {
             currentspeed = Mathf.Lerp(currentspeed, max_speed, 0.5f * Time.deltaTime);
             if(!drift_right && !drift_left && (!item_manager.StarPowerUp || drift_left || drift_right))
@@ -1392,7 +1342,7 @@ public class Player : MonoBehaviour
             }
         }
         //reverse
-        if (Input.GetButton(PlayerInput.REVERSE) && !GLIDER_FLY)
+        if (PlayerControls.GetButton(PlayerControls.REVERSE) && !GLIDER_FLY)
         {
             currentspeed = Mathf.Lerp(currentspeed, -max_speed / 1.6f, 0.03f);
             if(REALCURRENTSPEED <= 0)
@@ -1402,7 +1352,7 @@ public class Player : MonoBehaviour
             
         }
         //slowdown by itself
-        if (!Input.GetButton(PlayerInput.ACCELERATE))
+        if (!PlayerControls.GetButton(PlayerControls.ACCELERATE))
         {
             currentspeed = Mathf.Lerp(currentspeed, 0, 0.01f);
             drift_right = false;
@@ -1415,7 +1365,7 @@ public class Player : MonoBehaviour
         if (!grounded && !Boost && !item_manager.StarPowerUp)
         {
             max_speed = 30;
-            if (Input.GetButton(PlayerInput.ACCELERATE))
+            if (PlayerControls.GetButton(PlayerControls.ACCELERATE))
             {
                 currentspeed = Mathf.Lerp(currentspeed, max_speed, 3 * Time.deltaTime);
             }
@@ -1437,7 +1387,7 @@ public class Player : MonoBehaviour
         if (item_manager.StarPowerUp)
         {
             max_speed = boost_speed - 5;
-            if (Input.GetButton(PlayerInput.ACCELERATE))
+            if (PlayerControls.GetButton(PlayerControls.ACCELERATE))
             {
                 currentspeed = Mathf.Lerp(currentspeed, max_speed, 3 * Time.deltaTime);
             }
@@ -1460,12 +1410,12 @@ public class Player : MonoBehaviour
         }
 
 
-        if((Input.GetButton(PlayerInput.ACCELERATE) && REALCURRENTSPEED < 0) || (currentspeed > 40 && REALCURRENTSPEED <= 5 && Input.GetButton(PlayerInput.ACCELERATE))) //skid effect
+        if((PlayerControls.GetButton(PlayerControls.ACCELERATE) && REALCURRENTSPEED < 0) || (currentspeed > 40 && REALCURRENTSPEED <= 5 && PlayerControls.GetButton(PlayerControls.ACCELERATE))) //skid effect
         {
             reverseSkid = true;    
         }
 
-        if (reverseSkid && REALCURRENTSPEED < 20 && Input.GetButton(PlayerInput.ACCELERATE) && !IN_WATER)
+        if (reverseSkid && REALCURRENTSPEED < 20 && PlayerControls.GetButton(PlayerControls.ACCELERATE) && !IN_WATER)
         {
             AccelBeforeStartDust.GetChild(0).GetComponent<ParticleSystem>().Play();
             AccelBeforeStartDust.GetChild(1).GetComponent<ParticleSystem>().Play();
@@ -1482,19 +1432,19 @@ public class Player : MonoBehaviour
             AccelBeforeStartDust.GetChild(0).GetComponent<ParticleSystem>().Stop();
             AccelBeforeStartDust.GetChild(1).GetComponent<ParticleSystem>().Stop();
             playersounds.effectSounds[20].Stop();
-            if(!Input.GetButton(PlayerInput.LOOK_BEHIND) && GameObject.Find("RaceManager").GetComponent<RACE_MANAGER>().FrontCam.activeSelf)
+            if(!PlayerControls.GetButton(PlayerControls.LOOK_BEHIND) && GameObject.Find("RaceManager").GetComponent<RACE_MANAGER>().FrontCam.activeSelf)
                 GameObject.Find("Main Camera").GetComponent<Animator>().SetBool("Vibrate", false);
 
         }
 
         //reverse face and animation
-        if(Input.GetButton(PlayerInput.REVERSE) && !Input.GetButton(PlayerInput.ACCELERATE) && REALCURRENTSPEED < 0 && !SpecialFace)
+        if(PlayerControls.GetButton(PlayerControls.REVERSE) && !PlayerControls.GetButton(PlayerControls.ACCELERATE) && REALCURRENTSPEED < 0 && !SpecialFace)
         {
             reversing = true;
             Driver.SetBool("Reverse", true);
             reversingTime += Time.deltaTime;
         }
-        else if (Input.GetButtonUp(PlayerInput.REVERSE) || Input.GetButtonDown(PlayerInput.ACCELERATE)) {
+        else if (PlayerControls.GetButtonUp(PlayerControls.REVERSE) || PlayerControls.GetButtonDown(PlayerControls.ACCELERATE)) {
             current_face_material = faces[0];
             Driver.SetBool("Reverse", false);
             reversing = false;
@@ -1562,14 +1512,14 @@ public class Player : MonoBehaviour
         float force = 50000;
 
         //steer
-        if (Input.GetAxis("Horizontal") != 0)
+        if (PlayerControls.GetSteerAxis() != 0)
         {
             
 
             //turning mechanism if drifting
             if (drift_right && !drift_left)
             {
-                direction = Input.GetAxis("Horizontal") > 0 ? 2.1f : 0.5f;
+                direction = PlayerControls.GetSteerAxis() > 0 ? 2.1f : 0.5f;
                 transform.GetChild(0).localRotation = Quaternion.Lerp(transform.GetChild(0).localRotation, Quaternion.Euler(0, 20f, 0), 8f * Time.deltaTime);
                 max_speed = desiredMaxSpeed - 10;
 
@@ -1587,7 +1537,7 @@ public class Player : MonoBehaviour
             }
             if (drift_left && !drift_right)
             {
-                direction = Input.GetAxis("Horizontal") < 0 ? -2.1f : -0.5f;
+                direction = PlayerControls.GetSteerAxis() < 0 ? -2.1f : -0.5f;
                 transform.GetChild(0).localRotation = Quaternion.Lerp(transform.GetChild(0).localRotation, Quaternion.Euler(0, -20f, 0), 8f * Time.deltaTime);
                 max_speed = desiredMaxSpeed - 10;
 
@@ -1621,20 +1571,20 @@ public class Player : MonoBehaviour
             if (REALCURRENTSPEED >= 40 && !drift_right && !drift_left)
                 speed_rotate_rate = 1.75f;
 
-            if (REALCURRENTSPEED < -5 && !Input.GetButton(PlayerInput.ACCELERATE)) //reverse
+            if (REALCURRENTSPEED < -5 && !PlayerControls.GetButton(PlayerControls.ACCELERATE)) //reverse
                 speed_rotate_rate = -0.5f;
 
 
             //final rotations
             //transform.localEulerAngles = Vector3.Lerp(transform.localEulerAngles, new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y + rotate_strength * direction * speed_rotate_rate, transform.localEulerAngles.z), 1f * Time.deltaTime); //which direction to rotate kart 
 
-            if(Input.GetButton(PlayerInput.STEER_RIGHT) || Input.GetButton(PlayerInput.STEER_LEFT))
+            if(PlayerControls.GetButton(PlayerControls.STEER_RIGHT) || PlayerControls.GetButton(PlayerControls.STEER_LEFT))
                 transform.Rotate(new Vector3(0, rotate_strength * direction * speed_rotate_rate * 0.025f, 0), Space.Self); //changed to suit anti-gravity contitions from the euler angle method
         }
 
         if (!drift_right && !drift_left) //no drift
         {
-            direction = Input.GetAxis("Horizontal") > 0 ? 1 : -1; //-1 = left, 1 = right
+            direction = PlayerControls.GetSteerAxis() > 0 ? 1 : -1; //-1 = left, 1 = right
             transform.GetChild(0).localRotation = Quaternion.Lerp(transform.GetChild(0).localRotation, Quaternion.Euler(0, 0, 0), 8f * Time.deltaTime);
             max_speed = desiredMaxSpeed;
 
@@ -1658,7 +1608,7 @@ public class Player : MonoBehaviour
         
 
         //drift hop
-        if (Input.GetButtonDown(PlayerInput.DRIFT) && ! GLIDER_FLY && ! JUMP_PANEL && onGround)
+        if (PlayerControls.GetButtonDown(PlayerControls.DRIFT) && ! GLIDER_FLY && ! JUMP_PANEL && onGround)
         {
             transform.GetChild(0).gameObject.GetComponent<Animator>().SetTrigger("Drift");
 
@@ -1681,7 +1631,7 @@ public class Player : MonoBehaviour
         }
 
         //while v is pressed, you are drifting
-        if (Input.GetButton(PlayerInput.DRIFT) && grounded && currentspeed > 40 && Input.GetAxis("Horizontal") != 0 && ! GLIDER_FLY && !JUMP_PANEL && !HitByBanana_ && !HitByShell_)
+        if (PlayerControls.GetButton(PlayerControls.DRIFT) && grounded && currentspeed > 40 && PlayerControls.GetSteerAxis() != 0 && ! GLIDER_FLY && !JUMP_PANEL && !HitByBanana_ && !HitByShell_)
         {
             rotate_strength = Mathf.Lerp(rotate_strength, desired_rotate_strength, 3 * Time.deltaTime);
             Drift_time += Time.deltaTime;
@@ -1817,7 +1767,7 @@ public class Player : MonoBehaviour
 
 
         //no more drift
-        if (!Input.GetButton(PlayerInput.DRIFT)) //if not drifting, or drifting without direction
+        if (!PlayerControls.GetButton(PlayerControls.DRIFT)) //if not drifting, or drifting without direction
         {
 
             drifting = false;
@@ -1902,17 +1852,17 @@ public class Player : MonoBehaviour
     }
     void player_animations()
     {
-        if (!Input.GetButton(PlayerInput.STEER_LEFT) && !Input.GetButton(PlayerInput.STEER_RIGHT))
+        if (!PlayerControls.GetButton(PlayerControls.STEER_LEFT) && !PlayerControls.GetButton(PlayerControls.STEER_RIGHT))
         {
             Driver.SetBool("TurnLeft", false);
             Driver.SetBool("TurnRight", false);
         }
-        if (Input.GetButton(PlayerInput.STEER_RIGHT))
+        if (PlayerControls.GetButton(PlayerControls.STEER_RIGHT))
         {
             Driver.SetBool("TurnLeft", false);
             Driver.SetBool("TurnRight", true);
         }
-        if(Input.GetButton(PlayerInput.STEER_LEFT))
+        if(PlayerControls.GetButton(PlayerControls.STEER_LEFT))
         {
             Driver.SetBool("TurnLeft", true);
             Driver.SetBool("TurnRight", false);
@@ -1946,7 +1896,7 @@ public class Player : MonoBehaviour
         if (!antiGravity)
         {
             //tire gameObject steer and rotate and steeringwheel rotate
-            float x = Input.GetAxis("Horizontal"); //direction 
+            float x = PlayerControls.GetSteerAxis();
             float rotate_speed = 12f;
             if (x >= 0.1)
             {
@@ -1985,7 +1935,7 @@ public class Player : MonoBehaviour
           //tire spinning
         for (int i = 0; i < 4; i++)
         {
-            if (Input.GetButton(PlayerInput.ACCELERATE) && REALCURRENTSPEED < 0)
+            if (PlayerControls.GetButton(PlayerControls.ACCELERATE) && REALCURRENTSPEED < 0)
             {
 
                 tires[0].transform.Rotate(-90 * Time.deltaTime * REALCURRENTSPEED * 0.5f, 0, 0);
@@ -2098,7 +2048,7 @@ public class Player : MonoBehaviour
         glidingTime += Time.deltaTime;
 
         float none = 0;
-        inputHorizontalSmooth = Mathf.SmoothDamp(inputHorizontalSmooth, Input.GetAxis("Horizontal") * -1, ref none, 5 * Time.deltaTime);
+        inputHorizontalSmooth = Mathf.SmoothDamp(inputHorizontalSmooth, PlayerControls.GetSteerAxis() * -1, ref none, 5 * Time.deltaTime);
         if (RACE_MANAGER.RACE_COMPLETED)
         {
             inputHorizontalSmooth = 0;
@@ -2124,12 +2074,12 @@ public class Player : MonoBehaviour
         //turn left and right, up and down
         
         {
-            if (Input.GetButton(PlayerInput.GLIDER_UP) && !RACE_MANAGER.RACE_COMPLETED)
+            if (PlayerControls.GetButton(PlayerControls.GLIDER_UP) && !RACE_MANAGER.RACE_COMPLETED)
             {
                 kart.rotation = Quaternion.SlerpUnclamped(kart.rotation, Quaternion.Euler(25 + glideAngleX, kart.eulerAngles.y, kart.eulerAngles.z), 1.5f * Time.deltaTime);
                 rb.AddForce(Vector3.down * 2000 * Time.deltaTime, ForceMode.Acceleration);
             }
-            else if (Input.GetButton(PlayerInput.GLIDER_DOWN) && !RACE_MANAGER.RACE_COMPLETED)
+            else if (PlayerControls.GetButton(PlayerControls.GLIDER_DOWN) && !RACE_MANAGER.RACE_COMPLETED)
             {
                 float angle = transform.localEulerAngles.x;
                 angle = (angle > 180) ? angle - 360 : angle;
@@ -2764,7 +2714,7 @@ public class Player : MonoBehaviour
     {
         if (Is_Dirt_Track)
         {
-            if (Input.GetButton(PlayerInput.ACCELERATE) && !item_manager.isBullet && !item_manager.StarPowerUp)
+            if (PlayerControls.GetButton(PlayerControls.ACCELERATE) && !item_manager.isBullet && !item_manager.StarPowerUp)
             {
                 for(int i = 0; i < tireRenderers.Length; i++)
                 {
