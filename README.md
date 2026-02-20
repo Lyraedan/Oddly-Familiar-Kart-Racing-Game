@@ -37,7 +37,7 @@ Yes the logo is a temp ai generated image, I can barely draw a stickman lol
    - Throw Item Back (Left Ctrl)
  * Modding functionality
    - UGC Maps
-   > Clone the repo, Create your map, add it to an asset bundle like "course_testmap" and then at the top "Mod Tools" -> Build All
+   > Clone the repo, Create your map, add the scene to an asset bundle like "course_testmap" and then at the top "Mod Tools" -> Build All
 
 ## My plans
  * Refactor the code base because holy moly my eyeballs
