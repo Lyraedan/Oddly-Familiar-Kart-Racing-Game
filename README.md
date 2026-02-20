@@ -10,6 +10,8 @@
 
 Forked from: https://github.com/Ishaan35/Unity3D-Mario-Kart-Racing-Game thanks for the foundations
 
+Keeping it open source.
+
 Inspired by Mario Kart 8
 
 Yes the logo is a temp ai generated image lol
@@ -50,6 +52,12 @@ Yes the logo is a temp ai generated image lol
 
 > I'm trying to make something close to MK8D but not MK8 so any public release will have mario content stripped out, so no suing me Nintendo. But it will be incredibly moddable too
 
+## Contributing
+
+Contributions are welcome!  
+If you have improvements, fixes, or new features, feel free to open a Pull Request.
+
+Please make sure your changes are clear and well-documented where necessary.
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
