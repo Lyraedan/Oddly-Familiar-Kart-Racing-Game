@@ -44,6 +44,7 @@ Yes the logo is a temp ai generated image, I can barely draw a stickman lol
  * Custom items
  * Map pack system (grand prix's, styled similar to DD)
  * Loading custom content via asset bundles during runtime (characters, maps, items etc)
+   > Testing with Mario Kart 8 mod https://models.spriters-resource.com/wii_u/mariokart8/
  * Real AI
  * Multiplayer via Mirror & Epic Online Services
  * Character selection (characters will PURELY be cosmetic)
