@@ -23,6 +23,12 @@ This game features 5 different tracks with detailed visuals to provide a great u
 ## My changes
  * Updated the input system to use Unity's new input system
  * Added controller support
+   - Accelerate (Cross (PS5), A (Xbox), B (Nintendo))
+   - Reverse (Circle (PS5), B (Xbox), A (Nintendo))
+   - Look Behind (Triangle (PS5), Y (Xbox), X (Nintendo))
+   - Use Item (L1 (PS5), LB (Xbox), L (Nintendo))
+   - Drift, Trick etc (R2 (PS5), RT (Xbox), ZR (Nintendo))
+   - Steer / Glide (Left analog stick (ALL)) 
 
 Here is a video showing some gameplay of the project  [https://youtu.be/NfiscJR_nQY](https://youtu.be/NfiscJR_nQY), 
 and the rest of the videos can be found on my [YouTube Channel](https://www.youtube.com/c/ishaan35).
