@@ -40,6 +40,7 @@ Yes the logo is a temp ai generated image lol
  * Custom characters
  * Custom maps
  * Custom items
+ * Map pack system (grand prix's)
  * Loading custom content via asset bundles during runtime (characters, maps, items etc)
  * Real AI
  * Multiplayer via Mirror & Epic Online Services
