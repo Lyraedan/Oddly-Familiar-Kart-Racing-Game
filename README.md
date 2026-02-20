@@ -44,6 +44,7 @@ Yes the logo is a temp ai generated image lol
  * Real AI
  * Multiplayer via Mirror & Epic Online Services
  * Character selection
+ * MK8 style kart building
  * Double Item box?
 
 > I'm trying to make something close to MK8D but not MK8 so any public release will have mario content stripped out, so no suing me Nintendo. But it will be incredibly moddable too
