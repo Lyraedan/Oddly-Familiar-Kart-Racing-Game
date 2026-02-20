@@ -8,7 +8,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-Forked from: https://github.com/Ishaan35/Unity3D-Mario-Kart-Racing-Game
+Forked from: https://github.com/Ishaan35/Unity3D-Mario-Kart-Racing-Game thanks for the foundations
 
 Inspired by Mario Kart 8
 
