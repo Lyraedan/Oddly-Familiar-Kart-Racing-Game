@@ -3,22 +3,18 @@
 
 <!-- PROJECT LOGO -->
 <br />
-<div align="left">
-	<h1>Unity3D-Mario-Kart-Racing-Game</h1>
-	</h1>
+<img width="612" height="408" alt="ai_logo_transparent" src="https://github.com/user-attachments/assets/b94f1b93-212d-4b90-91d0-ede0c2eef155" alt="Temp ai logo"/>
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-Welcome to my open-source 3D kart racing game, created using C#, the .NET Framework, and Unity3D. This project remains popular with an active community on both GitHub and my YouTube Channel: Ishaan35.
+Forked from: https://github.com/Ishaan35/Unity3D-Mario-Kart-Racing-Game thanks for the foundations
 
-I started this as a way to gain experience with C#, and learn what it is like to manage a large project. It took off when early videos gained traction, and the project has grown with positive community feedback, as I continued to work on it for over two years while gaining over 850 YouTube subscribers. 
+Keeping it open source.
 
-I also decided to create this game as I couldn't find any open-source kart racing games that utilize similar physics to the very popular kart racing game, Mario Kart 8, and I wanted to change that with a challenge for myself.
+Inspired by Mario Kart 8
 
-I'm dedicated to pushing this project forward and making improvements. Whether you're a contributor, player, or just interested, you're part of this exciting journey. Let's build the future of this project together.
-
-This game features 5 different tracks with detailed visuals to provide a great user experience.
+Yes the logo is a temp ai generated image, I can barely draw a stickman lol
 
 ## My changes
  * Updated the input system to use Unity's new input system
@@ -40,71 +36,28 @@ This game features 5 different tracks with detailed visuals to provide a great u
    - Glider (W, Up Arrow, S, Down Arrow)
    - Throw Item Back (Left Ctrl)
 
-Here is a video showing some gameplay of the project  [https://youtu.be/NfiscJR_nQY](https://youtu.be/NfiscJR_nQY), 
-and the rest of the videos can be found on my [YouTube Channel](https://www.youtube.com/c/ishaan35).
+## My plans
+ * Refactor the code base because holy moly my eyeballs
+ * Proper main menu
+ * Custom characters
+ * Custom maps
+ * Custom items
+ * Map pack system (grand prix's)
+ * Loading custom content via asset bundles during runtime (characters, maps, items etc)
+ * Real AI
+ * Multiplayer via Mirror & Epic Online Services
+ * Character selection (characters will PURELY be cosmetic)
+ * MK8 style kart building
+ * Double Item box?
 
-![Game Image](https://github.com/Ishaan35/Unity3D-Mario-Kart-Racing-Game/blob/main/GameSnapshot.png?raw=true)
+> I'm trying to make something close to MK8D but not MK8 so any public release will have mario content stripped out, so no suing me Nintendo. But it will be incredibly moddable too
 
-### Built With
+## Contributing
 
-* [![][C#]][C#-url]
-* [![][Unity]][Unity-url]
-* [![][.Net]][.Net-url]
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+Contributions are welcome!  
+If you have improvements, fixes, or new features, feel free to open a Pull Request.
 
-
-
-<!-- Status -->
-## Status
-
-This project is currently in development. I will be maintaining it for any major updates or features in Unity launches. The playable demo can be found here [here](https://drive.google.com/file/d/1YZ2OqAirBQlzf0WjMv1-zO6F597xrQoq/view?usp=sharing). 
-
-
-
-## Usage
-
-1. Download Unity version 2021.3.4f1 LTS or higher. LTS versions are always preferred for longer-term support of existing features used in the project.
-2. Download Blender 2.79 or higher as Unity will need to import some .blend file assets.
-3. Once downloaded, clone this GitHub repository, and open the root directory in Unity Hub as a project. I did not provide the library folder, so the first-time import may take a while.
-4. Once in, you should be able to navigate to the scenes folder and view the different tracks. If you encounter errors or see unrendered pink meshes, try the following: 
-	• Ensure the latest version of the Universal Render Pipeline and Shadergraph is installed as a package in the Unity Package Manager. After installing, if it does not work, delete the library folder and re-open the project.
-
-	• Make sure the version of Unity is LTS and at least version 2021.3.4f1.
-
-	• Try downloading the full version of the project with the Library folder included [here](https://drive.google.com/file/d/16XfmmUwKhTlESbEOm70gqZQ0PQQe2iJf/view?usp=sharing)
-
-
-<!-- ROADMAP -->
-## Roadmap
-
-- [x] Add multiple characters
-- [ ] Add a main menu instead of a basic track selector
-
-
-## Other Hurdles
-• Anti-gravity was something that took me a while to fully figure out. I consider this a major achievement since it allows for a more diverse track selection that can be more twisty, potentially more difficult, and amusing with all the camera rotations. I implemented anti-gravity by switching to a mode where the gravitational force is applied to the direction that is opposite to the normal of the driving surface. I also made sure the kart smoothly rotates along the ground surface, and the camera rotation aligns with the player's rotation.
-
-• Creating opponent players was also a challenge. I needed the right balance of versatility, randomness, and control over the movements of the players. Hence, I created a handful of possible path collections for each track. These paths would be nodes placed at intervals around the track. A large hitbox was placed around each node to determine if the computer player had passed a certain point on the track (which also provided a nice set-up for the ranking system during the race). Then I would randomly switch up the paths given to the computer players to give a more "random" feel to the movements of the computer players.
-
-<!-- CONTACT -->
-## Contact
-
-Ishaan Patel  -  toishaanpatel@gmail.com
-
-LinkedIn:  https://www.linkedin.com/in/ishaan35/
-
-Personal Website: https://www.ishaanpatel.info/
-
-Full Project Link with Library Folder Included: https://drive.google.com/file/d/16XfmmUwKhTlESbEOm70gqZQ0PQQe2iJf/view?usp=sharing
-
-Playable Build Link: https://drive.google.com/file/d/1YZ2OqAirBQlzf0WjMv1-zO6F597xrQoq/view?usp=sharing
-
-
-
-
-
-
-
+Please make sure your changes are clear and well-documented where necessary.
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
