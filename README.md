@@ -49,6 +49,7 @@ Yes the logo is a temp ai generated image, I can barely draw a stickman lol
  * Character selection (characters will PURELY be cosmetic)
  * MK8 style kart building
  * Double Item box?
+ * Integrate Mod.io for User Generate Content / Content distribution (Keys and wotnot will not be included in the repo, but they will be in Release builds)
 
 > I'm trying to make something close to MK8D but not MK8 so any public release will have mario content stripped out, so no suing me Nintendo. But it will be incredibly moddable too
 
