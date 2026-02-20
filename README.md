@@ -52,7 +52,7 @@ This game features 5 different tracks with detailed visuals to provide a great u
  * Character selection
  * Double Item box?
 
-> I'm trying to make something close to MK8D that is incredibly moddable too
+> I'm trying to make something close to MK8D but not MK8 so any public release will have mario content stripped out, so no suing me Nintendo. But it will be incredibly moddable too
 
 Here is a video showing some gameplay of the project  [https://youtu.be/NfiscJR_nQY](https://youtu.be/NfiscJR_nQY), 
 and the rest of the videos can be found on my [YouTube Channel](https://www.youtube.com/c/ishaan35).
