@@ -145,6 +145,7 @@
     <Compile Include="Assets\Spherical Skybox\Move.cs" />
     <Compile Include="Assets\Scripts\General\Rotator.cs" />
     <Compile Include="Assets\Scripts\AntiGravityExitRotate.cs" />
+    <Compile Include="Assets\Scripts\Title\RandomBackgroundSelector.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Editor Default Resources\nu Assets\Shared\Shaders\CanvasSelection.shader" />
