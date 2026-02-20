@@ -104,7 +104,7 @@ public class ItemManager : MonoBehaviour
             }
 
             bool useItem = PlayerControls.GetButtonDown(PlayerControls.USE_ITEM);
-            bool throwBack = useItem && PlayerControls.GetButton(PlayerControls.REVERSE);
+            bool throwBack = PlayerControls.GetButtonDown(PlayerControls.THROW_BACK);
 
             if ((useItem || throwBack) && item_decided && !player_script.HitByBanana_ && !player_script.HitByShell_) //if item array order changes, change the indexes of utility methods and these if statements
             {
@@ -616,12 +616,6 @@ public class ItemManager : MonoBehaviour
                 player_script.SpecialFace = false;
             }
         }
-        
-        
-
-
-
-
     }
     IEnumerator spawnRedShell(Transform position, int direction)
     {
@@ -682,8 +676,6 @@ public class ItemManager : MonoBehaviour
                 player_script.current_face_material = player_script.faces[0];//normal
             }
         }
-        
-
     }
     IEnumerator useBobomb(int direction)
     {

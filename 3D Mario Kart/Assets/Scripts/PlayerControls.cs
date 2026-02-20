@@ -1,10 +1,12 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerControls : MonoBehaviour
 {
+    // A binder for the new Unity Input System that translates input actions into legacy-style static functions like GetButton and GetAxis.
+
     public InputActionAsset controls;
 
     private InputActionMap kartActionMap;
@@ -24,6 +26,7 @@ public class PlayerControls : MonoBehaviour
     public static string GLIDER_UP = "Glider Up";
     public static string GLIDER_DOWN = "Glider Down";
     public static string LOOK_BEHIND = "Look Behind";
+    public static string THROW_BACK = "Throw Back";
 
     private void Awake()
     {
@@ -40,6 +43,7 @@ public class PlayerControls : MonoBehaviour
         InitializeAction(GLIDER_UP);
         InitializeAction(GLIDER_DOWN);
         InitializeAction(LOOK_BEHIND);
+        InitializeAction(THROW_BACK);
 
         kartActionMap.Enable();
     }
@@ -95,7 +99,6 @@ public class PlayerControls : MonoBehaviour
         return !currentButtonStates[actionName] && previousButtonStates[actionName];
     }
 
-    // ===== New: GetAxis for analog actions =====
     public static float GetAxis(string actionName)
     {
         if (!actions.ContainsKey(actionName)) return 0f;
