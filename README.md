@@ -14,7 +14,7 @@ Keeping it open source.
 
 Inspired by Mario Kart 8
 
-Yes the logo is a temp ai generated image lol
+Yes the logo is a temp ai generated image, I can barely draw a stickman lol
 
 ## My changes
  * Updated the input system to use Unity's new input system
