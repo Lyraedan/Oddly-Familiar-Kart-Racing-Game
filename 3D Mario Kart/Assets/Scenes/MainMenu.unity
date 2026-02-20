@@ -361,6 +361,9 @@ MonoBehaviour:
   backgrounds:
   - {fileID: 21300000, guid: 4024f53d63c24b147a6caa639e9ce7dd, type: 3}
   - {fileID: 21300000, guid: a5658d29bd8b3ed4b9650ae033854f3c, type: 3}
+  - {fileID: 21300000, guid: 8d684103594700449a80908ede7e0db7, type: 3}
+  - {fileID: 21300000, guid: fe5ebd4368936b44c873c7eb7d33ad72, type: 3}
+  - {fileID: 21300000, guid: 5988f258cdf706a49b20991fc74104be, type: 3}
   changeInterval: 5
   fadeDuration: 1
 --- !u!1 &691846582
