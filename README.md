@@ -44,7 +44,8 @@ Yes the logo is a temp ai generated image, I can barely draw a stickman lol
  * Proper main menu
  * Custom characters
  * Custom maps
- * Custom items (Asset Bundles not including scripts migjt make this a pain)
+ * Custom items
+   > Asset Bundles not including scripts might make this a pain
  * Map pack system (grand prix's, styled similar to DD)
  * Loading custom content via asset bundles during runtime (characters, maps, items etc)
    > Testing with Mario Kart 8 mod https://models.spriters-resource.com/wii_u/mariokart8/
