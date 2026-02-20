@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UGC : MonoBehaviour
 {
@@ -32,13 +34,59 @@ public class UGC : MonoBehaviour
         }
     }
 
-    // Bundle caches
-    public static List<AssetBundle> CourseBundles = new();
-    public static List<AssetBundle> CharacterBundles = new();
+    public static Action OnFinishedLoading;
 
+    public struct CourseBundle
+    {
+        public string Name;
+        public string FilePath;
+        public AssetBundle Bundle;
+        public List<string> Scenes;
+
+        public CourseBundle(string filePath, AssetBundle bundle)
+        {
+            FilePath = filePath;
+            Bundle = bundle;
+            Name = Path.GetFileName(filePath);
+
+            Scenes = new List<string>();
+
+            var scenePaths = bundle.GetAllScenePaths();
+
+            foreach (var path in scenePaths)
+            {
+                Scenes.Add(Path.GetFileNameWithoutExtension(path));
+            }
+        }
+    }
+
+    // Bundle caches
+    public static List<CourseBundle> CourseBundles = new();
+    public static List<AssetBundle> CharacterBundles = new();
     public static List<AssetBundle> KartBodyBundles = new();
     public static List<AssetBundle> KartWheelBundles = new();
     public static List<AssetBundle> KartGliderBundles = new();
+
+    public static class CourseLoader
+    {
+        public static void LoadSceneFromBundle(AssetBundle bundle, string sceneName)
+        {
+            var scenePaths = bundle.GetAllScenePaths();
+
+            foreach (var path in scenePaths)
+            {
+                string name = Path.GetFileNameWithoutExtension(path);
+
+                if (name == sceneName)
+                {
+                    SceneManager.LoadScene(name, LoadSceneMode.Single);
+                    return;
+                }
+            }
+
+            Debug.LogError($"Scene '{sceneName}' not found in bundle '{bundle.name}'");
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -52,7 +100,7 @@ public class UGC : MonoBehaviour
 
     void LoadAllUGC()
     {
-        LoadBundlesFromDirectory(UGCPaths.CoursesPath, CourseBundles);
+        LoadCoursesFromDirectory();
         LoadBundlesFromDirectory(UGCPaths.CharactersPath, CharacterBundles);
 
         LoadBundlesFromDirectory(UGCPaths.KartsBodiesPath, KartBodyBundles);
@@ -65,6 +113,8 @@ public class UGC : MonoBehaviour
             $"{KartBodyBundles.Count} kart bodies, " +
             $"{KartWheelBundles.Count} wheels, " +
             $"{KartGliderBundles.Count} gliders");
+
+        OnFinishedLoading?.Invoke();
     }
 
     void LoadBundlesFromDirectory(string path, List<AssetBundle> cache)
@@ -92,5 +142,65 @@ public class UGC : MonoBehaviour
 
             Debug.Log($"Loaded bundle: {Path.GetFileName(file)}");
         }
+    }
+
+    public static void LoadCoursesFromDirectory()
+    {
+        CourseBundles.Clear();
+
+        string path = UGCPaths.CoursesPath;
+
+        if (!Directory.Exists(path))
+        {
+            Debug.LogWarning($"Courses directory does not exist: {path}");
+            return;
+        }
+
+        string[] files = Directory.GetFiles(path);
+
+        foreach (string file in files)
+        {
+            // Skip manifest files
+            if (file.EndsWith(".manifest"))
+                continue;
+
+            // Skip meta files
+            if (file.EndsWith(".meta"))
+                continue;
+
+            // Skip directories accidentally returned
+            if (Directory.Exists(file))
+                continue;
+
+            // Prevent loading same bundle twice
+            if (CourseBundles.Exists(x => x.FilePath == file))
+                continue;
+
+            AssetBundle bundle = AssetBundle.LoadFromFile(file);
+
+            if (bundle == null)
+            {
+                Debug.LogError($"Failed to load course bundle: {file}");
+                continue;
+            }
+
+            CourseBundle courseBundle = new CourseBundle(file, bundle);
+
+            if (courseBundle.Scenes.Count == 0)
+            {
+                Debug.LogWarning($"Bundle contains no scenes: {file}");
+                bundle.Unload(false);
+                continue;
+            }
+
+            CourseBundles.Add(courseBundle);
+
+            Debug.Log(
+                $"Loaded course bundle: {courseBundle.Name} " +
+                $"({courseBundle.Scenes.Count} scenes)"
+            );
+        }
+
+        Debug.Log($"Total courses loaded: {CourseBundles.Count}");
     }
 }
