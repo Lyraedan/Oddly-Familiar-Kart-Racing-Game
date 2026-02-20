@@ -35,6 +35,9 @@ Yes the logo is a temp ai generated image, I can barely draw a stickman lol
    - Steer (A, Left Arrow, D, Right Arrow)
    - Glider (W, Up Arrow, S, Down Arrow)
    - Throw Item Back (Left Ctrl)
+ * Modding functionality
+   - UGC Maps
+   > Clone the repo, Create your map, add it to an asset bundle like "course_testmap" and then at the top "Mod Tools" -> Build All
 
 ## My plans
  * Refactor the code base because holy moly my eyeballs
