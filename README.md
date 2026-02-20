@@ -43,7 +43,7 @@ Yes the logo is a temp ai generated image lol
  * Loading custom content via asset bundles during runtime (characters, maps, items etc)
  * Real AI
  * Multiplayer via Mirror & Epic Online Services
- * Character selection
+ * Character selection (characters will PURELY be cosmetic)
  * MK8 style kart building
  * Double Item box?
 
