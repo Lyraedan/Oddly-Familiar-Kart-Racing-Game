@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Assets\Beautify\URP\Editor\BeautifyEditor.cs" />
     <Compile Include="Assets\Beautify\URP\Editor\BeautifyOptCompiler.cs" />
+    <Compile Include="Assets\Scripts\Editor\BuildAssetBundles.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
