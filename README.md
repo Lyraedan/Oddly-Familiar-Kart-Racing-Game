@@ -40,6 +40,20 @@ This game features 5 different tracks with detailed visuals to provide a great u
    - Glider (W, Up Arrow, S, Down Arrow)
    - Throw Item Back (Left Ctrl)
 
+## My plans
+ * Refactor the code base because holy moly my eyeballs
+ * Proper main menu
+ * Custom characters
+ * Custom maps
+ * Custom items
+ * Loading custom content via asset bundles during runtime (characters, maps, items etc)
+ * Real AI
+ * Multiplayer via Mirror & Epic Online Services
+ * Character selection
+ * Double Item box?
+
+> I'm trying to make something close to MK8D that is incredibly moddable too
+
 Here is a video showing some gameplay of the project  [https://youtu.be/NfiscJR_nQY](https://youtu.be/NfiscJR_nQY), 
 and the rest of the videos can be found on my [YouTube Channel](https://www.youtube.com/c/ishaan35).
 
