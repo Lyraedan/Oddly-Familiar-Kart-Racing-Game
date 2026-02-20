@@ -42,7 +42,7 @@ Yes the logo is a temp ai generated image, I can barely draw a stickman lol
  * Custom characters
  * Custom maps
  * Custom items
- * Map pack system (grand prix's)
+ * Map pack system (grand prix's, styled similar to DD)
  * Loading custom content via asset bundles during runtime (characters, maps, items etc)
  * Real AI
  * Multiplayer via Mirror & Epic Online Services
