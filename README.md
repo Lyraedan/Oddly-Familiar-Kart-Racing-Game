@@ -26,6 +26,8 @@ IMPORTANT
 Once thats ready open the project after adding it to your Unity Hub and let it import.
 
 ## My changes
+ * Updated the project to Unity 6 from 2021.
+   > I had to remove Beautify, I do not own Beautify 3
  * Updated the input system to use Unity's new input system
  * Added controller support
    - Accelerate (Cross (PS5), A (Xbox), B (Nintendo))
