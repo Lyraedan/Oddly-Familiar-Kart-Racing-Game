@@ -83,6 +83,7 @@
     <Compile Include="Assets\Scripts\PlayerControls.cs" />
     <Compile Include="Assets\Scripts\UGC\UGC.cs" />
     <Compile Include="Assets\Models\Test\Rotate.cs" />
+    <Compile Include="Assets\Scripts\Map Selector\MapSelector.cs" />
     <Compile Include="Assets\SampleScenes\Menu\Scripts\PauseMenu.cs" />
     <Compile Include="Assets\SampleScenes\Scripts\LevelReset.cs" />
     <Compile Include="Assets\Scripts\TireTest.cs" />
@@ -104,6 +105,7 @@
     <Compile Include="Assets\Scripts\Items\Bobomb.cs" />
     <Compile Include="Assets\Scripts\ChainChompBall.cs" />
     <Compile Include="Assets\Scripts\General\UIGradient.cs" />
+    <Compile Include="Assets\Scripts\Kart\KartCustomization.cs" />
     <Compile Include="Assets\Scripts\ScoreCount.cs" />
     <Compile Include="Assets\SampleScenes\Scripts\PlaceTargetWithMouse.cs" />
     <Compile Include="Assets\Scripts\PlayerSounds.cs" />
@@ -132,6 +134,7 @@
     <Compile Include="Assets\Scripts\UtilityFunctions.cs" />
     <Compile Include="Assets\Scripts\WaterCameraEffectController.cs" />
     <Compile Include="Assets\Scripts\Camera\GetRes.cs" />
+    <Compile Include="Assets\Scripts\Map Selector\MapSelectorOption.cs" />
     <Compile Include="Assets\Scripts\Camera\ViewPanOffset.cs" />
     <Compile Include="Assets\Scripts\Items\PlayerBlueShellRaycast.cs" />
     <Compile Include="Assets\Models\Group of Toads\Wii U - Mario Kart 8 - Toads\Toads\ToadAnim.cs" />
@@ -159,6 +162,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\Shaders\URP_NiloCatExtension_ScreenSpaceDecal_Unlit.shader" />
     <None Include="Assets\Shaders\Matcap-EdgedParticleWithFog.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile-2-Pass.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
     <None Include="Assets\8K Skybox Pack Free\ReadMe.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
@@ -167,6 +171,7 @@
     <None Include="Assets\SampleScenes\Shaders\Skybox-Procedural.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\Models\CharacterTexturesAndAnim\LuigiStuff\Luigi\info.txt" />
+    <None Include="Assets\TextMesh Pro\Shaders\SDFFunctions.hlsl" />
     <None Include="Assets\Shaders\Unlit-NoFog.shader" />
     <None Include="Assets\Models\Wii U - Mario Kart 8 - Toad Harbor\Toad Harbor\README.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
