@@ -62,6 +62,7 @@
     <Compile Include="Assets\Scripts\TrolleySystem.cs" />
     <Compile Include="Assets\Scripts\OutOfBounds.cs" />
     <Compile Include="Assets\Scripts\ItemDistributionManager.cs" />
+    <Compile Include="Assets\Scripts\UGC\UGC.cs" />
     <Compile Include="Assets\Scripts\Path\DriverPath.cs" />
     <Compile Include="Assets\Beautify\URP\Demo\DemoSources\Scripts\LUTBlending.cs" />
     <Compile Include="Assets\SampleScenes\Scripts\SlowMoButton.cs" />
@@ -146,7 +147,6 @@
     <Compile Include="Assets\Spherical Skybox\Move.cs" />
     <Compile Include="Assets\Scripts\General\Rotator.cs" />
     <Compile Include="Assets\Scripts\AntiGravityExitRotate.cs" />
-    <Compile Include="Assets\Scripts\UGC\UGC.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Editor Default Resources\nu Assets\Shared\Shaders\CanvasSelection.shader" />
