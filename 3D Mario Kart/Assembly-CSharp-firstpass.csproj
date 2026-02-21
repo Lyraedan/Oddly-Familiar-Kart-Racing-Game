@@ -947,6 +947,62 @@
       <Project>{2F12B506-E454-B18C-D325-4925734668D4}</Project>
       <Name>Beautify.Universal.Runtime</Name>
     </ProjectReference>
+    <ProjectReference Include="Modio.Unity.Examples.Android.csproj">
+      <Project>{73A1F1CC-F269-D36C-94E6-FF8BBB8878F9}</Project>
+      <Name>Modio.Unity.Examples.Android</Name>
+    </ProjectReference>
+    <ProjectReference Include="Modio.Unity.Platforms.Google.csproj">
+      <Project>{0B63638C-6218-2650-FCC8-5E32BB859159}</Project>
+      <Name>Modio.Unity.Platforms.Google</Name>
+    </ProjectReference>
+    <ProjectReference Include="Modio.Unity.Examples.Ios.csproj">
+      <Project>{D7F2FFD0-F298-6569-FC0B-061E2791DD65}</Project>
+      <Name>Modio.Unity.Examples.Ios</Name>
+    </ProjectReference>
+    <ProjectReference Include="Modio.csproj">
+      <Project>{4BAB3D89-6B39-2E2C-A6B4-FDFD4F7FEDFB}</Project>
+      <Name>Modio</Name>
+    </ProjectReference>
+    <ProjectReference Include="Modio.Unity.Editor.csproj">
+      <Project>{33369236-AC14-6DCC-14FE-462D0E9F8EA8}</Project>
+      <Name>Modio.Unity.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Modio.Unity.Platforms.Ios.csproj">
+      <Project>{472D6BAE-8BDE-B8BC-4A21-5AB343CE7BA1}</Project>
+      <Name>Modio.Unity.Platforms.Ios</Name>
+    </ProjectReference>
+    <ProjectReference Include="Modio.Unity.Examples.MobilePurchasing.csproj">
+      <Project>{137E846E-409F-4E7A-9BAA-E182B36F389F}</Project>
+      <Name>Modio.Unity.Examples.MobilePurchasing</Name>
+    </ProjectReference>
+    <ProjectReference Include="Modio.Unity.Examples.csproj">
+      <Project>{A04E062E-834F-90EE-B3F0-06977E82F3C5}</Project>
+      <Name>Modio.Unity.Examples</Name>
+    </ProjectReference>
+    <ProjectReference Include="Modio.Unity.csproj">
+      <Project>{EB2344F3-7F55-3F28-D1D3-E908713D760E}</Project>
+      <Name>Modio.Unity</Name>
+    </ProjectReference>
+    <ProjectReference Include="Modio.Unity.Platforms.MobilePurchasing.csproj">
+      <Project>{02F7F895-A3B1-01BD-1451-9040830EC525}</Project>
+      <Name>Modio.Unity.Platforms.MobilePurchasing</Name>
+    </ProjectReference>
+    <ProjectReference Include="Modio.Unity.Examples.Google.csproj">
+      <Project>{55D0364E-5D97-A46A-F1C9-0D520C88EE54}</Project>
+      <Name>Modio.Unity.Examples.Google</Name>
+    </ProjectReference>
+    <ProjectReference Include="Modio.Unity.UI.Editor.csproj">
+      <Project>{71A18B59-B8BB-969A-952B-D15796824103}</Project>
+      <Name>Modio.Unity.UI.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Modio.Unity.UI.csproj">
+      <Project>{63552B74-2BC9-7EA1-1BD6-E100732574EB}</Project>
+      <Name>Modio.Unity.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="Modio.Unity.Platforms.Android.csproj">
+      <Project>{7F20F78B-0D35-6727-F57B-87E6F8E2D8C9}</Project>
+      <Name>Modio.Unity.Platforms.Android</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
