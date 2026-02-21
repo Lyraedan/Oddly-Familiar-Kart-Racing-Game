@@ -38,7 +38,7 @@ Once thats ready open the project after adding it to your Unity Hub and let it i
    - Use Item (L1 (PS5), LB (Xbox), L (Nintendo))
    - Drift, Trick etc (R2 (PS5), RT (Xbox), ZR (Nintendo))
    - Steer / Glide (Left analog stick (ALL))
-   - Throw Item Back (Right stick down (ALL))
+   - Throw Item Back (Left stick down (ALL))
  * Updated Keyboard controls
    - Accelerate (W, Up Arrow)
    - Reverse (S, Down Arrow)
