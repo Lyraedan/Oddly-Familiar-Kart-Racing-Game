@@ -14,6 +14,10 @@ scopes = {
 	"m_SideBarSplitter.7F95D817" = "180"
 	"m_DetailsPanelSplitter.7F95D817" = "700"
 	"currentGroup.7F95D817" = "scene"
+	"picker_window_position_offset.00000000" = "134;394;320;550"
+	"picker_visibility_flags.00000000" = "0"
+	"picker_item_size.00000000" = "32"
+	"picker_inspector.00000000" = "0"
 }
 providers = {
 	asset = {
@@ -48,6 +52,26 @@ providers = {
 	}
 	query = {
 		active = true
+		priority = 100
+		defaultAction = null
+	}
+	adb = {
+		active = false
+		priority = 2500
+		defaultAction = null
+	}
+	presets_provider = {
+		active = false
+		priority = -10
+		defaultAction = null
+	}
+	performance = {
+		active = false
+		priority = 100
+		defaultAction = null
+	}
+	profilermarkers = {
+		active = false
 		priority = 100
 		defaultAction = null
 	}

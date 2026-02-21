@@ -142,7 +142,7 @@ Material:
     - Color_A932EF17: {r: 0, g: 0, b: 0, a: 0}
     - Color_E3F4EDF5: {r: 1, g: 1, b: 1, a: 1}
     - Vector4_6158CBFA: {r: 0, g: 0, b: 0, a: 0}
-    - Vector4_70BBF882: {r: 5.0018, g: 5.0018, b: 5.0018, a: 5.0018}
+    - Vector4_70BBF882: {r: 4.993371, g: 4.993371, b: 4.993371, a: 4.993371}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
