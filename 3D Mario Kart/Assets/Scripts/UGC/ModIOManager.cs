@@ -1,189 +1,81 @@
 using UnityEngine;
 using Modio;
-using Modio.Mods;
+using Modio.Authentication;
 using Modio.Users;
 using System.Threading.Tasks;
-using System.Linq;
 
 public class ModIOManager : MonoBehaviour
 {
     public static ModIOManager Instance;
 
-    Mod[] availableMods;
-    Mod currentDownload;
+    // These are set by your UI system externally
+    public string Email;
+    public string Code;
 
-    float progressTimer;
+    bool codeSubmitted;
 
-    public string MODIO_EMAIL = "user@email.com";
+    private ModioEmailAuthService modioEmailAuthService;
 
     void Awake()
     {
         Instance = this;
+
+        // Initialize ModioEmailAuthService instance
+        modioEmailAuthService = new ModioEmailAuthService();
+
+        // Register code prompter
+        modioEmailAuthService.SetCodePrompter(GetAuthCode);
     }
 
-    async void Start()
+    public async Task<bool> Initialize()
     {
-        await Initialize();
-        await Authenticate();
-        await FetchMods();
-
-        // Start installation management
-        ModInstallationManagement.ManagementEvents += OnModManagementEvent;
-    }
-
-    async Task Initialize()
-    {
-        Debug.Log("Initializing Mod.io...");
-
         Error error = await ModioClient.Init();
 
         if (error)
         {
-            Debug.LogError("Failed to initialize Mod.io: " + error);
-            return;
+            Debug.LogError("Mod.io init failed: " + error);
+            return false;
         }
 
         Debug.Log("Mod.io initialized");
+        return true;
     }
 
-    async Task Authenticate()
+    public async Task<bool> Authenticate()
     {
-        if (User.Current.IsAuthenticated)
+        if (string.IsNullOrEmpty(Email))
         {
-            Debug.Log("Already authenticated: " + User.Current.Profile.Username);
-            return;
+            Debug.LogError("Email is empty");
+            return false;
         }
 
-        Debug.Log("Authenticating via email...");
-
-        // Replace with your UI input email
-        string email = MODIO_EMAIL;
-
-        Error error = await ModioClient.AuthService.Authenticate(true, email);
+        Error error = await ModioClient.AuthService.Authenticate(true, Email);
 
         if (error)
         {
-            Debug.LogError("Auth failed: " + error);
-            return;
+            Debug.LogError("Authentication failed: " + error);
+            return false;
         }
 
-        Debug.Log("Authentication successful: " + User.Current.Profile.Username);
+        Debug.Log("Authenticated as: " + User.Current.Profile.Username);
+        return true;
     }
 
-    async Task FetchMods()
+    async Task<string> GetAuthCode()
     {
-        Debug.Log("Fetching mods...");
+        Debug.Log("Waiting for auth code...");
 
-        var (error, page) = await Mod.GetMods(new ModSearchFilter());
+        codeSubmitted = false;
 
-        if (error)
-        {
-            Debug.LogError("Failed to fetch mods: " + error);
-            return;
-        }
+        while (!codeSubmitted)
+            await Task.Yield();
 
-        availableMods = page.Data;
-
-        Debug.Log($"Found {availableMods.Length} mods");
-
-        foreach (var mod in availableMods)
-        {
-            Debug.Log($"Mod: {mod.Name} (ID: {mod.Id})");
-        }
+        return Code;
     }
 
-    public async Task SubscribeToMod(Mod mod)
+    public void SubmitCode(string code)
     {
-        Debug.Log("Subscribing to: " + mod.Name);
-
-        Error error = await mod.Subscribe();
-
-        if (error)
-        {
-            Debug.LogError("Subscribe failed: " + error);
-            return;
-        }
-
-        Debug.Log("Subscribed successfully");
-    }
-
-    void OnModManagementEvent(
-        Mod mod,
-        Modfile modfile,
-        ModInstallationManagement.OperationType type,
-        ModInstallationManagement.OperationPhase phase)
-    {
-        Debug.Log($"{type} {phase}: {mod.Name}");
-
-        if (type == ModInstallationManagement.OperationType.Install)
-        {
-            if (phase == ModInstallationManagement.OperationPhase.Started)
-            {
-                currentDownload = mod;
-            }
-
-            if (phase == ModInstallationManagement.OperationPhase.Completed)
-            {
-                Debug.Log("Installed at: " + mod.File.InstallLocation);
-
-                LoadMod(mod);
-
-                currentDownload = null;
-            }
-        }
-    }
-
-    void Update()
-    {
-        if (currentDownload == null)
-            return;
-
-        progressTimer -= Time.deltaTime;
-
-        if (progressTimer > 0)
-            return;
-
-        progressTimer = 1f;
-
-        float progress = currentDownload.File.FileStateProgress * 100f;
-
-        Debug.Log($"Downloading {currentDownload.Name}: {progress:0}%");
-    }
-
-    void LoadMod(Mod mod)
-    {
-        Debug.Log("Loading mod from: " + mod.File.InstallLocation);
-
-        var bundle = AssetBundle.LoadFromFile(mod.File.InstallLocation);
-
-        if (bundle == null)
-        {
-            Debug.LogError("Failed to load AssetBundle");
-            return;
-        }
-
-        Debug.Log("AssetBundle loaded: " + bundle.name);
-
-        // Example: load prefab
-        var prefab = bundle.LoadAsset<GameObject>("ModPrefab");
-
-        if (prefab != null)
-        {
-            Instantiate(prefab);
-        }
-    }
-
-    // Example helper
-    public Mod GetMod(int index)
-    {
-        if (availableMods == null || index >= availableMods.Length)
-            return null;
-
-        return availableMods[index];
-    }
-
-    public Mod[] GetAllMods()
-    {
-        return availableMods;
+        Code = code;
+        codeSubmitted = true;
     }
 }

@@ -148,6 +148,7 @@
     <Compile Include="Assets\Scripts\General\Rotator.cs" />
     <Compile Include="Assets\Scripts\AntiGravityExitRotate.cs" />
     <Compile Include="Assets\Scripts\UGC\ModIOManager.cs" />
+    <Compile Include="Assets\Scripts\UGC\UI\ModIO\ModIOAuthUI.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
