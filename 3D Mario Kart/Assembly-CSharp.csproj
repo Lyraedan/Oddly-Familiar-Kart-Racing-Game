@@ -147,6 +147,7 @@
     <Compile Include="Assets\Spherical Skybox\Move.cs" />
     <Compile Include="Assets\Scripts\General\Rotator.cs" />
     <Compile Include="Assets\Scripts\AntiGravityExitRotate.cs" />
+    <Compile Include="Assets\Scripts\UGC\ModIOManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
