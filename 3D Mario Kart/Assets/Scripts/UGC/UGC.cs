@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 
 public class UGC : MonoBehaviour
 {
+
+    public static UGC Instance;
     public static class UGCPaths
     {
         // The path to the Mods folder, which is one level above the Assets folder
@@ -35,6 +37,12 @@ public class UGC : MonoBehaviour
     }
 
     public static Action OnFinishedLoading;
+    public static Action OnReloadedCourses;
+    public static Action OnReloadedCharacters;
+    public static Action OnReloadedKarts;
+
+    public static Action<CourseBundle> OnCourseBundleLoaded;
+    public static Action<int> OnCourseLoadProgress;
 
     public struct CourseBundle
     {
@@ -91,21 +99,22 @@ public class UGC : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Instance = this;
+
         DontDestroyOnLoad(this.gameObject);
-
         UGCPaths.EnsureDirectoriesExist();
-
-        LoadAllUGC();
+        StartCoroutine(LoadAllUGCAsync());
     }
 
-    void LoadAllUGC()
+    // Async
+    private IEnumerator LoadAllUGCAsync()
     {
-        LoadCoursesFromDirectory();
-        LoadBundlesFromDirectory(UGCPaths.CharactersPath, CharacterBundles);
+        yield return StartCoroutine(LoadCoursesFromDirectoryAsync());
+        yield return StartCoroutine(LoadBundlesFromDirectoryAsync(UGCPaths.CharactersPath, CharacterBundles));
 
-        LoadBundlesFromDirectory(UGCPaths.KartsBodiesPath, KartBodyBundles);
-        LoadBundlesFromDirectory(UGCPaths.KartsWheelsPath, KartWheelBundles);
-        LoadBundlesFromDirectory(UGCPaths.KartsGlidersPath, KartGliderBundles);
+        yield return StartCoroutine(LoadBundlesFromDirectoryAsync(UGCPaths.KartsBodiesPath, KartBodyBundles));
+        yield return StartCoroutine(LoadBundlesFromDirectoryAsync(UGCPaths.KartsWheelsPath, KartWheelBundles));
+        yield return StartCoroutine(LoadBundlesFromDirectoryAsync(UGCPaths.KartsGlidersPath, KartGliderBundles));
 
         Debug.Log($"Loaded UGC: " +
             $"{CourseBundles.Count} courses, " +
@@ -117,20 +126,22 @@ public class UGC : MonoBehaviour
         OnFinishedLoading?.Invoke();
     }
 
-    void LoadBundlesFromDirectory(string path, List<AssetBundle> cache)
+    private static IEnumerator LoadBundlesFromDirectoryAsync(string path, List<AssetBundle> cache)
     {
         if (!Directory.Exists(path))
-            return;
+            yield break;
 
         var files = Directory.GetFiles(path);
 
         foreach (var file in files)
         {
-            // skip manifest files
-            if (file.EndsWith(".manifest"))
+            if (file.EndsWith(".manifest") || file.EndsWith(".meta"))
                 continue;
 
-            var bundle = AssetBundle.LoadFromFile(file);
+            var request = AssetBundle.LoadFromFileAsync(file);
+            yield return request;
+
+            var bundle = request.assetBundle;
 
             if (bundle == null)
             {
@@ -139,13 +150,14 @@ public class UGC : MonoBehaviour
             }
 
             cache.Add(bundle);
-
             Debug.Log($"Loaded bundle: {Path.GetFileName(file)}");
         }
     }
 
-    public static void LoadCoursesFromDirectory()
+    private static IEnumerator LoadCoursesFromDirectoryAsync()
     {
+        Debug.Log("Loading courses!");
+
         CourseBundles.Clear();
 
         string path = UGCPaths.CoursesPath;
@@ -153,54 +165,180 @@ public class UGC : MonoBehaviour
         if (!Directory.Exists(path))
         {
             Debug.LogWarning($"Courses directory does not exist: {path}");
-            return;
+            yield break;
         }
 
         string[] files = Directory.GetFiles(path);
 
+        // Filter valid bundle files first
+        List<string> validFiles = new List<string>();
         foreach (string file in files)
         {
-            // Skip manifest files
-            if (file.EndsWith(".manifest"))
+            if (file.EndsWith(".manifest") || file.EndsWith(".meta") || Directory.Exists(file))
                 continue;
 
-            // Skip meta files
-            if (file.EndsWith(".meta"))
-                continue;
+            validFiles.Add(file);
+        }
 
-            // Skip directories accidentally returned
-            if (Directory.Exists(file))
-                continue;
+        int totalFiles = validFiles.Count;
+        int loadedFiles = 0;
 
-            // Prevent loading same bundle twice
-            if (CourseBundles.Exists(x => x.FilePath == file))
-                continue;
+        foreach (string file in validFiles)
+        {
+            string bundleName = Path.GetFileName(file);
 
-            AssetBundle bundle = AssetBundle.LoadFromFile(file);
-
-            if (bundle == null)
+            // Prevent duplicate load
+            AssetBundle existingBundle = null;
+            foreach (var loaded in AssetBundle.GetAllLoadedAssetBundles())
             {
-                Debug.LogError($"Failed to load course bundle: {file}");
+                if (loaded.name == bundleName)
+                {
+                    existingBundle = loaded;
+                    break;
+                }
+            }
+
+            CourseBundle courseBundle;
+
+            if (existingBundle != null)
+            {
+                courseBundle = new CourseBundle(file, existingBundle);
+                if (courseBundle.Scenes.Count > 0)
+                    CourseBundles.Add(courseBundle);
+
+                loadedFiles++;
+                OnCourseBundleLoaded?.Invoke(courseBundle);
+
+                int progressPercentReuse = Mathf.RoundToInt((loadedFiles / (float)totalFiles) * 100f);
+                OnCourseLoadProgress?.Invoke(progressPercentReuse);
+
                 continue;
             }
 
-            CourseBundle courseBundle = new CourseBundle(file, bundle);
+            Debug.Log($"Loading course bundle: {bundleName}");
+
+            var request = AssetBundle.LoadFromFileAsync(file);
+
+            float lastLoggedProgress = -1f;
+
+            while (!request.isDone)
+            {
+                float fileProgress = request.progress;
+                float totalProgress = ((loadedFiles + fileProgress) / totalFiles) * 100f;
+
+                // Only log every 5% change to prevent spam
+                if (Mathf.Abs(totalProgress - lastLoggedProgress) >= 5f)
+                {
+                    lastLoggedProgress = totalProgress;
+                    Debug.Log($"Course loading progress: {totalProgress:F1}%");
+                }
+
+                int totalPercent = Mathf.RoundToInt(((loadedFiles + fileProgress) / totalFiles) * 100f);
+                OnCourseLoadProgress?.Invoke(totalPercent);
+
+                yield return null;
+            }
+
+            AssetBundle bundle = request.assetBundle;
+
+            loadedFiles++;
+
+            if (bundle == null)
+            {
+                Debug.LogError($"Failed to load course bundle: {bundleName}");
+                continue;
+            }
+
+            courseBundle = new CourseBundle(file, bundle);
 
             if (courseBundle.Scenes.Count == 0)
             {
-                Debug.LogWarning($"Bundle contains no scenes: {file}");
+                Debug.LogWarning($"Bundle contains no scenes: {bundleName}");
                 bundle.Unload(false);
                 continue;
             }
 
             CourseBundles.Add(courseBundle);
 
-            Debug.Log(
-                $"Loaded course bundle: {courseBundle.Name} " +
-                $"({courseBundle.Scenes.Count} scenes)"
-            );
+            // Invoke the event with the finished bundle
+            OnCourseBundleLoaded?.Invoke(courseBundle);
+
+            int progressPercent = Mathf.RoundToInt((loadedFiles / (float)totalFiles) * 100f);
+            OnCourseLoadProgress?.Invoke(progressPercent);
+
+            Debug.Log($"Loaded course bundle: {courseBundle.Name} ({courseBundle.Scenes.Count} scenes)");
         }
 
         Debug.Log($"Total courses loaded: {CourseBundles.Count}");
+        OnCourseLoadProgress?.Invoke(100); // Ensure 100% at the end
+    }
+
+    public void ReloadAllAsync()
+    {
+        StartCoroutine(ReloadAllCoroutine());
+    }
+
+    public void ReloadCoursesAsync()
+    {
+        StartCoroutine(ReloadCoursesCoroutine());
+    }
+
+    public void ReloadCharactersAsync()
+    {
+        StartCoroutine(ReloadCharactersCoroutine());
+    }
+
+    public void ReloadKartsAsync()
+    {
+        StartCoroutine(ReloadKartsCoroutine());
+    }
+
+    private IEnumerator ReloadAllCoroutine()
+    {
+        yield return StartCoroutine(ReloadCoursesCoroutine());
+        yield return StartCoroutine(ReloadCharactersCoroutine());
+        yield return StartCoroutine(ReloadKartsCoroutine());
+    }
+
+    private IEnumerator ReloadCoursesCoroutine()
+    {
+        foreach (var courseBundle in CourseBundles)
+            courseBundle.Bundle.Unload(true);
+
+        CourseBundles.Clear();
+
+        yield return StartCoroutine(LoadCoursesFromDirectoryAsync());
+
+        OnReloadedCourses?.Invoke();
+    }
+
+    private IEnumerator ReloadCharactersCoroutine()
+    {
+        foreach (var bundle in CharacterBundles)
+            bundle.Unload(true);
+        CharacterBundles.Clear();
+        yield return StartCoroutine(LoadBundlesFromDirectoryAsync(UGCPaths.CharactersPath, CharacterBundles));
+        OnReloadedCharacters?.Invoke();
+    }
+
+    private IEnumerator ReloadKartsCoroutine()
+    {
+        foreach (var bundle in KartBodyBundles)
+            bundle.Unload(true);
+        KartBodyBundles.Clear();
+
+        foreach (var bundle in KartWheelBundles)
+            bundle.Unload(true);
+
+        KartWheelBundles.Clear();
+        foreach (var bundle in KartGliderBundles)
+            bundle.Unload(true);
+
+        KartGliderBundles.Clear();
+        OnReloadedKarts?.Invoke();
+
+        yield return StartCoroutine(LoadBundlesFromDirectoryAsync(UGCPaths.KartsBodiesPath, KartBodyBundles));
+        yield return StartCoroutine(LoadBundlesFromDirectoryAsync(UGCPaths.KartsWheelsPath, KartWheelBundles));
+        yield return StartCoroutine(LoadBundlesFromDirectoryAsync(UGCPaths.KartsGlidersPath, KartGliderBundles));
     }
 }

@@ -34,6 +34,16 @@ public class Camerafollow : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if(player == null)
+        {
+            player = GameObject.FindGameObjectWithTag("Player").transform;
+            if(player == null)
+            {
+                Debug.LogError("Player not found! Please assign the player transform in the inspector or give the player the \"Player\" tag.");
+                return;
+            }
+        }
+
         playerscript = player.GetComponent<Player>();
         playerscriptItem = player.GetComponent<ItemManager>();
     }
