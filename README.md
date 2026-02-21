@@ -16,6 +16,15 @@ Inspired by Mario Kart 8
 
 Yes the logo is a temp ai generated image, I can barely draw a stickman lol
 
+## Setup
+This project has been upgraded to use Unity 6.
+More specifically version 6000.3.9f1
+
+IMPORTANT
+.blend files MUST be associated with blender. If you do not have blender it is free to download off Steam. That's at least what I did.
+
+Once thats ready open the project after adding it to your Unity Hub and let it import.
+
 ## My changes
  * Updated the input system to use Unity's new input system
  * Added controller support
