@@ -25,6 +25,8 @@ IMPORTANT
 
 Once thats ready open the project after adding it to your Unity Hub and let it import.
 
+<img width="1915" height="1028" alt="image" src="https://github.com/user-attachments/assets/c2a8e78b-8cc2-472b-8e2e-35a624c59231" />
+
 ## My changes
  * Updated the project to Unity 6 from 2021.
    > I had to remove Beautify, I do not own Beautify 3
