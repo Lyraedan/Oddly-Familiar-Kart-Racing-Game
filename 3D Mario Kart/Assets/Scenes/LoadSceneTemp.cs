@@ -14,15 +14,20 @@ public class LoadSceneTemp : MonoBehaviour
     // Maps dropdown index → bundle + scene
     private List<(int bundleIndex, int sceneIndex)> ugcSceneMap = new();
 
+    private void Awake()
+    {
+        UGC.OnFinishedLoading += PopulateUGCDropdown;
+    }
+
     void Start()
     {
         res = Screen.resolutions;
 
         dropdown.ClearOptions();
-        ugc_dropdown.ClearOptions();
+        if(ugc_dropdown != null)
+            ugc_dropdown.ClearOptions();
 
         PopulateResolutionDropdown();
-        UGC.OnFinishedLoading += PopulateUGCDropdown;
     }
     void PopulateResolutionDropdown()
     {
@@ -48,6 +53,11 @@ public class LoadSceneTemp : MonoBehaviour
 
     void PopulateUGCDropdown()
     {
+        if (ugc_dropdown == null)
+        {
+            return;
+        }
+
         List<string> options = new List<string>();
         ugcSceneMap.Clear();
 
@@ -60,11 +70,12 @@ public class LoadSceneTemp : MonoBehaviour
                 string sceneName = bundle.Scenes[sceneIndex];
 
                 // Example display name: map_desert / DesertTrack
-                string displayName = bundle.Name + " / " + sceneName;
+                string displayName = bundle.Name.Substring("course_".Length) + " / " + sceneName;
 
                 options.Add(displayName);
 
                 ugcSceneMap.Add((bundleIndex, sceneIndex));
+                Debug.Log("Added: " + displayName);
             }
         }
 

@@ -1,10 +1,14 @@
-Using pre-set license
-Built from '2021.3/release' branch; Version is '2021.3.17f1 (3e8111cac19d) revision 4096273'; Using compiler version '192829333'; Build Type 'Release'
-OS: 'Windows 11  (10.0.26200) 64bit Core' Language: 'en' Physical Memory: 32685 MB
-BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 1
+[Licensing::Module] Trying to connect to existing licensing client channel...
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-luke" at "2026-02-21T15:35:14.5648553Z"
+Built from '6000.3/staging' branch; Version is '6000.3.9f1 (7a9955a4f2fa) revision 8034645'; Using compiler version '194234433'; Build Type 'Release'
+OS: 'Windows 11  (10.0.26200) Core' Language: 'en' Physical Memory: 32685 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1
+System  architecture: x64
+Process architecture: x64
+Date: 2026-02-21T15:35:14Z
 
 COMMAND LINE ARGUMENTS:
-E:\UnityEditors\2021.3.17f1\Editor\Unity.exe
+C:\Program Files\Unity\Hub\Editor\6000.3.9f1\Editor\Unity.exe
 -adb2
 -batchMode
 -noUpm
@@ -15,10 +19,33 @@ D:/Github/Oddly-Familiar-Kart-Racing-Game/3D Mario Kart
 -logFile
 Logs/AssetImportWorker1.log
 -srvPort
-56832
+57067
+-licensingIpc
+LicenseClient-luke
+-job-worker-count
+3
+-background-job-worker-count
+8
+-gc-helper-count
+1
+-name
+AssetImport
 Successfully changed project path to: D:/Github/Oddly-Familiar-Kart-Racing-Game/3D Mario Kart
 D:/Github/Oddly-Familiar-Kart-Racing-Game/3D Mario Kart
 [UnityMemory] Configuration Parameters - Can be set up in boot.config
+    "memorysetup-temp-allocator-size-nav-mesh-worker=65536"
+    "memorysetup-temp-allocator-size-audio-worker=65536"
+    "memorysetup-temp-allocator-size-gfx=262144"
+    "memorysetup-allocator-temp-initial-block-size-main=262144"
+    "memorysetup-allocator-temp-initial-block-size-worker=262144"
+    "memorysetup-temp-allocator-size-background-worker=32768"
+    "memorysetup-temp-allocator-size-job-worker=262144"
+    "memorysetup-temp-allocator-size-preload-manager=33554432"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
     "memorysetup-bucket-allocator-granularity=16"
     "memorysetup-bucket-allocator-bucket-count=8"
     "memorysetup-bucket-allocator-block-size=33554432"
@@ -39,24 +66,34 @@ D:/Github/Oddly-Familiar-Kart-Racing-Game/3D Mario Kart
     "memorysetup-job-temp-allocator-block-size=2097152"
     "memorysetup-job-temp-allocator-block-size-background=1048576"
     "memorysetup-job-temp-allocator-reduction-small-platforms=262144"
-    "memorysetup-temp-allocator-size-background-worker=32768"
-    "memorysetup-temp-allocator-size-job-worker=262144"
-    "memorysetup-temp-allocator-size-preload-manager=33554432"
-    "memorysetup-temp-allocator-size-nav-mesh-worker=65536"
-    "memorysetup-temp-allocator-size-audio-worker=65536"
     "memorysetup-temp-allocator-size-cloud-worker=32768"
-    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
-    "memorysetup-temp-allocator-size-gfx=262144"
-Player connection [23672] Host "[IP] 192.168.0.134 [Port] 0 [Flags] 2 [Guid] 2863727697 [EditorId] 2863727697 [Version] 1048832 [Id] WindowsEditor(7,Desktop) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
+Player connection [31720]  Target information:
 
-Player connection [23672] Host "[IP] 192.168.0.134 [Port] 0 [Flags] 2 [Guid] 2863727697 [EditorId] 2863727697 [Version] 1048832 [Id] WindowsEditor(7,Desktop) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
+Player connection [31720]  * "[IP] 192.168.0.134 [Port] 0 [Flags] 2 [Guid] 1063325003 [EditorId] 1063325003 [Version] 1048832 [Id] WindowsEditor(7,Desktop) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
 
-Refreshing native plugins compatible for Editor in 152.29 ms, found 2 plugins.
+Player connection [31720]  * "[IP] 26.150.33.33 [Port] 0 [Flags] 2 [Guid] 1063325003 [EditorId] 1063325003 [Version] 1048832 [Id] WindowsEditor(7,Desktop) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+
+Player connection [31720]  * "[IP] 100.78.69.5 [Port] 0 [Flags] 2 [Guid] 1063325003 [EditorId] 1063325003 [Version] 1048832 [Id] WindowsEditor(7,Desktop) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+
+Player connection [31720] Host joined multi-casting on [225.0.0.222:54997]...
+Player connection [31720] Host joined alternative multi-casting on [225.0.0.222:34997]...
+JobSystem: Creating JobQueue using job-worker-count value 3
+Input System module state changed to: Initialized.
+[Physics::Module] Initialized fallback backend.
+[Physics::Module] Id: 0xdecafbad
+Library Redirect Path: Library/
+[Physics::Module] Selected backend.
+[Physics::Module] Name: PhysX
+[Physics::Module] Id: 0xf2b8ea05
+[Physics::Module] SDK Version: 4.1.2
+[Physics::Module] Integration Version: 1.0.0
+[Physics::Module] Threading Mode: Multi-Threaded
+Refreshing native plugins compatible for Editor in 285.52 ms, found 2 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Initialize engine version: 2021.3.17f1 (3e8111cac19d)
-[Subsystems] Discovering subsystems at path E:/UnityEditors/2021.3.17f1/Editor/Data/Resources/UnitySubsystems
+Initialize engine version: 6000.3.9f1 (7a9955a4f2fa)
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/6000.3.9f1/Editor/Data/Resources/UnitySubsystems
 [Subsystems] Discovering subsystems at path D:/Github/Oddly-Familiar-Kart-Racing-Game/3D Mario Kart/Assets
-GfxDevice: creating device client; threaded=0; jobified=0
+GfxDevice: creating device client; kGfxThreadingModeNonThreaded
 Direct3D:
     Version:  Direct3D 11.0 [level 11.1]
     Renderer: NVIDIA GeForce RTX 3060 Ti (ID=0x2489)
@@ -64,433 +101,379 @@ Direct3D:
     VRAM:     8024 MB
     Driver:   32.0.15.8142
 Initialize mono
-Mono path[0] = 'E:/UnityEditors/2021.3.17f1/Editor/Data/Managed'
-Mono path[1] = 'E:/UnityEditors/2021.3.17f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
-Mono config path = 'E:/UnityEditors/2021.3.17f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56576
+Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/6000.3.9f1/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/6000.3.9f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
+Mono config path = 'C:/Program Files/Unity/Hub/Editor/6000.3.9f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56156
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
-Register platform support module: E:/UnityEditors/2021.3.17f1/Editor/Data/PlaybackEngines/MacStandaloneSupport/UnityEditor.OSXStandalone.Extensions.dll
-Register platform support module: E:/UnityEditors/2021.3.17f1/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll
-Register platform support module: E:/UnityEditors/2021.3.17f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Register platform support module: E:/UnityEditors/2021.3.17f1/Editor/Data/PlaybackEngines/LinuxStandaloneSupport/UnityEditor.LinuxStandalone.Extensions.dll
-Registered in 0.004078 seconds.
-Native extension for LinuxStandalone target not found
+Register platform support module: C:/Program Files/Unity/Hub/Editor/6000.3.9f1/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll
+Register platform support module: C:/Program Files/Unity/Hub/Editor/6000.3.9f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.034503 seconds.
+- Loaded All Assemblies, in 13.882 seconds
 Native extension for WindowsStandalone target not found
-Native extension for Android target not found
-Android Extension - Scanning For ADB Devices 276 ms
-Native extension for OSXStandalone target not found
-Refreshing native plugins compatible for Editor in 129.76 ms, found 2 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
+Native extension for WebGL target not found
+[Licensing::Client] Handshaking with LicensingClient:
+  Version:                 1.17.4+4293ba1
+  Session Id:              46543c4bf5034d17a40197aeabf42d80
+  Correlation Id:          859fefb4ec8029cdc4a8c624a33736ab
+  External correlation Id: 5429122351479791188
+  Machine Id:              cImGFwqXggsiiVazjuDKEGmEsDQ=
+[Licensing::Module] Successfully connected to LicensingClient on channel: "LicenseClient-luke" (connect: 0.00s, validation: 0.00s, handshake: 29.40s)
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-luke-notifications" at "2026-02-21T15:35:43.9727235Z"
+[Licensing::Module] Licensing Background thread has ended after 29.41s
+ScheduleIndexationOnStartup MainProcess:False IndexOnStartup:True
 Mono: successfully reloaded assembly
-- Completed reload, in  1.124 seconds
-Domain Reload Profiling:
-	ReloadAssembly (1124ms)
-		BeginReloadAssembly (89ms)
-			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (0ms)
-			BackupInstance (0ms)
-			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (1ms)
-		EndReloadAssembly (904ms)
-			LoadAssemblies (89ms)
-			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (147ms)
-			ReleaseScriptCaches (0ms)
-			RebuildScriptCaches (35ms)
-			SetupLoadedEditorAssemblies (660ms)
-				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (377ms)
-				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (130ms)
-				BeforeProcessingInitializeOnLoad (1ms)
-				ProcessInitializeOnLoadAttributes (101ms)
-				ProcessInitializeOnLoadMethodAttributes (51ms)
-				AfterProcessingInitializeOnLoad (0ms)
-				EditorAssembliesLoaded (0ms)
-			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (0ms)
-Platform modules already initialized, skipping
-Registering precompiled user dll's ...
-Registered in 0.007262 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for LinuxStandalone target not found
-Native extension for WindowsStandalone target not found
-Native extension for Android target not found
-Native extension for OSXStandalone target not found
-Refreshing native plugins compatible for Editor in 136.32 ms, found 2 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  1.836 seconds
-Domain Reload Profiling:
-	ReloadAssembly (1837ms)
-		BeginReloadAssembly (144ms)
-			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (6ms)
-			BackupInstance (0ms)
-			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (28ms)
-		EndReloadAssembly (1544ms)
-			LoadAssemblies (145ms)
-			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (376ms)
-			ReleaseScriptCaches (1ms)
-			RebuildScriptCaches (102ms)
-			SetupLoadedEditorAssemblies (863ms)
-				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (22ms)
-				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (136ms)
-				BeforeProcessingInitializeOnLoad (127ms)
-				ProcessInitializeOnLoadAttributes (361ms)
-				ProcessInitializeOnLoadMethodAttributes (214ms)
-				AfterProcessingInitializeOnLoad (3ms)
-				EditorAssembliesLoaded (0ms)
-			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (7ms)
-Platform modules already initialized, skipping
+- Finished resetting the current domain, in  3.367 seconds
+Domain Reload Profiling: 17230ms
+	BeginReloadAssembly (12313ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (0ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (1ms)
+	RebuildCommonClasses (232ms)
+	RebuildNativeTypeToScriptingClass (51ms)
+	initialDomainReloadingComplete (194ms)
+	LoadAllAssembliesAndSetupDomain (1071ms)
+		LoadAssemblies (12307ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (1056ms)
+			TypeCache.Refresh (1054ms)
+				TypeCache.ScanAssembly (608ms)
+			BuildScriptInfoCaches (0ms)
+			ResolveRequiredComponents (1ms)
+	FinalizeReload (3369ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (2931ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (197ms)
+			SetLoadedEditorAssemblies (5ms)
+			BeforeProcessingInitializeOnLoad (1063ms)
+			ProcessInitializeOnLoadAttributes (690ms)
+			ProcessInitializeOnLoadMethodAttributes (975ms)
+			AfterProcessingInitializeOnLoad (0ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (0ms)
 ========================================================================
 Worker process is ready to serve import requests
-Launched and connected shader compiler UnityShaderCompiler.exe after 0.06 seconds
-Refreshing native plugins compatible for Editor in 2.38 ms, found 2 plugins.
+Import Worker Mode flag is 0x00
+Begin MonoManager ReloadAssembly
+[Licensing::Client] Successfully resolved entitlement details
+[Licensing::Module] License group:
+  Id: F4-Y6KC-25T9-KMKK-443G-XXXX
+  Product: Unity Personal
+  Type: ULF
+  Expiration: Unlimited
+[Licensing::Module] License group:
+  Id: 350106-UnityPersXXXX
+  Product: Unity Personal
+  Type: Assigned
+  Expiration: Unlimited
+Symbol file LoadedFromMemory is not a mono symbol file
+- Loaded All Assemblies, in  8.250 seconds
+Script 'RotationConstraint' has the same name as built-in Unity component.
+AddComponent and GetComponent will not work with this script.
+Refreshing native plugins compatible for Editor in 9.29 ms, found 2 plugins.
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Package Manager log level set to [2]
+[Package Manager] Failed to launch server process. Reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] Unable to send message (not connected to server process).
+[Package Manager] Cannot connect to Unity Package Manager local server
+Refreshing native plugins compatible for Editor in 6.23 ms, found 2 plugins.
+ScheduleIndexationOnStartup MainProcess:False IndexOnStartup:True
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  1.543 seconds
+Domain Reload Profiling: 9785ms
+	BeginReloadAssembly (411ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (27ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (67ms)
+	RebuildCommonClasses (62ms)
+	RebuildNativeTypeToScriptingClass (22ms)
+	initialDomainReloadingComplete (65ms)
+	LoadAllAssembliesAndSetupDomain (7682ms)
+		LoadAssemblies (7352ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (539ms)
+			TypeCache.Refresh (329ms)
+				TypeCache.ScanAssembly (296ms)
+			BuildScriptInfoCaches (184ms)
+			ResolveRequiredComponents (19ms)
+	FinalizeReload (1543ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (1326ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (4ms)
+			SetLoadedEditorAssemblies (7ms)
+			BeforeProcessingInitializeOnLoad (295ms)
+			ProcessInitializeOnLoadAttributes (576ms)
+			ProcessInitializeOnLoadMethodAttributes (428ms)
+			AfterProcessingInitializeOnLoad (16ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (9ms)
+WARNING: Shader Unsupported: 'Toon/Lit Outline' - All subshaders removed
+WARNING: Shader Did you use #pragma only_renderers and omit this platform?
+WARNING: Shader If subshaders removal was intentional, you may have forgotten turning Fallback off?
+WARNING: Shader Unsupported: 'Toon/Lit Outline' - All subshaders removed
+WARNING: Shader Did you use #pragma only_renderers and omit this platform?
+WARNING: Shader If subshaders removal was intentional, you may have forgotten turning Fallback off?
+WARNING: Shader Unsupported: 'Toon/Basic Outline' - All subshaders removed
+WARNING: Shader Did you use #pragma only_renderers and omit this platform?
+WARNING: Shader If subshaders removal was intentional, you may have forgotten turning Fallback off?
+WARNING: Shader Unsupported: 'Toon/Basic Outline' - All subshaders removed
+WARNING: Shader Did you use #pragma only_renderers and omit this platform?
+WARNING: Shader If subshaders removal was intentional, you may have forgotten turning Fallback off?
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.03 seconds
+Refreshing native plugins compatible for Editor in 8.05 ms, found 2 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 5426 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 88 unused Assets / (3.1 MB). Loaded Objects now: 5855.
-Memory consumption went from 252.4 MB to 249.3 MB.
-Total: 9.447000 ms (FindLiveObjects: 0.564100 ms CreateObjectMapping: 0.638400 ms MarkObjects: 7.308400 ms  DeleteObjects: 0.935000 ms)
+Unloading 36 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 7364 unused Assets / (11.5 MB). Loaded Objects now: 8165.
+Memory consumption went from 173.7 MB to 162.3 MB.
+Total: 42.172900 ms (FindLiveObjects: 1.054800 ms CreateObjectMapping: 15.652100 ms MarkObjects: 16.585400 ms  DeleteObjects: 8.879300 ms)
 
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
 ========================================================================
 Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.006808 seconds.
 Begin MonoManager ReloadAssembly
-Native extension for LinuxStandalone target not found
+Symbol file LoadedFromMemory is not a mono symbol file
+- Loaded All Assemblies, in  1.570 seconds
+Script 'RotationConstraint' has the same name as built-in Unity component.
+AddComponent and GetComponent will not work with this script.
+Refreshing native plugins compatible for Editor in 15.49 ms, found 2 plugins.
+Assertion failed on expression: 'pred(*previous, *i)'
+Assertion failed on expression: 'pred(*previous, *i)'
+Assertion failed on expression: 'pred(*previous, *i)'
+Assertion failed on expression: 'pred(*previous, *i)'
 Native extension for WindowsStandalone target not found
-Native extension for Android target not found
-Native extension for OSXStandalone target not found
-Refreshing native plugins compatible for Editor in 1.96 ms, found 2 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-UniversalRenderPipelineAsset_Renderer is missing RendererFeatures
-This could be due to missing scripts or compile error.
-UnityEngine.StackTraceUtility:ExtractStackTrace ()
-UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
-UnityEngine.Logger:Log (UnityEngine.LogType,object,UnityEngine.Object)
-UnityEngine.Debug:LogError (object,UnityEngine.Object)
-UnityEngine.Rendering.Universal.ScriptableRendererData:ValidateRendererFeatures () (at Library/PackageCache/com.unity.render-pipelines.universal@12.1.9/Runtime/ScriptableRendererData.cs:185)
-UnityEngine.Rendering.Universal.ScriptableRendererData:OnValidate () (at Library/PackageCache/com.unity.render-pipelines.universal@12.1.9/Runtime/ScriptableRendererData.cs:80)
-UnityEngine.Rendering.Universal.UniversalRendererData:OnValidate () (at Library/PackageCache/com.unity.render-pipelines.universal@12.1.9/Runtime/UniversalRendererData.cs:282)
-
-(Filename: Library/PackageCache/com.unity.render-pipelines.universal@12.1.9/Runtime/ScriptableRendererData.cs Line: 185)
-
+Native extension for WebGL target not found
+[Package Manager] Failed to launch server process. Reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] Unable to send message (not connected to server process).
+[Package Manager] Cannot connect to Unity Package Manager local server
+ScheduleIndexationOnStartup MainProcess:False IndexOnStartup:True
 Mono: successfully reloaded assembly
-- Completed reload, in  1.780 seconds
-Domain Reload Profiling:
-	ReloadAssembly (1780ms)
-		BeginReloadAssembly (157ms)
-			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (12ms)
-			BackupInstance (0ms)
-			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (50ms)
-		EndReloadAssembly (1514ms)
-			LoadAssemblies (120ms)
-			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (370ms)
-			ReleaseScriptCaches (2ms)
-			RebuildScriptCaches (103ms)
-			SetupLoadedEditorAssemblies (781ms)
-				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (42ms)
-				SetLoadedEditorAssemblies (1ms)
-				RefreshPlugins (2ms)
-				BeforeProcessingInitializeOnLoad (109ms)
-				ProcessInitializeOnLoadAttributes (385ms)
-				ProcessInitializeOnLoadMethodAttributes (239ms)
-				AfterProcessingInitializeOnLoad (3ms)
-				EditorAssembliesLoaded (0ms)
-			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (21ms)
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 7.30 ms, found 2 plugins.
+- Finished resetting the current domain, in  1.878 seconds
+Domain Reload Profiling: 3447ms
+	BeginReloadAssembly (420ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (10ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (87ms)
+	RebuildCommonClasses (68ms)
+	RebuildNativeTypeToScriptingClass (26ms)
+	initialDomainReloadingComplete (67ms)
+	LoadAllAssembliesAndSetupDomain (988ms)
+		LoadAssemblies (734ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (467ms)
+			TypeCache.Refresh (21ms)
+				TypeCache.ScanAssembly (0ms)
+			BuildScriptInfoCaches (405ms)
+			ResolveRequiredComponents (32ms)
+	FinalizeReload (1879ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (1505ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (3ms)
+			SetLoadedEditorAssemblies (6ms)
+			BeforeProcessingInitializeOnLoad (368ms)
+			ProcessInitializeOnLoadAttributes (696ms)
+			ProcessInitializeOnLoadMethodAttributes (418ms)
+			AfterProcessingInitializeOnLoad (13ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (20ms)
+WARNING: Shader Unsupported: 'Toon/Lit Outline' - All subshaders removed
+WARNING: Shader Did you use #pragma only_renderers and omit this platform?
+WARNING: Shader If subshaders removal was intentional, you may have forgotten turning Fallback off?
+WARNING: Shader Unsupported: 'Toon/Lit Outline' - All subshaders removed
+WARNING: Shader Did you use #pragma only_renderers and omit this platform?
+WARNING: Shader If subshaders removal was intentional, you may have forgotten turning Fallback off?
+WARNING: Shader Unsupported: 'Toon/Basic Outline' - All subshaders removed
+WARNING: Shader Did you use #pragma only_renderers and omit this platform?
+WARNING: Shader If subshaders removal was intentional, you may have forgotten turning Fallback off?
+WARNING: Shader Unsupported: 'Toon/Basic Outline' - All subshaders removed
+WARNING: Shader Did you use #pragma only_renderers and omit this platform?
+WARNING: Shader If subshaders removal was intentional, you may have forgotten turning Fallback off?
+Refreshing native plugins compatible for Editor in 10.73 ms, found 2 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 5232 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 76 unused Assets / (3.0 MB). Loaded Objects now: 5857.
-Memory consumption went from 244.4 MB to 241.3 MB.
-Total: 10.253500 ms (FindLiveObjects: 1.053300 ms CreateObjectMapping: 0.786900 ms MarkObjects: 7.340500 ms  DeleteObjects: 1.071800 ms)
+Unloading 31 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 7362 unused Assets / (8.9 MB). Loaded Objects now: 8180.
+Memory consumption went from 178.0 MB to 169.0 MB.
+Total: 43.170500 ms (FindLiveObjects: 1.365500 ms CreateObjectMapping: 2.522700 ms MarkObjects: 32.611500 ms  DeleteObjects: 6.669500 ms)
 
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+Prepare: number of updated asset objects reloaded= 0
 ========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.008081 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for LinuxStandalone target not found
-Native extension for WindowsStandalone target not found
-Native extension for Android target not found
-Native extension for OSXStandalone target not found
-Refreshing native plugins compatible for Editor in 1.76 ms, found 2 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-UniversalRenderPipelineAsset_Renderer is missing RendererFeatures
-This could be due to missing scripts or compile error.
-UnityEngine.StackTraceUtility:ExtractStackTrace ()
-UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
-UnityEngine.Logger:Log (UnityEngine.LogType,object,UnityEngine.Object)
-UnityEngine.Debug:LogError (object,UnityEngine.Object)
-UnityEngine.Rendering.Universal.ScriptableRendererData:ValidateRendererFeatures () (at Library/PackageCache/com.unity.render-pipelines.universal@12.1.9/Runtime/ScriptableRendererData.cs:185)
-UnityEngine.Rendering.Universal.ScriptableRendererData:OnValidate () (at Library/PackageCache/com.unity.render-pipelines.universal@12.1.9/Runtime/ScriptableRendererData.cs:80)
-UnityEngine.Rendering.Universal.UniversalRendererData:OnValidate () (at Library/PackageCache/com.unity.render-pipelines.universal@12.1.9/Runtime/UniversalRendererData.cs:282)
+Received Import Request.
+  Time since last request: 693011.760983 seconds.
+  path: Assets/SOunds/Water Park/WaterPark_all_R.ny.32.dspadpcm.wav
+  artifactKey: Guid(4a10d6ca31177c348b249807c2181ccb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SOunds/Water Park/WaterPark_all_R.ny.32.dspadpcm.wav using Guid(4a10d6ca31177c348b249807c2181ccb) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: 'cbb62e17b2700c726f59ec46b129ddac') in 0.1669347 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 2
 
-(Filename: Library/PackageCache/com.unity.render-pipelines.universal@12.1.9/Runtime/ScriptableRendererData.cs Line: 185)
-
-Mono: successfully reloaded assembly
-- Completed reload, in  1.535 seconds
-Domain Reload Profiling:
-	ReloadAssembly (1535ms)
-		BeginReloadAssembly (157ms)
-			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (8ms)
-			BackupInstance (0ms)
-			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (53ms)
-		EndReloadAssembly (1254ms)
-			LoadAssemblies (124ms)
-			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (323ms)
-			ReleaseScriptCaches (2ms)
-			RebuildScriptCaches (75ms)
-			SetupLoadedEditorAssemblies (645ms)
-				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (31ms)
-				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (2ms)
-				BeforeProcessingInitializeOnLoad (93ms)
-				ProcessInitializeOnLoadAttributes (328ms)
-				ProcessInitializeOnLoadMethodAttributes (188ms)
-				AfterProcessingInitializeOnLoad (3ms)
-				EditorAssembliesLoaded (0ms)
-			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (16ms)
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 5.80 ms, found 2 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 5232 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 75 unused Assets / (3.0 MB). Loaded Objects now: 5860.
-Memory consumption went from 243.4 MB to 240.4 MB.
-Total: 8.662900 ms (FindLiveObjects: 0.442100 ms CreateObjectMapping: 0.396200 ms MarkObjects: 6.915100 ms  DeleteObjects: 0.908600 ms)
-
-AssetImportParameters requested are different than current active one (requested -> active):
-  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
-  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
-  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
-  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
-  custom:video-codec-MediaFoundation-h265: 746d11721c4dcdbdad8f713fa42b33f4 -> 
-  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
-  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
-  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
-  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
-========================================================================
-Received Import Request.
-  Time since last request: 553280.063580 seconds.
-  path: Assets/Models/Rainbow Road N64/Firework Graphs/Firework Cyan.vfx
-  artifactKey: Guid(ce92d551767068544958dc2e9b2f3a20) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Models/Rainbow Road N64/Firework Graphs/Firework Cyan.vfx using Guid(ce92d551767068544958dc2e9b2f3a20) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f66979b2c74fa0bba766b9b8311515f6') in 1.166338 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000042 seconds.
-  path: Assets/Models/Mario Circuit/Track/Guardrail_Curve_03_Nrm.png
-  artifactKey: Guid(0f09f6a940e614c49b5f64ba371f1341) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Models/Mario Circuit/Track/Guardrail_Curve_03_Nrm.png using Guid(0f09f6a940e614c49b5f64ba371f1341) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '69152f5e03849c34d49ea7653019bb9f') in 0.082070 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000041 seconds.
-  path: Assets/Art/Textures/ai_logo.png
-  artifactKey: Guid(d31153717ca00c84fb6572b6846b1c40) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Art/Textures/ai_logo.png using Guid(d31153717ca00c84fb6572b6846b1c40) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1128e78ffa77c619c736b42a4dc7ca48') in 0.028292 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000029 seconds.
-  path: Assets/Models/Rainbow Road N64/Track/G64_RainbowRoad.dae
-  artifactKey: Guid(b4ad9d3985e57984eafe39f5b885b30d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Models/Rainbow Road N64/Track/G64_RainbowRoad.dae using Guid(b4ad9d3985e57984eafe39f5b885b30d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd7e8e37f0e3dc8dee1b6f958ea4f6c23') in 2.865397 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000030 seconds.
-  path: Assets/Models/Wii U - Mario Kart 8 - Toad Harbor/Toad Harbor/ct_handrails_alb.png
-  artifactKey: Guid(e189722ef59512147ae8c672640cbbfd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Models/Wii U - Mario Kart 8 - Toad Harbor/Toad Harbor/ct_handrails_alb.png using Guid(e189722ef59512147ae8c672640cbbfd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '14024436aad7cd39b6cbf92e4e219d37') in 0.023491 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000034 seconds.
-  path: Assets/Models/Water Park/Track/Gu_WaterPark.dae
-  artifactKey: Guid(05eb7d28ff6c7f14db6aa2d6f42f1f85) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Models/Water Park/Track/Gu_WaterPark.dae using Guid(05eb7d28ff6c7f14db6aa2d6f42f1f85) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6c6160cbe17f22ec413ee2dd8e39e594') in 2.107842 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000029 seconds.
-  path: Assets/Models/Mario Circuit/Track/HatenaBlock256_kaiB_Spm.png
-  artifactKey: Guid(185c90f5c219fe642b10ed5af7f35cd4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Models/Mario Circuit/Track/HatenaBlock256_kaiB_Spm.png using Guid(185c90f5c219fe642b10ed5af7f35cd4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4ba0c3547cad352803bad8cd8f8f160e') in 0.029991 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000033 seconds.
-  path: Assets/Models/Rainbow Road N64/Track/Bake_G64_RainbowRoad_g03_b00_f00.png
-  artifactKey: Guid(7f279e8c916d029418939bf9700ad9fc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Models/Rainbow Road N64/Track/Bake_G64_RainbowRoad_g03_b00_f00.png using Guid(7f279e8c916d029418939bf9700ad9fc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '81b2a9947063f9d867fdf3aae4516b74') in 0.031430 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000025 seconds.
-  path: Assets/Models/Other Common Files/gcyc_mainbuilding_m02_spm.png
-  artifactKey: Guid(5da3cefe2c5f4454981dee9f7fe81eed) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Models/Other Common Files/gcyc_mainbuilding_m02_spm.png using Guid(5da3cefe2c5f4454981dee9f7fe81eed) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fb55b2473fc49fd4602d44e20645a69d') in 0.031030 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000026 seconds.
-  path: Assets/Models/Mario Circuit/Track/Guardrail_Curve_ura_Spm.png
-  artifactKey: Guid(dfa41e6aaed85c2479e651e2be765940) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Models/Mario Circuit/Track/Guardrail_Curve_ura_Spm.png using Guid(dfa41e6aaed85c2479e651e2be765940) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b29bafec56057e48eb50d93cb3869c98') in 0.030717 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000030 seconds.
-  path: Assets/Models/Rainbow Road N64/Firework Graphs/Firework Green.vfx
-  artifactKey: Guid(47ef6215f0551e04b9f9125f0f68948b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Models/Rainbow Road N64/Firework Graphs/Firework Green.vfx using Guid(47ef6215f0551e04b9f9125f0f68948b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0c2247e20a1ce9a0185cbeb72da62ffa') in 0.540701 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000050 seconds.
-  path: Assets/Models/Water Park/Track/Gwp_OutSide_kaidanIshi00_Spm.png
-  artifactKey: Guid(d4427620e806970468ad57a441efbb16) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Models/Water Park/Track/Gwp_OutSide_kaidanIshi00_Spm.png using Guid(d4427620e806970468ad57a441efbb16) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '68c392705225526add8f7fc2439117a5') in 0.030114 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000037 seconds.
-  path: Assets/Models/Mario Circuit/Track/Guardrail_Curve_03_Alb.png
-  artifactKey: Guid(44d8e26e212b0f540bd59fbc3b918dc9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Models/Mario Circuit/Track/Guardrail_Curve_03_Alb.png using Guid(44d8e26e212b0f540bd59fbc3b918dc9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c7f1e0bf2ee7491a9f31531f7669a24e') in 0.019892 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000026 seconds.
-  path: Assets/Models/Other Common Files/gcyc_mainbuilding_m03_alb.png
-  artifactKey: Guid(4633906689cb2e64eb7346d817d90838) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Models/Other Common Files/gcyc_mainbuilding_m03_alb.png using Guid(4633906689cb2e64eb7346d817d90838) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0315ce60209aa8e8f3f0d8a41ac11654') in 0.031299 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000028 seconds.
-  path: Assets/Models/Other Common Files/gcyc_mainbuilding_m02_trm.png
-  artifactKey: Guid(dffdaa03f6417c74fa8250fe9b6bc452) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Models/Other Common Files/gcyc_mainbuilding_m02_trm.png using Guid(dffdaa03f6417c74fa8250fe9b6bc452) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '62f2fa3a50aeda4bcaeb0bdd0702f4f3') in 0.030710 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000026 seconds.
-  path: Assets/Models/Water Park/Track/Gwp_OutSide_kaidanIshi00_Nrm.png
-  artifactKey: Guid(508501f63d6f30d43b10daec0bba5c79) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Models/Water Park/Track/Gwp_OutSide_kaidanIshi00_Nrm.png using Guid(508501f63d6f30d43b10daec0bba5c79) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e6ac34ac817073643a7dc0a0dd3010de') in 0.031606 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000021 seconds.
-  path: Assets/Models/Mario Circuit/Track/HatenaBlock256_kaiB_Alb.png
-  artifactKey: Guid(415b5fe3c6669bd49ba2474111116d29) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Models/Mario Circuit/Track/HatenaBlock256_kaiB_Alb.png using Guid(415b5fe3c6669bd49ba2474111116d29) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9796dbecb531aaef3c061668aa349ea2') in 0.027416 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.001786 seconds.
-  path: Assets/Models/Rainbow Road N64/Track/Bake_G64_RainbowRoad_g01_b00_f00.png
-  artifactKey: Guid(e06e95111f325e148a7b6e74f40fd97f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Models/Rainbow Road N64/Track/Bake_G64_RainbowRoad_g01_b00_f00.png using Guid(e06e95111f325e148a7b6e74f40fd97f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '94a54f65dd5a3cf31ae9366cc0553349') in 0.040263 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000028 seconds.
-  path: Assets/Models/Wii U - Mario Kart 8 - Toad Harbor/Toad Harbor/ct_rails03_nrm.png
-  artifactKey: Guid(f9fea53b4530f114d98650e7545b29b3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Models/Wii U - Mario Kart 8 - Toad Harbor/Toad Harbor/ct_rails03_nrm.png using Guid(f9fea53b4530f114d98650e7545b29b3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '95365b8919ca0b27f3f5717b6cd399cb') in 0.038395 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000053 seconds.
-  path: Assets/Models/Wii U - Mario Kart 8 - Toad Harbor/Toad Harbor/ct_handrails_spm.png
-  artifactKey: Guid(855b454078041844086ef9b8ca544be1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Models/Wii U - Mario Kart 8 - Toad Harbor/Toad Harbor/ct_handrails_spm.png using Guid(855b454078041844086ef9b8ca544be1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd49b66f9f01e94f70eeffceb3d6fd751') in 0.031193 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000025 seconds.
-  path: Assets/Models/Other Common Files/gcyc_guardrail_t01_nrm.png
-  artifactKey: Guid(904687c3fac72f448984cbfab5d063a0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Models/Other Common Files/gcyc_guardrail_t01_nrm.png using Guid(904687c3fac72f448984cbfab5d063a0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ffd5d7b05c327ca218b75b83eaaa9d3c') in 0.027898 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000022 seconds.
-  path: Assets/Models/Other Common Files/gcyc_mainbuilding_m02_nrm.png
-  artifactKey: Guid(f0e07b90116d46a4da5dbc7816cea76a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Models/Other Common Files/gcyc_mainbuilding_m02_nrm.png using Guid(f0e07b90116d46a4da5dbc7816cea76a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ccb13475cddb760cc0329b206b18af08') in 0.028230 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000029 seconds.
-  path: Assets/Standard Assets/Effects/GlassRefraction/Textures/GlassStainedAlbedo.tif
-  artifactKey: Guid(19555d7d9d114c7f1100f5ab44295342) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Standard Assets/Effects/GlassRefraction/Textures/GlassStainedAlbedo.tif using Guid(19555d7d9d114c7f1100f5ab44295342) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3b801715aa91ab02e0672afe1da04c4a') in 0.034087 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000026 seconds.
-  path: Assets/Models/Other Common Files/gcyc_mainbuilding_m02_alb.png
-  artifactKey: Guid(62183d00b0d3dbd45be2d4d49d38696d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Models/Other Common Files/gcyc_mainbuilding_m02_alb.png using Guid(62183d00b0d3dbd45be2d4d49d38696d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6167be76cd8e1c2ade96f6de5fa79d19') in 0.028657 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000030 seconds.
-  path: Assets/Models/Wii U - Mario Kart 8 - Toad Harbor/Toad Harbor/ct_rails03_alb.png
-  artifactKey: Guid(9816100960f6c79459f9220bffa4bb5c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Models/Wii U - Mario Kart 8 - Toad Harbor/Toad Harbor/ct_rails03_alb.png using Guid(9816100960f6c79459f9220bffa4bb5c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd14e14fffd63eb3b9190a393ced22553') in 0.020470 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000028 seconds.
-  path: Assets/_TerrainAutoUpgrade/layer_Grass (Hill)_ATTR 2terrain_grass_01_n 2(15.000,15.000)(0.000,0.000)(0.000,0.000,0.000),0.000,0.000.terrainlayer
-  artifactKey: Guid(09e518bcf1322094381b74b06dd02949) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/_TerrainAutoUpgrade/layer_Grass (Hill)_ATTR 2terrain_grass_01_n 2(15.000,15.000)(0.000,0.000)(0.000,0.000,0.000),0.000,0.000.terrainlayer using Guid(09e518bcf1322094381b74b06dd02949) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '91170a28428c230cd84acc4dd146ec73') in 0.022254 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000040 seconds.
-  path: Assets/Models/MooMoo Meadows/MooMooMeadowsFBX.FBX
-  artifactKey: Guid(579e1b2bc8620de4682cfde458e2152d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Models/MooMoo Meadows/MooMooMeadowsFBX.FBX using Guid(579e1b2bc8620de4682cfde458e2152d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e5320cc33413f75be2e17fa27a7114a2') in 1.200038 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 0.000030 seconds.
-  path: Assets/Models/Wii U - Mario Kart 8 - Toad Harbor/Toad Harbor/ct_rails03_spm.png
-  artifactKey: Guid(589c7a05d6531c342b41f1667c7fd172) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Models/Wii U - Mario Kart 8 - Toad Harbor/Toad Harbor/ct_rails03_spm.png using Guid(589c7a05d6531c342b41f1667c7fd172) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5729a193ec21243abe7dae7b4821015d') in 0.037335 seconds 
-========================================================================
-Received Import Request.
-  Time since last request: 5.588838 seconds.
-  path: Assets/Sprites/3.png
-  artifactKey: Guid(dec061dd0e2e7ba48a0483d8a6a7c5ec) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/3.png using Guid(dec061dd0e2e7ba48a0483d8a6a7c5ec) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'da6ba035f21ae3c5608993b8566360ff') in 0.058707 seconds 
 ========================================================================
 Received Import Request.
   Time since last request: 0.000031 seconds.
-  path: Assets/Sprites/Maps/MapPlayer/Baby Mario Map.png
-  artifactKey: Guid(2cbbd619c49d2274a891c1ed359daebc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Sprites/Maps/MapPlayer/Baby Mario Map.png using Guid(2cbbd619c49d2274a891c1ed359daebc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3849ef2650c4554cba46d5de20a6eba3') in 0.030208 seconds 
-Editor requested this worker to shutdown with reason: Scaling down because of idle timeout
-AssetImportWorker is now disconnected from the server
-Process exiting
-Exiting without the bug reporter. Application will terminate with return code 0
+  path: Assets/Models/Test/Gwii_MooMooMeadows.dae
+  artifactKey: Guid(cf733570adfb9424ebdb70dbe4981d7b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Models/Test/Gwii_MooMooMeadows.dae using Guid(cf733570adfb9424ebdb70dbe4981d7b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: 'd752c0e951f36f99e79dcfaccd1e32ca') in 2.1356825 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 421
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000044 seconds.
+  path: Assets/Models/MooMoo Meadows/MooMooMeadowsFBX.FBX
+  artifactKey: Guid(579e1b2bc8620de4682cfde458e2152d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Models/MooMoo Meadows/MooMooMeadowsFBX.FBX using Guid(579e1b2bc8620de4682cfde458e2152d) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '3ce66847b82a3d6d0c7ae147d18ca5f7') in 1.2424069 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 357
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000028 seconds.
+  path: Assets/Models/Mario Circuit/Gu_MarioCircuit.dae
+  artifactKey: Guid(069b33bea02aa33478ee6cdba9c55ca4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Models/Mario Circuit/Gu_MarioCircuit.dae using Guid(069b33bea02aa33478ee6cdba9c55ca4) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: 'f669a2f95ec0509db524dd3e54591146') in 1.3639074 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 555
+
+========================================================================
+Received Import Request.
+  Time since last request: 40.479372 seconds.
+  path: Assets/Settings/LWRP-MediumQuality.asset
+  artifactKey: Guid(d847b876476d3d6468f5dfcd34266f96) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Settings/LWRP-MediumQuality.asset using Guid(d847b876476d3d6468f5dfcd34266f96) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: 'dbcab63373e3217f1f60de81f376eccc') in 0.0019295 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Import Request.
+  Time since last request: 15.656553 seconds.
+  path: Assets/Settings/LWRP-MediumQuality.asset
+  artifactKey: Guid(d847b876476d3d6468f5dfcd34266f96) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+ForwardRenderer is missing RendererFeatures
+This could be due to missing scripts or compile error.
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object,UnityEngine.Object)
+UnityEngine.Debug:LogError (object,UnityEngine.Object)
+UnityEngine.Rendering.Universal.ScriptableRendererData:ValidateRendererFeatures () (at ./Library/PackageCache/com.unity.render-pipelines.universal@7327e77c1cc2/Runtime/ScriptableRendererData.cs:193)
+UnityEngine.Rendering.Universal.ScriptableRendererData:OnValidate () (at ./Library/PackageCache/com.unity.render-pipelines.universal@7327e77c1cc2/Runtime/ScriptableRendererData.cs:81)
+
+(Filename: ./Library/PackageCache/com.unity.render-pipelines.universal@7327e77c1cc2/Runtime/ScriptableRendererData.cs Line: 193)
+
+Start importing Assets/Settings/LWRP-MediumQuality.asset using Guid(d847b876476d3d6468f5dfcd34266f96) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: 'df8cbe45b5710616eb19bccedd9ef1fd') in 0.002083 seconds
+Number of updated asset objects reloaded before import = 1Number of asset objects unloaded after import = 1
+
+========================================================================
+Received Prepare
+Begin MonoManager ReloadAssembly
+[Licensing::Client] Successfully resolved entitlement details
+[Licensing::Module] License group:
+  Id: F4-Y6KC-25T9-KMKK-443G-XXXX
+  Product: Unity Personal
+  Type: ULF
+  Expiration: Unlimited
+[Licensing::Module] License group:
+  Id: 350106-UnityPersXXXX
+  Product: Unity Personal
+  Type: Assigned
+  Expiration: Unlimited
+ADTM: Control thread waiting for realtime thread timed out, have to lock...
+Symbol file LoadedFromMemory is not a mono symbol file
+- Loaded All Assemblies, in  2.119 seconds
+Script 'RotationConstraint' has the same name as built-in Unity component.
+AddComponent and GetComponent will not work with this script.
+Refreshing native plugins compatible for Editor in 6.75 ms, found 2 plugins.
+Assertion failed on expression: 'pred(*previous, *i)'
+Assertion failed on expression: 'pred(*previous, *i)'
+Assertion failed on expression: 'pred(*previous, *i)'
+Assertion failed on expression: 'pred(*previous, *i)'
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+[Package Manager] Failed to launch server process. Reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] Unable to send message (not connected to server process).
+[Package Manager] Cannot connect to Unity Package Manager local server
+ScheduleIndexationOnStartup MainProcess:False IndexOnStartup:True
+ForwardRenderer is missing RendererFeatures
+This could be due to missing scripts or compile error.
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object,UnityEngine.Object)
+UnityEngine.Debug:LogError (object,UnityEngine.Object)
+UnityEngine.Rendering.Universal.ScriptableRendererData:ValidateRendererFeatures () (at ./Library/PackageCache/com.unity.render-pipelines.universal@7327e77c1cc2/Runtime/ScriptableRendererData.cs:193)
+UnityEngine.Rendering.Universal.ScriptableRendererData:OnValidate () (at ./Library/PackageCache/com.unity.render-pipelines.universal@7327e77c1cc2/Runtime/ScriptableRendererData.cs:81)
+
+(Filename: ./Library/PackageCache/com.unity.render-pipelines.universal@7327e77c1cc2/Runtime/ScriptableRendererData.cs Line: 193)
+
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  1.606 seconds
+Domain Reload Profiling: 3724ms
+	BeginReloadAssembly (1291ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (10ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (1079ms)
+	RebuildCommonClasses (52ms)
+	RebuildNativeTypeToScriptingClass (21ms)
+	initialDomainReloadingComplete (43ms)
+	LoadAllAssembliesAndSetupDomain (711ms)
+		LoadAssemblies (484ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (353ms)
+			TypeCache.Refresh (10ms)
+				TypeCache.ScanAssembly (0ms)
+			BuildScriptInfoCaches (316ms)
+			ResolveRequiredComponents (18ms)
+	FinalizeReload (1606ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (1336ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (5ms)
+			SetLoadedEditorAssemblies (5ms)
+			BeforeProcessingInitializeOnLoad (373ms)
+			ProcessInitializeOnLoadAttributes (569ms)
+			ProcessInitializeOnLoadMethodAttributes (371ms)
+			AfterProcessingInitializeOnLoad (13ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (34ms)
+WARNING: Shader Unsupported: 'Toon/Lit Outline' - All subshaders removed
+WARNING: Shader Did you use #pragma only_renderers and omit this platform?
+WARNING: Shader If subshaders removal was intentional, you may have forgotten turning Fallback off?
+WARNING: Shader Unsupported: 'Toon/Lit Outline' - All subshaders removed
+WARNING: Shader Did you use #pragma only_renderers and omit this platform?
+WARNING: Shader If subshaders removal was intentional, you may have forgotten turning Fallback off?
+WARNING: Shader Unsupported: 'Toon/Basic Outline' - All subshaders removed
+WARNING: Shader Did you use #pragma only_renderers and omit this platform?
+WARNING: Shader If subshaders removal was intentional, you may have forgotten turning Fallback off?
+WARNING: Shader Unsupported: 'Toon/Basic Outline' - All subshaders removed
+WARNING: Shader Did you use #pragma only_renderers and omit this platform?
+WARNING: Shader If subshaders removal was intentional, you may have forgotten turning Fallback off?
+Refreshing native plugins compatible for Editor in 9.09 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 31 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 7365 unused Assets / (8.3 MB). Loaded Objects now: 8265.
+Memory consumption went from 179.6 MB to 171.3 MB.
+Total: 22.531000 ms (FindLiveObjects: 1.182100 ms CreateObjectMapping: 2.061200 ms MarkObjects: 14.036200 ms  DeleteObjects: 5.250200 ms)
+
+Prepare: number of updated asset objects reloaded= 0
+========================================================================
+Received Import Request.
+  Time since last request: 111.652462 seconds.
+  path: Assets/UniversalRenderPipelineGlobalSettings.asset
+  artifactKey: Guid(82c4bdf3a9f071c47ac89fe9bb1a22d5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/UniversalRenderPipelineGlobalSettings.asset using Guid(82c4bdf3a9f071c47ac89fe9bb1a22d5) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '43fa95808e1b6acbb030e4e9ed99e352') in 0.0369336 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 0
+
