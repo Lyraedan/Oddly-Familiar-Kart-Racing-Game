@@ -91,6 +91,7 @@
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\General\RandomRotation.cs" />
     <Compile Include="Assets\Scripts\Path\DriverPath.cs" />
+    <Compile Include="Assets\Scripts\Title\MainMenu.cs" />
     <Compile Include="Assets\Scripts\ResultsUI.cs" />
     <Compile Include="Assets\Scripts\ItemManager.cs" />
     <Compile Include="Assets\Scripts\General\RotationConstraint.cs" />
