@@ -79,6 +79,7 @@
     <Compile Include="Assets\Scripts\ComputerDriverSounds.cs" />
     <Compile Include="Assets\Scripts\Pylon.cs" />
     <Compile Include="Assets\Scripts\Crates.cs" />
+    <Compile Include="Assets\Scripts\Title\AudioCrossfade.cs" />
     <Compile Include="Assets\Scripts\General\UITextGradient.cs" />
     <Compile Include="Assets\Scripts\PlayerControls.cs" />
     <Compile Include="Assets\Scripts\UGC\UGC.cs" />

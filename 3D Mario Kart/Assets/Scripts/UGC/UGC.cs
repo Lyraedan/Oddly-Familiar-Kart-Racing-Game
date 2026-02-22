@@ -43,6 +43,9 @@ public class UGC : MonoBehaviour
 
     public static Action<CourseBundle> OnCourseBundleLoaded;
     public static Action<int> OnCourseLoadProgress;
+    public static Action<string> OnFailedToLoadCourse;
+
+    public List<string> FailedBundles = new();
 
     public struct CourseBundle
     {
@@ -146,6 +149,8 @@ public class UGC : MonoBehaviour
             if (bundle == null)
             {
                 Debug.LogWarning($"Failed to load bundle: {file}");
+                OnFailedToLoadCourse?.Invoke(file);
+                Instance.FailedBundles.Add(file);
                 continue;
             }
 

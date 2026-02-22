@@ -25,6 +25,9 @@ public class MainMenu : MonoBehaviour
     public AudioSource returnSound;
     public AudioSource buttonSelectSound;
 
+    public AudioCrossfade menuToSub;
+    public AudioCrossfade subToMenu;
+
     bool canStart = false;
     bool isMenuOpen = false;
     bool isSubmenuOpen = false;
@@ -183,6 +186,7 @@ public class MainMenu : MonoBehaviour
     {
         buttonSelectSound.Play();
         StartCoroutine(SwitchMenu(menuButtonsCanvasGroup, singleplayerCanvasGroup));
+        menuToSub.StartCrossfade();
         isSubmenuOpen = true;
     }
 
@@ -210,6 +214,7 @@ public class MainMenu : MonoBehaviour
         Debug.Log("Returning from Singleplayer menu");
 
         StartCoroutine(SwitchMenu(singleplayerCanvasGroup, menuButtonsCanvasGroup));
+        subToMenu.StartCrossfade();
         isSubmenuOpen = false;
     }
 }

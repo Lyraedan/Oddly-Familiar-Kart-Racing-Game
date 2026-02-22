@@ -5,16 +5,19 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class RandomSongPlayer : MonoBehaviour
 {
+    [Header("Song Settings")]
     public List<AudioClip> songs = new();
     public bool loop = false;
+    public bool PlayOnAwake = true;
 
+    [Header("Volume Settings")]
     [Range(0f, 1f)] public float volume = 1f;
     public float fadeDuration = 1.5f;
 
     private AudioSource audioSource;
     private Coroutine fadeRoutine;
 
-    private float fadeMultiplier = 0f; // 0 = silent, 1 = full volume
+    private float fadeMultiplier = 0f;
     private bool isStopped = false;
 
     void Start()
@@ -22,12 +25,16 @@ public class RandomSongPlayer : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         audioSource.loop = loop;
 
-        PlayRandomSong();
+        ChooseRandomSong();
+
+        if (PlayOnAwake)
+        {
+            Play();
+        }
     }
 
     void Update()
     {
-        // Always apply final volume
         audioSource.volume = volume * fadeMultiplier;
 
         if (!loop && !audioSource.isPlaying && !isStopped)
@@ -35,8 +42,7 @@ public class RandomSongPlayer : MonoBehaviour
             PlayRandomSong();
         }
     }
-
-    void PlayRandomSong()
+    void ChooseRandomSong()
     {
         if (songs == null || songs.Count == 0)
         {
@@ -46,8 +52,12 @@ public class RandomSongPlayer : MonoBehaviour
 
         int randomIndex = Random.Range(0, songs.Count);
         audioSource.clip = songs[randomIndex];
-        audioSource.Play();
+    }
 
+    void PlayRandomSong()
+    {
+        ChooseRandomSong();
+        audioSource.Play();
         StartFade(1f);
     }
 
@@ -61,8 +71,7 @@ public class RandomSongPlayer : MonoBehaviour
     {
         if (audioSource.clip == null)
         {
-            PlayRandomSong();
-            return;
+            ChooseRandomSong();
         }
 
         isStopped = false;
@@ -70,7 +79,7 @@ public class RandomSongPlayer : MonoBehaviour
         StartFade(1f);
     }
 
-    void StartFade(float target, bool stopAfterFade = false)
+    public void StartFade(float target, bool stopAfterFade = false)
     {
         if (fadeRoutine != null)
             StopCoroutine(fadeRoutine);
