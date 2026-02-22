@@ -30,6 +30,7 @@ Once thats ready open the project after adding it to your Unity Hub and let it i
 ## My changes
  * Updated the project to Unity 6 from 2021.
    > I had to remove Beautify, I do not own Beautify 3
+ * MK8 style Main Menu
  * Updated the input system to use Unity's new input system
  * Added controller support
    - Accelerate (Cross (PS5), A (Xbox), B (Nintendo))
@@ -54,7 +55,6 @@ Once thats ready open the project after adding it to your Unity Hub and let it i
 
 ## My plans
  * Refactor the code base because holy moly my eyeballs
- * Proper main menu
  * Custom characters
  * Custom maps
  * Custom items
