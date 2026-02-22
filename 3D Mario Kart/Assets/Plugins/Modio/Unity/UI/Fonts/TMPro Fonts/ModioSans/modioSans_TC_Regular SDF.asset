@@ -10,10 +10,8 @@ Texture2D:
   m_ImageContentsHash:
     serializedVersion: 2
     Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
   m_IsAlphaChannelOptional: 0
-  serializedVersion: 2
+  serializedVersion: 4
   m_Width: 1024
   m_Height: 1024
   m_CompleteImageSize: 1048576
@@ -22,7 +20,8 @@ Texture2D:
   m_MipCount: 1
   m_IsReadable: 0
   m_IsPreProcessed: 0
-  m_IgnoreMasterTextureLimit: 0
+  m_IgnoreMipmapLimit: 0
+  m_MipmapLimitGroupName: 
   m_StreamingMipmaps: 0
   m_StreamingMipmapsPriority: 0
   m_VTOnly: 0
@@ -49,20 +48,24 @@ Texture2D:
     path: 
 --- !u!21 &-61872715390692629
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: modioSans_TC_Regular Atlas Material
   m_Shader: {fileID: 4800000, guid: 68e6db2ebdc24f95958faec2be5558d6, type: 3}
-  m_ShaderKeywords: 
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -86,6 +89,7 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
     - _Ambient: 0.5
     - _Bevel: 0.5
@@ -115,9 +119,9 @@ Material:
     - _OutlineWidth: 0
     - _PerspectiveFilter: 0.875
     - _Reflectivity: 10
-    - _ScaleRatioA: 1
-    - _ScaleRatioB: 1
-    - _ScaleRatioC: 1
+    - _ScaleRatioA: 0.9
+    - _ScaleRatioB: 0.73125
+    - _ScaleRatioC: 0.73125
     - _ScaleX: 1
     - _ScaleY: 1
     - _ShaderFlags: 0
@@ -150,6 +154,7 @@ Material:
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
     - _UnderlayColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -162,21 +167,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
   m_Name: modioSans_TC_Regular SDF
   m_EditorClassIdentifier: 
-  hashCode: 84047603
-  material: {fileID: -61872715390692629}
-  materialHashCode: -244452749
   m_Version: 1.1.0
-  m_SourceFontFileGUID: 1ce26ad5bd2ba2b4fa93d831606832d3
-  m_SourceFontFile_EditorRef: {fileID: 12800000, guid: 1ce26ad5bd2ba2b4fa93d831606832d3,
-    type: 3}
-  m_SourceFontFile: {fileID: 12800000, guid: 1ce26ad5bd2ba2b4fa93d831606832d3, type: 3}
-  m_AtlasPopulationMode: 1
   m_FaceInfo:
     m_FaceIndex: 0
     m_FamilyName: Noto Sans TC
     m_StyleName: Regular
     m_PointSize: 352
     m_Scale: 1
+    m_UnitsPerEM: 1000
     m_LineHeight: 509.696
     m_AscentLine: 408.32
     m_CapLine: 258
@@ -192,6 +190,31 @@ MonoBehaviour:
     m_StrikethroughOffset: 76.4
     m_StrikethroughThickness: 17.6
     m_TabWidth: 79
+  m_Material: {fileID: -61872715390692629}
+  m_SourceFontFileGUID: 1ce26ad5bd2ba2b4fa93d831606832d3
+  m_CreationSettings:
+    sourceFontFileName: 
+    sourceFontFileGUID: 1ce26ad5bd2ba2b4fa93d831606832d3
+    faceIndex: 0
+    pointSizeSamplingMode: 0
+    pointSize: 352
+    padding: 9
+    paddingMode: 0
+    packingMode: 0
+    atlasWidth: 1024
+    atlasHeight: 1024
+    characterSetSelectionMode: 6
+    characterSequence: 4E3A,4E50,4FA6,52A1,56FE,5907,5934,5BFC,5F39,62A4,6362,65F6,672F,67AA,67E5,68C0,6A31,6D4B,73B0,7EC4,7ECF,7ED3,7ED9,7EDD,7EEA,836F,84DD,8865,8BA2,8BA9,8BAE,8BCD,8FD8-8FD9,94BB,9605
+    referencedFontAssetGUID: 870a125308fb2a849873a35b76baef08
+    referencedTextAssetGUID: 
+    fontStyle: 0
+    fontStyleModifier: 0
+    renderMode: 4165
+    includeFontFeatures: 0
+  m_SourceFontFile: {fileID: 12800000, guid: 1ce26ad5bd2ba2b4fa93d831606832d3, type: 3}
+  m_SourceFontFilePath: 
+  m_AtlasPopulationMode: 1
+  InternalDynamicOS: 0
   m_GlyphTable:
   - m_Index: 3551
     m_Metrics:
@@ -207,6 +230,7 @@ MonoBehaviour:
       m_Height: 322
     m_Scale: 1
     m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
   - m_Index: 4757
     m_Metrics:
       m_Width: 328.42188
@@ -221,6 +245,7 @@ MonoBehaviour:
       m_Height: 323
     m_Scale: 1
     m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
   - m_Index: 4788
     m_Metrics:
       m_Width: 310.46875
@@ -235,6 +260,7 @@ MonoBehaviour:
       m_Height: 317
     m_Scale: 1
     m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
   - m_Index: 6590
     m_Metrics:
       m_Width: 309.40625
@@ -249,6 +275,7 @@ MonoBehaviour:
       m_Height: 323
     m_Scale: 1
     m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
   - m_Index: 7618
     m_Metrics:
       m_Width: 314.6875
@@ -263,6 +290,7 @@ MonoBehaviour:
       m_Height: 311
     m_Scale: 1
     m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
   - m_Index: 12127
     m_Metrics:
       m_Width: 325.9375
@@ -277,6 +305,7 @@ MonoBehaviour:
       m_Height: 313
     m_Scale: 1
     m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
   - m_Index: 12961
     m_Metrics:
       m_Width: 309.40625
@@ -291,6 +320,7 @@ MonoBehaviour:
       m_Height: 320
     m_Scale: 1
     m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
   - m_Index: 14006
     m_Metrics:
       m_Width: 327.70312
@@ -305,6 +335,7 @@ MonoBehaviour:
       m_Height: 321
     m_Scale: 1
     m_AtlasIndex: 0
+    m_ClassDefinitionType: 0
   m_CharacterTable:
   - m_ElementType: 1
     m_Unicode: 21153
@@ -342,7 +373,12 @@ MonoBehaviour:
   - {fileID: -9019302288125140746}
   m_AtlasTextureIndex: 0
   m_IsMultiAtlasTexturesEnabled: 1
+  m_GetFontFeatures: 1
   m_ClearDynamicDataOnBuild: 0
+  m_AtlasWidth: 1024
+  m_AtlasHeight: 1024
+  m_AtlasPadding: 9
+  m_AtlasRenderMode: 4165
   m_UsedGlyphRects:
   - m_X: 0
     m_Y: 0
@@ -405,57 +441,14 @@ MonoBehaviour:
     m_Y: 682
     m_Width: 20
     m_Height: 341
-  m_fontInfo:
-    Name: 
-    PointSize: 0
-    Scale: 0
-    CharacterCount: 0
-    LineHeight: 0
-    Baseline: 0
-    Ascender: 0
-    CapHeight: 0
-    Descender: 0
-    CenterLine: 0
-    SuperscriptOffset: 0
-    SubscriptOffset: 0
-    SubSize: 0
-    Underline: 0
-    UnderlineThickness: 0
-    strikethrough: 0
-    strikethroughThickness: 0
-    TabWidth: 0
-    Padding: 0
-    AtlasWidth: 0
-    AtlasHeight: 0
-  atlas: {fileID: 0}
-  m_AtlasWidth: 1024
-  m_AtlasHeight: 1024
-  m_AtlasPadding: 9
-  m_AtlasRenderMode: 4165
-  m_glyphInfoList: []
-  m_KerningTable:
-    kerningPairs: []
   m_FontFeatureTable:
+    m_MultipleSubstitutionRecords: []
+    m_LigatureSubstitutionRecords: []
     m_GlyphPairAdjustmentRecords: []
-  fallbackFontAssets: []
+    m_MarkToBaseAdjustmentRecords: []
+    m_MarkToMarkAdjustmentRecords: []
+  m_ShouldReimportFontFeatures: 0
   m_FallbackFontAssetTable: []
-  m_CreationSettings:
-    sourceFontFileName: 
-    sourceFontFileGUID: 1ce26ad5bd2ba2b4fa93d831606832d3
-    pointSizeSamplingMode: 0
-    pointSize: 352
-    padding: 9
-    packingMode: 0
-    atlasWidth: 1024
-    atlasHeight: 1024
-    characterSetSelectionMode: 6
-    characterSequence: 4E3A,4E50,4FA6,52A1,56FE,5907,5934,5BFC,5F39,62A4,6362,65F6,672F,67AA,67E5,68C0,6A31,6D4B,73B0,7EC4,7ECF,7ED3,7ED9,7EDD,7EEA,836F,84DD,8865,8BA2,8BA9,8BAE,8BCD,8FD8-8FD9,94BB,9605
-    referencedFontAssetGUID: 870a125308fb2a849873a35b76baef08
-    referencedTextAssetGUID: 
-    fontStyle: 0
-    fontStyleModifier: 0
-    renderMode: 4165
-    includeFontFeatures: 0
   m_FontWeightTable:
   - regularTypeface: {fileID: 0}
     italicTypeface: {fileID: 0}
@@ -484,3 +477,30 @@ MonoBehaviour:
   boldSpacing: 7
   italicStyle: 35
   tabSize: 10
+  m_fontInfo:
+    Name: 
+    PointSize: 0
+    Scale: 0
+    CharacterCount: 0
+    LineHeight: 0
+    Baseline: 0
+    Ascender: 0
+    CapHeight: 0
+    Descender: 0
+    CenterLine: 0
+    SuperscriptOffset: 0
+    SubscriptOffset: 0
+    SubSize: 0
+    Underline: 0
+    UnderlineThickness: 0
+    strikethrough: 0
+    strikethroughThickness: 0
+    TabWidth: 0
+    Padding: 0
+    AtlasWidth: 0
+    AtlasHeight: 0
+  m_glyphInfoList: []
+  m_KerningTable:
+    kerningPairs: []
+  fallbackFontAssets: []
+  atlas: {fileID: 0}
