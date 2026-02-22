@@ -61,7 +61,7 @@ Once thats ready open the project after adding it to your Unity Hub and let it i
    > Asset Bundles not including scripts might make this a pain
  * Map pack system (grand prix's, styled similar to DD)
  * Loading custom content via asset bundles during runtime (characters, maps, items etc)
-   > Testing with Mario Kart 8 mod https://models.spriters-resource.com/wii_u/mariokart8/
+   > Testing with Mario Kart 8 mod https://models.spriters-resource.com/nintendo_switch/mariokart8deluxe/
  * Real AI
  * Multiplayer via Mirror & Epic Online Services
  * Character selection (characters will PURELY be cosmetic)
