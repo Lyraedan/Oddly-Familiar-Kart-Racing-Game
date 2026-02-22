@@ -5,12 +5,9 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Scenes/WhiteScreen.unity
-    guid: 2cec29abe38711a4c815b155405e921b
+    path: Assets/Scenes/MainMenu.unity
+    guid: 125da7ae0c30f234ab1694f32ac4eacb
   - enabled: 1
     path: Assets/Scenes/MooMooMeadows.unity
     guid: ca649371757997541b74e958de65d097
@@ -27,3 +24,4 @@ EditorBuildSettings:
     path: Assets/Scenes/Water Park.unity
     guid: 6721fe0cfbd289742989990638cc5853
   m_configObjects: {}
+  m_UseUCBPForAssetBundles: 0
