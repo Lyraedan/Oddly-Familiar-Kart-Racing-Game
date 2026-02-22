@@ -3,7 +3,7 @@
 
 <!-- PROJECT LOGO -->
 <br />
-<img width="612" height="408" alt="ai_logo_transparent" src="https://github.com/user-attachments/assets/b94f1b93-212d-4b90-91d0-ede0c2eef155" alt="Temp ai logo"/>
+<img width="612" height="408" alt="logo" src="https://github.com/user-attachments/assets/94ef9017-edc3-4fcb-9ac0-5ab0f8f78483" />
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
