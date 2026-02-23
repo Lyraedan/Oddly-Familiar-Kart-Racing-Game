@@ -14,9 +14,6 @@ using static UGC;
 
 public static class UGCBundleBuilder
 {
-    /* =========================
-     * TOP LEVEL MENU COMMANDS
-     * ========================= */
 
     [MenuItem("Mod Tools/Build All UGC")]
     public static void BuildAllUGC()
@@ -51,9 +48,11 @@ public static class UGCBundleBuilder
         UGCMapBuildWindow.ShowWindow();
     }
 
-    /* =========================
-     * CORE BUILD LOGIC
-     * ========================= */
+    [MenuItem("Mod Tools/View Valid Bundles")]
+    public static void OpenBundleViewerWindow()
+    {
+        UGCBundleViewerWindow.ShowWindow();
+    }
 
     static void BuildFilteredBundles(System.Func<string, bool> predicate)
     {
@@ -253,7 +252,7 @@ public class UGCMapBuildWindow : EditorWindow
             Refresh();
 
         GUILayout.Space(10);
-        GUILayout.Label("Build Map (Scene + Asset)", EditorStyles.boldLabel);
+        GUILayout.Label("Build Map (Scene + Assets)", EditorStyles.boldLabel);
 
         scroll = EditorGUILayout.BeginScrollView(scroll);
 
@@ -267,6 +266,71 @@ public class UGCMapBuildWindow : EditorWindow
             {
                 UGCBundleBuilder.BuildMapPair(baseName);
             }
+
+            EditorGUILayout.EndHorizontal();
+        }
+
+        EditorGUILayout.EndScrollView();
+    }
+}
+
+// Viewer window
+public class UGCBundleViewerWindow : EditorWindow
+{
+    private Vector2 scroll;
+    private List<string> mapBaseNames = new();
+
+    public static void ShowWindow()
+    {
+        var window = GetWindow<UGCBundleViewerWindow>("View Valid Bundles");
+        window.Refresh();
+    }
+
+    void Refresh()
+    {
+        var bundles = AssetDatabase.GetAllAssetBundleNames();
+
+        // Get unique base names for course bundles
+        mapBaseNames = bundles
+            .Where(b => b.StartsWith("course_"))
+            .Select(b =>
+            {
+                if (b.EndsWith(".scene"))
+                    return b.Replace(".scene", "");
+                if (b.EndsWith(".assets"))
+                    return b.Replace(".assets", "");
+                return null;
+            })
+            .Where(b => !string.IsNullOrEmpty(b))
+            .Distinct()
+            .OrderBy(b => b)
+            .ToList();
+    }
+
+    private void OnGUI()
+    {
+        if (GUILayout.Button("Refresh"))
+            Refresh();
+
+        GUILayout.Space(10);
+        GUILayout.Label("UGC Bundles Status", EditorStyles.boldLabel);
+
+        scroll = EditorGUILayout.BeginScrollView(scroll);
+
+        foreach (var baseName in mapBaseNames)
+        {
+            EditorGUILayout.BeginHorizontal("box");
+
+            bool sceneExists = AssetDatabase.GetAllAssetBundleNames().Contains(baseName + ".scene");
+            bool assetsExists = AssetDatabase.GetAllAssetBundleNames().Contains(baseName + ".assets");
+
+            // Determine color
+            Color labelColor = (sceneExists && assetsExists) ? Color.green : Color.red;
+            GUI.contentColor = labelColor;
+
+            EditorGUILayout.LabelField(baseName);
+
+            GUI.contentColor = Color.white; // Reset color
 
             EditorGUILayout.EndHorizontal();
         }

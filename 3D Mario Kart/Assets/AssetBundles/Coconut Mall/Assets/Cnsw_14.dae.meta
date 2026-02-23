@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c57aa460623c88d42a3abdb4a0bf9e32
+guid: 02d16dcf38ef9e54387eaa3eeb58ee6f
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
@@ -107,4 +107,4 @@ ModelImporter:
   additionalBone: 0
   userData: 
   assetBundleName: course_coconutmall
-  assetBundleVariant: switch
+  assetBundleVariant: assets

@@ -2,10 +2,10 @@
 Built from '6000.3/staging' branch; Version is '6000.3.9f1 (7a9955a4f2fa) revision 8034645'; Using compiler version '194234433'; Build Type 'Release'
 OS: 'Windows 11  (10.0.26200) Core' Language: 'en' Physical Memory: 32685 MB
 BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1
-[Licensing::IpcConnector] Successfully connected to: "LicenseClient-luke" at "2026-02-22T23:23:05.1084492Z"
 System  architecture: x64
 Process architecture: x64
-Date: 2026-02-22T23:23:05Z
+Date: 2026-02-23T00:20:36Z
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-luke" at "2026-02-23T00:20:36.7973788Z"
 
 COMMAND LINE ARGUMENTS:
 C:\Program Files\Unity\Hub\Editor\6000.3.9f1\Editor\Unity.exe
@@ -19,7 +19,7 @@ D:/Github/Oddly-Familiar-Kart-Racing-Game/3D Mario Kart
 -logFile
 Logs/AssetImportWorker1.log
 -srvPort
-49540
+50523
 -licensingIpc
 LicenseClient-luke
 -job-worker-count
@@ -67,16 +67,16 @@ D:/Github/Oddly-Familiar-Kart-Racing-Game/3D Mario Kart
     "memorysetup-job-temp-allocator-block-size-background=1048576"
     "memorysetup-job-temp-allocator-reduction-small-platforms=262144"
     "memorysetup-temp-allocator-size-cloud-worker=32768"
-Player connection [33084]  Target information:
+Player connection [42220]  Target information:
 
-Player connection [33084]  * "[IP] 192.168.0.134 [Port] 0 [Flags] 2 [Guid] 3764080189 [EditorId] 3764080189 [Version] 1048832 [Id] WindowsEditor(7,Desktop) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+Player connection [42220]  * "[IP] 192.168.0.134 [Port] 0 [Flags] 2 [Guid] 2790168289 [EditorId] 2790168289 [Version] 1048832 [Id] WindowsEditor(7,Desktop) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
 
-Player connection [33084]  * "[IP] 26.150.33.33 [Port] 0 [Flags] 2 [Guid] 3764080189 [EditorId] 3764080189 [Version] 1048832 [Id] WindowsEditor(7,Desktop) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+Player connection [42220]  * "[IP] 26.150.33.33 [Port] 0 [Flags] 2 [Guid] 2790168289 [EditorId] 2790168289 [Version] 1048832 [Id] WindowsEditor(7,Desktop) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
 
-Player connection [33084]  * "[IP] 100.78.69.5 [Port] 0 [Flags] 2 [Guid] 3764080189 [EditorId] 3764080189 [Version] 1048832 [Id] WindowsEditor(7,Desktop) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+Player connection [42220]  * "[IP] 100.78.69.5 [Port] 0 [Flags] 2 [Guid] 2790168289 [EditorId] 2790168289 [Version] 1048832 [Id] WindowsEditor(7,Desktop) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
 
-Player connection [33084] Host joined multi-casting on [225.0.0.222:54997]...
-Player connection [33084] Host joined alternative multi-casting on [225.0.0.222:34997]...
+Player connection [42220] Host joined multi-casting on [225.0.0.222:54997]...
+Player connection [42220] Host joined alternative multi-casting on [225.0.0.222:34997]...
 JobSystem: Creating JobQueue using job-worker-count value 3
 Input System module state changed to: Initialized.
 [Physics::Module] Initialized fallback backend.
@@ -88,7 +88,7 @@ Library Redirect Path: Library/
 [Physics::Module] SDK Version: 4.1.2
 [Physics::Module] Integration Version: 1.0.0
 [Physics::Module] Threading Mode: Multi-Threaded
-Refreshing native plugins compatible for Editor in 8.06 ms, found 2 plugins.
+Refreshing native plugins compatible for Editor in 8.25 ms, found 2 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 6000.3.9f1 (7a9955a4f2fa)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/6000.3.9f1/Editor/Data/Resources/UnitySubsystems
@@ -104,55 +104,46 @@ Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/6000.3.9f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/6000.3.9f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/6000.3.9f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56748
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56040
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Program Files/Unity/Hub/Editor/6000.3.9f1/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll
 Register platform support module: C:/Program Files/Unity/Hub/Editor/6000.3.9f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.003240 seconds.
-- Loaded All Assemblies, in  0.825 seconds
+Registered in 0.005249 seconds.
+- Loaded All Assemblies, in  1.205 seconds
 Native extension for WindowsStandalone target not found
 Native extension for WebGL target not found
-[Licensing::Client] Handshaking with LicensingClient:
-  Version:                 1.17.4+4293ba1
-  Session Id:              cdbf84211d604eeabed7f5634c2c7bc6
-  Correlation Id:          3a66b71f5a9f38307078f7f07e83337f
-  External correlation Id: 4386557883832310661
-  Machine Id:              cImGFwqXggsiiVazjuDKEGmEsDQ=
-[Licensing::Module] Successfully connected to LicensingClient on channel: "LicenseClient-luke" (connect: 0.00s, validation: 0.00s, handshake: 1.95s)
-[Licensing::IpcConnector] Successfully connected to: "LicenseClient-luke-notifications" at "2026-02-22T23:23:07.061768Z"
-[Licensing::Module] Licensing Background thread has ended after 1.95s
 ScheduleIndexationOnStartup MainProcess:False IndexOnStartup:True
 Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  0.732 seconds
-Domain Reload Profiling: 1552ms
-	BeginReloadAssembly (265ms)
+- Finished resetting the current domain, in  1.131 seconds
+Domain Reload Profiling: 2330ms
+	BeginReloadAssembly (578ms)
 		ExecutionOrderSort (0ms)
 		DisableScriptedObjects (0ms)
 		BackupInstance (0ms)
 		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (1ms)
-	RebuildCommonClasses (67ms)
-	RebuildNativeTypeToScriptingClass (39ms)
-	initialDomainReloadingComplete (96ms)
-	LoadAllAssembliesAndSetupDomain (352ms)
-		LoadAssemblies (258ms)
+		CreateAndSetChildDomain (2ms)
+	RebuildCommonClasses (79ms)
+	RebuildNativeTypeToScriptingClass (32ms)
+	initialDomainReloadingComplete (107ms)
+	LoadAllAssembliesAndSetupDomain (403ms)
+		LoadAssemblies (353ms)
 		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (345ms)
-			TypeCache.Refresh (343ms)
-				TypeCache.ScanAssembly (322ms)
+		AnalyzeDomain (393ms)
+			TypeCache.Refresh (391ms)
+				TypeCache.ScanAssembly (365ms)
 			BuildScriptInfoCaches (0ms)
 			ResolveRequiredComponents (1ms)
-	FinalizeReload (732ms)
+	FinalizeReload (1132ms)
 		ReleaseScriptCaches (0ms)
 		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (656ms)
+		SetupLoadedEditorAssemblies (1066ms)
 			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (115ms)
-			SetLoadedEditorAssemblies (6ms)
-			BeforeProcessingInitializeOnLoad (155ms)
-			ProcessInitializeOnLoadAttributes (274ms)
-			ProcessInitializeOnLoadMethodAttributes (106ms)
+			InitializePlatformSupportModulesInManaged (120ms)
+			SetLoadedEditorAssemblies (23ms)
+			BeforeProcessingInitializeOnLoad (312ms)
+			ProcessInitializeOnLoadAttributes (481ms)
+			ProcessInitializeOnLoadMethodAttributes (130ms)
 			AfterProcessingInitializeOnLoad (0ms)
 			EditorAssembliesLoaded (0ms)
 		ExecutionOrderSort2 (0ms)
@@ -160,6 +151,15 @@ Domain Reload Profiling: 1552ms
 ========================================================================
 Worker process is ready to serve import requests
 Import Worker Mode flag is 0x00
+[Licensing::Client] Handshaking with LicensingClient:
+  Version:                 1.17.4+4293ba1
+  Session Id:              9ee20f5edfbb44518ba4c263c5e2e999
+  Correlation Id:          3a66b71f5a9f38307078f7f07e83337f
+  External correlation Id: 1582150252336097037
+  Machine Id:              cImGFwqXggsiiVazjuDKEGmEsDQ=
+[Licensing::Module] Successfully connected to LicensingClient on channel: "LicenseClient-luke" (connect: 0.00s, validation: 0.00s, handshake: 4.58s)
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-luke-notifications" at "2026-02-23T00:20:41.3852182Z"
+[Licensing::Module] Licensing Background thread has ended after 4.59s
 Begin MonoManager ReloadAssembly
 [Licensing::Client] Successfully resolved entitlement details
 [Licensing::Module] License group:
@@ -173,10 +173,10 @@ Begin MonoManager ReloadAssembly
   Type: Assigned
   Expiration: Unlimited
 Symbol file LoadedFromMemory is not a mono symbol file
-- Loaded All Assemblies, in  1.354 seconds
+- Loaded All Assemblies, in  1.659 seconds
 Script 'RotationConstraint' has the same name as built-in Unity component.
 AddComponent and GetComponent will not work with this script.
-Refreshing native plugins compatible for Editor in 6.57 ms, found 2 plugins.
+Refreshing native plugins compatible for Editor in 11.13 ms, found 2 plugins.
 ForwardRenderer is missing RendererFeatures
 This could be due to missing scripts or compile error.
 UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
@@ -196,42 +196,42 @@ Package Manager log level set to [2]
 [Package Manager] Failed to launch server process. Reason: Unity was launched with the -noUpm command-line argument
 [Package Manager] Unable to send message (not connected to server process).
 [Package Manager] Cannot connect to Unity Package Manager local server
-Refreshing native plugins compatible for Editor in 6.28 ms, found 2 plugins.
+Refreshing native plugins compatible for Editor in 8.80 ms, found 2 plugins.
 ScheduleIndexationOnStartup MainProcess:False IndexOnStartup:True
 Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  1.380 seconds
-Domain Reload Profiling: 2727ms
-	BeginReloadAssembly (282ms)
+- Finished resetting the current domain, in  1.966 seconds
+Domain Reload Profiling: 3625ms
+	BeginReloadAssembly (346ms)
 		ExecutionOrderSort (0ms)
-		DisableScriptedObjects (11ms)
+		DisableScriptedObjects (17ms)
 		BackupInstance (0ms)
 		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (48ms)
-	RebuildCommonClasses (62ms)
-	RebuildNativeTypeToScriptingClass (22ms)
-	initialDomainReloadingComplete (66ms)
-	LoadAllAssembliesAndSetupDomain (914ms)
-		LoadAssemblies (588ms)
+		CreateAndSetChildDomain (50ms)
+	RebuildCommonClasses (78ms)
+	RebuildNativeTypeToScriptingClass (24ms)
+	initialDomainReloadingComplete (80ms)
+	LoadAllAssembliesAndSetupDomain (1130ms)
+		LoadAssemblies (685ms)
 		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (479ms)
-			TypeCache.Refresh (306ms)
-				TypeCache.ScanAssembly (282ms)
-			BuildScriptInfoCaches (148ms)
-			ResolveRequiredComponents (18ms)
-	FinalizeReload (1380ms)
+		AnalyzeDomain (620ms)
+			TypeCache.Refresh (389ms)
+				TypeCache.ScanAssembly (362ms)
+			BuildScriptInfoCaches (199ms)
+			ResolveRequiredComponents (24ms)
+	FinalizeReload (1968ms)
 		ReleaseScriptCaches (0ms)
 		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (1090ms)
+		SetupLoadedEditorAssemblies (1594ms)
 			LogAssemblyErrors (0ms)
 			InitializePlatformSupportModulesInManaged (3ms)
 			SetLoadedEditorAssemblies (6ms)
-			BeforeProcessingInitializeOnLoad (201ms)
-			ProcessInitializeOnLoadAttributes (507ms)
-			ProcessInitializeOnLoadMethodAttributes (359ms)
-			AfterProcessingInitializeOnLoad (13ms)
-			EditorAssembliesLoaded (1ms)
+			BeforeProcessingInitializeOnLoad (240ms)
+			ProcessInitializeOnLoadAttributes (873ms)
+			ProcessInitializeOnLoadMethodAttributes (456ms)
+			AfterProcessingInitializeOnLoad (15ms)
+			EditorAssembliesLoaded (0ms)
 		ExecutionOrderSort2 (0ms)
-		AwakeInstancesAfterBackupRestoration (10ms)
+		AwakeInstancesAfterBackupRestoration (14ms)
 WARNING: Shader Unsupported: 'Toon/Lit Outline' - All subshaders removed
 WARNING: Shader Did you use #pragma only_renderers and omit this platform?
 WARNING: Shader If subshaders removal was intentional, you may have forgotten turning Fallback off?
@@ -245,308 +245,36 @@ WARNING: Shader Unsupported: 'Toon/Basic Outline' - All subshaders removed
 WARNING: Shader Did you use #pragma only_renderers and omit this platform?
 WARNING: Shader If subshaders removal was intentional, you may have forgotten turning Fallback off?
 Launched and connected shader compiler UnityShaderCompiler.exe after 0.02 seconds
-Refreshing native plugins compatible for Editor in 6.06 ms, found 2 plugins.
+Refreshing native plugins compatible for Editor in 9.80 ms, found 2 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 36 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 7372 unused Assets / (7.1 MB). Loaded Objects now: 8264.
-Memory consumption went from 187.1 MB to 180.0 MB.
-Total: 20.607100 ms (FindLiveObjects: 1.031100 ms CreateObjectMapping: 1.650900 ms MarkObjects: 12.535500 ms  DeleteObjects: 5.388100 ms)
+Unloading 7372 unused Assets / (8.5 MB). Loaded Objects now: 8264.
+Memory consumption went from 187.5 MB to 178.9 MB.
+Total: 26.072700 ms (FindLiveObjects: 1.195100 ms CreateObjectMapping: 2.149900 ms MarkObjects: 17.724900 ms  DeleteObjects: 5.001500 ms)
 
 ========================================================================
 Received Import Request.
-  Time since last request: 807436.749386 seconds.
-  path: Assets/AssetBundles/Coconut Mall/Coconut Mall.unity
-  artifactKey: Guid(ea646599e9d1f69499b09706f4cf789b) Importer(2089858483,797179f86c6e516b54ff30bda720a719)
-Start importing Assets/AssetBundles/Coconut Mall/Coconut Mall.unity using Guid(ea646599e9d1f69499b09706f4cf789b) Importer(2089858483,797179f86c6e516b54ff30bda720a719) (ScriptedImporter) -> (artifact id: 'd657b7399ddb3da50df343b87f20029d') in 0.072706 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000020 seconds.
-  path: Assets/AssetBundles/Coconut Mall/Assets
-  artifactKey: Guid(24206e8c2315ac440bfcbbfe6e32092c) Importer(2089858483,797179f86c6e516b54ff30bda720a719)
-Start importing Assets/AssetBundles/Coconut Mall/Assets using Guid(24206e8c2315ac440bfcbbfe6e32092c) Importer(2089858483,797179f86c6e516b54ff30bda720a719) (ScriptedImporter) -> (artifact id: '777bbace4eac27cee9de1199e19ca705') in 0.0181298 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
-
-========================================================================
-Received Import Request.
-  Time since last request: 32.480649 seconds.
-  path: Assets/AssetBundles/Coconut Mall/Assets/T_Cnsw_14_Detail_Asphalt_Nrm.png
-  artifactKey: Guid(3e03c50c98f562b4cb9e0cf4510596a1) Importer(2089858483,797179f86c6e516b54ff30bda720a719)
-Start importing Assets/AssetBundles/Coconut Mall/Assets/T_Cnsw_14_Detail_Asphalt_Nrm.png using Guid(3e03c50c98f562b4cb9e0cf4510596a1) Importer(2089858483,797179f86c6e516b54ff30bda720a719) (ScriptedImporter) -> (artifact id: 'b6ae1efe731df34a558503f1547024e3') in 0.0253252 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000030 seconds.
-  path: Assets/AssetBundles/Coconut Mall/Assets/T_Cnsw_14_Signboard_01_Nrm.png
-  artifactKey: Guid(34a25be28cbeea94d9889f36e27ca9c0) Importer(2089858483,797179f86c6e516b54ff30bda720a719)
-Start importing Assets/AssetBundles/Coconut Mall/Assets/T_Cnsw_14_Signboard_01_Nrm.png using Guid(34a25be28cbeea94d9889f36e27ca9c0) Importer(2089858483,797179f86c6e516b54ff30bda720a719) (ScriptedImporter) -> (artifact id: '96c0613ae875fab00455f54048fe6aad') in 0.0341151 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000029 seconds.
-  path: Assets/AssetBundles/Coconut Mall/Assets/T_Cnsw_14_Roadside_Spm.png
-  artifactKey: Guid(53afb890871ad9f4db5a63f9d3fe72e0) Importer(2089858483,797179f86c6e516b54ff30bda720a719)
-Start importing Assets/AssetBundles/Coconut Mall/Assets/T_Cnsw_14_Roadside_Spm.png using Guid(53afb890871ad9f4db5a63f9d3fe72e0) Importer(2089858483,797179f86c6e516b54ff30bda720a719) (ScriptedImporter) -> (artifact id: '4f4f1244ef7fff5d801a635b9cc2b7f1') in 0.0182961 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000016 seconds.
-  path: Assets/AssetBundles/Coconut Mall/Assets/T_Cnsw_14_StartGrid_Alb.png
-  artifactKey: Guid(c83440d10bf43d04b8179ef58a4a7b7d) Importer(2089858483,797179f86c6e516b54ff30bda720a719)
-Start importing Assets/AssetBundles/Coconut Mall/Assets/T_Cnsw_14_StartGrid_Alb.png using Guid(c83440d10bf43d04b8179ef58a4a7b7d) Importer(2089858483,797179f86c6e516b54ff30bda720a719) (ScriptedImporter) -> (artifact id: '98d42c81d7959c4284987bb6e87f27a7') in 0.0206911 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000024 seconds.
-  path: Assets/AssetBundles/Coconut Mall/Assets/T_Cnsw_14_Window_Emm.png
-  artifactKey: Guid(4bb0657d695d89f4bb0d0c4d4cdfd0ca) Importer(2089858483,797179f86c6e516b54ff30bda720a719)
-Start importing Assets/AssetBundles/Coconut Mall/Assets/T_Cnsw_14_Window_Emm.png using Guid(4bb0657d695d89f4bb0d0c4d4cdfd0ca) Importer(2089858483,797179f86c6e516b54ff30bda720a719) (ScriptedImporter) -> (artifact id: 'fe47daa0f93c2c1dd76d8e04f8d352ee') in 0.0184554 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000022 seconds.
-  path: Assets/AssetBundles/Coconut Mall/Assets/T_Cnsw_14_Road_Floor2_Nrm.png
-  artifactKey: Guid(7174141a10c712947bbc48817cdd6563) Importer(2089858483,797179f86c6e516b54ff30bda720a719)
-Start importing Assets/AssetBundles/Coconut Mall/Assets/T_Cnsw_14_Road_Floor2_Nrm.png using Guid(7174141a10c712947bbc48817cdd6563) Importer(2089858483,797179f86c6e516b54ff30bda720a719) (ScriptedImporter) -> (artifact id: 'b104f07826c89dbe27e9a719318a1718') in 0.0542938 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000032 seconds.
-  path: Assets/AssetBundles/Coconut Mall/Assets/ef_seawater_Alb.png
-  artifactKey: Guid(cfb902500613a6e488b78e29788b89d1) Importer(2089858483,797179f86c6e516b54ff30bda720a719)
-Start importing Assets/AssetBundles/Coconut Mall/Assets/ef_seawater_Alb.png using Guid(cfb902500613a6e488b78e29788b89d1) Importer(2089858483,797179f86c6e516b54ff30bda720a719) (ScriptedImporter) -> (artifact id: '24c19381ea9facf28cc692f2f8bb3b2b') in 0.0387431 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000018 seconds.
-  path: Assets/AssetBundles/Coconut Mall/Assets/Cnsw_14.obj
-  artifactKey: Guid(a310dc87ba0e3a14f8365ede6f7717ec) Importer(2089858483,797179f86c6e516b54ff30bda720a719)
-Start importing Assets/AssetBundles/Coconut Mall/Assets/Cnsw_14.obj using Guid(a310dc87ba0e3a14f8365ede6f7717ec) Importer(2089858483,797179f86c6e516b54ff30bda720a719) (ScriptedImporter) -> (artifact id: '4e671451052360337e8aa8ce7016d991') in 0.0738555 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 52
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000029 seconds.
-  path: Assets/AssetBundles/Coconut Mall/Assets/T_Cnsw_14_OBJ003_Alb.png
-  artifactKey: Guid(aed2e1c443a319f4e9774cead74c8cf4) Importer(2089858483,797179f86c6e516b54ff30bda720a719)
-Start importing Assets/AssetBundles/Coconut Mall/Assets/T_Cnsw_14_OBJ003_Alb.png using Guid(aed2e1c443a319f4e9774cead74c8cf4) Importer(2089858483,797179f86c6e516b54ff30bda720a719) (ScriptedImporter) -> (artifact id: 'd6697aaf190d2845a5f37f4bb483d7cb') in 0.02365 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000030 seconds.
-  path: Assets/AssetBundles/Coconut Mall/Assets/T_Cnsw_14_Wall003_Alb.png
-  artifactKey: Guid(f1502e76f49be7d419aeae9a26e29573) Importer(2089858483,797179f86c6e516b54ff30bda720a719)
-Start importing Assets/AssetBundles/Coconut Mall/Assets/T_Cnsw_14_Wall003_Alb.png using Guid(f1502e76f49be7d419aeae9a26e29573) Importer(2089858483,797179f86c6e516b54ff30bda720a719) (ScriptedImporter) -> (artifact id: 'cb00d4d437123b121b3ebde8a83fadc2') in 0.0188969 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000122 seconds.
-  path: Assets/AssetBundles/Coconut Mall/Assets/Bake_Cnsw_14_g00_b01_f02.png
-  artifactKey: Guid(937a472f911946c4f982f59b8d170d79) Importer(2089858483,797179f86c6e516b54ff30bda720a719)
-Start importing Assets/AssetBundles/Coconut Mall/Assets/Bake_Cnsw_14_g00_b01_f02.png using Guid(937a472f911946c4f982f59b8d170d79) Importer(2089858483,797179f86c6e516b54ff30bda720a719) (ScriptedImporter) -> (artifact id: '985c35057561f65d091e22f38ef7eaf9') in 0.0175 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000021 seconds.
-  path: Assets/AssetBundles/Coconut Mall/Assets/Cnsw_14.mtl
-  artifactKey: Guid(fc471b4ad0836934491a92ae1ae50775) Importer(2089858483,797179f86c6e516b54ff30bda720a719)
-Start importing Assets/AssetBundles/Coconut Mall/Assets/Cnsw_14.mtl using Guid(fc471b4ad0836934491a92ae1ae50775) Importer(2089858483,797179f86c6e516b54ff30bda720a719) (ScriptedImporter) -> (artifact id: 'a8851609f02f83eccc7e2435d43cae48') in 0.0138941 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000023 seconds.
-  path: Assets/AssetBundles/Coconut Mall/Assets/T_Cnsw_14_Building_Alb.png
-  artifactKey: Guid(0a8f53055c8c9af43881eb10839ea16f) Importer(2089858483,797179f86c6e516b54ff30bda720a719)
-Start importing Assets/AssetBundles/Coconut Mall/Assets/T_Cnsw_14_Building_Alb.png using Guid(0a8f53055c8c9af43881eb10839ea16f) Importer(2089858483,797179f86c6e516b54ff30bda720a719) (ScriptedImporter) -> (artifact id: '9bd119d6c53f1b5d1a4f2f4403ba961f') in 0.0146126 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000137 seconds.
-  path: Assets/AssetBundles/Coconut Mall/Assets/PanelFlame_Nrm.png
-  artifactKey: Guid(c974fa6882fb47d46a77d446ab10e179) Importer(2089858483,797179f86c6e516b54ff30bda720a719)
-Start importing Assets/AssetBundles/Coconut Mall/Assets/PanelFlame_Nrm.png using Guid(c974fa6882fb47d46a77d446ab10e179) Importer(2089858483,797179f86c6e516b54ff30bda720a719) (ScriptedImporter) -> (artifact id: '45745abd60e20e682d14b1a4aafe1c51') in 0.0170532 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000019 seconds.
-  path: Assets/AssetBundles/Coconut Mall/Assets/T_Cnsw_14_Wall001_Alb.png
-  artifactKey: Guid(4239f0c7499f4a5488be3fa389722a19) Importer(2089858483,797179f86c6e516b54ff30bda720a719)
-Start importing Assets/AssetBundles/Coconut Mall/Assets/T_Cnsw_14_Wall001_Alb.png using Guid(4239f0c7499f4a5488be3fa389722a19) Importer(2089858483,797179f86c6e516b54ff30bda720a719) (ScriptedImporter) -> (artifact id: 'd03cabffa11d8afdef345ab4b0f030ee') in 0.0181328 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000020 seconds.
-  path: Assets/AssetBundles/Coconut Mall/Assets/T_Cnsw_14_Road_Floor3_Alb.png
-  artifactKey: Guid(30b612ee16181704488ebd493f4d348f) Importer(2089858483,797179f86c6e516b54ff30bda720a719)
-Start importing Assets/AssetBundles/Coconut Mall/Assets/T_Cnsw_14_Road_Floor3_Alb.png using Guid(30b612ee16181704488ebd493f4d348f) Importer(2089858483,797179f86c6e516b54ff30bda720a719) (ScriptedImporter) -> (artifact id: '8d8aa2ed9c4e18e4d1519f1381c0a052') in 0.0163054 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000028 seconds.
-  path: Assets/AssetBundles/Coconut Mall/Assets/T_Cnsw_14_LightBeam_Alb.png
-  artifactKey: Guid(68d530820e0df1f428faa088cc227cca) Importer(2089858483,797179f86c6e516b54ff30bda720a719)
-Start importing Assets/AssetBundles/Coconut Mall/Assets/T_Cnsw_14_LightBeam_Alb.png using Guid(68d530820e0df1f428faa088cc227cca) Importer(2089858483,797179f86c6e516b54ff30bda720a719) (ScriptedImporter) -> (artifact id: 'a83005e3111563d445055696d82f22e0') in 0.0171614 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000017 seconds.
-  path: Assets/AssetBundles/Coconut Mall/Assets/ef_glideboard_Nrm.png
-  artifactKey: Guid(3377a213e602cbf40bb9dfb634e06888) Importer(2089858483,797179f86c6e516b54ff30bda720a719)
-Start importing Assets/AssetBundles/Coconut Mall/Assets/ef_glideboard_Nrm.png using Guid(3377a213e602cbf40bb9dfb634e06888) Importer(2089858483,797179f86c6e516b54ff30bda720a719) (ScriptedImporter) -> (artifact id: 'df305cd7b4d9a38b68f04af7d9371664') in 0.0187167 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000019 seconds.
-  path: Assets/AssetBundles/Coconut Mall/Assets/T_Cnsw_14_Shop001_Alb.png
-  artifactKey: Guid(499a927a8f878a5488ad4b451a119645) Importer(2089858483,797179f86c6e516b54ff30bda720a719)
-Start importing Assets/AssetBundles/Coconut Mall/Assets/T_Cnsw_14_Shop001_Alb.png using Guid(499a927a8f878a5488ad4b451a119645) Importer(2089858483,797179f86c6e516b54ff30bda720a719) (ScriptedImporter) -> (artifact id: 'a281f4091d328e0084bd30885c910381') in 0.0372881 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000035 seconds.
-  path: Assets/AssetBundles/Coconut Mall/Assets/PanelFlame_Alb.png
-  artifactKey: Guid(f0e0aae95610c5340912a7da2f33d06d) Importer(2089858483,797179f86c6e516b54ff30bda720a719)
-Start importing Assets/AssetBundles/Coconut Mall/Assets/PanelFlame_Alb.png using Guid(f0e0aae95610c5340912a7da2f33d06d) Importer(2089858483,797179f86c6e516b54ff30bda720a719) (ScriptedImporter) -> (artifact id: '993bfdb54c105be4c237fab5562a6232') in 0.016796 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000022 seconds.
+  Time since last request: 810891.537454 seconds.
   path: Assets/AssetBundles/Coconut Mall/Assets/ef_glideboard02_Alb.png
   artifactKey: Guid(a64c739b133f22e42b103fc7657bcce9) Importer(2089858483,797179f86c6e516b54ff30bda720a719)
-Start importing Assets/AssetBundles/Coconut Mall/Assets/ef_glideboard02_Alb.png using Guid(a64c739b133f22e42b103fc7657bcce9) Importer(2089858483,797179f86c6e516b54ff30bda720a719) (ScriptedImporter) -> (artifact id: '684f24b1b51af00ce1e35ce2deddc925') in 0.0194527 seconds
+Start importing Assets/AssetBundles/Coconut Mall/Assets/ef_glideboard02_Alb.png using Guid(a64c739b133f22e42b103fc7657bcce9) Importer(2089858483,797179f86c6e516b54ff30bda720a719) (ScriptedImporter) -> (artifact id: '7bd3c7584f98632389277fee8203356c') in 0.1165327 seconds
 Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000022 seconds.
-  path: Assets/AssetBundles/Coconut Mall/Assets/T_Cnsw_14_Shop002_Alb.png
-  artifactKey: Guid(368923166e6882341b1e10442a31048a) Importer(2089858483,797179f86c6e516b54ff30bda720a719)
-Start importing Assets/AssetBundles/Coconut Mall/Assets/T_Cnsw_14_Shop002_Alb.png using Guid(368923166e6882341b1e10442a31048a) Importer(2089858483,797179f86c6e516b54ff30bda720a719) (ScriptedImporter) -> (artifact id: 'c4651f8c7edd8c273cadc85cdd371770') in 0.0196015 seconds
+  Time since last request: 0.000020 seconds.
+  path: Assets/AssetBundles/Coconut Mall/Assets/T_Cnsw_14_Road_Sand_Alb.png
+  artifactKey: Guid(3df744bbf059819478d5a329f2b7efa5) Importer(2089858483,797179f86c6e516b54ff30bda720a719)
+Start importing Assets/AssetBundles/Coconut Mall/Assets/T_Cnsw_14_Road_Sand_Alb.png using Guid(3df744bbf059819478d5a329f2b7efa5) Importer(2089858483,797179f86c6e516b54ff30bda720a719) (ScriptedImporter) -> (artifact id: '0686aa105d381e8848af2fc691d1644c') in 0.0210457 seconds
 Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000045 seconds.
-  path: Assets/AssetBundles/Coconut Mall/Assets/Bake_Cnsw_14_g00_b01_f01.png
-  artifactKey: Guid(e2d423c20947c97418d7b8a156cb54f0) Importer(2089858483,797179f86c6e516b54ff30bda720a719)
-Start importing Assets/AssetBundles/Coconut Mall/Assets/Bake_Cnsw_14_g00_b01_f01.png using Guid(e2d423c20947c97418d7b8a156cb54f0) Importer(2089858483,797179f86c6e516b54ff30bda720a719) (ScriptedImporter) -> (artifact id: '01c61602b93ce0409796fb33d65635ad') in 0.0228573 seconds
+  Time since last request: 0.000039 seconds.
+  path: Assets/AssetBundles/Coconut Mall/Assets/T_Cnsw_14_Detail_Bushes_Nrm.png
+  artifactKey: Guid(65614d16dde308547b6774a69d471d72) Importer(2089858483,797179f86c6e516b54ff30bda720a719)
+Start importing Assets/AssetBundles/Coconut Mall/Assets/T_Cnsw_14_Detail_Bushes_Nrm.png using Guid(65614d16dde308547b6774a69d471d72) Importer(2089858483,797179f86c6e516b54ff30bda720a719) (ScriptedImporter) -> (artifact id: 'bc22266d2541af5b07342ed3d86008bc') in 0.0213803 seconds
 Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000026 seconds.
-  path: Assets/AssetBundles/Coconut Mall/Assets/T_Cnsw_14_Road_01_Alb.png
-  artifactKey: Guid(a3715d9438bdf364eba206b646bf6cb8) Importer(2089858483,797179f86c6e516b54ff30bda720a719)
-Start importing Assets/AssetBundles/Coconut Mall/Assets/T_Cnsw_14_Road_01_Alb.png using Guid(a3715d9438bdf364eba206b646bf6cb8) Importer(2089858483,797179f86c6e516b54ff30bda720a719) (ScriptedImporter) -> (artifact id: '7ee674f4a01c5a6ebc42c0928e7d7922') in 0.0143446 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000025 seconds.
-  path: Assets/AssetBundles/Coconut Mall/Assets/T_Cnsw_14_Detail001_Spm.png
-  artifactKey: Guid(ed009ac9cff704c4f8eecf5cd91929ab) Importer(2089858483,797179f86c6e516b54ff30bda720a719)
-Start importing Assets/AssetBundles/Coconut Mall/Assets/T_Cnsw_14_Detail001_Spm.png using Guid(ed009ac9cff704c4f8eecf5cd91929ab) Importer(2089858483,797179f86c6e516b54ff30bda720a719) (ScriptedImporter) -> (artifact id: '00e081d60ba877efddc67a6e626ec4bd') in 0.0159648 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000044 seconds.
-  path: Assets/AssetBundles/Coconut Mall/Assets/T_Cnsw_14_Road_Wood_Spm.png
-  artifactKey: Guid(9143bb5a17b375149b267929ca28c236) Importer(2089858483,797179f86c6e516b54ff30bda720a719)
-Start importing Assets/AssetBundles/Coconut Mall/Assets/T_Cnsw_14_Road_Wood_Spm.png using Guid(9143bb5a17b375149b267929ca28c236) Importer(2089858483,797179f86c6e516b54ff30bda720a719) (ScriptedImporter) -> (artifact id: 'fe8d2e9bd1798df0a04b240ccf4e2a12') in 0.0172608 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000030 seconds.
-  path: Assets/AssetBundles/Coconut Mall/Assets/PanelFlame_Spm.png
-  artifactKey: Guid(eb7d7c7f979011b478e18e98d6c71a6e) Importer(2089858483,797179f86c6e516b54ff30bda720a719)
-Start importing Assets/AssetBundles/Coconut Mall/Assets/PanelFlame_Spm.png using Guid(eb7d7c7f979011b478e18e98d6c71a6e) Importer(2089858483,797179f86c6e516b54ff30bda720a719) (ScriptedImporter) -> (artifact id: '5ef7693b5a5f12bf88e6528e69f9dfef') in 0.0152763 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 1
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000027 seconds.
-  path: Assets/AssetBundles/Coconut Mall/Assets/Cnsw_14.dae
-  artifactKey: Guid(02d16dcf38ef9e54387eaa3eeb58ee6f) Importer(2089858483,797179f86c6e516b54ff30bda720a719)
-Start importing Assets/AssetBundles/Coconut Mall/Assets/Cnsw_14.dae using Guid(02d16dcf38ef9e54387eaa3eeb58ee6f) Importer(2089858483,797179f86c6e516b54ff30bda720a719) (ScriptedImporter) -> (artifact id: '89efd3eef375f8135118d79495e59a91') in 0.0998625 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 269
-
-========================================================================
-Received Import Request.
-  Time since last request: 33.961088 seconds.
-  path: Assets/AssetBundles/Coconut Mall/Assets/Bake_Cnsw_14_g00_b00_f03.png
-  artifactKey: Guid(acf3745f3bd18ab4a8a34831326a6f4e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/AssetBundles/Coconut Mall/Assets/Bake_Cnsw_14_g00_b00_f03.png using Guid(acf3745f3bd18ab4a8a34831326a6f4e) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '59dad3e8e325620ec3d1fb8c22f0bccd') in 0.0983819 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 2
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000025 seconds.
-  path: Assets/AssetBundles/Coconut Mall/Assets/T_Cnsw_14_Road_01_Alb.png
-  artifactKey: Guid(a3715d9438bdf364eba206b646bf6cb8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/AssetBundles/Coconut Mall/Assets/T_Cnsw_14_Road_01_Alb.png using Guid(a3715d9438bdf364eba206b646bf6cb8) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: 'fc6b5b3a8f76c86447468fc19bb273f5') in 0.0215882 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 2
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000033 seconds.
-  path: Assets/AssetBundles/Coconut Mall/Assets/Cnsw_14.obj
-  artifactKey: Guid(a310dc87ba0e3a14f8365ede6f7717ec) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/AssetBundles/Coconut Mall/Assets/Cnsw_14.obj using Guid(a310dc87ba0e3a14f8365ede6f7717ec) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '977e58ebeaed2c1507f24cf5a5420839') in 1.3748252 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 77
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000059 seconds.
-  path: Assets/AssetBundles/Coconut Mall/Assets/T_Cnsw_14_Shop002_Alb.png
-  artifactKey: Guid(368923166e6882341b1e10442a31048a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/AssetBundles/Coconut Mall/Assets/T_Cnsw_14_Shop002_Alb.png using Guid(368923166e6882341b1e10442a31048a) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: 'db2a94bfd81c77992994ef7186bc8d21') in 0.0180624 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 2
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000048 seconds.
-  path: Assets/AssetBundles/Coconut Mall/Assets/Cnsw_14.fbx
-  artifactKey: Guid(c57aa460623c88d42a3abdb4a0bf9e32) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/AssetBundles/Coconut Mall/Assets/Cnsw_14.fbx using Guid(c57aa460623c88d42a3abdb4a0bf9e32) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '1d3260634f140fd9689f98d8e77de4d0') in 0.7118904 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 301
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000036 seconds.
-  path: Assets/AssetBundles/Coconut Mall/Assets/Bake_Cnsw_14_g00_b01_f01.png
-  artifactKey: Guid(e2d423c20947c97418d7b8a156cb54f0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/AssetBundles/Coconut Mall/Assets/Bake_Cnsw_14_g00_b01_f01.png using Guid(e2d423c20947c97418d7b8a156cb54f0) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '30b34157b3cf597758a7acb7152844bd') in 0.021566 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 2
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000060 seconds.
-  path: Assets/AssetBundles/Coconut Mall/Assets/T_Cnsw_14_Illumination_Alb.png
-  artifactKey: Guid(0a3792c07e0e25d44874c5ad46c45136) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/AssetBundles/Coconut Mall/Assets/T_Cnsw_14_Illumination_Alb.png using Guid(0a3792c07e0e25d44874c5ad46c45136) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '42931764c810476c2bd66dee772ed147') in 0.0177386 seconds
-Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 2
 
 Editor requested this worker to shutdown with reason: Scaling down because of idle timeout
 AssetImportWorker is now disconnected from the server
