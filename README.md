@@ -54,7 +54,7 @@ Once thats ready open the project after adding it to your Unity Hub and let it i
    - Throw Item Back (Left Ctrl)
  * Modding functionality
    - UGC Maps
-   > Clone the repo, Create your map, add the scene to an asset bundle like "course_testmap" and then at the top "Mod Tools" -> Build All
+   > See: [how to create a custom map here](https://github.com/Lyraedan/Oddly-Familiar-Kart-Racing-Game/wiki/Creating-a-Custom-Course.)
 
 ## My plans
  * Refactor the code base because holy moly my eyeballs
