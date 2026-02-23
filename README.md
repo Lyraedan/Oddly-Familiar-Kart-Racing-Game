@@ -16,6 +16,9 @@ Inspired by Mario Kart 8
 
 Yes the logo is a temp ai generated image, I can barely draw a stickman lol
 
+## Wiki
+See: [how to create a custom map here](https://github.com/Lyraedan/Oddly-Familiar-Kart-Racing-Game/wiki/Creating-a-Custom-Course.)
+
 ## Setup
 This project has been upgraded to use Unity 6.
 More specifically version 6000.3.9f1
