@@ -2442,9 +2442,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8126157558301381729, guid: c4ea66fddc7bf8f4e91c46d546935f76,
         type: 3}
+      propertyPath: controls
+      value: 
+      objectReference: {fileID: -944628639613478452, guid: 9f7ebc09e64be8b44afa237fcb15ce11,
+        type: 3}
+    - target: {fileID: 8126157558301381729, guid: c4ea66fddc7bf8f4e91c46d546935f76,
+        type: 3}
+      propertyPath: mainMenu
+      value: 
+      objectReference: {fileID: 1347576413}
+    - target: {fileID: 8126157558301381729, guid: c4ea66fddc7bf8f4e91c46d546935f76,
+        type: 3}
       propertyPath: RefreshButton
       value: 
       objectReference: {fileID: 1288726167}
+    - target: {fileID: 8126157558301381729, guid: c4ea66fddc7bf8f4e91c46d546935f76,
+        type: 3}
+      propertyPath: selectedColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8126157558301381729, guid: c4ea66fddc7bf8f4e91c46d546935f76,
+        type: 3}
+      propertyPath: selectedColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8126157558301381729, guid: c4ea66fddc7bf8f4e91c46d546935f76,
+        type: 3}
+      propertyPath: selectedColor.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8126157558301381729, guid: c4ea66fddc7bf8f4e91c46d546935f76,
         type: 3}
       propertyPath: ugcLoadProgress
@@ -3680,6 +3706,15 @@ MonoBehaviour:
   buttonSelectSound: {fileID: 1001797838}
   menuToSub: {fileID: 619761566}
   subToMenu: {fileID: 1136561704}
+  normalColor: {r: 1, g: 1, b: 1, a: 1}
+  selectedColor: {r: 1, g: 1, b: 0, a: 1}
+  controls: {fileID: -944628639613478452, guid: 9f7ebc09e64be8b44afa237fcb15ce11,
+    type: 3}
+  menuButtons:
+  - {fileID: 1684987430}
+  - {fileID: 1444081907}
+  - {fileID: 1369389433}
+  - {fileID: 1070704762}
 --- !u!1 &1369389431
 GameObject:
   m_ObjectHideFlags: 0

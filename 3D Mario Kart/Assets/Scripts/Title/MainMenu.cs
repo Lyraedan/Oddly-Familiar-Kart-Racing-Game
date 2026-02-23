@@ -1,8 +1,22 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
+    public enum MenuState
+    {
+        None,
+        Main,
+        Singleplayer,
+        Multiplayer,
+        Settings
+    }
+
     [Header("UI References")]
     public RectTransform logoPanel;
     public RectTransform leftPanel;
@@ -28,19 +42,52 @@ public class MainMenu : MonoBehaviour
     public AudioCrossfade menuToSub;
     public AudioCrossfade subToMenu;
 
-    bool canStart = false;
-    bool isMenuOpen = false;
-    bool isSubmenuOpen = false;
-    bool isAnimating = false;
+    [Header("Input")]
+    public InputActionAsset controls;
+
+    [Header("Menu Buttons (Main Menu Only)")]
+    public List<Button> menuButtons = new List<Button>();
+
+    private int currentIndex = 0;
+
+    private InputActionMap inputMap;
+
+    private InputAction startAction;
+    private InputAction selectAction;
+    private InputAction returnAction;
+    private InputAction menuUpAction;
+    private InputAction menuDownAction;
+
+    public MenuState CurrentMenu { get; private set; } = MenuState.None;
+
+    private bool canStart = false;
+    private bool isAnimating = false;
+
+    private void Awake()
+    {
+        inputMap = controls.FindActionMap("Menu", true);
+
+        startAction = inputMap.FindAction("Start", true);
+        selectAction = inputMap.FindAction("Select", true);
+        returnAction = inputMap.FindAction("Return", true);
+        menuUpAction = inputMap.FindAction("MenuUp", true);
+        menuDownAction = inputMap.FindAction("MenuDown", true);
+
+        startAction.performed += OnStartPressed;
+        selectAction.performed += OnSelectPressed;
+        returnAction.performed += OnReturnPressed;
+        menuUpAction.performed += OnMenuUp;
+        menuDownAction.performed += OnMenuDown;
+
+        inputMap.Enable();
+    }
 
     void Start()
     {
-        // Initial state → Logo shown, menus hidden
         logoPanel.anchoredPosition = new Vector2(0f, 0f);
         leftPanel.anchoredPosition = new Vector2(0f, 1080f);
         rightPanel.anchoredPosition = new Vector2(0f, -1080f);
 
-        // Start faded out
         if (menuButtonsCanvasGroup != null)
         {
             menuButtonsCanvasGroup.alpha = 0f;
@@ -56,23 +103,20 @@ public class MainMenu : MonoBehaviour
         }
 
         StartCoroutine(WaitToStart());
+
+        if (menuButtons.Count > 0)
+        {
+            currentIndex = 0;
+            UpdateSelection();
+        }
     }
 
-    void Update()
+    private void UpdateSelection()
     {
-        if (!canStart || isAnimating)
+        if (menuButtons.Count == 0)
             return;
 
-        if (!isMenuOpen && Input.GetKeyDown(KeyCode.Space) && !isSubmenuOpen)
-            StartCoroutine(ToggleMenu(true));
-
-        if (isMenuOpen && Input.GetKeyDown(KeyCode.Escape) && !isSubmenuOpen)
-            StartCoroutine(ToggleMenu(false));
-
-        if (isSubmenuOpen && Input.GetKeyDown(KeyCode.Escape))
-        {
-            OnClick_ReturnFromSingleplayer();
-        }
+        EventSystem.current.SetSelectedGameObject(menuButtons[currentIndex].gameObject);
     }
 
     IEnumerator WaitToStart()
@@ -86,34 +130,26 @@ public class MainMenu : MonoBehaviour
     IEnumerator ToggleMenu(bool open)
     {
         isAnimating = true;
-        isMenuOpen = open;
+        CurrentMenu = open ? MenuState.Main : MenuState.None;
 
-        Vector2 logoTarget = open
-            ? new Vector2(-730f, 0f)
-            : new Vector2(0f, 0f);
-
-        Vector2 leftTarget = open
-            ? new Vector2(0f, 0f)
-            : new Vector2(0f, 1080f);
-
-        Vector2 rightTarget = open
-            ? new Vector2(0f, 0f)
-            : new Vector2(0f, -1080f);
+        Vector2 logoTarget = open ? new Vector2(-730f, 0f) : new Vector2(0f, 0f);
+        Vector2 leftTarget = open ? new Vector2(0f, 0f) : new Vector2(0f, 1080f);
+        Vector2 rightTarget = open ? new Vector2(0f, 0f) : new Vector2(0f, -1080f);
 
         if (open)
         {
             startGameSound.Play();
 
-            // Slide in first
+            // Start all animations at once
             Coroutine c1 = StartCoroutine(MoveUI(logoPanel, logoTarget, logoMoveTime));
             Coroutine c2 = StartCoroutine(MoveUI(leftPanel, leftTarget, sideMoveTime));
             Coroutine c3 = StartCoroutine(MoveUI(rightPanel, rightTarget, sideMoveTime));
 
+            // Wait for all to finish
             yield return c1;
-            yield return c2; // Wait for left panel to reach 0
+            yield return c2;
             yield return c3;
 
-            // Then fade in
             if (menuButtonsCanvasGroup != null)
                 yield return StartCoroutine(FadeCanvas(menuButtonsCanvasGroup, 1f, fadeTime, true));
         }
@@ -121,11 +157,10 @@ public class MainMenu : MonoBehaviour
         {
             returnSound.Play();
 
-            // Fade out first
             if (menuButtonsCanvasGroup != null)
                 yield return StartCoroutine(FadeCanvas(menuButtonsCanvasGroup, 0f, fadeTime, false));
 
-            // Then slide out
+            // Start all animations at once
             Coroutine c1 = StartCoroutine(MoveUI(logoPanel, logoTarget, logoMoveTime));
             Coroutine c2 = StartCoroutine(MoveUI(leftPanel, leftTarget, sideMoveTime));
             Coroutine c3 = StartCoroutine(MoveUI(rightPanel, rightTarget, sideMoveTime));
@@ -173,11 +208,9 @@ public class MainMenu : MonoBehaviour
 
     IEnumerator SwitchMenu(CanvasGroup from, CanvasGroup to)
     {
-        // Fade out current menu
         if (from != null)
             yield return StartCoroutine(FadeCanvas(from, 0f, fadeTime, false));
 
-        // Fade in new menu
         if (to != null)
             yield return StartCoroutine(FadeCanvas(to, 1f, fadeTime, true));
     }
@@ -187,18 +220,20 @@ public class MainMenu : MonoBehaviour
         buttonSelectSound.Play();
         StartCoroutine(SwitchMenu(menuButtonsCanvasGroup, singleplayerCanvasGroup));
         menuToSub.StartCrossfade();
-        isSubmenuOpen = true;
+        CurrentMenu = MenuState.Singleplayer;
     }
 
     public void OnClick_Multiplayer()
     {
         buttonSelectSound.Play();
+        CurrentMenu = MenuState.Multiplayer;
         Debug.Log("Multiplayer button clicked!");
     }
 
     public void OnClick_Settings()
     {
         buttonSelectSound.Play();
+        CurrentMenu = MenuState.Settings;
         Debug.Log("Settings button clicked!");
     }
 
@@ -211,10 +246,81 @@ public class MainMenu : MonoBehaviour
     public void OnClick_ReturnFromSingleplayer()
     {
         returnSound.Play();
-        Debug.Log("Returning from Singleplayer menu");
-
         StartCoroutine(SwitchMenu(singleplayerCanvasGroup, menuButtonsCanvasGroup));
         subToMenu.StartCrossfade();
-        isSubmenuOpen = false;
+        CurrentMenu = MenuState.Main;
+    }
+
+    private void OnStartPressed(InputAction.CallbackContext context)
+    {
+        if (!canStart || isAnimating)
+            return;
+
+        if (CurrentMenu == MenuState.None)
+            StartCoroutine(ToggleMenu(true));
+    }
+
+    private void OnReturnPressed(InputAction.CallbackContext context)
+    {
+        if (!canStart || isAnimating)
+            return;
+
+        switch (CurrentMenu)
+        {
+            case MenuState.Singleplayer:
+                OnClick_ReturnFromSingleplayer();
+                break;
+
+            case MenuState.Main:
+                StartCoroutine(ToggleMenu(false));
+                break;
+        }
+    }
+
+    private void OnMenuUp(InputAction.CallbackContext context)
+    {
+        if (CurrentMenu != MenuState.Main || isAnimating)
+            return;
+
+        if (menuButtons.Count == 0)
+            return;
+
+        currentIndex--;
+        if (currentIndex < 0)
+            currentIndex = menuButtons.Count - 1;
+
+        UpdateSelection();
+    }
+
+    private void OnMenuDown(InputAction.CallbackContext context)
+    {
+        if (CurrentMenu != MenuState.Main || isAnimating)
+            return;
+
+        if (menuButtons.Count == 0)
+            return;
+
+        currentIndex++;
+        if (currentIndex >= menuButtons.Count)
+            currentIndex = 0;
+
+        UpdateSelection();
+    }
+
+    private void OnSelectPressed(InputAction.CallbackContext context)
+    {
+        if (isAnimating)
+            return;
+
+        if (CurrentMenu != MenuState.Main)
+            return;
+
+        if (menuButtons.Count == 0)
+            return;
+
+        Button button = menuButtons[currentIndex];
+
+        if (button != null && button.interactable)
+            button.onClick.Invoke();
     }
 }

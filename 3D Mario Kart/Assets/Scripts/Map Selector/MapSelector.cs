@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class MapSelector : MonoBehaviour
@@ -13,12 +15,42 @@ public class MapSelector : MonoBehaviour
     public Button RefreshButton;
     public TextMeshProUGUI ugcLoadProgress;
 
+    public MainMenu mainMenu;
+
+    public List<MapSelectorOption> Default_Maps = new();
+
     public List<GameObject> UGC_Maps = new();
+
+    private List<MapSelectorOption> AllMaps
+    {
+        get
+        {
+            List<MapSelectorOption> combined = new List<MapSelectorOption>();
+            combined.AddRange(Default_Maps);
+            foreach (var go in UGC_Maps)
+            {
+                var opt = go.GetComponent<MapSelectorOption>();
+                if (opt != null)
+                    combined.Add(opt);
+            }
+            return combined;
+        }
+    }
 
     private string currentLoadingUGC = string.Empty;
     private int currentLoadingPercent = 0;
 
     public bool UGCRefreshing { get; private set; } = false;
+
+    [Header("Input")]
+    public InputActionAsset controls;
+
+    private InputActionMap inputMap;
+    private InputAction menuUpAction;
+    private InputAction menuDownAction;
+    private InputAction selectAction;
+
+    private int currentIndex = 0;
 
     private void Awake()
     {
@@ -50,6 +82,18 @@ public class MapSelector : MonoBehaviour
             currentLoadingPercent = Mathf.RoundToInt(percent);
             ugcLoadProgress.text = "Loading " + currentLoadingUGC + "... " + currentLoadingPercent + "%";
         };
+
+        inputMap = controls.FindActionMap("Menu", true);
+
+        menuUpAction = inputMap.FindAction("MenuUp", true);
+        menuDownAction = inputMap.FindAction("MenuDown", true);
+        selectAction = inputMap.FindAction("Select", true);
+
+        menuUpAction.performed += OnMenuUp;
+        menuDownAction.performed += OnMenuDown;
+        selectAction.performed += OnSelect;
+
+        inputMap.Enable();
     }
 
     private void Start()
@@ -95,17 +139,16 @@ public class MapSelector : MonoBehaviour
     void PopulateUGCOptions()
     {
         ClearUGCOptions();
-
         for (int bundleIndex = 0; bundleIndex < UGC.CourseBundles.Count; bundleIndex++)
         {
             var bundle = UGC.CourseBundles[bundleIndex];
-
-            // Only populate from .scene bundles
-            if (bundle.SceneBundle == null || bundle.Scenes.Count == 0)
-                continue;
+            if (bundle.SceneBundle == null || bundle.Scenes.Count == 0) continue;
 
             GenerateFromBundle(bundle, bundleIndex);
         }
+
+        currentIndex = 0;
+        UpdateSelection();
 
         RefreshButton.interactable = true;
     }
@@ -151,5 +194,59 @@ public class MapSelector : MonoBehaviour
         optionScript.MapNameText.text = mapName;
 
         UGC_Maps.Add(option);
+    }
+
+    private void UpdateSelection()
+    {
+        var maps = AllMaps;
+        if (maps.Count == 0 || currentIndex < 0 || currentIndex >= maps.Count)
+            return;
+
+        var selected = maps[currentIndex];
+        if (selected != null && selected.PlayButton != null)
+            EventSystem.current.SetSelectedGameObject(selected.PlayButton.gameObject);
+    }
+
+    private void OnMenuUp(InputAction.CallbackContext context)
+    {
+        if (!mainMenu.CurrentMenu.Equals(MainMenu.MenuState.Singleplayer))
+            return;
+
+        var maps = AllMaps;
+        if (maps.Count == 0) return;
+
+        currentIndex--;
+        if (currentIndex < 0)
+            currentIndex = maps.Count - 1;
+
+        UpdateSelection();
+    }
+
+    private void OnMenuDown(InputAction.CallbackContext context)
+    {
+        if (!mainMenu.CurrentMenu.Equals(MainMenu.MenuState.Singleplayer))
+            return;
+
+        var maps = AllMaps;
+        if (maps.Count == 0) return;
+
+        currentIndex++;
+        if (currentIndex >= maps.Count)
+            currentIndex = 0;
+
+        UpdateSelection();
+    }
+
+    private void OnSelect(InputAction.CallbackContext context)
+    {
+        if (!mainMenu.CurrentMenu.Equals(MainMenu.MenuState.Singleplayer))
+            return;
+        
+        var maps = AllMaps;
+        if (maps.Count == 0) return;
+
+        var selected = maps[currentIndex];
+        if (selected != null && selected.PlayButton != null && selected.PlayButton.interactable)
+            selected.OnClick_Play();
     }
 }
