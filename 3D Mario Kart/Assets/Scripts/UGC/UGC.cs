@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -50,23 +51,36 @@ public class UGC : MonoBehaviour
     public struct CourseBundle
     {
         public string Name;
-        public string FilePath;
-        public AssetBundle Bundle;
+        public string SceneFilePath;
+        public string AssetFilePath;
+
+        public AssetBundle SceneBundle;
+        public AssetBundle AssetBundle;
+
         public List<string> Scenes;
 
-        public CourseBundle(string filePath, AssetBundle bundle)
+        public CourseBundle(
+            string name,
+            string sceneFilePath,
+            string assetFilePath,
+            AssetBundle sceneBundle,
+            AssetBundle assetBundle)
         {
-            FilePath = filePath;
-            Bundle = bundle;
-            Name = Path.GetFileName(filePath);
+            Name = name;
+            SceneFilePath = sceneFilePath;
+            AssetFilePath = assetFilePath;
+
+            SceneBundle = sceneBundle;
+            AssetBundle = assetBundle;
 
             Scenes = new List<string>();
 
-            var scenePaths = bundle.GetAllScenePaths();
-
-            foreach (var path in scenePaths)
+            if (sceneBundle != null)
             {
-                Scenes.Add(Path.GetFileNameWithoutExtension(path));
+                var scenePaths = sceneBundle.GetAllScenePaths();
+
+                foreach (var path in scenePaths)
+                    Scenes.Add(Path.GetFileNameWithoutExtension(path));
             }
         }
     }
@@ -80,9 +94,9 @@ public class UGC : MonoBehaviour
 
     public static class CourseLoader
     {
-        public static void LoadSceneFromBundle(AssetBundle bundle, string sceneName)
+        public static void LoadSceneFromBundle(CourseBundle course, string sceneName)
         {
-            var scenePaths = bundle.GetAllScenePaths();
+            var scenePaths = course.SceneBundle.GetAllScenePaths();
 
             foreach (var path in scenePaths)
             {
@@ -95,7 +109,7 @@ public class UGC : MonoBehaviour
                 }
             }
 
-            Debug.LogError($"Scene '{sceneName}' not found in bundle '{bundle.name}'");
+            Debug.LogError($"Scene '{sceneName}' not found in course '{course.Name}'");
         }
     }
 
@@ -173,109 +187,86 @@ public class UGC : MonoBehaviour
             yield break;
         }
 
-        string[] files = Directory.GetFiles(path);
+        var files = Directory.GetFiles(path)
+            .Where(f => !f.EndsWith(".manifest") && !f.EndsWith(".meta"))
+            .ToList();
 
-        // Filter valid bundle files first
-        List<string> validFiles = new List<string>();
-        foreach (string file in files)
+        // Group by base course name
+        Dictionary<string, (string sceneFile, string assetFile)> grouped =
+            new Dictionary<string, (string, string)>();
+
+        foreach (var file in files)
         {
-            if (file.EndsWith(".manifest") || file.EndsWith(".meta") || Directory.Exists(file))
-                continue;
+            string filename = Path.GetFileName(file);
 
-            validFiles.Add(file);
+            if (filename.EndsWith(".scene.bundle"))
+            {
+                string baseName = filename.Replace(".scene.bundle", "");
+                grouped.TryAdd(baseName, (null, null));
+                grouped[baseName] = (file, grouped[baseName].assetFile);
+            }
+            else if (filename.EndsWith(".assets.bundle"))
+            {
+                string baseName = filename.Replace(".assets.bundle", "");
+                grouped.TryAdd(baseName, (null, null));
+                grouped[baseName] = (grouped[baseName].sceneFile, file);
+            }
         }
 
-        int totalFiles = validFiles.Count;
-        int loadedFiles = 0;
+        int total = grouped.Count;
+        int loaded = 0;
 
-        foreach (string file in validFiles)
+        foreach (var pair in grouped)
         {
-            string bundleName = Path.GetFileName(file);
+            string courseName = pair.Key;
+            string sceneFile = pair.Value.sceneFile;
+            string assetFile = pair.Value.assetFile;
 
-            // Prevent duplicate load
-            AssetBundle existingBundle = null;
-            foreach (var loaded in AssetBundle.GetAllLoadedAssetBundles())
+            AssetBundle sceneBundle = null;
+            AssetBundle assetBundle = null;
+
+            if (!string.IsNullOrEmpty(sceneFile))
             {
-                if (loaded.name == bundleName)
-                {
-                    existingBundle = loaded;
-                    break;
-                }
+                Debug.Log("Loading scene bundle for course: " + courseName);
+                var sceneRequest = AssetBundle.LoadFromFileAsync(sceneFile);
+                yield return sceneRequest;
+                sceneBundle = sceneRequest.assetBundle;
             }
 
-            CourseBundle courseBundle;
-
-            if (existingBundle != null)
+            if (!string.IsNullOrEmpty(assetFile))
             {
-                courseBundle = new CourseBundle(file, existingBundle);
-                if (courseBundle.Scenes.Count > 0)
-                    CourseBundles.Add(courseBundle);
+                Debug.Log("Loading assets bundle for course: " + courseName);
+                var assetRequest = AssetBundle.LoadFromFileAsync(assetFile);
+                yield return assetRequest;
+                assetBundle = assetRequest.assetBundle;
+            }
 
-                loadedFiles++;
-                OnCourseBundleLoaded?.Invoke(courseBundle);
-
-                int progressPercentReuse = Mathf.RoundToInt((loadedFiles / (float)totalFiles) * 100f);
-                OnCourseLoadProgress?.Invoke(progressPercentReuse);
-
+            if (sceneBundle == null)
+            {
+                Debug.LogWarning($"Course '{courseName}' has no scene bundle. Skipping.");
                 continue;
             }
 
-            Debug.Log($"Loading course bundle: {bundleName}");
-
-            var request = AssetBundle.LoadFromFileAsync(file);
-
-            float lastLoggedProgress = -1f;
-
-            while (!request.isDone)
-            {
-                float fileProgress = request.progress;
-                float totalProgress = ((loadedFiles + fileProgress) / totalFiles) * 100f;
-
-                // Only log every 5% change to prevent spam
-                if (Mathf.Abs(totalProgress - lastLoggedProgress) >= 5f)
-                {
-                    lastLoggedProgress = totalProgress;
-                    Debug.Log($"Course loading progress: {totalProgress:F1}%");
-                }
-
-                int totalPercent = Mathf.RoundToInt(((loadedFiles + fileProgress) / totalFiles) * 100f);
-                OnCourseLoadProgress?.Invoke(totalPercent);
-
-                yield return null;
-            }
-
-            AssetBundle bundle = request.assetBundle;
-
-            loadedFiles++;
-
-            if (bundle == null)
-            {
-                Debug.LogError($"Failed to load course bundle: {bundleName}");
-                continue;
-            }
-
-            courseBundle = new CourseBundle(file, bundle);
-
-            if (courseBundle.Scenes.Count == 0)
-            {
-                Debug.LogWarning($"Bundle contains no scenes: {bundleName}");
-                bundle.Unload(false);
-                continue;
-            }
+            var courseBundle = new CourseBundle(
+                courseName,
+                sceneFile,
+                assetFile,
+                sceneBundle,
+                assetBundle
+            );
 
             CourseBundles.Add(courseBundle);
 
-            // Invoke the event with the finished bundle
+            loaded++;
+            int percent = Mathf.RoundToInt((loaded / (float)total) * 100f);
+            OnCourseLoadProgress?.Invoke(percent);
             OnCourseBundleLoaded?.Invoke(courseBundle);
 
-            int progressPercent = Mathf.RoundToInt((loadedFiles / (float)totalFiles) * 100f);
-            OnCourseLoadProgress?.Invoke(progressPercent);
-
-            Debug.Log($"Loaded course bundle: {courseBundle.Name} ({courseBundle.Scenes.Count} scenes)");
+            Debug.Log($"Loaded course: {courseName}");
         }
 
+        OnCourseLoadProgress?.Invoke(100);
         Debug.Log($"Total courses loaded: {CourseBundles.Count}");
-        OnCourseLoadProgress?.Invoke(100); // Ensure 100% at the end
     }
 
     public void ReloadAllAsync()
@@ -308,7 +299,13 @@ public class UGC : MonoBehaviour
     private IEnumerator ReloadCoursesCoroutine()
     {
         foreach (var courseBundle in CourseBundles)
-            courseBundle.Bundle.Unload(true);
+        {
+            if (courseBundle.SceneBundle != null)
+                courseBundle.SceneBundle.Unload(true);
+
+            if (courseBundle.AssetBundle != null)
+                courseBundle.AssetBundle.Unload(true);
+        }
 
         CourseBundles.Clear();
 
