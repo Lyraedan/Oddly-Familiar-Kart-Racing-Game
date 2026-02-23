@@ -42,8 +42,13 @@ public class UGC : MonoBehaviour
     public static Action OnReloadedCharacters;
     public static Action OnReloadedKarts;
 
+    // Course loading events
+    public static Action OnCourseLoadFinished;
+    public static Action<string> OnLoadingCourseStarted;
+    public static Action<int> OnCurrentLoadingProgress;
     public static Action<CourseBundle> OnCourseBundleLoaded;
     public static Action<int> OnCourseLoadProgress;
+
     public static Action<string> OnFailedToLoadCourse;
 
     public List<string> FailedBundles = new();
@@ -225,20 +230,55 @@ public class UGC : MonoBehaviour
             AssetBundle sceneBundle = null;
             AssetBundle assetBundle = null;
 
+            OnLoadingCourseStarted?.Invoke(courseName.Substring("course_".Length));
+
+            // ---- Load scene bundle ----
             if (!string.IsNullOrEmpty(sceneFile))
             {
-                Debug.Log("Loading scene bundle for course: " + courseName);
-                var sceneRequest = AssetBundle.LoadFromFileAsync(sceneFile);
-                yield return sceneRequest;
-                sceneBundle = sceneRequest.assetBundle;
+                sceneBundle = AssetBundle.GetAllLoadedAssetBundles()
+                    .FirstOrDefault(b => b != null && b.name == Path.GetFileNameWithoutExtension(sceneFile));
+
+                if (sceneBundle != null)
+                {
+                    Debug.Log($"Using already loaded scene bundle for course: {courseName}");
+                    OnCurrentLoadingProgress?.Invoke(100); // already loaded
+                }
+                else
+                {
+                    Debug.Log("Loading scene bundle for course: " + courseName);
+                    var sceneRequest = AssetBundle.LoadFromFileAsync(sceneFile);
+                    while (!sceneRequest.isDone)
+                    {
+                        OnCurrentLoadingProgress?.Invoke(Mathf.RoundToInt(sceneRequest.progress * 50f)); // scene is first 50%
+                        yield return null;
+                    }
+                    sceneBundle = sceneRequest.assetBundle;
+                }
             }
 
+            // ---- Load assets bundle ----
             if (!string.IsNullOrEmpty(assetFile))
             {
-                Debug.Log("Loading assets bundle for course: " + courseName);
-                var assetRequest = AssetBundle.LoadFromFileAsync(assetFile);
-                yield return assetRequest;
-                assetBundle = assetRequest.assetBundle;
+                assetBundle = AssetBundle.GetAllLoadedAssetBundles()
+                    .FirstOrDefault(b => b != null && b.name == Path.GetFileNameWithoutExtension(assetFile));
+
+                if (assetBundle != null)
+                {
+                    Debug.Log($"Using already loaded assets bundle for course: {courseName}");
+                    OnCurrentLoadingProgress?.Invoke(100); // already loaded
+                }
+                else
+                {
+                    Debug.Log("Loading assets bundle for course: " + courseName);
+                    var assetRequest = AssetBundle.LoadFromFileAsync(assetFile);
+                    while (!assetRequest.isDone)
+                    {
+                        // assets are second 50% of progress
+                        OnCurrentLoadingProgress?.Invoke(50 + Mathf.RoundToInt(assetRequest.progress * 50f));
+                        yield return null;
+                    }
+                    assetBundle = assetRequest.assetBundle;
+                }
             }
 
             if (sceneBundle == null)
@@ -266,6 +306,7 @@ public class UGC : MonoBehaviour
         }
 
         OnCourseLoadProgress?.Invoke(100);
+        OnCourseLoadFinished?.Invoke();
         Debug.Log($"Total courses loaded: {CourseBundles.Count}");
     }
 
