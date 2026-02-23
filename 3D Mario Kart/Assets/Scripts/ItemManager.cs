@@ -12,13 +12,13 @@ public class ItemManager : MonoBehaviour
     private Player player_script;
     private PlayerSounds playersounds;
     bool start_select = false;
-    public GameObject ItemUI;
+    public GameObject ItemUI => IngameUIHolder.Instance.ItemSystem;
     public AudioSource PlaySelectsound;
     public AudioSource Selected;
 
     public Sprite[] items_possible;
     public GameObject[] item_gameobjects;
-    public Image your_item;
+    public Image your_item => IngameUIHolder.Instance.YourItem;
 
     [Header("ITEMS")]
     public GameObject shell;

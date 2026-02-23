@@ -91,6 +91,7 @@
     <Compile Include="Assets\SampleScenes\Scripts\LevelReset.cs" />
     <Compile Include="Assets\Scripts\TireTest.cs" />
     <Compile Include="Assets\Scripts\Camera\MirrorMainCamera.cs" />
+    <Compile Include="Assets\Scripts\UI\IngameUIHolder.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\General\RandomRotation.cs" />
     <Compile Include="Assets\Scripts\Path\DriverPath.cs" />

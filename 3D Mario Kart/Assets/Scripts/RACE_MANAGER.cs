@@ -15,17 +15,17 @@ public class RACE_MANAGER : MonoBehaviour
     public AudioSource musicFast;
     bool lastLap;
 
-    public GameObject CountDownTimer;
-    public GameObject CoinCounter;
-    public GameObject LapCounter;
-    public GameObject MiniMap;
-    public GameObject PositionCounter;
-    public GameObject CourseNameUI;
+    public GameObject CountDownTimer => IngameUIHolder.Instance.CountDownTimer;
+    public GameObject CoinCounter => IngameUIHolder.Instance.CoinCounter;
+    public GameObject LapCounter => IngameUIHolder.Instance.LapCounter;
+    public GameObject MiniMap => IngameUIHolder.Instance.MiniMap;
+    public GameObject PositionCounter => IngameUIHolder.Instance.PositionCounter;
+    public GameObject CourseNameUI => IngameUIHolder.Instance.CourseNameUI;
 
     private float RaceTime = 0;
 
 
-    public List<LapCounter> lapCounters = new List<LapCounter>();
+    public List<LapCounter> lapCounters => IngameUIHolder.Instance.LapCounters;
     public List<LapCounter> sortedRacers = new List<LapCounter>();
 
 
@@ -38,23 +38,22 @@ public class RACE_MANAGER : MonoBehaviour
     private int lastPos;
 
     public GameObject spectatorSounds;
-    public GameObject itemSystem;
-    public ResultsUI resultsUI;
-    public GameObject finishUI;
+    public GameObject itemSystem => IngameUIHolder.Instance.ItemSystem;
+    public ResultsUI resultsUI => IngameUIHolder.Instance.ResultsUI;
+    public GameObject finishUI => IngameUIHolder.Instance.FinishUI;
 
-    public GameObject RedShellWarning;
-    public GameObject BlueShellWarning;
-    public GameObject StarWarning;
-    public GameObject BulletWarning;
+    public GameObject RedShellWarning => IngameUIHolder.Instance.RedShellWarning;
+    public GameObject BlueShellWarning => IngameUIHolder.Instance.BlueShellWarning;
+    public GameObject StarWarning => IngameUIHolder.Instance.StarWarning;
+    public GameObject BulletWarning => IngameUIHolder.Instance.BulletWarning;
 
     private Transform player;
-    public Transform Canvas;
+    public Transform Canvas => IngameUIHolder.Instance.Canvas.transform;
 
     [Header("Sets to disable when doing the Scene Entry Camera")]
     public GameObject[] set1;
     public GameObject[] set2;
     public GameObject[] set3;
-
 
     public static Transform allPaths;
 
@@ -403,6 +402,9 @@ public class RACE_MANAGER : MonoBehaviour
 
     public void DisableSet1()
     {
+        if (set1.Length == 0)
+            return;
+
         for(int i = 0; i < set1.Length; i++)
         {
             if(set1[i].name.IndexOf("Cow") >= 0)
@@ -417,6 +419,9 @@ public class RACE_MANAGER : MonoBehaviour
     }
     public void DisableSet2()
     {
+        if (set2.Length == 0)
+            return;
+
         for (int i = 0; i < set1.Length; i++)
         {
             if (set1[i].name.IndexOf("Cow") >= 0)
@@ -444,6 +449,9 @@ public class RACE_MANAGER : MonoBehaviour
 
     public void DisableSet3()
     {
+        if (set3.Length == 0)
+            return;
+
         for (int i = 0; i < set2.Length; i++)
         {
             if (set2[i].name.IndexOf("Cow") >= 0)
@@ -470,37 +478,48 @@ public class RACE_MANAGER : MonoBehaviour
     }
     public void enableAllSets()
     {
-        for (int i = 0; i < set1.Length; i++)
+        if (set1.Length > 0)
         {
-            if (set1[i].name.IndexOf("Cow") >= 0)
+            for (int i = 0; i < set1.Length; i++)
             {
-                set1[i].transform.GetChild(1).gameObject.SetActive(true);
-            }
-            else
-            {
-                set1[i].SetActive(true);
+                if (set1[i].name.IndexOf("Cow") >= 0)
+                {
+                    set1[i].transform.GetChild(1).gameObject.SetActive(true);
+                }
+                else
+                {
+                    set1[i].SetActive(true);
+                }
             }
         }
-        for (int i = 0; i < set2.Length; i++)
+
+        if (set2.Length > 0)
         {
-            if (set2[i].name.IndexOf("Cow") >= 0)
+            for (int i = 0; i < set2.Length; i++)
             {
-                set2[i].transform.GetChild(1).gameObject.SetActive(true);
-            }
-            else
-            {
-                set2[i].SetActive(true);
+                if (set2[i].name.IndexOf("Cow") >= 0)
+                {
+                    set2[i].transform.GetChild(1).gameObject.SetActive(true);
+                }
+                else
+                {
+                    set2[i].SetActive(true);
+                }
             }
         }
-        for (int i = 0; i < set3.Length; i++)
+
+        if (set3.Length > 0)
         {
-            if (set3[i].name.IndexOf("Cow") >= 0)
+            for (int i = 0; i < set3.Length; i++)
             {
-                set3[i].transform.GetChild(1).gameObject.SetActive(true);
-            }
-            else
-            {
-                set3[i].SetActive(true);
+                if (set3[i].name.IndexOf("Cow") >= 0)
+                {
+                    set3[i].transform.GetChild(1).gameObject.SetActive(true);
+                }
+                else
+                {
+                    set3[i].SetActive(true);
+                }
             }
         }
     }

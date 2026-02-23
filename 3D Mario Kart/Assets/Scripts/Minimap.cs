@@ -15,6 +15,11 @@ public class Minimap : MonoBehaviour
 
     private void Update()
     {
+        if(map3dParent == null || map3dEnd == null || map2dEnd == null || playerInMap == null)
+        {
+            return;
+        }
+
         normalized = Divide(
                 map3dParent.InverseTransformPoint(transform.position),
                 map3dEnd.position - map3dParent.position

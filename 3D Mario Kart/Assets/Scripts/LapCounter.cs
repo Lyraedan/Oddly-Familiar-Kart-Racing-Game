@@ -19,8 +19,6 @@ public class LapCounter : MonoBehaviour
 
     public int endPosition = 0;
 
-    public Text[] UIDisplayLap;
-
     private RACE_MANAGER rm;
     // Start is called before the first frame update
     void Start()
@@ -47,8 +45,7 @@ public class LapCounter : MonoBehaviour
 
         if (gameObject.tag == "Player" && LAPCOUNT <= rm.MAXLAPS)
         {
-            UIDisplayLap[0].text = LAPCOUNT + "/" + rm.MAXLAPS;
-            UIDisplayLap[1].text = LAPCOUNT + "/" + rm.MAXLAPS;
+            IngameUIHolder.Instance.lapCounterUI.UpdateText(LAPCOUNT + "/" + rm.MAXLAPS);
 
         }
         if (gameObject.tag == "Player" && LAPCOUNT > rm.MAXLAPS && endPosition == 0)

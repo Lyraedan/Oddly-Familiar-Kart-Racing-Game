@@ -256,7 +256,7 @@ public class MainMenu : MonoBehaviour
         if (!canStart || isAnimating)
             return;
 
-        if (CurrentMenu == MenuState.None)
+        if (CurrentMenu.Equals(MenuState.None))
             StartCoroutine(ToggleMenu(true));
     }
 
@@ -279,43 +279,51 @@ public class MainMenu : MonoBehaviour
 
     private void OnMenuUp(InputAction.CallbackContext context)
     {
-        if (CurrentMenu != MenuState.Main || isAnimating)
+        if (CurrentMenu != MenuState.Main || isAnimating || menuButtons.Count == 0)
             return;
 
-        if (menuButtons.Count == 0)
-            return;
+        int startingIndex = currentIndex;
 
-        currentIndex--;
-        if (currentIndex < 0)
-            currentIndex = menuButtons.Count - 1;
+        do
+        {
+            currentIndex--;
+            if (currentIndex < 0)
+                currentIndex = menuButtons.Count - 1;
+
+            // Stop if we’ve looped all the way around
+            if (currentIndex == startingIndex)
+                break;
+        }
+        while (!menuButtons[currentIndex].interactable);
 
         UpdateSelection();
     }
 
     private void OnMenuDown(InputAction.CallbackContext context)
     {
-        if (CurrentMenu != MenuState.Main || isAnimating)
+        if (CurrentMenu != MenuState.Main || isAnimating || menuButtons.Count == 0)
             return;
 
-        if (menuButtons.Count == 0)
-            return;
+        int startingIndex = currentIndex;
 
-        currentIndex++;
-        if (currentIndex >= menuButtons.Count)
-            currentIndex = 0;
+        do
+        {
+            currentIndex++;
+            if (currentIndex >= menuButtons.Count)
+                currentIndex = 0;
+
+            // Stop if we’ve looped all the way around
+            if (currentIndex == startingIndex)
+                break;
+        }
+        while (!menuButtons[currentIndex].interactable);
 
         UpdateSelection();
     }
 
     private void OnSelectPressed(InputAction.CallbackContext context)
     {
-        if (isAnimating)
-            return;
-
-        if (CurrentMenu != MenuState.Main)
-            return;
-
-        if (menuButtons.Count == 0)
+        if (CurrentMenu != MenuState.Main || isAnimating || menuButtons.Count == 0)
             return;
 
         Button button = menuButtons[currentIndex];

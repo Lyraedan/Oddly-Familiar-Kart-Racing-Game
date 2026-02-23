@@ -132,7 +132,7 @@ public class Player : MonoBehaviour
 
     //position variable before change
     int lastPos = 2;
-    public GameObject positionUI;
+    public GameObject positionUI => IngameUIHolder.Instance.PositionCounter;
     private bool showUI;
 
     public Transform RaceEndPath;

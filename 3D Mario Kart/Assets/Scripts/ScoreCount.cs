@@ -6,8 +6,6 @@ using UnityEngine;
 public class ScoreCount : MonoBehaviour
 {
     public int COINCOUNT;
-    public Text Coin_Text;
-    public Text Coin_Text2;
 
     public Color maxCoinColor;
     public Color regCoinColor;
@@ -22,16 +20,14 @@ public class ScoreCount : MonoBehaviour
     {
         if(COINCOUNT < 10)
         {
-            Coin_Text.text = "0" + COINCOUNT;
-            Coin_Text2.text = "0" + COINCOUNT;
-            Coin_Text2.color = regCoinColor;
+            IngameUIHolder.Instance.coinUI.UpdateText("0" + COINCOUNT);
+            IngameUIHolder.Instance.coinUI.top.color = regCoinColor;
 
         }
         if (COINCOUNT == 10)
         {
-            Coin_Text.text = COINCOUNT + "";
-            Coin_Text2.text = COINCOUNT + "";
-            Coin_Text2.color = maxCoinColor;
+            IngameUIHolder.Instance.coinUI.UpdateText(COINCOUNT + "");
+            IngameUIHolder.Instance.coinUI.top.color = maxCoinColor;
         }
 
         if (COINCOUNT > 10)
