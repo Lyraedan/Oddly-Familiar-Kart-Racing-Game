@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Trolley.cs" />
+    <Compile Include="Assets\Scripts\ItemsUpdated\MultiUseItem.cs" />
     <Compile Include="Assets\Spherical Skybox\Move.cs" />
     <Compile Include="Assets\Scripts\ComputerDriver.cs" />
     <Compile Include="Assets\Scripts\Kart\KartType.cs" />
@@ -70,6 +71,7 @@
     <Compile Include="Assets\Spherical Skybox\Click.cs" />
     <Compile Include="Assets\Scripts\UGC\UI\ModIO\ModIOAuthUI.cs" />
     <Compile Include="Assets\SampleScenes\Menu\Scripts\SceneAndURLLoader.cs" />
+    <Compile Include="Assets\Scripts\ItemsUpdated\RedShellItem.cs" />
     <Compile Include="Assets\Scripts\AntiGravityExitRotate.cs" />
     <Compile Include="Assets\Scripts\General\UITextCornersGradient.cs" />
     <Compile Include="Assets\Scripts\Items\NameChildObjects.cs" />
@@ -88,6 +90,7 @@
     <Compile Include="Assets\Models\Test\Rotate.cs" />
     <Compile Include="Assets\Scripts\Map Selector\MapSelector.cs" />
     <Compile Include="Assets\SampleScenes\Menu\Scripts\PauseMenu.cs" />
+    <Compile Include="Assets\Scripts\ItemsUpdated\StarItem.cs" />
     <Compile Include="Assets\Scripts\Title\RandomSongPlayer.cs" />
     <Compile Include="Assets\SampleScenes\Scripts\LevelReset.cs" />
     <Compile Include="Assets\Scripts\TireTest.cs" />
@@ -114,6 +117,8 @@
     <Compile Include="Assets\Scripts\Items\Bobomb.cs" />
     <Compile Include="Assets\Scripts\ChainChompBall.cs" />
     <Compile Include="Assets\Scripts\General\UIGradient.cs" />
+    <Compile Include="Assets\Scripts\ItemsUpdated\ItemBase.cs" />
+    <Compile Include="Assets\Scripts\ItemsUpdated\WaypointTracker.cs" />
     <Compile Include="Assets\Scripts\ScoreCount.cs" />
     <Compile Include="Assets\SampleScenes\Scripts\PlaceTargetWithMouse.cs" />
     <Compile Include="Assets\Scripts\PlayerSounds.cs" />
@@ -158,6 +163,7 @@
     <Compile Include="Assets\Scripts\TrolleySystem.cs" />
     <Compile Include="Assets\Scripts\General\UIGradientUtils.cs" />
     <Compile Include="Assets\Scripts\Title\RandomBackgroundSelector.cs" />
+    <Compile Include="Assets\Scripts\ItemsUpdated\GreenShellItem.cs" />
     <Compile Include="Assets\Models\Water Park\Track\EmissionFlashing.cs" />
     <Compile Include="Assets\SampleScenes\Scripts\ParticleSceneControls.cs" />
     <Compile Include="Assets\Presets\SimpleCameraController.cs" />

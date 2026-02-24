@@ -68,7 +68,7 @@ public class BlueShell : MonoBehaviour
 
         if (who_threw_shell.Equals("Player"))
         {
-            current_node = GameObject.Find(who_threw_shell).GetComponent<ItemManager>().currentWayPoint;
+            //current_node = GameObject.Find(who_threw_shell).GetComponent<ItemManager>().currentWayPoint;
         }
         speed = 7500;
 

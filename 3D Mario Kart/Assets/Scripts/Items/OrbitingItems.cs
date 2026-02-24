@@ -34,18 +34,18 @@ public class OrbitingItems : MonoBehaviour
                 {
                     itemManage.hitByBanana();
                 }
-                itemOwner.GetComponent<ItemManager>().tripleItemCount--;
-                    int item_index = itemOwner.GetComponent<ItemManager>().item_index;
-                    gameObject.SetActive(false); 
+                //itemOwner.GetComponent<ItemManager>().tripleItemCount--;
+                //    int item_index = itemOwner.GetComponent<ItemManager>().item_index;
+                //    gameObject.SetActive(false); 
 
-                    if(itemOwner.GetComponent<ItemManager>().tripleItemCount < 1)
-                    {
-                        itemOwner.GetComponent<ItemManager>().item_gameobjects[item_index].SetActive(false);
-                        itemOwner.GetComponent<ItemManager>().item_gameobjects[item_index].transform.GetChild(0).gameObject.SetActive(true);
-                        itemOwner.GetComponent<ItemManager>().item_gameobjects[item_index].transform.GetChild(1).gameObject.SetActive(true);
-                        itemOwner.GetComponent<ItemManager>().item_gameobjects[item_index].transform.GetChild(2).gameObject.SetActive(true);
-                        itemOwner.GetComponent<ItemManager>().used_Item_Done();
-                    }
+                //    if(itemOwner.GetComponent<ItemManager>().tripleItemCount < 1)
+                //    {
+                //        itemOwner.GetComponent<ItemManager>().item_gameobjects[item_index].SetActive(false);
+                //        itemOwner.GetComponent<ItemManager>().item_gameobjects[item_index].transform.GetChild(0).gameObject.SetActive(true);
+                //        itemOwner.GetComponent<ItemManager>().item_gameobjects[item_index].transform.GetChild(1).gameObject.SetActive(true);
+                //        itemOwner.GetComponent<ItemManager>().item_gameobjects[item_index].transform.GetChild(2).gameObject.SetActive(true);
+                //        itemOwner.GetComponent<ItemManager>().used_Item_Done();
+                //    }
                 
             }
             else

@@ -291,7 +291,7 @@ public class RACE_MANAGER : MonoBehaviour
         warning.SetActive(true);
         warning.transform.SetParent(Canvas);
 
-        while(redshell.GetComponent<RedShell>().isactive && !RACE_COMPLETED && redshell.GetComponent<RedShell>().current_node <= player.GetComponent<ItemManager>().currentWayPoint)
+        while(redshell.GetComponent<RedShell>().isactive && !RACE_COMPLETED && redshell.GetComponent<RedShell>().current_node <= player.GetComponent<Player>().waypointTracker.CurrentWaypoint)
         {
             Vector3 myangle = player.position - redshell.position;
             Vector3 angle = Vector3.Cross(-player.forward, myangle);
@@ -319,7 +319,7 @@ public class RACE_MANAGER : MonoBehaviour
         warning.SetActive(true);
         warning.transform.SetParent(Canvas);
 
-        while (blueshell.GetComponent<BlueShell>().isactive == true && !RACE_COMPLETED && blueshell.GetComponent<BlueShell>().current_node <= player.GetComponent<ItemManager>().currentWayPoint && Vector3.Distance(player.position, blueshell.position) < 100)
+        while (blueshell.GetComponent<BlueShell>().isactive == true && !RACE_COMPLETED && blueshell.GetComponent<BlueShell>().current_node <= player.GetComponent<Player>().waypointTracker.CurrentWaypoint && Vector3.Distance(player.position, blueshell.position) < 100)
         {
             Vector3 myangle = player.position - blueshell.position;
             Vector3 angle = Vector3.Cross(-player.forward, myangle);

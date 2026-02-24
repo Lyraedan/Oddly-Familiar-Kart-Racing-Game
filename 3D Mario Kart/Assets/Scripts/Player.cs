@@ -104,14 +104,21 @@ public class Player : MonoBehaviour
     public Animator Driver;
 
     public PlayerSounds playersounds;
+    public WaypointTracker waypointTracker;
 
     [HideInInspector]
     public bool hasitem = false; //true when player hits itembox
     [HideInInspector]
     public bool has_item_hold = false;
     public GameObject ItemBox;
-    private ItemManager item_manager;
+    public ItemManager itemManager;
     private LapCounter lapCounter;
+
+    [Header("Item Spawn Points")]
+    public Transform ShellFront;
+    public Transform ShellBack;
+    public Transform ItemHand;
+    public Transform ThrowForward;
 
     //faces
     [Header("Faces")]
@@ -213,7 +220,7 @@ public class Player : MonoBehaviour
         FrontRightTire = Tires.transform.GetChild(1).GetChild(0).gameObject;
         //playersounds = GetComponent<PlayerSounds>();
 
-        item_manager = GetComponent<ItemManager>();
+        itemManager = GetComponent<ItemManager>();
         lapCounter = GetComponent<LapCounter>();
         rotateStrengthWithStar = desired_rotate_strength + 15;
         allOpponents = GameObject.FindGameObjectsWithTag("Opponent");
@@ -322,7 +329,7 @@ public class Player : MonoBehaviour
             StartCoroutine(trickJump());
         }
         // Drift input
-        if (RACE_MANAGER.RACE_STARTED && !item_manager.isBullet && !RACE_MANAGER.RACE_COMPLETED)
+        if (RACE_MANAGER.RACE_STARTED && !itemManager.isBullet && !RACE_MANAGER.RACE_COMPLETED)
         {
             Drift();
         }
@@ -349,7 +356,7 @@ public class Player : MonoBehaviour
         //mario_face();
 
         // If the race has started, but not completed
-        if (RACE_MANAGER.RACE_STARTED && !item_manager.isBullet && !RACE_MANAGER.RACE_COMPLETED)
+        if (RACE_MANAGER.RACE_STARTED && !itemManager.isBullet && !RACE_MANAGER.RACE_COMPLETED)
         {
             AccelBeforeStartDust.GetChild(0).GetComponent<ParticleSystem>().Stop();
             AccelBeforeStartDust.GetChild(1).GetComponent<ParticleSystem>().Stop();
@@ -390,7 +397,7 @@ public class Player : MonoBehaviour
             tireDirtEffect();
 
             // Dust particles
-            if (REALCURRENTSPEED > 30 && !drift_left && !drift_right && !GLIDER_FLY && !JUMP_PANEL && !PlayerControls.GetButton(PlayerControls.REVERSE) && grounded && !item_manager.isBullet && Is_Dirt_Track)
+            if (REALCURRENTSPEED > 30 && !drift_left && !drift_right && !GLIDER_FLY && !JUMP_PANEL && !PlayerControls.GetButton(PlayerControls.REVERSE) && grounded && !itemManager.isBullet && Is_Dirt_Track)
             {
                 dustParticles.GetChild(0).GetComponent<ParticleSystem>().Play();
                 dustParticles.GetChild(1).GetComponent<ParticleSystem>().Play();
@@ -423,11 +430,11 @@ public class Player : MonoBehaviour
             }
         }
         // If you are a bullet
-        else if (item_manager.isBullet)
+        else if (itemManager.isBullet)
         {
             Ray ground = new Ray(transform.position, -transform.up);
             RaycastHit hit;
-            Vector3 lookat = item_manager.path.GetChild(item_manager.currentWayPoint).position;
+            Vector3 lookat = waypointTracker.ActivePath.GetChild(waypointTracker.CurrentWaypoint).position;
             float dir = 0;
             if (antiGravity)
                 rb.AddRelativeForce(Vector3.down * 5000 * Time.deltaTime, ForceMode.Acceleration);
@@ -597,7 +604,7 @@ public class Player : MonoBehaviour
 
         if((collision.gameObject.tag == "Ground" || collision.gameObject.tag == "Dirt") && glider_close_confirm)
         {
-            if (GLIDER_FLY && !item_manager.isBullet)
+            if (GLIDER_FLY && !itemManager.isBullet)
             {
                 playersounds.PlayLandGroundSkid();
                 playersounds.PlayGliderClose();
@@ -624,16 +631,16 @@ public class Player : MonoBehaviour
         }
         if (collision.gameObject.tag == "Banana")//regular banana
         {
-            if(collision.gameObject.GetComponent<Banana>().lifetime > 0.2f && !item_manager.StarPowerUp && !item_manager.isBullet)
+            if(collision.gameObject.GetComponent<Banana>().lifetime > 0.2f && !itemManager.StarPowerUp && !itemManager.isBullet)
             {
                 StartCoroutine(hitByBanana());
                 Destroy(collision.gameObject);
             }
-            if (item_manager.StarPowerUp)
+            if (itemManager.StarPowerUp)
             {
                 Destroy(collision.gameObject);
             }
-            if (item_manager.isBullet)
+            if (itemManager.isBullet)
             {
                 Destroy(gameObject);
             }
@@ -650,7 +657,7 @@ public class Player : MonoBehaviour
                 float dir = Vector3.Dot(angle, transform.up);
 
                 float force;
-                if(currentspeed > 50 && !item_manager.StarPowerUp){
+                if(currentspeed > 50 && !itemManager.StarPowerUp){
                     force = 50000;
                 }
                 else
@@ -673,12 +680,12 @@ public class Player : MonoBehaviour
                             playersounds.PlayGravitySpin();
                         }
                     }
-                    if (item_manager.StarPowerUp)
+                    if (itemManager.StarPowerUp)
                     {
                         collision.gameObject.GetComponent<Rigidbody>().AddForce(-collision.transform.right * 100000 * Time.deltaTime, ForceMode.Impulse);
                         collision.gameObject.GetComponent<OpponentItemManager>().hitByShell();
                     }
-                    if (item_manager.isBullet)
+                    if (itemManager.isBullet)
                     {
                         collision.gameObject.GetComponent<Rigidbody>().AddForce(-collision.transform.right * 75000 * Time.deltaTime, ForceMode.Impulse);
                         gameObject.GetComponent<OpponentItemManager>().hitByShell();
@@ -704,12 +711,12 @@ public class Player : MonoBehaviour
                             playersounds.PlayGravitySpin();
                         }
                     }
-                    if (item_manager.StarPowerUp)
+                    if (itemManager.StarPowerUp)
                     {
                         collision.gameObject.GetComponent<Rigidbody>().AddForce(collision.transform.right * 75000 * Time.deltaTime, ForceMode.Impulse);
                         collision.gameObject.GetComponent<OpponentItemManager>().hitByShell();
                     }
-                    if (item_manager.isBullet)
+                    if (itemManager.isBullet)
                     {
                         collision.gameObject.GetComponent<Rigidbody>().AddForce(collision.transform.right * 75000 * Time.deltaTime, ForceMode.Impulse);
                         collision.gameObject.GetComponent<OpponentItemManager>().hitByShell();
@@ -742,7 +749,7 @@ public class Player : MonoBehaviour
         if(collision.gameObject.tag == "fence")
         {
             
-            if (!item_manager.isBullet)
+            if (!itemManager.isBullet)
             {
                 rb.velocity = Vector3.zero;
                 if (currentspeed > 50)
@@ -788,7 +795,7 @@ public class Player : MonoBehaviour
 
                 if(REALCURRENTSPEED > 35)
                 {
-                    if(!item_manager.StarPowerUp && !item_manager.isBullet)
+                    if(!itemManager.StarPowerUp && !itemManager.isBullet)
                     {
                         if (!RACE_MANAGER.RACE_COMPLETED)
                         {
@@ -826,9 +833,9 @@ public class Player : MonoBehaviour
 
                 if (REALCURRENTSPEED > 35)
                 {
-                    if (!item_manager.StarPowerUp && !item_manager.isBullet)
+                    if (!itemManager.StarPowerUp && !itemManager.isBullet)
                     {
-                        if(item_manager.StarPowerUp || item_manager.isBullet)
+                        if(itemManager.StarPowerUp || itemManager.isBullet)
                         {
                             StartCoroutine(collision.gameObject.GetComponent<Trolley>().hitByPowerup());
                         }
@@ -836,7 +843,7 @@ public class Player : MonoBehaviour
                         {
                             StartCoroutine(hitByShell());
                         }
-                        if(!item_manager.StarPowerUp || item_manager.isBullet)
+                        if(!itemManager.StarPowerUp || itemManager.isBullet)
                         {
                             for (int i = 0; i < 30; i++)
                             {
@@ -872,7 +879,7 @@ public class Player : MonoBehaviour
                 float dir = Vector3.Dot(angle, transform.up);
 
                 float force;
-                if (currentspeed > 50 && !item_manager.StarPowerUp)
+                if (currentspeed > 50 && !itemManager.StarPowerUp)
                 {
                     force = 50000;
                 }
@@ -895,12 +902,12 @@ public class Player : MonoBehaviour
                             playersounds.PlayGravitySpin(); //anti gravity spin
                         }
                     }
-                    if (item_manager.StarPowerUp)
+                    if (itemManager.StarPowerUp)
                     {
                         collision.gameObject.GetComponent<Rigidbody>().AddForce(-collision.transform.right * 100000 * Time.deltaTime, ForceMode.Impulse);
                         collision.gameObject.GetComponent<OpponentItemManager>().hitByShell();
                     }
-                    if (item_manager.isBullet)
+                    if (itemManager.isBullet)
                     {
                         collision.gameObject.GetComponent<Rigidbody>().AddForce(-collision.transform.right * 75000 * Time.deltaTime, ForceMode.Impulse);
                         gameObject.GetComponent<OpponentItemManager>().hitByShell();
@@ -926,12 +933,12 @@ public class Player : MonoBehaviour
                             playersounds.PlayGravitySpin(); //anti gravity spin
                         }
                     }
-                    if (item_manager.StarPowerUp)
+                    if (itemManager.StarPowerUp)
                     {
                         collision.gameObject.GetComponent<Rigidbody>().AddForce(collision.transform.right * 75000 * Time.deltaTime, ForceMode.Impulse);
                         collision.gameObject.GetComponent<OpponentItemManager>().hitByShell();
                     }
-                    if (item_manager.isBullet)
+                    if (itemManager.isBullet)
                     {
                         collision.gameObject.GetComponent<Rigidbody>().AddForce(collision.transform.right * 75000 * Time.deltaTime, ForceMode.Impulse);
                         collision.gameObject.GetComponent<OpponentItemManager>().hitByShell();
@@ -961,7 +968,7 @@ public class Player : MonoBehaviour
 
         if (other.gameObject.tag == "ItemBox" && !RACE_MANAGER.RACE_COMPLETED)
         {
-            item_manager.PlaySelectsound.Play();
+            itemManager.PlaySelectsound.Play();
             hasitem = true; //will trigger a method in the item manager script
             for(int i = 0; i < 5; i++)
             {
@@ -991,12 +998,12 @@ public class Player : MonoBehaviour
 
 
         }
-        if((other.gameObject.tag == "Explosion" || other.gameObject.tag == "ChainChomp") && !item_manager.isBullet && !item_manager.StarPowerUp)
+        if((other.gameObject.tag == "Explosion" || other.gameObject.tag == "ChainChomp") && !itemManager.isBullet && !itemManager.StarPowerUp)
         {
             StartCoroutine(hitByBanana());
             currentspeed = 0;
         }
-        if (other.gameObject.tag == "JumpPanel" && !JUMP_PANEL && !item_manager.isBullet)
+        if (other.gameObject.tag == "JumpPanel" && !JUMP_PANEL && !itemManager.isBullet)
         {
             jumpPanelUpForce = other.gameObject.GetComponent<JumpPanelScript>().upforce;
             jumpPanelDownForce = other.gameObject.GetComponent<JumpPanelScript>().downforce;
@@ -1026,7 +1033,7 @@ public class Player : MonoBehaviour
             other.transform.GetChild(0).GetChild(1).GetComponent<SkinnedMeshRenderer>().enabled = false;
             other.gameObject.GetComponent<Animator>().SetBool("Spawn", false); //reset to start process
             GetComponent<ScoreCount>().COINCOUNT++;
-            item_manager.coinSparkle.Play();
+            itemManager.coinSparkle.Play();
             playersounds.PlayCoin();
 
             yield return new WaitForSeconds(1.5f);
@@ -1052,7 +1059,7 @@ public class Player : MonoBehaviour
         }
 
 
-        if(other.gameObject.tag == "Cow" && (item_manager.StarPowerUp || item_manager.isBullet))
+        if(other.gameObject.tag == "Cow" && (itemManager.StarPowerUp || itemManager.isBullet))
         {
  
                 StartCoroutine(other.gameObject.GetComponent<Cow>().hitByPowerup());
@@ -1075,7 +1082,7 @@ public class Player : MonoBehaviour
             {
                 Cam.rotateAmountAntigravityX = other.GetComponent<CameraRotateAntigravity>().rotAmountX;
                 Cam.rotateAmountAntigravityZ = other.GetComponent<CameraRotateAntigravity>().rotAmountZ;
-                item_manager.canUseBulletAntigravity = other.GetComponent<CameraRotateAntigravity>().canUseBullet;
+                itemManager.canUseBulletAntigravity = other.GetComponent<CameraRotateAntigravity>().canUseBullet;
                 Cam.rotateCamAntiGravity = true;
 
             }
@@ -1400,9 +1407,9 @@ public class Player : MonoBehaviour
         if (PlayerControls.GetButton(PlayerControls.ACCELERATE))
         {
             currentspeed = Mathf.Lerp(currentspeed, max_speed, 0.5f * Time.deltaTime);
-            if(!drift_right && !drift_left && (!item_manager.StarPowerUp || drift_left || drift_right))
+            if(!drift_right && !drift_left && (!itemManager.StarPowerUp || drift_left || drift_right))
                 rotate_strength = desired_rotate_strength;
-            if (item_manager.StarPowerUp && !drift_right && !drift_left)
+            if (itemManager.StarPowerUp && !drift_right && !drift_left)
             {
                 rotate_strength = rotateStrengthWithStar;
             }
@@ -1428,7 +1435,7 @@ public class Player : MonoBehaviour
         }
 
         //speed on track vs offtrack
-        if (!grounded && !Boost && !item_manager.StarPowerUp)
+        if (!grounded && !Boost && !itemManager.StarPowerUp)
         {
             max_speed = 30;
             if (PlayerControls.GetButton(PlayerControls.ACCELERATE))
@@ -1442,7 +1449,7 @@ public class Player : MonoBehaviour
             max_speed = boost_speed;
             currentspeed = boost_speed;
         }
-        if (grounded && !Boost && !item_manager.StarPowerUp)
+        if (grounded && !Boost && !itemManager.StarPowerUp)
         {
             max_speed = desiredMaxSpeed;
         }
@@ -1450,7 +1457,7 @@ public class Player : MonoBehaviour
         {
             max_speed = boost_speed;
         }
-        if (item_manager.StarPowerUp)
+        if (itemManager.StarPowerUp)
         {
             max_speed = boost_speed - 5;
             if (PlayerControls.GetButton(PlayerControls.ACCELERATE))
@@ -2190,11 +2197,11 @@ public class Player : MonoBehaviour
     
     void mario_face()
     {
-        if(!item_manager.StarPowerUp)
+        if(!itemManager.StarPowerUp)
             MarioFace.sharedMaterial = current_face_material;
         else
         {
-            MarioFace.sharedMaterial = item_manager.starMat;
+            MarioFace.sharedMaterial = itemManager.starMat;
         }
     }
 
@@ -2419,8 +2426,7 @@ public class Player : MonoBehaviour
     }
     void disableItems()
     {
-        item_manager.used_Item_Done();
-        item_manager.current_Item = "";
+        itemManager.ConsumeItem();
     }
     public void stopDrift()
     {
@@ -2641,7 +2647,7 @@ public class Player : MonoBehaviour
                 transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetComponent<Animator>().SetTrigger("AntiGravity");
             }
 
-            if (!item_manager.StarPowerUp && !item_manager.isBullet)
+            if (!itemManager.StarPowerUp && !itemManager.isBullet)
             {
                 for(int i = 0; i < tireRenderers.Length; i++)
                 {
@@ -2689,7 +2695,7 @@ public class Player : MonoBehaviour
 
             }
 
-            if(!item_manager.StarPowerUp && !item_manager.isBullet)
+            if(!itemManager.StarPowerUp && !itemManager.isBullet)
             {
                 for (int i = 0; i < 60; i++)
                 {
@@ -2721,7 +2727,7 @@ public class Player : MonoBehaviour
                 TireParents[3].transform.localRotation = Quaternion.LerpUnclamped(TireParents[3].transform.localRotation, Quaternion.Euler(0, 180, 0), 12 * Time.deltaTime);
                 yield return new WaitForSeconds(0.001f);
 
-                if (!item_manager.StarPowerUp && !item_manager.isBullet)
+                if (!itemManager.StarPowerUp && !itemManager.isBullet)
                 {
                     tireRenderers[0].material.SetVector("Vector4_6C68F82F", Vector4.LerpUnclamped(tireRenderers[0].material.GetVector("Vector4_6C68F82F"), new Vector4(0, 0, 0, 0), 12 * Time.deltaTime));
                     tireRenderers[1].material.SetVector("Vector4_6C68F82F", Vector4.LerpUnclamped(tireRenderers[1].material.GetVector("Vector4_6C68F82F"), new Vector4(0, 0, 0, 0), 12 * Time.deltaTime));
@@ -2766,7 +2772,7 @@ public class Player : MonoBehaviour
     {
         if (Is_Dirt_Track)
         {
-            if (PlayerControls.GetButton(PlayerControls.ACCELERATE) && !item_manager.isBullet && !item_manager.StarPowerUp)
+            if (PlayerControls.GetButton(PlayerControls.ACCELERATE) && !itemManager.isBullet && !itemManager.StarPowerUp)
             {
                 for(int i = 0; i < tireRenderers.Length; i++)
                 {

@@ -719,8 +719,8 @@ public class OpponentItemManager : MonoBehaviour
         GameObject clone = Instantiate(greenShell, position.position, position.rotation);
         if (direction == 1) //backwards or forwards -1 and 1 respectively
         {
-            clone.GetComponent<GreenShell>().myVelocity = transform.forward.normalized;
-            clone.GetComponent<GreenShell>().velocityMagOriginal = 6000;
+            //clone.GetComponent<GreenShell>().myVelocity = transform.forward.normalized;
+            //clone.GetComponent<GreenShell>().velocityMagOriginal = 6000;
             clone.GetComponent<GreenShell>().AntiGravity = ai_script.AntiGravity;
             yield return new WaitForSeconds(0.25f);
             if(current_item !="TripleGreenShells")
@@ -729,8 +729,8 @@ public class OpponentItemManager : MonoBehaviour
         }
         if (direction == -1)
         {
-            clone.GetComponent<GreenShell>().myVelocity = -transform.forward.normalized;
-            clone.GetComponent<GreenShell>().velocityMagOriginal = 3500;
+            //clone.GetComponent<GreenShell>().myVelocity = -transform.forward.normalized;
+            //clone.GetComponent<GreenShell>().velocityMagOriginal = 3500;
             clone.GetComponent<GreenShell>().AntiGravity = ai_script.AntiGravity;
             yield return new WaitForSeconds(0.25f);
             if (current_item != "TripleGreenShells")
@@ -750,7 +750,7 @@ public class OpponentItemManager : MonoBehaviour
                 player_script.current_face_material = player_script.faces[0];//normal
             */
         }
-        clone.GetComponent<GreenShell>().who_threw_shell = gameObject.name;
+        //clone.GetComponent<GreenShell>().who_threw_shell = gameObject.name;
     }
     IEnumerator useRedShell(int direction, Transform position)
     {
@@ -778,10 +778,10 @@ public class OpponentItemManager : MonoBehaviour
             clone.AddComponent<GreenShell>();
             clone.SetActive(true);
 
-            clone.GetComponent<GreenShell>().myVelocity = -transform.forward.normalized;
-            clone.GetComponent<GreenShell>().velocityMagOriginal = 3500;
+            //clone.GetComponent<GreenShell>().myVelocity = -transform.forward.normalized;
+            //clone.GetComponent<GreenShell>().velocityMagOriginal = 3500;
             clone.GetComponent<GreenShell>().AntiGravity = ai_script.AntiGravity;
-            clone.GetComponent<GreenShell>().who_threw_shell = gameObject.name;
+            //clone.GetComponent<GreenShell>().who_threw_shell = gameObject.name;
 
             yield return new WaitForSeconds(0.25f);
             if (current_item != "TripleRedShells")

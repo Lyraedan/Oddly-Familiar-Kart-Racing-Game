@@ -11,6 +11,8 @@ public class OutOfBounds : MonoBehaviour
 
     [HideInInspector] 
     public bool PlayerBeingMoved = false; //for camera
+
+    public WaypointTracker tracker;
     // Start is called before the first frame update
     void Start()
     {
@@ -51,17 +53,21 @@ public class OutOfBounds : MonoBehaviour
 
 
                 //get item path checkpoint next
-                float dist = 99999;
-                int checkPointVal = 0;
-                for(int i = 0; i < GetComponent<ItemManager>().path.childCount; i++)
+                float dist = Mathf.Infinity;
+                int closestWaypoint = 0;
+
+                for (int i = 0; i < tracker.ActivePath.childCount; i++)
                 {
-                    if(Vector3.Distance(GetComponent<ItemManager>().path.GetChild(i).position, transform.position) < dist)
+                    float d = Vector3.Distance(tracker.ActivePath.GetChild(i).position, transform.position);
+                    if (d < dist)
                     {
-                        dist = Vector3.Distance(GetComponent<ItemManager>().path.GetChild(i).position, transform.position);
-                        checkPointVal = i;
+                        dist = d;
+                        closestWaypoint = i;
                     }
                 }
-                GetComponent<ItemManager>().currentWayPoint = checkPointVal + 1;
+
+                // Set the waypoint in the tracker
+                tracker.SetCurrentWaypoint(closestWaypoint + 1);
 
 
                 PlayerBeingMoved = false;
@@ -131,17 +137,28 @@ public class OutOfBounds : MonoBehaviour
                 }
 
                 //get item path checkpoint next
-                float dist = 99999;
-                int checkPointVal = 0;
-                for (int i = 0; i < GetComponent<ItemManager>().path.childCount; i++)
+                if (tracker.ActivePath == null)
                 {
-                    if (Vector3.Distance(GetComponent<ItemManager>().path.GetChild(i).position, transform.position) < dist)
+                    Debug.LogWarning("ActivePath is null on WaypointTracker!");
+                    yield return null;
+                }
+
+                // Find the closest waypoint
+                float dist = Mathf.Infinity;
+                int closestWaypoint = 0;
+
+                for (int i = 0; i < tracker.ActivePath.childCount; i++)
+                {
+                    float d = Vector3.Distance(tracker.ActivePath.GetChild(i).position, transform.position);
+                    if (d < dist)
                     {
-                        dist = Vector3.Distance(GetComponent<ItemManager>().path.GetChild(i).position, transform.position);
-                        checkPointVal = i;
+                        dist = d;
+                        closestWaypoint = i;
                     }
                 }
-                GetComponent<ItemManager>().currentWayPoint = checkPointVal + 1;
+
+                // Update the current waypoint in the tracker
+                tracker.SetCurrentWaypoint(closestWaypoint + 1);
 
                 transform.position = currPoint.position;
                 transform.rotation = currPoint.rotation;

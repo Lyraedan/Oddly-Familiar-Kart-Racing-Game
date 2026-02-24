@@ -61,7 +61,7 @@ public class RedShell : MonoBehaviour
 
         if (who_threw_shell.Equals("Player"))
         {
-            current_node = GameObject.Find(who_threw_shell).GetComponent<ItemManager>().currentWayPoint;
+            //current_node = GameObject.Find(who_threw_shell).GetComponent<ItemManager>().currentWayPoint;
         }
 
         opponents = GameObject.FindGameObjectsWithTag("Opponent");
@@ -304,10 +304,10 @@ public class RedShell : MonoBehaviour
         {
             if(other.gameObject.name == "TrailingBanana")
             {
-                other.transform.parent.parent.parent.GetComponent<ItemManager>().CurrentTrailingItem.SetActive(false);
-                other.transform.parent.parent.parent.GetComponent<ItemManager>().CurrentTrailingItem = null;
-                other.transform.parent.parent.parent.GetComponent<ItemManager>().current_Item = "";
-                other.transform.parent.parent.parent.GetComponent<ItemManager>().used_Item_Done();
+                //other.transform.parent.parent.parent.GetComponent<ItemManager>().CurrentTrailingItem.SetActive(false);
+                //other.transform.parent.parent.parent.GetComponent<ItemManager>().CurrentTrailingItem = null;
+                //other.transform.parent.parent.parent.GetComponent<ItemManager>().current_Item = "";
+                //other.transform.parent.parent.parent.GetComponent<ItemManager>().used_Item_Done();
                 destroyShell();
             }
             else
@@ -317,10 +317,10 @@ public class RedShell : MonoBehaviour
                 {
                     other.transform.GetChild(0).GetChild(i).GetComponent<ParticleSystem>().Play();
                 }
-                other.transform.parent.parent.parent.GetComponent<ItemManager>().CurrentTrailingItem.SetActive(false);
-                other.transform.parent.parent.parent.GetComponent<ItemManager>().CurrentTrailingItem = null;
-                other.transform.parent.parent.parent.GetComponent<ItemManager>().current_Item = "";
-                other.transform.parent.parent.parent.GetComponent<ItemManager>().used_Item_Done();
+                //other.transform.parent.parent.parent.GetComponent<ItemManager>().CurrentTrailingItem.SetActive(false);
+                //other.transform.parent.parent.parent.GetComponent<ItemManager>().CurrentTrailingItem = null;
+                //other.transform.parent.parent.parent.GetComponent<ItemManager>().current_Item = "";
+                //other.transform.parent.parent.parent.GetComponent<ItemManager>().used_Item_Done();
                 destroyShell();
             }
         }  

@@ -36594,9 +36594,15 @@ MonoBehaviour:
   JUMP_PANEL: 0
   Driver: {fileID: 0}
   playersounds: {fileID: 2545918901103431416}
+  waypointTracker: {fileID: 0}
   hasitem: 0
   has_item_hold: 0
   ItemBox: {fileID: 3415220751926584286, guid: 943441eb5534e7f42a9c92abe782fe02, type: 3}
+  itemManager: {fileID: 0}
+  ShellFront: {fileID: 2152965717167540984}
+  ShellBack: {fileID: 7722735983094658722}
+  ItemHand: {fileID: 3032077599909505252}
+  ThrowForward: {fileID: 8378836692204830040}
   faces:
   - {fileID: 2100000, guid: db115cb98e3bc664f9e3d27047df6760, type: 2}
   - {fileID: 2100000, guid: fa46b892dea6e5c4d94d3c32d53e1492, type: 2}
@@ -36740,126 +36746,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01917bd865e13584aa6e7cb3bd21255c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  items:
+  - name: Green Shell
+    itemGraphic: {fileID: 21300000, guid: 05c1ef4f6b230d144b113eab7670da6a, type: 3}
+    itemPrefab: {fileID: 468335106624062509, guid: c9d73f29666075f42ac98a562738396a,
+      type: 3}
   PlaySelectsound: {fileID: 2125466042143625567}
-  Selected: {fileID: 2934998202059707164}
-  items_possible:
-  - {fileID: 21300000, guid: 183d482cee8409d4e9c9d22c0c44cff2, type: 3}
-  - {fileID: 21300000, guid: e22742213f2b4254483679d34227b9ea, type: 3}
-  - {fileID: 21300000, guid: 05c1ef4f6b230d144b113eab7670da6a, type: 3}
-  - {fileID: 21300000, guid: 057178e93db1f444fb9541ffe6657770, type: 3}
-  - {fileID: 21300000, guid: 658a47e1e4ec6a94bbd6394900c99c23, type: 3}
-  - {fileID: 21300000, guid: 76d3b354e89733041baf5e41a2fab3ef, type: 3}
-  - {fileID: 21300000, guid: c2232b059fb47c34cb171d6fa8b4327b, type: 3}
-  - {fileID: 21300000, guid: 398434fe51e701146a4333f5f155d8f8, type: 3}
-  - {fileID: 21300000, guid: 5848c92aff4aa0d4cbd43adb3bf509c4, type: 3}
-  - {fileID: 21300000, guid: 2ff62dbf8728ad6438a997e45d746002, type: 3}
-  - {fileID: 21300000, guid: 89e4657ccddd0d54ab389ef0a39c79c3, type: 3}
-  - {fileID: 21300000, guid: d4afeb34580eeac468c6a15ce4080fd1, type: 3}
-  - {fileID: 21300000, guid: 71951ca778514394fb33ced6e72797f9, type: 3}
-  - {fileID: 21300000, guid: b40bb8ba0bb9da94fadd6ec1f61c41f2, type: 3}
-  item_gameobjects:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  shell: {fileID: 468335106624062509, guid: c9d73f29666075f42ac98a562738396a, type: 3}
-  redShell: {fileID: 8806815019373118838, guid: d5fc5d7a7e2084f49aafebc9b12337b7,
-    type: 3}
-  banana: {fileID: 0}
-  coin: {fileID: 0}
-  bobomb: {fileID: 0}
-  BlueShell: {fileID: 0}
-  shellSpawnPos: {fileID: 2152965717167540984}
-  backshellPos: {fileID: 7722735983094658722}
-  BananaSpawnPos: {fileID: 8378836692204830040}
-  coinSpawnPos: {fileID: 3032077599909505252}
-  item_index: 0
-  tripleItemCount: 0
-  current_Item: GreenShell
-  currentWayPoint: 0
-  path: {fileID: 0}
-  path1: {fileID: 0}
-  path2: {fileID: 0}
-  normalMaterials:
-  - {fileID: 2100000, guid: d3764b0d406355a469dd8fa73dde461e, type: 2}
-  - {fileID: 2100000, guid: ef9cb09d29edf614bb27d7bbf0fb3379, type: 2}
-  - {fileID: 2100000, guid: ef9cb09d29edf614bb27d7bbf0fb3379, type: 2}
-  - {fileID: 2100000, guid: ef9cb09d29edf614bb27d7bbf0fb3379, type: 2}
-  - {fileID: 2100000, guid: ef9cb09d29edf614bb27d7bbf0fb3379, type: 2}
-  - {fileID: 2100000, guid: c2bcd950f5b497c4db19e0429bec8b6f, type: 2}
-  - {fileID: 2100000, guid: c2bcd950f5b497c4db19e0429bec8b6f, type: 2}
-  - {fileID: 2100000, guid: c2bcd950f5b497c4db19e0429bec8b6f, type: 2}
-  - {fileID: 2100000, guid: c2bcd950f5b497c4db19e0429bec8b6f, type: 2}
-  - {fileID: 2100000, guid: 8eb014b90181b494aa2d6d5eab813e1e, type: 2}
-  - {fileID: 2100000, guid: 8eb014b90181b494aa2d6d5eab813e1e, type: 2}
-  - {fileID: 2100000, guid: 8eb014b90181b494aa2d6d5eab813e1e, type: 2}
-  - {fileID: 2100000, guid: 8eb014b90181b494aa2d6d5eab813e1e, type: 2}
-  - {fileID: 2100000, guid: 128efb5dc7b0b77428ea66f515f73508, type: 2}
-  - {fileID: 2100000, guid: 6bcc87fbe6e706f41bfa3561b314c458, type: 2}
-  - {fileID: 2100000, guid: 6bcc87fbe6e706f41bfa3561b314c458, type: 2}
-  - {fileID: 2100000, guid: db115cb98e3bc664f9e3d27047df6760, type: 2}
-  - {fileID: 2100000, guid: e6b7cf72caeb3f9408c7c0e8a40dbdd3, type: 2}
-  - {fileID: 2100000, guid: a7830cf68bca658418e258db08cb2907, type: 2}
-  - {fileID: 2100000, guid: 3c1061a0ac7b0914b9a5f95a0121e716, type: 2}
-  - {fileID: 2100000, guid: e21f2bf131752b142abaa9a7fc213b5f, type: 2}
-  - {fileID: 2100000, guid: ba233a7ec3517db448ec6572af04d913, type: 2}
-  - {fileID: 2100000, guid: 6bcc87fbe6e706f41bfa3561b314c458, type: 2}
-  - {fileID: 2100000, guid: 55f47ba1e7585d24898b91ba1c554afa, type: 2}
-  - {fileID: 2100000, guid: 74c408be42ef79741aabdd01103037fc, type: 2}
-  - {fileID: 2100000, guid: 74c408be42ef79741aabdd01103037fc, type: 2}
-  - {fileID: 2100000, guid: 74c408be42ef79741aabdd01103037fc, type: 2}
-  - {fileID: 2100000, guid: 74c408be42ef79741aabdd01103037fc, type: 2}
-  playerRenderers:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  starMat: {fileID: 2100000, guid: bc372211830b7ba4d9fedf49143fe5dc, type: 2}
-  starPS: {fileID: 0}
-  StarPowerUp: 0
-  isBullet: 0
-  bulletPlayer: {fileID: 8871715302406121161}
-  kart: {fileID: 0}
-  CurrentTrailingItem: {fileID: 0}
-  trailingItems:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   coinSparkle: {fileID: 0}
+  StarPowerUp: 0
+  starMat: {fileID: 2100000, guid: bc372211830b7ba4d9fedf49143fe5dc, type: 2}
+  isBullet: 0
   canUseBulletAntigravity: 1
 --- !u!114 &5821174935118249453
 MonoBehaviour:
@@ -36969,6 +36865,7 @@ MonoBehaviour:
   FellInWater: 0
   outOfBounds: 0
   PlayerBeingMoved: 0
+  tracker: {fileID: 0}
 --- !u!75 &2622412334136134521
 ConstantForce:
   m_ObjectHideFlags: 0
@@ -37037,6 +36934,8 @@ MonoBehaviour:
   - {fileID: 8067762708581821838, guid: 9e7e32f2190a7d94987f38f18502992e, type: 3}
   - {fileID: 4123642122302570789, guid: 25c6935d39a8b1f43aa41e1fbf7335ca, type: 3}
   KartVisual: {fileID: 1404000245249982960}
+  RacerRenderers: []
+  RacerMaterials: []
   OnSpawned:
     m_PersistentCalls:
       m_Calls:
@@ -56774,12 +56673,6 @@ PrefabInstance:
 --- !u!4 &5568124557917066458 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: c934b6298dee8d84dbf149ff81a502ec,
-    type: 3}
-  m_PrefabInstance: {fileID: 594271768045109184}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &8871715302406121161 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: c934b6298dee8d84dbf149ff81a502ec,
     type: 3}
   m_PrefabInstance: {fileID: 594271768045109184}
   m_PrefabAsset: {fileID: 0}
