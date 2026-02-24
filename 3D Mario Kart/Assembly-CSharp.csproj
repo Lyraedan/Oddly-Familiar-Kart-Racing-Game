@@ -146,6 +146,7 @@
     <Compile Include="Assets\Scripts\Items\PlayerBlueShellRaycast.cs" />
     <Compile Include="Assets\Models\Group of Toads\Wii U - Mario Kart 8 - Toads\Toads\ToadAnim.cs" />
     <Compile Include="Assets\Scripts\Fx\Screenshot.cs" />
+    <Compile Include="Assets\Scripts\Kart\WheelSpawnDebug.cs" />
     <Compile Include="Assets\Scripts\QuaternionUtil.cs" />
     <Compile Include="Assets\Scripts\OutOfBounds.cs" />
     <Compile Include="Assets\Scripts\Items\Banana.cs" />
