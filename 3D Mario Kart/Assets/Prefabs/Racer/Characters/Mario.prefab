@@ -12594,6 +12594,7 @@ GameObject:
   m_Component:
   - component: {fileID: 235192037248335918}
   - component: {fileID: 1352707756239157362}
+  - component: {fileID: 1328653933489701965}
   m_Layer: 0
   m_Name: Mario
   m_TagString: Untagged
@@ -12651,6 +12652,33 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1328653933489701965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6261373043710507858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23ae591621b73f94c87226e1908f778a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RacerConfig
+  Driver: {fileID: 1352707756239157362}
+  Face:
+    DefaultFace: {fileID: 2100000, guid: db115cb98e3bc664f9e3d27047df6760, type: 2}
+    faceRenderer: {fileID: 452862995295039547}
+    Faces:
+    - {fileID: 2100000, guid: db115cb98e3bc664f9e3d27047df6760, type: 2}
+    - {fileID: 2100000, guid: cd36e647247b1c044a4f166fc40308b3, type: 2}
+    - {fileID: 2100000, guid: 3e9860bfe9b2b094eb933e0c993e2e39, type: 2}
+    - {fileID: 2100000, guid: fa46b892dea6e5c4d94d3c32d53e1492, type: 2}
+    - {fileID: 2100000, guid: c90951104ba3aa943b5cff1ae8bf8443, type: 2}
+    - {fileID: 2100000, guid: bca5cb288ce3e304b80721f03994ba36, type: 2}
+    - {fileID: 2100000, guid: f03deff9fc7b5844bab778d4951d4a93, type: 2}
+    - {fileID: 2100000, guid: 61c7f51d3c673594aac434dd6e56accc, type: 2}
+    - {fileID: 2100000, guid: 89482926e567a0f4e9d3d348786e5f80, type: 2}
+  HeadBone: {fileID: 7677659169103617399}
 --- !u!1 &6274758117900825573
 GameObject:
   m_ObjectHideFlags: 0

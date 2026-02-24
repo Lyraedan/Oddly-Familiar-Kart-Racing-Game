@@ -234,6 +234,8 @@ public class Player : MonoBehaviour
         if(mkwCustomization != null)
         {
             KartConfig config = mkwCustomization.CurrentKartConfig;
+            RacerConfig racerConfig = mkwCustomization.CurrentRacerConfig;
+
             Boost_PS = config.boostParticles;
             BoostBurstPS = config.boostBurstParticles;
             DriftPS = config.WheelParticles;
@@ -252,7 +254,14 @@ public class Player : MonoBehaviour
             glider = config.Glider;
             propeller = config.Propeller.transform;
 
-            // Driver needs to be loaded from the CurrentKartConfig Racer (TODO: Implement this)
+            if(racerConfig != null)
+            {
+                Driver = racerConfig.Driver;
+                faces = racerConfig.Face.Faces.ToArray();
+                current_face_material = racerConfig.Face.DefaultFace;
+                MarioFace = racerConfig.Face.faceRenderer;
+                headBone = racerConfig.HeadBone;
+            }
 
             groundLandParticles = config.GroundLandParticles;
             antiGravityTireColor = config.antiGravityConfig.TireColor;

@@ -26,6 +26,7 @@ public class MKWKartCustomization : MonoBehaviour
     private GameObject Racer;
 
     public KartConfig CurrentKartConfig { get; private set; }
+    public RacerConfig CurrentRacerConfig { get; private set; }
 
     void Start()
     {
@@ -65,6 +66,8 @@ public class MKWKartCustomization : MonoBehaviour
         racer.transform.position = Vector3.zero;
         racer.transform.rotation = Quaternion.identity;
         racer.transform.localScale = Vector3.one;
+
+        CurrentRacerConfig = racer.GetComponent<RacerConfig>();
         return racer;
     }
 

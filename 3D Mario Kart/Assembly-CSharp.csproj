@@ -143,6 +143,7 @@
     <Compile Include="Assets\Scenes\TestFolderMats\EnterWater.cs" />
     <Compile Include="Assets\Scripts\JumpPanelScript.cs" />
     <Compile Include="Assets\Scripts\UtilityFunctions.cs" />
+    <Compile Include="Assets\Scripts\Kart\RacerConfig.cs" />
     <Compile Include="Assets\Scripts\WaterCameraEffectController.cs" />
     <Compile Include="Assets\Scripts\Camera\GetRes.cs" />
     <Compile Include="Assets\Scripts\Map Selector\MapSelectorOption.cs" />
