@@ -29,6 +29,11 @@ public class LapCounter : MonoBehaviour
             checkpointsVisited[i] = false;
         }
         rm = GameObject.Find("RaceManager").GetComponent<RACE_MANAGER>();
+
+        if(checkpoints == null)
+        {
+            checkpoints = GameObject.FindGameObjectWithTag("LapCheckpointsContainer").transform;
+        }
     }
 
     // Update is called once per frame

@@ -82,6 +82,10 @@ public class ItemManager : MonoBehaviour
         player_script = GetComponent<Player>();
         playersounds = GetComponent<PlayerSounds>();
         
+        if(playerRenderers.Length == 0)
+        {
+            FindPlayerRenderers();
+        }
     }
 
     // Update is called once per frame
@@ -948,5 +952,43 @@ public class ItemManager : MonoBehaviour
         {
             path = path2;
         }
+    }
+
+    public void FindPlayerRenderers()
+    {
+        Renderer[] allRenderers = GetComponentsInChildren<Renderer>();
+        List<Renderer> filtered = new List<Renderer>();
+
+        foreach (Renderer rend in allRenderers)
+        {
+            // Skip particle system renderers
+            if (rend is ParticleSystemRenderer)
+                continue;
+
+            // Skip renderers under "Propeller" or "Glider"
+            Transform current = rend.transform;
+            bool skip = false;
+            while (current != transform) // walk up hierarchy
+            {
+                // Ignore propeller and glider renderers
+                if (current.name == "Propeller" || current.name == "Glider")
+                {
+                    skip = true;
+                    break;
+                }
+                current = current.parent;
+            }
+
+            if (!skip)
+                filtered.Add(rend);
+        }
+
+        playerRenderers = filtered.ToArray();
+    }
+
+    [ContextMenu("Auto Populate Renderers")]
+    void AutoPopulateRenderers()
+    {
+        FindPlayerRenderers();
     }
 }

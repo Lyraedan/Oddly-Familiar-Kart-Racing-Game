@@ -42,6 +42,7 @@ TagManager:
   - Fire
   - IngameUI
   - MinimapIcon
+  - LapCheckpointsContainer
   layers:
   - Default
   - TransparentFX

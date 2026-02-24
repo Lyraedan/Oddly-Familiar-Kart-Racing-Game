@@ -47,6 +47,7 @@ public class IngameUIHolder : MonoBehaviour
     public GameObject CoinCounter;
     public GameObject LapCounter;
     [Header("Minimap")]
+    public Image MinimapBackground;
     public GameObject MiniMap;
     public GameObject MinimapIcon;
     public RectTransform Map2dEnd;
@@ -116,5 +117,13 @@ public class IngameUIHolder : MonoBehaviour
     {
         CourseNameText.text = courseName;
         ConsoleText.text = console;
+    }
+
+    public void UpdateMinimapBackground(Sprite newBackground)
+    {
+        if (MinimapBackground != null)
+        {
+            MinimapBackground.sprite = newBackground;
+        }
     }
 }

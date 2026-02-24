@@ -3593,6 +3593,7 @@ MonoBehaviour:
   CountDownTimer: {fileID: 4402452259080814309}
   CoinCounter: {fileID: 7725785947794639528}
   LapCounter: {fileID: 4942277854363808887}
+  MinimapBackground: {fileID: 7022855933937168969}
   MiniMap: {fileID: 7179396050838324384}
   MinimapIcon: {fileID: 1542080176299526549, guid: 9fba4d2abfc337e4bb6142cc513d762c,
     type: 3}
@@ -13061,7 +13062,7 @@ GameObject:
   m_Component:
   - component: {fileID: 797848451929410262}
   m_Layer: 5
-  m_Name: GameObject
+  m_Name: Minimap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

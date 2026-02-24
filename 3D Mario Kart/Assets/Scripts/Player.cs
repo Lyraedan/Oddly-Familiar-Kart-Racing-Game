@@ -220,6 +220,12 @@ public class Player : MonoBehaviour
         {
             tireLocalPositions[i] = TireParents[i].transform.localPosition;
         }
+
+        if (Cam == null)
+        {
+            Cam = FindFirstObjectByType<Camerafollow>();
+            Cam.player = transform; // Set to us
+        }
     }
 
     /// <summary>

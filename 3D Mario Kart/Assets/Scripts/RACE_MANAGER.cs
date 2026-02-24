@@ -6,9 +6,10 @@ using System.Linq;
 
 public class RACE_MANAGER : MonoBehaviour
 {
-    [Header("Map Name Display")]
+    [Header("Course Config")]
     public string CourseName = "Map Name";
     public string Console = "Unity";
+    public Sprite MinimapBackground;
 
     [Header("Setup")]
     public GameObject FrontCam;
@@ -84,6 +85,7 @@ public class RACE_MANAGER : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").transform;
 
         IngameUIHolder.Instance.UpdateCourse(CourseName, Console);
+        IngameUIHolder.Instance.UpdateMinimapBackground(MinimapBackground);
     }
 
     // Update is called once per frame
