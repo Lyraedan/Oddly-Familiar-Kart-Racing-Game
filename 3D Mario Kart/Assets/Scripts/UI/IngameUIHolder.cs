@@ -46,7 +46,11 @@ public class IngameUIHolder : MonoBehaviour
     public GameObject CountDownTimer;
     public GameObject CoinCounter;
     public GameObject LapCounter;
+    [Header("Minimap")]
     public GameObject MiniMap;
+    public GameObject MinimapIcon;
+    public RectTransform Map2dEnd;
+    [Space(10)]
     public GameObject PositionCounter;
     public GameObject CourseNameUI;
     public List<LapCounter> LapCounters = new();
@@ -78,6 +82,31 @@ public class IngameUIHolder : MonoBehaviour
         if (LapCounters.Count == 0)
         {
             LapCounters = new List<LapCounter>(FindObjectsByType<LapCounter>(FindObjectsSortMode.None));
+        }
+        GenerateRacerMinimapIcons();
+    }
+
+    private void GenerateRacerMinimapIcons()
+    {
+        foreach (LapCounter racer in LapCounters)
+        {
+            MinimapIcon icon = Instantiate(MinimapIcon, MiniMap.transform).GetComponent<MinimapIcon>();
+            icon.IsOurIcon = racer.CompareTag("Player");
+            if(icon.IsOurIcon)
+            {
+                icon.transform.SetAsFirstSibling();
+            } else
+            {
+                icon.transform.SetSiblingIndex(1);
+            }
+
+            Minimap minimap = racer.GetComponent<Minimap>();
+            if (minimap) {
+                minimap.playerInMap = icon.transform.GetComponent<RectTransform>();
+                minimap.map2dEnd = Map2dEnd;
+                icon.UpdateSprite(minimap.characterHead);
+            }
+
         }
     }
 }

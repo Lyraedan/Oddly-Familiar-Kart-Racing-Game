@@ -132,6 +132,7 @@
     <Compile Include="Assets\SampleScenes\Scripts\CameraSwitch.cs" />
     <Compile Include="Assets\Scripts\OpponentItemManager.cs" />
     <Compile Include="Assets\Scripts\DontGoThroughThings.cs" />
+    <Compile Include="Assets\Scripts\UI\MinimapIcon.cs" />
     <Compile Include="Assets\Scripts\Items\GreenShell.cs" />
     <Compile Include="Assets\Scenes\WaveRoad.cs" />
     <Compile Include="Assets\Scenes\TestFolderMats\EnterWater.cs" />

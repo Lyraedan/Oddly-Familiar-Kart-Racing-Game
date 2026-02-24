@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Minimap : MonoBehaviour
 {
-    public RectTransform playerInMap;
-    public RectTransform map2dEnd;
+    public Sprite characterHead;
+    [HideInInspector] public RectTransform playerInMap;
+    [HideInInspector] public RectTransform map2dEnd;
     public Transform map3dParent;
     public Transform map3dEnd;
 

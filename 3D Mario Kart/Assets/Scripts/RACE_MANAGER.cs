@@ -419,7 +419,7 @@ public class RACE_MANAGER : MonoBehaviour
     }
     public void DisableSet2()
     {
-        if (set2.Length == 0)
+        if (set1.Length == 0)
             return;
 
         for (int i = 0; i < set1.Length; i++)
@@ -433,6 +433,9 @@ public class RACE_MANAGER : MonoBehaviour
                 set1[i].SetActive(true);
             }
         }
+
+        if (set2.Length == 0)
+            return;
 
         for (int i = 0; i < set2.Length; i++)
         {
@@ -449,7 +452,7 @@ public class RACE_MANAGER : MonoBehaviour
 
     public void DisableSet3()
     {
-        if (set3.Length == 0)
+        if (set2.Length == 0)
             return;
 
         for (int i = 0; i < set2.Length; i++)
@@ -463,6 +466,9 @@ public class RACE_MANAGER : MonoBehaviour
                 set2[i].SetActive(true);
             }
         }
+
+        if (set3.Length == 0)
+            return;
 
         for (int i = 0; i < set3.Length; i++)
         {

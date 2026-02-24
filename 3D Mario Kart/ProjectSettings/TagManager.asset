@@ -41,6 +41,7 @@ TagManager:
   - ChainChomp
   - Fire
   - IngameUI
+  - MinimapIcon
   layers:
   - Default
   - TransparentFX
