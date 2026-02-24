@@ -56,6 +56,15 @@ Once thats ready open the project after adding it to your Unity Hub and let it i
    - UGC Maps
    > See: [how to create a custom map here](https://github.com/Lyraedan/Oddly-Familiar-Kart-Racing-Game/wiki/Creating-a-Custom-Course.)
 
+## What am I currently working on
+* Refactoring the codebase
+  > More specifically working on the UI right now
+* Kart customization
+  > I have this working like MK8 to a degree (wheels and chassis) but I will bench it for now in favour for a prebuilt system
+  > This will allow you to just rip a kart from whereever and easily make it work
+* Custom character
+  > Dynamic minimap icon is done
+
 ## My plans
  * Refactor the code base because holy moly my eyeballs
  * Custom characters
