@@ -66,7 +66,7 @@ public class PlayerControls : MonoBehaviour
             currentButtonStates[action.name] = value > 0.1f;
         }
 
-        Debug.Log("Input.GetAxis(\"Horizontal\"): " + GetAxis("Steer Left") + " / " + GetAxis("Steer Right") + " / " + GetSteerAxis());
+        //Debug.Log("Input.GetAxis(\"Horizontal\"): " + GetAxis("Steer Left") + " / " + GetAxis("Steer Right") + " / " + GetSteerAxis());
     }
 
     private void InitializeAction(string actionName)

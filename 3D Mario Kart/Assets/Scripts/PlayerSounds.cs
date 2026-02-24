@@ -222,6 +222,12 @@ public class PlayerSounds : MonoBehaviour
     public void PlayLandGroundSkid() => landGroundSkid?.Play();
     #endregion
 
+    public void LoadKartSounds(KartConfig config)
+    {
+        kartEngine = config.Sounds.KartSound;
+        kartIdle = config.Sounds.KartIdle;
+    }
+
     public void LoadCharacterSounds(RacerConfig config)
     {
         boostSounds = config.RacerSounds.Boost;

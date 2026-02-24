@@ -229,10 +229,13 @@ public class Player : MonoBehaviour
             tireArms = mk8Customization.CurrentChassis.TireArms.ToArray();
         }
 
+        Debug.Log("[Customization] Trying to load mario kart world customization");
         // Mario Kart World Style Customization
         MKWKartCustomization mkwCustomization = GetComponent<MKWKartCustomization>();
         if(mkwCustomization != null)
         {
+            Debug.Log("[Customization] Loading Mario Kart World Style Customization");
+
             KartConfig config = mkwCustomization.CurrentKartConfig;
             RacerConfig racerConfig = mkwCustomization.CurrentRacerConfig;
 
@@ -256,6 +259,7 @@ public class Player : MonoBehaviour
 
             if(racerConfig != null)
             {
+                Debug.Log("[Customization] Setting up racer!");
                 Driver = racerConfig.Driver;
                 faces = racerConfig.Face.Faces.ToArray();
                 current_face_material = racerConfig.Face.DefaultFace;
@@ -277,8 +281,8 @@ public class Player : MonoBehaviour
 
             lightDecalColor = config.antiGravityConfig.LightDecalColor;
 
-            playersounds.kartEngine = config.Sounds.KartSound;
-            playersounds.kartIdle = config.Sounds.KartIdle;
+            Debug.Log("[Customization] Loading External sounds");
+            playersounds.LoadKartSounds(config);
             playersounds.LoadCharacterSounds(racerConfig);
         }
 
@@ -325,7 +329,7 @@ public class Player : MonoBehaviour
             groundRayDist = 2;
         }
 
-        mario_face();
+        //mario_face();
 
         // If the race has started, but not completed
         if (RACE_MANAGER.RACE_STARTED && !item_manager.isBullet && !RACE_MANAGER.RACE_COMPLETED)
