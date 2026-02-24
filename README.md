@@ -56,6 +56,15 @@ Once thats ready open the project after adding it to your Unity Hub and let it i
    - UGC Maps
    > See: [how to create a custom map here](https://github.com/Lyraedan/Oddly-Familiar-Kart-Racing-Game/wiki/Creating-a-Custom-Course.)
 
+## What am I currently working on
+* Refactoring the codebase
+  > More specifically working on the UI right now
+* Kart customization
+  > I have this working like MK8 to a degree (wheels and chassis) but I will bench it for now in favour for a prebuilt system
+  > This will allow you to just rip a kart from whereever and easily make it work
+* Custom character
+  > Dynamic minimap icon is done
+
 ## My plans
  * Refactor the code base because holy moly my eyeballs
  * Custom characters
@@ -69,6 +78,7 @@ Once thats ready open the project after adding it to your Unity Hub and let it i
  * Multiplayer via Mirror & Epic Online Services
  * Character selection (characters will PURELY be cosmetic)
  * MK8 style kart building
+   > I originally wanted MK8 style BUT realized whilst implementing it that it limits what people can do when it comes to modding in vehicles so i'm going to bench the MK8 style for now in favour of prebuilts as that'll allow modders to add unique karts
  * Double Item box?
  * Integrate Mod.io for User Generate Content / Content distribution (Keys and wotnot will not be included in the repo, but they will be in Release builds)
  * Integrate Moon Sharp for lua scripting
