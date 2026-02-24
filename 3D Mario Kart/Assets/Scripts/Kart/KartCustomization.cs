@@ -3,162 +3,77 @@ using UnityEngine;
 
 public class KartCustomization : MonoBehaviour
 {
-    // Used purely for different colored variants of parts
-    [System.Serializable]
-    public class KartSkin
-    {
-        public string skinName;
-        public List<Material> materials = new();
-    }
+    // Bikes should have the same number of axels as a normal kart, just have 2 tire mesh renderers disabled
 
     [System.Serializable]
-    public class MultiMeshPart
+    public struct AxelConfig
     {
-        public bool skinnable = true;
-        public List<KartSkin> skins = new();
-        public string partName;
-        public List<Mesh> meshes = new();
+        public LayerMask mask;
+        public Transform WheelToLookAt;
+        public float hitDistance;
+    }
+    [Header("This must match the number of axels in the kart chassis")]
+    public List<AxelConfig> WheelsToLookAt = new();
+
+    [Header("Kart Bodies")]
+    public int CurrentlySelectedKartBodyIndex = 0;
+    public Transform bodyTransform;
+    public List<GameObject> kartBodies;
+
+    [Header("Debugging")]
+    public GameObject ChassisVisual;
+
+    public ChassisConfig CurrentChassis { get; private set; }
+
+    public void Start()
+    {
+        RemoveVisuals();
+        SpawnKartBody();
     }
 
-    [System.Serializable]
-    public class RenderableMesh
+    void RemoveVisuals()
     {
-        public MeshFilter filter;
-        public MeshRenderer renderer;
-
-        public void SetMesh(Mesh mesh)
+        if (ChassisVisual != null)
         {
-            if (filter != null)
-                filter.mesh = mesh;
-        }
-
-        public void SetVisible(bool visible)
-        {
-            if (renderer != null)
-                renderer.enabled = visible;
-        }
-
-        public void SetMaterials(List<Material> materials)
-        {
-            if (renderer != null && materials != null && materials.Count > 0)
-            {
-                renderer.materials = materials.ToArray();
-            }
+            Destroy(ChassisVisual);
         }
     }
 
-    [System.Serializable]
-    public struct SkinSelection
+    public void SpawnKartBody()
     {
-        public int bodySkinIndex;
-        public int wheelSkinIndex;
-        public int gliderSkinIndex;
-    }
-
-    [Header("Selection")]
-    public int currentBodyIndex = 0;
-    public int currentWheelIndex = 0;
-    public int currentGliderIndex = 0;
-    [Header("Skin Selection")]
-    public SkinSelection currentSkin;
-
-    [Header("Selectable Options")]
-    public List<MultiMeshPart> bodyMeshes = new();
-    public List<MultiMeshPart> wheelMeshes = new();
-    public List<MultiMeshPart> gliderMeshes = new();
-
-    [Header("Kart References")]
-    public RenderableMesh mainChassis;
-    public RenderableMesh[] wheels;
-    public RenderableMesh glider;
-
-    void Start()
-    {
-        ApplyCustomization();
-    }
-
-    public void ApplyCustomization()
-    {
-        ApplyBody();
-        //ApplyWheels(); // Wheels are WIP
-        //ApplyGlider(); // Disabled because I gotta change how the glider works (its skinned mesh setup wont cut it)
-    }
-
-    void ApplyBody()
-    {
-        if (bodyMeshes.Count == 0 || mainChassis == null)
+        if (kartBodies.Count == 0)
+        {
+            Debug.LogError("No kart bodies assigned to KartCustomization!");
             return;
-
-        var part = bodyMeshes[Mathf.Clamp(currentBodyIndex, 0, bodyMeshes.Count - 1)];
-
-        if (part.meshes.Count > 0)
-        {
-            mainChassis.SetMesh(part.meshes[0]);
-            mainChassis.SetVisible(true);
-
-            ApplySkin(part, mainChassis, currentSkin.bodySkinIndex);
         }
-        else
-        {
-            mainChassis.SetVisible(false);
-        }
-    }
 
-    void ApplyWheels()
-    {
-        if (wheelMeshes.Count == 0 || wheels == null)
+        GameObject selectedKartBody = kartBodies[CurrentlySelectedKartBodyIndex];
+        GameObject newKartBody = Instantiate(selectedKartBody, bodyTransform);
+        ChassisConfig chassisConfig = newKartBody.GetComponent<ChassisConfig>();
+        if (chassisConfig == null)
+        {
+            Debug.LogError("No ChassisConfig found on KartCustomization object!");
+            Destroy(newKartBody);
             return;
-
-        var part = wheelMeshes[Mathf.Clamp(currentWheelIndex, 0, wheelMeshes.Count - 1)];
-
-        for (int i = 0; i < wheels.Length; i++)
-        {
-            if (i < part.meshes.Count && part.meshes[i] != null)
-            {
-                wheels[i].SetMesh(part.meshes[i]);
-                wheels[i].SetVisible(true);
-
-                ApplySkin(part, wheels[i], currentSkin.wheelSkinIndex);
-            }
-            else
-            {
-                wheels[i].SetVisible(false);
-            }
         }
-    }
 
-    void ApplyGlider()
-    {
-        if (gliderMeshes.Count == 0 || glider == null)
-            return;
-
-        var part = gliderMeshes[Mathf.Clamp(currentGliderIndex, 0, gliderMeshes.Count - 1)];
-
-        if (part.meshes.Count > 0)
+        if(WheelsToLookAt.Count != chassisConfig.Axels.Count)
         {
-            glider.SetMesh(part.meshes[0]);
-            glider.SetVisible(true);
-
-            ApplySkin(part, glider, currentSkin.gliderSkinIndex);
+            Debug.LogError("Number of axels in ChassisConfig does not match number of WheelsToLookAt in KartCustomization!");
+            Destroy(newKartBody);
+            return;
         }
-        else
+
+        // Apply the wheel look at and mask settings to the chassis config
+        for (int i = 0; i < WheelsToLookAt.Count; i++)
         {
-            glider.SetVisible(false);
+            chassisConfig.Axels[i].mask = WheelsToLookAt[i].mask;
+            chassisConfig.Axels[i].wheelLookAt = WheelsToLookAt[i].WheelToLookAt;
+            chassisConfig.Axels[i].hitDistance = WheelsToLookAt[i].hitDistance;
         }
-    }
 
-    void ApplySkin(MultiMeshPart part, RenderableMesh renderable, int skinIndex)
-    {
-        if (!part.skinnable)
-            return;
-
-        if (part.skins == null || part.skins.Count == 0)
-            return;
-
-        int clampedIndex = Mathf.Clamp(skinIndex, 0, part.skins.Count - 1);
-
-        var skin = part.skins[clampedIndex];
-
-        renderable.SetMaterials(skin.materials);
+        newKartBody.transform.localPosition = Vector3.zero;
+        newKartBody.transform.SetAsLastSibling();
+        CurrentChassis = chassisConfig;
     }
 }

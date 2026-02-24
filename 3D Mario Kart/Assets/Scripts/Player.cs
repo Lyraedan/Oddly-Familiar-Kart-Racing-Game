@@ -226,6 +226,13 @@ public class Player : MonoBehaviour
             Cam = FindFirstObjectByType<Camerafollow>();
             Cam.player = transform; // Set to us
         }
+
+        KartCustomization kartCustomization = GetComponent<KartCustomization>();
+        if (kartCustomization != null)
+        {
+            axels = kartCustomization.CurrentChassis.AxelContainer;
+            tireArms = kartCustomization.CurrentChassis.TireArms.ToArray();
+        }
     }
 
     /// <summary>
