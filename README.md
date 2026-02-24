@@ -78,7 +78,7 @@ Once thats ready open the project after adding it to your Unity Hub and let it i
  * Multiplayer via Mirror & Epic Online Services
  * Character selection (characters will PURELY be cosmetic)
  * MK8 style kart building
-   > I originally wanted MK8 style BUT realized whilst implementing it that it limits what people can do when it comes to modding in vehicles so i'm going to bench the MK8 style for now in favour of prebuilts 
+   > I originally wanted MK8 style BUT realized whilst implementing it that it limits what people can do when it comes to modding in vehicles so i'm going to bench the MK8 style for now in favour of prebuilts as that'll allow modders to add unique karts
  * Double Item box?
  * Integrate Mod.io for User Generate Content / Content distribution (Keys and wotnot will not be included in the repo, but they will be in Release builds)
  * Integrate Moon Sharp for lua scripting
