@@ -103,7 +103,7 @@ public class UtilityFunctions : MonoBehaviour
     }
     public void gliderOpenflapSound()
     {
-        playersounds.effectSounds[12].Play();
+        playersounds.gliderFlapOpen.Play();
     }
 
     public void is_drifting()
@@ -281,8 +281,8 @@ public class UtilityFunctions : MonoBehaviour
             if(transform.parent.GetComponent<BlueShell>().who_threw_shell == "Mario")
             {
                 GameObject.Find("Mario").GetComponent<Player>().Driver.SetTrigger("HitItem");
-                if(GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSounds>().Check_if_playing())
-                    GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSounds>().effectSounds[18].Play();
+                if(GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSounds>().CanPlayCharacterSound())
+                    GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSounds>().marioItemHit.Play();
             }
         }
 

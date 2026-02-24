@@ -36688,63 +36688,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d357da9d703040b44b20d9bd8e830c46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  kartSound: {fileID: 0}
+  kartEngine: {fileID: 0}
   kartIdle: {fileID: 7540718791357488519}
-  effectSounds:
-  - {fileID: 5199725708851311763}
-  - {fileID: 4575253007922127609}
-  - {fileID: 5069005932374518702}
-  - {fileID: 2336280890116135272}
-  - {fileID: 1848639520991732376}
-  - {fileID: 288366345800867868}
-  - {fileID: 7387033624327864319}
-  - {fileID: 7737736329937682666}
-  - {fileID: 4045027931655554837}
-  - {fileID: 5377948360265866973}
-  - {fileID: 3238183685548841058}
-  - {fileID: 4383431944925506348}
-  - {fileID: 8887255535667107940}
-  - {fileID: 8234774467862017001}
-  - {fileID: 5198642271988675210}
-  - {fileID: 1644490003458124253}
-  - {fileID: 1818680020357629668}
-  - {fileID: 6954414268899385986}
-  - {fileID: 2498197998828941798}
-  - {fileID: 189553662160181202}
-  - {fileID: 7742583997978034866}
-  - {fileID: 5486578750549365994}
-  - {fileID: 6253769366397752032}
-  - {fileID: 3634811846385272889}
-  - {fileID: 3100235763635810993}
-  - {fileID: 781519553347508779}
-  Mario_Boost_Sounds:
-  - {fileID: 1758855474841596696}
-  - {fileID: 2620563410845027181}
-  - {fileID: 385570066372683359}
-  - {fileID: 6884734064742173904}
-  - {fileID: 7604614945436238147}
-  - {fileID: 5982293049033328158}
-  MarioStarSounds:
-  - {fileID: 3303467929024879728}
-  - {fileID: 4881998148867011458}
-  - {fileID: 5794758471018958605}
-  MarioJumpTrickSounds:
-  - {fileID: 1588219784016404513}
-  - {fileID: 2106984505143828639}
-  - {fileID: 5472131862105562859}
-  BulletSounds:
-  - {fileID: 1064175088877403301}
-  - {fileID: 7538757485625781418}
-  - {fileID: 3275564042592770716}
-  Mario_Glider: {fileID: 4335922054107923419}
-  marioFirstPlace: {fileID: 3402433316100268291}
-  MarioLose: {fileID: 4144032762475761196}
-  sound_count: 0
-  star_count_sound: 0
-  hurtSounds:
-  - {fileID: 7990841229909794634}
-  - {fileID: 5200676115388883567}
-  - {fileID: 5176802236839754115}
+  driftSteer: {fileID: 5199725708851311763}
+  driftSpark: {fileID: 4575253007922127609}
+  gliderOpen: {fileID: 5069005932374518702}
+  gliderFlutter: {fileID: 2336280890116135272}
+  landGroundSkid: {fileID: 1848639520991732376}
+  gliderClose: {fileID: 288366345800867868}
+  driftHop: {fileID: 7387033624327864319}
+  chassisCrash: {fileID: 7737736329937682666}
+  jumpboard: {fileID: 4045027931655554837}
+  coinSound: {fileID: 5377948360265866973}
+  kartBump: {fileID: 3238183685548841058}
+  accelerateBeforeStart: {fileID: 4383431944925506348}
+  gliderFlapOpen: {fileID: 8887255535667107940}
+  startBoost: {fileID: 8234774467862017001}
+  goal: {fileID: 5198642271988675210}
+  firstPlaceResult: {fileID: 1644490003458124253}
+  secondToSixth: {fileID: 1818680020357629668}
+  resultsGood: {fileID: 6954414268899385986}
+  marioItemHit: {fileID: 2498197998828941798}
+  cowHit: {fileID: 189553662160181202}
+  kartSkidReverse: {fileID: 7742583997978034866}
+  loseResult: {fileID: 5486578750549365994}
+  resultsBad: {fileID: 6253769366397752032}
+  antiGravityEnter: {fileID: 3634811846385272889}
+  antiGravityExit: {fileID: 3100235763635810993}
+  gravitySpin: {fileID: 781519553347508779}
+  boostSounds: []
+  starSounds: []
+  jumpTrickSounds: []
+  bulletFly: {fileID: 1064175088877403301}
+  bulletStart: {fileID: 7538757485625781418}
+  bulletEnd: {fileID: 3275564042592770716}
+  hurtSounds: []
+  firstPlaceVoice: {fileID: 0}
+  marioLose: {fileID: 0}
+  gliderVoice: {fileID: 0}
   SceneEntryFinished: 0
 --- !u!114 &3606734833742908513
 MonoBehaviour:
@@ -37041,6 +37022,7 @@ MonoBehaviour:
   kartType: 0
   currentKartIndex: 0
   currentRacerIndex: 0
+  currentKartSkinIndex: 0
   kartSpawnPoint: {fileID: 6064369078986834943}
   karts:
   - {fileID: 1900276100344347441, guid: bc4e86f7f736b1d40b3ae6e31bef82af, type: 3}

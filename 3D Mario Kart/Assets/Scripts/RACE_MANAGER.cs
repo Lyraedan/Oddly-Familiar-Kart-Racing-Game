@@ -220,9 +220,10 @@ public class RACE_MANAGER : MonoBehaviour
         }
     }
 
+    // Oh my f*cking god! You ever hearding of CACHING
     IEnumerator FinishRace()
     {
-        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSounds>().effectSounds[14].Play();
+        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSounds>().goal.Play();
 
         if(spectatorSounds !=null)
             spectatorSounds.SetActive(false);
@@ -238,47 +239,47 @@ public class RACE_MANAGER : MonoBehaviour
         if (GameObject.FindGameObjectWithTag("Player").GetComponent<LapCounter>().Position == 1)
         {
             GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().Driver.SetBool("FirstPlace", true);
-            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSounds>().marioFirstPlace.Play();
+            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSounds>().firstPlaceVoice.Play();
             yield return new WaitForSeconds(1);
 
-            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSounds>().effectSounds[15].Play();
+            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSounds>().firstPlaceResult.Play();
             yield return new WaitForSeconds(2.5f);
             FrontCam.GetComponent<Animator>().SetBool("RaceEndCam", true);
             yield return new WaitForSeconds(0.5f);
             resultsUI.createResults(sortedRacers);
             yield return new WaitForSeconds(3f);
-            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSounds>().effectSounds[17].Play();
+            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSounds>().resultsGood.Play();
 
         }
         else if (GameObject.FindGameObjectWithTag("Player").GetComponent<LapCounter>().Position < 6)
         {
             //for now it is the same thing
             GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().Driver.SetBool("FirstPlace", true);
-            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSounds>().marioFirstPlace.Play();
+            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSounds>().firstPlaceVoice.Play();
             yield return new WaitForSeconds(1);
 
-            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSounds>().effectSounds[16].Play(); //except for this
+            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSounds>().secondToSixth.Play(); //except for this
             yield return new WaitForSeconds(2.5f);
             FrontCam.GetComponent<Animator>().SetBool("RaceEndCam", true);
             yield return new WaitForSeconds(0.5f);
             resultsUI.createResults(sortedRacers);
             yield return new WaitForSeconds(3f);
-            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSounds>().effectSounds[17].Play();
+            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSounds>().resultsGood.Play();
         }
         else
         {
             //for now it is the same thing
             GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().Driver.SetBool("LoseAnim", true);
-            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSounds>().MarioLose.Play();
+            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSounds>().marioLose.Play();
             yield return new WaitForSeconds(1);
 
-            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSounds>().effectSounds[21].Play(); //except for this
+            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSounds>().loseResult.Play(); //except for this
             yield return new WaitForSeconds(2.5f);
             FrontCam.GetComponent<Animator>().SetBool("RaceEndCam", true);
             yield return new WaitForSeconds(0.5f);
             resultsUI.createResults(sortedRacers);
             yield return new WaitForSeconds(3f);
-            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSounds>().effectSounds[22].Play(); //and this
+            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSounds>().resultsBad.Play(); //and this
         }
 
     }

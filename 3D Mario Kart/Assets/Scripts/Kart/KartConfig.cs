@@ -12,8 +12,6 @@ public class KartConfig : MonoBehaviour
     {
         public AudioSource KartSound;
         public AudioSource KartIdle;
-        public List<AudioSource> EffectSounds = new();
-        public List<AudioSource> BulletSounds = new();
     }
 
     public KartSoundConfig Sounds;

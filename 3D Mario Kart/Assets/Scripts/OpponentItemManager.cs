@@ -130,8 +130,8 @@ public class OpponentItemManager : MonoBehaviour
                 if (collision.gameObject.GetComponent<Banana>().whoThrewBanana == "Mario")
                 {
                     GameObject.Find("Mario").GetComponent<Player>().Driver.SetTrigger("HitItem");
-                    if (GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSounds>().Check_if_playing())
-                        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSounds>().effectSounds[18].Play();
+                    if (GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSounds>().CanPlayCharacterSound())
+                        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSounds>().marioItemHit.Play();
 
                 }
                 Destroy(collision.gameObject);

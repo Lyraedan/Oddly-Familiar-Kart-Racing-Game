@@ -276,6 +276,10 @@ public class Player : MonoBehaviour
             // Figure out exactly what Kart Mat is doing lol
 
             lightDecalColor = config.antiGravityConfig.LightDecalColor;
+
+            playersounds.kartEngine = config.Sounds.KartSound;
+            playersounds.kartIdle = config.Sounds.KartIdle;
+            playersounds.LoadCharacterSounds(racerConfig);
         }
 
         if (Cam == null)
@@ -329,16 +333,16 @@ public class Player : MonoBehaviour
             AccelBeforeStartDust.GetChild(0).GetComponent<ParticleSystem>().Stop();
             AccelBeforeStartDust.GetChild(1).GetComponent<ParticleSystem>().Stop();
             transform.GetChild(0).GetChild(0).GetComponent<Animator>().SetBool("StartTurbo", false);
-            playersounds.effectSounds[11].Stop();
+            playersounds.accelerateBeforeStart.Stop();
 
             // Before start boost
             if (beforeStartAccelTime > 1 && beforeStartAccelTime < 2)
             {
                 Boost_time = 1;
-                playersounds.effectSounds[13].Play();
+                playersounds.startBoost.Play();
                 beforeStartAccelTime = 0;
                 transform.GetChild(0).GetChild(0).GetComponent<Animator>().SetTrigger("StartBoostTilt");
-                playersounds.Mario_Boost_Sounds[3].Play();
+                playersounds.boostSounds[3].Play();
                 for (int i = 0; i < BoostBurstPS.transform.childCount; i++)
                 {
                     BoostBurstPS.transform.GetChild(i).GetComponent<ParticleSystem>().Play();
@@ -435,16 +439,16 @@ public class Player : MonoBehaviour
                 tires[3].transform.Rotate(-90 * Time.deltaTime * 75 / 5.5f, 0, 0);
                 AccelBeforeStartDust.GetChild(0).GetComponent<ParticleSystem>().Play();
                 AccelBeforeStartDust.GetChild(1).GetComponent<ParticleSystem>().Play();
-                if (!playersounds.effectSounds[11].isPlaying)
+                if (!playersounds.accelerateBeforeStart.isPlaying)
                 {
-                    playersounds.effectSounds[11].Play();
+                    playersounds.accelerateBeforeStart.Play();
                 }
                 beforeStartAccelTime += Time.deltaTime;
             }
             else
             {
                 transform.GetChild(0).GetChild(0).GetComponent<Animator>().SetBool("StartTurbo", false);
-                playersounds.effectSounds[11].Stop();
+                playersounds.accelerateBeforeStart.Stop();
                 AccelBeforeStartDust.GetChild(0).GetComponent<ParticleSystem>().Stop();
                 AccelBeforeStartDust.GetChild(1).GetComponent<ParticleSystem>().Stop();
                 beforeStartAccelTime = 0;
@@ -534,11 +538,7 @@ public class Player : MonoBehaviour
 
             Boost = true;
             max_speed = boost_speed;
-            if (playersounds.Check_if_playing())
-            {
-                playersounds.Mario_Boost_Sounds[playersounds.sound_count].Play();
-                playersounds.sound_count++;
-            }
+            playersounds.PlayBoost();
 
         }
 
@@ -548,27 +548,29 @@ public class Player : MonoBehaviour
 
         if (collision.gameObject.tag == "Ground" || collision.gameObject.tag == "Dirt")
         {
-         
+
 
             //when I hit the ground after jumping off a jump panel
             if (JUMP_PANEL)
             {
                 JUMP_PANEL = false;
-                playersounds.effectSounds[7].Play();
-                playersounds.effectSounds[4].Play();
-                playersounds.effectSounds[5].Play();
+
+                playersounds.PlayChassisCrash();
+                playersounds.PlayLandGroundSkid();
+                playersounds.PlayGliderClose();
             }
 
             if (trickBoostPending)
             {
-                if(Boost_time < 0.9f)
-                {
+                if (Boost_time < 0.9f)
                     Boost_time = 0.9f;
-                }
+
                 trickBoostPending = false;
+
                 groundLandParticles.Play();
-                playersounds.effectSounds[4].Play();
-                playersounds.effectSounds[7].Play();
+
+                playersounds.PlayLandGroundSkid();
+                playersounds.PlayChassisCrash();
             }
         }
 
@@ -576,18 +578,15 @@ public class Player : MonoBehaviour
         {
             if (GLIDER_FLY && !item_manager.isBullet)
             {
-                playersounds.effectSounds[4].Play();
-                playersounds.effectSounds[5].Play();
-
-                
-
+                playersounds.PlayLandGroundSkid();
+                playersounds.PlayGliderClose();
             }
 
             GLIDER_FLY = false;
             glideTrick = false;
             glidingTime = 0;
           
-            playersounds.effectSounds[3].Stop();
+            playersounds.gliderFlutter.Stop();
             glider.GetComponent<Animator>().SetBool("GliderOpen", false);
             glider.GetComponent<Animator>().SetBool("GliderClose", true);
 
@@ -638,7 +637,7 @@ public class Player : MonoBehaviour
                     force = 35000;
                 }
 
-                playersounds.effectSounds[10].Play();
+                playersounds.kartBump.Play();
                 if (dir < 0)
                 {
                     if (currentspeed > 50)
@@ -650,7 +649,7 @@ public class Player : MonoBehaviour
                         else
                         {
                             transform.GetChild(0).GetChild(0).GetComponent<Animator>().SetTrigger("AntigravSpinLeft");
-                            playersounds.effectSounds[25].Play(); //anti gravity spin
+                            playersounds.PlayGravitySpin();
                         }
                     }
                     if (item_manager.StarPowerUp)
@@ -681,7 +680,7 @@ public class Player : MonoBehaviour
                         else
                         {
                             transform.GetChild(0).GetChild(0).GetComponent<Animator>().SetTrigger("AntigravSpinRight");
-                            playersounds.effectSounds[25].Play(); //anti gravity spin
+                            playersounds.PlayGravitySpin();
                         }
                     }
                     if (item_manager.StarPowerUp)
@@ -716,7 +715,7 @@ public class Player : MonoBehaviour
         {
             if (GLIDER_FLY)
             {
-                playersounds.effectSounds[7].Play();
+                playersounds.PlayChassisCrash();
             }
         }
         if(collision.gameObject.tag == "fence")
@@ -772,7 +771,7 @@ public class Player : MonoBehaviour
                     {
                         if (!RACE_MANAGER.RACE_COMPLETED)
                         {
-                            playersounds.effectSounds[19].Play();
+                            playersounds.cowHit.Play();
                         }
                         StartCoroutine(hitByBanana());
                         for (int i = 0; i < 30; i++)
@@ -872,7 +871,7 @@ public class Player : MonoBehaviour
                         else
                         {
                             transform.GetChild(0).GetChild(0).GetComponent<Animator>().SetTrigger("AntigravSpinLeft");
-                            playersounds.effectSounds[25].Play(); //anti gravity spin
+                            playersounds.PlayGravitySpin(); //anti gravity spin
                         }
                     }
                     if (item_manager.StarPowerUp)
@@ -903,7 +902,7 @@ public class Player : MonoBehaviour
                         else
                         {
                             transform.GetChild(0).GetChild(0).GetComponent<Animator>().SetTrigger("AntigravSpinRight");
-                            playersounds.effectSounds[25].Play(); //anti gravity spin
+                            playersounds.PlayGravitySpin(); //anti gravity spin
                         }
                     }
                     if (item_manager.StarPowerUp)
@@ -984,7 +983,7 @@ public class Player : MonoBehaviour
             
             Boost_time = 2;
             Boost = true;
-            playersounds.effectSounds[8].Play();
+            playersounds.jumpboard.Play();
 
             max_speed = boost_speed;
             for (int i = 0; i < BoostBurstPS.transform.childCount; i++)
@@ -992,16 +991,7 @@ public class Player : MonoBehaviour
                 BoostBurstPS.transform.GetChild(i).GetComponent<ParticleSystem>().Play(); //left and right included
             } //burst boost
 
-
-
-            if (playersounds.Check_if_playing())
-            {
-                playersounds.Mario_Boost_Sounds[playersounds.sound_count].Play();
-                playersounds.sound_count++;
-            }
-
-
-
+            playersounds.PlayBoost();
         }
 
         if(other.gameObject.tag == "CancelDownForce")
@@ -1016,7 +1006,7 @@ public class Player : MonoBehaviour
             other.gameObject.GetComponent<Animator>().SetBool("Spawn", false); //reset to start process
             GetComponent<ScoreCount>().COINCOUNT++;
             item_manager.coinSparkle.Play();
-            playersounds.effectSounds[9].Play();
+            playersounds.PlayCoin();
 
             yield return new WaitForSeconds(1.5f);
 
@@ -1101,7 +1091,7 @@ public class Player : MonoBehaviour
             {
                 Boost_time = 2;
                 Boost = true;
-                playersounds.effectSounds[8].Play();
+                playersounds.jumpboard.Play();
 
                 max_speed = boost_speed;
                 for (int i = 0; i < BoostBurstPS.transform.childCount; i++)
@@ -1109,13 +1099,7 @@ public class Player : MonoBehaviour
                     BoostBurstPS.transform.GetChild(i).GetComponent<ParticleSystem>().Play(); //left and right included
                 } //burst boost
 
-
-
-                if (playersounds.Check_if_playing())
-                {
-                    playersounds.Mario_Boost_Sounds[playersounds.sound_count].Play();
-                    playersounds.sound_count++;
-                }
+                playersounds.PlayBoost();
 
                 if (GLIDER_FLY)
                 {
@@ -1149,15 +1133,12 @@ public class Player : MonoBehaviour
 
                     GLIDER_FLY = true;
                     glider_close_confirm = false;
-                     playersounds.effectSounds[2].Play();
+                     playersounds.PlayGliderOpen();
                 }
-
-
 
                 drift_direction = 0;
                 drift_left = false;
                 drift_right = false;
-
 
                 //reset everything
                 Drift_time = 0;
@@ -1191,7 +1172,7 @@ public class Player : MonoBehaviour
                     {
                         transform.GetChild(0).GetChild(0).GetComponent<Animator>().SetTrigger("Glide2");
                     }
-                    playersounds.effectSounds[2].Play();
+                    playersounds.PlayGliderOpen();
 
                     yield return new WaitForSeconds(0.45f);
 
@@ -1215,10 +1196,11 @@ public class Player : MonoBehaviour
 
 
                     //sounds
-                    if (playersounds.Check_if_playing() && !playersounds.Mario_Glider.isPlaying && !RACE_MANAGER.RACE_COMPLETED)
+                    if (playersounds.CanPlayCharacterSound() && !playersounds.gliderVoice.isPlaying && !RACE_MANAGER.RACE_COMPLETED)
                     {
-                        playersounds.Mario_Glider.Play();
+                        playersounds.gliderVoice.Play();
                     }
+
                     //happy face
                     for (int i = 0; i < 45; i++)
                     {
@@ -1233,7 +1215,7 @@ public class Player : MonoBehaviour
                 yield return new WaitForSeconds(1f);
                 glider_close_confirm = true; //ensures glider does not instantly close in any scenario a glitch might happen
                 if (GLIDER_FLY)
-                    playersounds.effectSounds[3].Play();
+                    playersounds.gliderFlutter.Play();
             }
 
         }
@@ -1482,9 +1464,9 @@ public class Player : MonoBehaviour
         {
             AccelBeforeStartDust.GetChild(0).GetComponent<ParticleSystem>().Play();
             AccelBeforeStartDust.GetChild(1).GetComponent<ParticleSystem>().Play();
-            if (!playersounds.effectSounds[20].isPlaying)
+            if (!playersounds.kartSkidReverse.isPlaying)
             {
-                playersounds.effectSounds[20].Play();
+                playersounds.kartSkidReverse.Play();
             }
             if(GameObject.Find("RaceManager").GetComponent<RACE_MANAGER>().FrontCam.activeSelf)
                 GameObject.Find("Main Camera").GetComponent<Animator>().SetBool("Vibrate", true);
@@ -1494,7 +1476,7 @@ public class Player : MonoBehaviour
             reverseSkid = false;
             AccelBeforeStartDust.GetChild(0).GetComponent<ParticleSystem>().Stop();
             AccelBeforeStartDust.GetChild(1).GetComponent<ParticleSystem>().Stop();
-            playersounds.effectSounds[20].Stop();
+            playersounds.kartSkidReverse.Stop();
             if(PlayerControls.GetButton(PlayerControls.LOOK_BEHIND) && GameObject.Find("RaceManager").GetComponent<RACE_MANAGER>().FrontCam.activeSelf)
                 GameObject.Find("Main Camera").GetComponent<Animator>().SetBool("Vibrate", false);
 
@@ -1680,7 +1662,7 @@ public class Player : MonoBehaviour
                 transform.GetChild(0).GetChild(0).GetComponent<Animator>().SetTrigger("Shake");
             }
 
-            playersounds.effectSounds[6].Play();
+            playersounds.driftHop.Play();
             if (direction > 0)
             {
                 drift_direction = 1;
@@ -1704,14 +1686,14 @@ public class Player : MonoBehaviour
             {
                 drift_right = false;
                 drift_left = true;
-                if (!playersounds.effectSounds[0].isPlaying)
+                if (!playersounds.driftSteer.isPlaying)
                 {
-                    playersounds.effectSounds[0].PlayDelayed(0.25f); //drift sound steering
+                    playersounds.driftSteer.PlayDelayed(0.25f); //drift sound steering
                     if (isRainbowRoad)
                     {
-                        if (!playersounds.effectSounds[26].isPlaying)
+                        if (!playersounds.gravitySpin.isPlaying)
                         {
-                            playersounds.effectSounds[26].PlayDelayed(0.25f); //drift on rainbow road
+                            playersounds.gravitySpin.PlayDelayed(0.25f); //drift on rainbow road
                         }
                     }
                 }
@@ -1720,13 +1702,13 @@ public class Player : MonoBehaviour
             {
                 drift_right = true;
                 drift_left = false;
-                if (!playersounds.effectSounds[0].isPlaying)
+                if (!playersounds.driftSteer.isPlaying)
                 {
-                    playersounds.effectSounds[0].PlayDelayed(0.25f); //drift sound steering
+                    playersounds.driftSteer.PlayDelayed(0.25f); //drift sound steering
                     if (isRainbowRoad)
                     {
-                        if (!playersounds.effectSounds[26].isPlaying)
-                            playersounds.effectSounds[26].PlayDelayed(0.25f); //drift on rainbow road
+                        if (!playersounds.gravitySpin.isPlaying)
+                            playersounds.gravitySpin.PlayDelayed(0.25f); //drift on rainbow road
                     }
                 }
             }
@@ -1774,13 +1756,13 @@ public class Player : MonoBehaviour
                     }
 
                 }
-                if (!playersounds.effectSounds[1].isPlaying)
-                    playersounds.effectSounds[1].Play();
+                if (!playersounds.driftSpark.isPlaying)
+                    playersounds.driftSpark.Play();
             }
             if (Drift_time >= 4 && Drift_time < 7)
             {
                 if (Drift_time >= 4 && Drift_time <= 4.05f)
-                    playersounds.effectSounds[1].Stop();
+                    playersounds.driftSpark.Stop();
 
                 //drift color particles
                 for (int i = 0; i < 5; i++)
@@ -1794,14 +1776,14 @@ public class Player : MonoBehaviour
 
 
                 }
-                if (!playersounds.effectSounds[1].isPlaying)
-                    playersounds.effectSounds[1].Play();
+                if (!playersounds.driftSpark.isPlaying)
+                    playersounds.driftSpark.Play();
 
             }
             if (Drift_time >= 7)
             {
                 if (Drift_time >= 7 && Drift_time <= 7.05f)
-                    playersounds.effectSounds[1].Stop();
+                    playersounds.driftSpark.Stop();
 
                 for (int i = 0; i < 5; i++)
                 {
@@ -1814,8 +1796,8 @@ public class Player : MonoBehaviour
                     PSMAIN2.startColor = drift3;
 
                 }
-                if (!playersounds.effectSounds[1].isPlaying)
-                    playersounds.effectSounds[1].Play();
+                if (!playersounds.driftSpark.isPlaying)
+                    playersounds.driftSpark.Play();
             }
 
 
@@ -1834,11 +1816,11 @@ public class Player : MonoBehaviour
         {
 
             drifting = false;
-            playersounds.effectSounds[0].Stop();
-            playersounds.effectSounds[1].Stop();
+            playersounds.driftSteer.Stop();
+            playersounds.driftSpark.Stop();
             if (isRainbowRoad)
             {
-                playersounds.effectSounds[25].Stop(); //drift on rainbow road
+                playersounds.gravitySpin.Stop(); //drift on rainbow road
             }
 
             drift_direction = 0;
@@ -1850,11 +1832,7 @@ public class Player : MonoBehaviour
             {
                 Boost = true;
                 Boost_time = 0.75f;
-                if (playersounds.Check_if_playing())
-                {
-                    playersounds.Mario_Boost_Sounds[playersounds.sound_count].Play();
-                    playersounds.sound_count++;
-                }
+                playersounds.PlayBoost();
                 for(int i = 0; i < BoostBurstPS.transform.childCount; i++)
                 {
                     BoostBurstPS.transform.GetChild(i).GetComponent<ParticleSystem>().Play(); //left and right included
@@ -1865,11 +1843,7 @@ public class Player : MonoBehaviour
             {
                 Boost = true;
                 Boost_time = 1.5f;
-                if (playersounds.Check_if_playing())
-                {
-                    playersounds.Mario_Boost_Sounds[playersounds.sound_count].Play();
-                    playersounds.sound_count++;
-                }
+                playersounds.PlayBoost();
                 for (int i = 0; i < BoostBurstPS.transform.childCount; i++)
                 {
                     BoostBurstPS.transform.GetChild(i).GetComponent<ParticleSystem>().Play(); //left and right included
@@ -1879,11 +1853,7 @@ public class Player : MonoBehaviour
             {
                 Boost = true;
                 Boost_time = 2.5f;
-                if (playersounds.Check_if_playing())
-                {
-                    playersounds.Mario_Boost_Sounds[playersounds.sound_count].Play();
-                    playersounds.sound_count++;
-                }
+                playersounds.PlayBoost();
                 for (int i = 0; i < BoostBurstPS.transform.childCount; i++)
                 {
                     BoostBurstPS.transform.GetChild(i).GetComponent<ParticleSystem>().Play(); //left and right included
@@ -2210,7 +2180,7 @@ public class Player : MonoBehaviour
     public IEnumerator hitByBanana()
     {
         GetComponent<Minimap>().playerInMap.GetComponent<Animator>().SetTrigger("Spin");
-        playersounds.playHurtSound();
+        playersounds.PlayHurt();
         HitByBanana_ = true;
         Boost_time = 0;
         stopDrift();
@@ -2240,7 +2210,7 @@ public class Player : MonoBehaviour
     {
 
         GetComponent<Minimap>().playerInMap.GetComponent<Animator>().SetTrigger("Spin");
-        playersounds.playHurtSound();
+        playersounds.PlayHurt();
         HitByShell_ = true;
         Boost_time = 0;
         stopDrift();
@@ -2434,8 +2404,8 @@ public class Player : MonoBehaviour
     public void stopDrift()
     {
         drifting = false;
-        playersounds.effectSounds[0].Stop();
-        playersounds.effectSounds[1].Stop();
+        playersounds.driftSteer.Stop();
+        playersounds.driftSpark.Stop();
 
         drift_direction = 0;
         drift_left = false;
@@ -2593,27 +2563,27 @@ public class Player : MonoBehaviour
             {
                 Driver.SetTrigger("JumpTrick1");
                 StartCoroutine(happyFaceTrickJump());
-                if (playersounds.Check_if_playing())
+                if (playersounds.CanPlayCharacterSound())
                 {
-                    playersounds.MarioJumpTrickSounds[0].Play();
+                    playersounds.jumpTrickSounds[0].Play();
                 }
             }
             else if (trickAnimCounter == 2)
             {
                 Driver.SetTrigger("GliderTrick");
                 StartCoroutine(happyFaceTrickJump());
-                if (playersounds.Check_if_playing())
+                if (playersounds.CanPlayCharacterSound())
                 {
-                    playersounds.MarioJumpTrickSounds[1].Play();
+                    playersounds.jumpTrickSounds[1].Play();
                 }
             }
             else if (trickAnimCounter == 1)
             {
                 Driver.SetTrigger("JumpTrick2");
                 StartCoroutine(happyFaceTrickJump());
-                if (playersounds.Check_if_playing())
+                if (playersounds.CanPlayCharacterSound())
                 {
-                    playersounds.MarioJumpTrickSounds[2].Play();
+                    playersounds.jumpTrickSounds[2].Play();
                 }
             }
 
@@ -2643,7 +2613,7 @@ public class Player : MonoBehaviour
     {
         if (!antiGravity)
         {
-            playersounds.effectSounds[23].Play();
+            playersounds.PlayAntiGravityEnter();
             for (int i = 0; i < TireParents.Length; i++)
             {
 
@@ -2720,9 +2690,7 @@ public class Player : MonoBehaviour
     {
         if (antiGravity)
         {
-            playersounds.effectSounds[24].Play();
-
-            
+            playersounds.PlayAntiGravityExit();
 
             for (int i = 0; i < 25; i++)
             {

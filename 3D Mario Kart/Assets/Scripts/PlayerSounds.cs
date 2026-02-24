@@ -1,179 +1,235 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerSounds : MonoBehaviour
 {
-    private Player playerscript;
-    private ItemManager item_script;
-    public AudioSource kartSound;
-    public AudioSource kartIdle;
+    #region Dependencies
 
-    public AudioSource[] effectSounds;  //0. driftsound steering //1. driftspark
-    public AudioSource[] Mario_Boost_Sounds;
-    public AudioSource[] MarioStarSounds;
-    public AudioSource[] MarioJumpTrickSounds;
-    public AudioSource[] BulletSounds;
-    public AudioSource Mario_Glider;
-    public AudioSource marioFirstPlace;
+    private Player player;
+    private ItemManager itemManager;
 
-    public AudioSource MarioLose;
+    #endregion
 
-    [HideInInspector]
-    public int sound_count = 0;
-    [HideInInspector]
-    public int star_count_sound = 0;
+    #region ===== KART SOUNDS =====
 
-    public AudioSource[] hurtSounds;
-    int hurtSoundCounter = 0;
+    [Header("Kart Sounds")]
+    public AudioSource kartEngine;   // Assign engine loop sound
+    public AudioSource kartIdle;     // Assign idle engine sound
+    #endregion
 
-    [HideInInspector]
-    public bool SceneEntryFinished = false;
+    #region ===== ENVIRONMENTAL SOUNDS =====
+    [Header("Environmental Sounds")]
+    public AudioSource driftSteer;           // DriftSteer
+    public AudioSource driftSpark;           // DriftSpark
+    public AudioSource gliderOpen;           // GliderOpen
+    public AudioSource gliderFlutter;        // GliderFlutter
+    public AudioSource landGroundSkid;       // LandGroundSkid
+    public AudioSource gliderClose;          // GliderClose
+    public AudioSource driftHop;             // DriftHop
+    public AudioSource chassisCrash;         // ChassisCrash
+    public AudioSource jumpboard;            // Jumpboard
+    public AudioSource coinSound;            // CoinSound
+    public AudioSource kartBump;             // KartBump
+    public AudioSource accelerateBeforeStart;// AccelerateBeforeStart
+    public AudioSource gliderFlapOpen;       // GliderFlapOpen
+    public AudioSource startBoost;           // StartBoost
+    public AudioSource goal;                 // Goal
+    public AudioSource firstPlaceResult;     // First
+    public AudioSource secondToSixth;        // Second-Sixth
+    public AudioSource resultsGood;          // Results Good
+    public AudioSource marioItemHit;         // Mario Item Hit
+    public AudioSource cowHit;               // Cow Hit
+    public AudioSource kartSkidReverse;      // KartSkidReverse
+    public AudioSource loseResult;           // Lose
+    public AudioSource resultsBad;           // Results Bad
+    public AudioSource antiGravityEnter;     // AntigravityEnter
+    public AudioSource antiGravityExit;      // AntigravityExit
+    public AudioSource gravitySpin;          // GravitySpin
+    #endregion
 
-    // Start is called before the first frame update
-    void Start()
+    #region ===== CHARACTER SOUNDS =====
+    [Header("Character Sounds")]
+    public List<AudioSource> boostSounds = new();       // BoostSound, BoostSound1, BoostSound2, BoostSound3, BoostSound4, BoostSound5
+    public List<AudioSource> starSounds = new();        // StarSound, StarSound1, StarSound2
+    public List<AudioSource> jumpTrickSounds = new();   // JumpTrick1, JumpTrick2, JumpTrick3
+    public AudioSource bulletFly;
+    public AudioSource bulletStart;
+    public AudioSource bulletEnd;
+    public List<AudioSource> hurtSounds = new();        // Hurt1, Hurt2, Hurt3
+
+    public AudioSource firstPlaceVoice;  // FirstPlace
+    public AudioSource marioLose;        // MarioLose
+    public AudioSource gliderVoice;      // GliderSound
+
+    #endregion
+
+    private int boostIndex;
+    public int CurrentBoostIndex => boostIndex;
+
+    private int starIndex;
+    private int hurtIndex;
+
+    public bool SceneEntryFinished;
+
+    #region UNITY
+
+    private void Awake()
     {
-        playerscript = GetComponent<Player>();
-        item_script = GetComponent<ItemManager>();
+        player = GetComponent<Player>();
+        itemManager = GetComponent<ItemManager>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        kart_sounds();
-        if (sound_count == Mario_Boost_Sounds.Length)
-            sound_count = 0;
+        HandleKartSounds();
 
-        if(SceneEntryFinished)
-            kartIdle.volume = Mathf.Lerp(kartIdle.volume, 0.8f, 1f * Time.deltaTime);
-
+        if (SceneEntryFinished)
+            kartIdle.volume = Mathf.Lerp(kartIdle.volume, 0.8f, Time.deltaTime);
     }
 
-    void kart_sounds()
+    #endregion
+
+    #region ===== KART LOGIC =====
+
+    private void HandleKartSounds()
     {
-        if (playerscript.currentspeed < 10 && playerscript.currentspeed >=-10)
+        float speed = player.currentspeed;
+
+        HandleIdle(speed);
+        HandleEngine(speed);
+        HandleVolume();
+    }
+
+    private void HandleIdle(float speed)
+    {
+        if (speed > -10 && speed < 10)
         {
             if (!kartIdle.isPlaying)
-            {
                 kartIdle.Play();
-            }
         }
-        if (playerscript.currentspeed < -10)
+        else if (speed < -10)
         {
             kartIdle.Stop();
         }
-
-
-        if (playerscript.currentspeed >= 5 && !playerscript.GLIDER_FLY && !item_script.isBullet)
-        {
-            if (!kartSound.isPlaying)
-            {
-                kartSound.Play();
-            }
-
-            //speed variations affect the time the kart sound is on
-            if (playerscript.currentspeed > 5 && playerscript.currentspeed <= 10)
-            {
-                kartSound.time = Mathf.Lerp(kartSound.time, 1f, 3 * Time.deltaTime);
-                kartIdle.Stop();
-
-            }
-            if (playerscript.currentspeed > 10 && playerscript.currentspeed <= 20)
-            {
-                kartSound.time = Mathf.Lerp(kartSound.time, 2f, 4 * Time.deltaTime);
-                kartIdle.Stop();
-
-            }
-            else if (playerscript.currentspeed > 20 && playerscript.currentspeed < 30)
-            {
-                kartSound.time = Mathf.Lerp(kartSound.time, 3f, 4 * Time.deltaTime);
-                kartIdle.Stop();
-
-            }
-            else if (playerscript.currentspeed >= 30 && playerscript.currentspeed < 40)
-            {
-                kartSound.time = Mathf.Lerp(kartSound.time, 4, 4 * Time.deltaTime);
-                kartIdle.Stop();
-
-            }
-            else if (playerscript.currentspeed >= 40 && playerscript.currentspeed < 50)
-            {
-                kartSound.time = Mathf.Lerp(kartSound.time, 5, 4 * Time.deltaTime);
-                kartIdle.Stop();
-
-            }
-            else if (playerscript.currentspeed >= 50 && playerscript.currentspeed < 60)
-            {
-                kartSound.time = Mathf.Lerp(kartSound.time, 6, 4 * Time.deltaTime);
-                kartIdle.Stop();
-
-            }
-            else if (playerscript.currentspeed >= 60 && playerscript.currentspeed < 70)
-            {
-                kartSound.time = Mathf.Lerp(kartSound.time, 7, 4 * Time.deltaTime);
-                kartIdle.Stop();
-
-            }
-
-
-            //pitch
-            if (!playerscript.Boost)
-            {
-                kartSound.pitch = Mathf.Lerp(kartSound.pitch, 1f, 5f * Time.deltaTime);
-            }
-            else if (playerscript.Boost && !playerscript.GLIDER_FLY)
-            {
-                kartSound.pitch = Mathf.Lerp(kartSound.pitch, 1.3f, 5f * Time.deltaTime);
-            }
-            else if( playerscript.Boost && playerscript.GLIDER_FLY)
-            {
-                kartSound.pitch = Mathf.Lerp(kartSound.pitch, 1.5f, 5f * Time.deltaTime);
-            }
-            
-        }
-        if (playerscript.currentspeed < 10 || item_script.isBullet)
-        {
-            kartSound.Stop();
-        }
-        if (playerscript.GLIDER_FLY && !RACE_MANAGER.RACE_COMPLETED)
-        {
-            kartSound.volume = 0.3f;
-        } 
-        else if(!playerscript.GLIDER_FLY && !RACE_MANAGER.RACE_COMPLETED)
-        {
-            kartSound.volume = 0.45f;
-        }
-
-        if (RACE_MANAGER.RACE_COMPLETED && kartSound.volume > 0)
-        {
-
-            kartSound.volume -= 0.01f;
-        }
     }
-    
-    public bool Check_if_playing()  //this method returns a bool, and checks if any mario sounds are already playing, so if-statements can decide whether to or not to play a new sound
+
+    private void HandleEngine(float speed)
     {
-        for(int i = 0; i < Mario_Boost_Sounds.Length; i++)
+        bool canPlay = speed >= 5 && !player.GLIDER_FLY && !itemManager.isBullet;
+
+        if (!canPlay)
         {
-            if (Mario_Boost_Sounds[i].isPlaying || effectSounds[18].isPlaying || GetComponent<ItemManager>().isBullet)
+            kartEngine.Stop();
+            return;
+        }
+
+        if (!kartEngine.isPlaying)
+            kartEngine.Play();
+
+        UpdateEngineTime(speed);
+        UpdateEnginePitch();
+
+        kartIdle.Stop();
+    }
+
+    private void UpdateEngineTime(float speed)
+    {
+        float targetTime = Mathf.Clamp(Mathf.Floor(speed / 10f), 1f, 7f);
+        kartEngine.time = Mathf.Lerp(kartEngine.time, targetTime, 4f * Time.deltaTime);
+    }
+
+    private void UpdateEnginePitch()
+    {
+        float targetPitch = 1f;
+
+        if (player.Boost && !player.GLIDER_FLY)
+            targetPitch = 1.3f;
+        else if (player.Boost && player.GLIDER_FLY)
+            targetPitch = 1.5f;
+
+        kartEngine.pitch = Mathf.Lerp(kartEngine.pitch, targetPitch, 5f * Time.deltaTime);
+    }
+
+    private void HandleVolume()
+    {
+        if (RACE_MANAGER.RACE_COMPLETED)
+        {
+            if (kartEngine.volume > 0f)
+                kartEngine.volume -= 0.01f;
+            return;
+        }
+
+        kartEngine.volume = player.GLIDER_FLY ? 0.3f : 0.45f;
+    }
+
+    #endregion
+
+    #region ===== CHARACTER PLAYERS =====
+
+    public void PlayBoost()
+    {
+        if (!CanPlayCharacterSound() || boostSounds.Count == 0) return;
+
+        boostSounds[boostIndex].Play();
+        boostIndex = (boostIndex + 1) % boostSounds.Count;
+    }
+
+    public void PlayStar()
+    {
+        if (starSounds.Count == 0) return;
+
+        starSounds[starIndex].Play();
+        starIndex = (starIndex + 1) % starSounds.Count;
+    }
+
+    public void PlayHurt()
+    {
+        if (RACE_MANAGER.RACE_COMPLETED || hurtSounds.Count == 0) return;
+
+        hurtSounds[hurtIndex].Play();
+        hurtIndex = (hurtIndex + 1) % hurtSounds.Count;
+    }
+
+    public bool CanPlayCharacterSound()
+    {
+        if (itemManager.isBullet) return false;
+
+        foreach (var sound in boostSounds)
+            if (sound.isPlaying)
                 return false;
-        }
+
         return true;
-
     }
 
-    public void playHurtSound()
+    #endregion
+
+    #region Environmental play functions
+    public void PlayDriftSpark() => driftSpark?.Play();
+    public void PlayDriftSteer() => driftSteer?.Play();
+    public void PlayCoin() => coinSound?.Play();
+    public void PlayKartBump() => kartBump?.Play();
+    public void PlayGliderOpen() => gliderOpen?.Play();
+    public void PlayGliderClose() => gliderClose?.Play();
+    public void PlayGoal() => goal?.Play();
+    public void PlayResultsGood() => resultsGood?.Play();
+    public void PlayResultsBad() => resultsBad?.Play();
+    public void PlayAntiGravityEnter() => antiGravityEnter?.Play();
+    public void PlayAntiGravityExit() => antiGravityExit?.Play();
+
+    public void PlayGravitySpin() => gravitySpin?.Play();
+
+    public void PlayChassisCrash() => chassisCrash?.Play();
+    public void PlayLandGroundSkid() => landGroundSkid?.Play();
+    #endregion
+
+    public void LoadCharacterSounds(RacerConfig config)
     {
-        if (!RACE_MANAGER.RACE_COMPLETED)
-        {
-            hurtSounds[hurtSoundCounter].Play();
-            hurtSoundCounter++;
-            if (hurtSoundCounter >= hurtSounds.Length)
-            {
-                hurtSoundCounter = 0;
-            }
-        }
-       
+        boostSounds = config.RacerSounds.Boost;
+        starSounds = config.RacerSounds.Star;
+        jumpTrickSounds = config.RacerSounds.JumpTrick;
+        hurtSounds = config.RacerSounds.HurtSounds;
+        firstPlaceVoice = config.RacerSounds.FirstPlace;
+        marioLose = config.RacerSounds.Lose;
+        gliderVoice = config.RacerSounds.Glider;
     }
-
 }

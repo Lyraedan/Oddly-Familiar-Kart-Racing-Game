@@ -258,11 +258,7 @@ public class ItemManager : MonoBehaviour
             {
                 player_script.BoostBurstPS.transform.GetChild(i).GetComponent<ParticleSystem>().Play(); //left and right included
             }
-            if (playersounds.Check_if_playing())
-            {
-                playersounds.Mario_Boost_Sounds[playersounds.sound_count].Play();
-                playersounds.sound_count++;
-            }
+            playersounds.PlayBoost();
             if (GoldenMushroomTimer < 0)
             {
                 item_gameobjects[item_index].SetActive(false);
@@ -352,11 +348,7 @@ public class ItemManager : MonoBehaviour
                 player_script.BoostBurstPS.transform.GetChild(i).GetComponent<ParticleSystem>().Play(); //left and right included
             }
             item_gameobjects[item_index].transform.GetChild(tripleItemCount).gameObject.SetActive(false);
-            if (playersounds.Check_if_playing())
-            {
-                playersounds.Mario_Boost_Sounds[playersounds.sound_count].Play();
-                playersounds.sound_count++;
-            }
+            playersounds.PlayBoost();
             if (tripleItemCount < 1) //if you used up all of triple mushrooms, reset everything
             {
                 current_Item = "";
@@ -378,11 +370,7 @@ public class ItemManager : MonoBehaviour
             {
                 player_script.BoostBurstPS.transform.GetChild(i).GetComponent<ParticleSystem>().Play(); //left and right included
             }
-            if (playersounds.Check_if_playing())
-            {
-                playersounds.Mario_Boost_Sounds[playersounds.sound_count].Play();
-                playersounds.sound_count++;
-            }
+            playersounds.PlayBoost();
             item_gameobjects[item_index].SetActive(false);
             current_Item = ""; //1 use only
             used_Item_Done();
@@ -797,7 +785,7 @@ public class ItemManager : MonoBehaviour
         GetComponent<ScoreCount>().COINCOUNT+=2;
 
         yield return new WaitForSeconds(0.3f);
-        playersounds.effectSounds[9].Play();
+        playersounds.coinSound.Play();
         coinSparkle.Play();
 
     }
@@ -822,14 +810,9 @@ public class ItemManager : MonoBehaviour
             starPS.transform.GetChild(i).GetComponent<ParticleSystem>().Play();
         }
 
-        if (playersounds.Check_if_playing())
+        if (playersounds.CanPlayCharacterSound())
         {
-            playersounds.MarioStarSounds[playersounds.star_count_sound].Play();
-            playersounds.star_count_sound++;
-            if(playersounds.star_count_sound > 2)
-            {
-                playersounds.star_count_sound = 0;
-            }
+            playersounds.PlayStar();
         }
 
 
@@ -861,11 +844,11 @@ public class ItemManager : MonoBehaviour
             playerRenderers[i].enabled = false;
         }
         player_script.drifting = false;
-        playersounds.effectSounds[0].Stop(); //drifting  noise
-        playersounds.effectSounds[1].Stop(); //drifting spark noise
+        playersounds.driftSteer.Stop(); //drifting  noise
+        playersounds.driftSpark.Stop(); //drifting spark noise
         player_script.Boost_time = 0;
-        playersounds.BulletSounds[1].Play();
-        playersounds.BulletSounds[0].Play();
+        playersounds.bulletStart.Play();
+        playersounds.bulletFly.Play();
 
         yield return new WaitForSeconds(11);
         used_Item_Done();
@@ -878,8 +861,8 @@ public class ItemManager : MonoBehaviour
             playerRenderers[i].enabled = true;
         }
         player_script.currentspeed = 70;
-        playersounds.BulletSounds[2].Play();
-        playersounds.BulletSounds[0].Stop();
+        playersounds.bulletEnd.Play();
+        playersounds.bulletFly.Stop();
 
 
     }
