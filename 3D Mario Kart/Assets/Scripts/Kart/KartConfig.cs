@@ -7,6 +7,17 @@ public class KartConfig : MonoBehaviour
 
     public ChassisConfig Chassis;
 
+    [System.Serializable]
+    public class KartSoundConfig
+    {
+        public AudioSource KartSound;
+        public AudioSource KartIdle;
+        public List<AudioSource> EffectSounds = new();
+        public List<AudioSource> BulletSounds = new();
+    }
+
+    public KartSoundConfig Sounds;
+
     public GameObject boostParticles;
     public GameObject boostBurstParticles;
     public GameObject WheelParticles;

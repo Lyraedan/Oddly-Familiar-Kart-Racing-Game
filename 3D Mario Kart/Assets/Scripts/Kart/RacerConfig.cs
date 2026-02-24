@@ -17,4 +17,18 @@ public class RacerConfig : MonoBehaviour
 
     public Transform HeadBone;
 
+    [System.Serializable]
+    public class RacerSoundConfig
+    {
+        public List<AudioSource> Boost = new();
+        public List<AudioSource> Star = new();
+        public List<AudioSource> JumpTrick = new();
+        public AudioSource Glider;
+        public AudioSource FirstPlace;
+        public AudioSource Lose;
+        public List<AudioSource> HurtSounds = new();
+    }
+
+    public RacerSoundConfig RacerSounds;
+
 }

@@ -36502,7 +36502,7 @@ Transform:
   m_LocalScale: {x: 0.7999998, y: 0.8, z: 0.7999998}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1467304539175926978}
+  - {fileID: 4097262270600434901}
   - {fileID: 4681799455099258582}
   - {fileID: 6122058263877709497}
   - {fileID: 2152965717167540984}
@@ -37044,7 +37044,6 @@ MonoBehaviour:
   kartSpawnPoint: {fileID: 6064369078986834943}
   karts:
   - {fileID: 1900276100344347441, guid: bc4e86f7f736b1d40b3ae6e31bef82af, type: 3}
-  - {fileID: 1900276100344347441, guid: 468589771c616a744b02312b65e56c7c, type: 3}
   racers:
   - {fileID: 6261373043710507858, guid: c70cab557896a864c9aea9915a436777, type: 3}
   - {fileID: 1417065821337945317, guid: a233b311fc2ab2c469d30a653d2df912, type: 3}
@@ -37054,7 +37053,7 @@ MonoBehaviour:
   - {fileID: 282407954376715099, guid: 8c29a73d4cf9f44458b9804f2aca78e8, type: 3}
   - {fileID: 8067762708581821838, guid: 9e7e32f2190a7d94987f38f18502992e, type: 3}
   - {fileID: 4123642122302570789, guid: 25c6935d39a8b1f43aa41e1fbf7335ca, type: 3}
-  KartVisual: {fileID: 0}
+  KartVisual: {fileID: 1404000245249982960}
 --- !u!1 &3761077644510608693
 GameObject:
   m_ObjectHideFlags: 0
@@ -56786,7 +56785,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 594271768045109184}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &2177057971622140602
+--- !u!1001 &3654382300413670061
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -56874,11 +56873,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c4007edaff3361f46978c336ac85cbf0, type: 3}
---- !u!4 &1467304539175926978 stripped
+--- !u!1 &1404000245249982960 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2435035212674921309, guid: c4007edaff3361f46978c336ac85cbf0,
+    type: 3}
+  m_PrefabInstance: {fileID: 3654382300413670061}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &4097262270600434901 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 750587129706210936, guid: c4007edaff3361f46978c336ac85cbf0,
     type: 3}
-  m_PrefabInstance: {fileID: 2177057971622140602}
+  m_PrefabInstance: {fileID: 3654382300413670061}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6965760185497674946
 PrefabInstance:
