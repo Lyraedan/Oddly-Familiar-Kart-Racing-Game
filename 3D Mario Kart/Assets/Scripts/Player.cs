@@ -103,7 +103,7 @@ public class Player : MonoBehaviour
 
     public Animator Driver;
 
-    private PlayerSounds playersounds;
+    public PlayerSounds playersounds;
 
     [HideInInspector]
     public bool hasitem = false; //true when player hits itembox
@@ -211,7 +211,8 @@ public class Player : MonoBehaviour
         Left_Wheel_Drift_PS = DriftPS.transform.GetChild(1).gameObject;
         FrontLeftTire = Tires.transform.GetChild(0).GetChild(0).gameObject;
         FrontRightTire = Tires.transform.GetChild(1).GetChild(0).gameObject;
-        playersounds = GetComponent<PlayerSounds>();
+        //playersounds = GetComponent<PlayerSounds>();
+
         item_manager = GetComponent<ItemManager>();
         lapCounter = GetComponent<LapCounter>();
         rotateStrengthWithStar = desired_rotate_strength + 15;
@@ -229,10 +230,22 @@ public class Player : MonoBehaviour
             tireArms = mk8Customization.CurrentChassis.TireArms.ToArray();
         }
 
-        Debug.Log("[Customization] Trying to load mario kart world customization");
+        //Debug.Log("[Customization] Trying to load mario kart world customization");
         // Mario Kart World Style Customization
+        
+
+        if (Cam == null)
+        {
+            Cam = FindFirstObjectByType<Camerafollow>();
+            Cam.player = transform; // Set to us
+        }
+    }
+
+    public void LoadMKWCustomization()
+    {
+        Debug.Log("Kart spawned, Loading customization");
         MKWKartCustomization mkwCustomization = GetComponent<MKWKartCustomization>();
-        if(mkwCustomization != null)
+        if (mkwCustomization != null)
         {
             Debug.Log("[Customization] Loading Mario Kart World Style Customization");
 
@@ -247,6 +260,13 @@ public class Player : MonoBehaviour
             drift1 = config.dust.Drift1;
             drift2 = config.dust.Drift2;
             drift3 = config.dust.Drift3;
+
+            dustParticles = config.dust.DustParticles;
+            DriftDustLeft = config.dust.DriftDustLeft;
+            DriftDustRight = config.dust.DriftDustRight;
+            exhaustDust = config.dust.ExhaustDust;
+            AccelBeforeStartDust = config.dust.AccelBeforeStartDust;
+
             trails = config.Trails;
 
             // Tires
@@ -257,7 +277,7 @@ public class Player : MonoBehaviour
             glider = config.Glider;
             propeller = config.Propeller.transform;
 
-            if(racerConfig != null)
+            if (racerConfig != null)
             {
                 Debug.Log("[Customization] Setting up racer!");
                 Driver = racerConfig.Driver;
@@ -284,12 +304,6 @@ public class Player : MonoBehaviour
             Debug.Log("[Customization] Loading External sounds");
             playersounds.LoadKartSounds(config);
             playersounds.LoadCharacterSounds(racerConfig);
-        }
-
-        if (Cam == null)
-        {
-            Cam = FindFirstObjectByType<Camerafollow>();
-            Cam.player = transform; // Set to us
         }
     }
 

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class MKWKartCustomization : MonoBehaviour
 {
@@ -29,6 +30,8 @@ public class MKWKartCustomization : MonoBehaviour
     public KartConfig CurrentKartConfig { get; private set; }
     public RacerConfig CurrentRacerConfig { get; private set; }
 
+    public UnityEvent<GameObject, GameObject> OnSpawned;
+
     void Start()
     {
         RemoveVisual();
@@ -47,6 +50,7 @@ public class MKWKartCustomization : MonoBehaviour
     {
         Kart = SpawnKart();
         Racer = SpawnRacer();
+        OnSpawned.Invoke(Kart, Racer);
     }
 
     public GameObject SpawnKart()

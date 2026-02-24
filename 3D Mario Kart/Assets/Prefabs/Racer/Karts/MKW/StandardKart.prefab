@@ -70305,10 +70305,10 @@ MonoBehaviour:
     - {fileID: 4872208617824400321}
     - {fileID: 2755497471566729682}
     Renderers:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
+    - {fileID: 962635822328343700}
+    - {fileID: 7613616700614862794}
+    - {fileID: 5928588209820251951}
+    - {fileID: 8593511393297729102}
   antiGravityConfig:
     TireColor: {r: 0.27, g: 0.6, b: 0.9, a: 1}
     LightDecalColor: {r: 0, g: 0.68, b: 1, a: 0.5}

@@ -237,5 +237,13 @@ public class PlayerSounds : MonoBehaviour
         firstPlaceVoice = config.RacerSounds.FirstPlace;
         marioLose = config.RacerSounds.Lose;
         gliderVoice = config.RacerSounds.Glider;
+
+        Debug.Log("BoostSounds is null? " + (boostSounds == null ? "yes" : "no"));
+        Debug.Log("StarSounds is null? " + (starSounds == null ? "yes" : "no"));
+        Debug.Log("JumpTrickSounds is null? " + (jumpTrickSounds == null ? "yes" : "no"));
+        Debug.Log("HurtSounds is null? " + (hurtSounds == null ? "yes" : "no"));
+        Debug.Log("FirstPlaceVoice is null? " + (firstPlaceVoice == null ? "yes" : "no"));
+        Debug.Log("MarioLose is null? " + (marioLose == null ? "yes" : "no"));
+        Debug.Log("GliderVoice is null? " + (gliderVoice == null ? "yes" : "no"));
     }
 }
