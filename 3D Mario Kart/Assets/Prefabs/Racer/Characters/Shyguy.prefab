@@ -109,6 +109,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5011916824840329380}
   - component: {fileID: 2116454021725328379}
+  - component: {fileID: 7004547669308048740}
   m_Layer: 0
   m_Name: Shyguy
   m_TagString: Untagged
@@ -156,6 +157,32 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7004547669308048740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 282407954376715099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23ae591621b73f94c87226e1908f778a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RacerConfig
+  Driver: {fileID: 2116454021725328379}
+  Face:
+    DefaultFace: {fileID: 2100000, guid: a6a33954d44f50340924d0b551a6f065, type: 2}
+    faceRenderer: {fileID: 8135491849193550162}
+    Faces: []
+  HeadBone: {fileID: 2034217534594533580}
+  RacerSounds:
+    Boost: []
+    Star: []
+    JumpTrick: []
+    Glider: {fileID: 0}
+    FirstPlace: {fileID: 0}
+    Lose: {fileID: 0}
+    HurtSounds: []
 --- !u!1 &287582869296470882
 GameObject:
   m_ObjectHideFlags: 0

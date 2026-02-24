@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 using UnityEngine;
 
@@ -30,5 +31,17 @@ public class RacerConfig : MonoBehaviour
     }
 
     public RacerSoundConfig RacerSounds;
+
+    [Header("Used for Star power up")]
+    public List<Renderer> CharacterRenderers = new();
+
+    // This object should only contain a model and nothing else really so this should be fine
+    [ContextMenu("Get Character Renderers")]
+    public void GetCharacterRenderers()
+    {
+        CharacterRenderers = new List<Renderer>(
+            GetComponentsInChildren<Renderer>().Where(r => r != null && r.enabled && !(r is ParticleSystemRenderer))
+        );
+    }
 
 }

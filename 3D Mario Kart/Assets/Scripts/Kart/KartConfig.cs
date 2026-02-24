@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 using UnityEngine;
 
@@ -69,4 +70,32 @@ public class KartConfig : MonoBehaviour
     public GameObject SteeringWheel;
     public GameObject Glider;
     public GameObject Propeller;
+
+    [Header("Used for Star power up")]
+    public List<GameObject> StarPowerRendererRoots;
+    public List<Renderer> KartRenderers = new();
+
+    [ContextMenu("Get Kart Renderers")]
+    public void GetKartRenderers()
+    {
+        KartRenderers.Clear();
+
+        if (StarPowerRendererRoots == null || StarPowerRendererRoots.Count == 0)
+        {
+            Debug.LogWarning("No StarPowerRendererRoots assigned!");
+            return;
+        }
+
+        foreach (var root in StarPowerRendererRoots)
+        {
+            if (root == null) continue;
+
+            var renderers = root.GetComponentsInChildren<Renderer>()
+                .Where(r => r != null && r.enabled && !(r is ParticleSystemRenderer));
+
+            KartRenderers.AddRange(renderers);
+        }
+
+        Debug.Log($"Found {KartRenderers.Count} renderers across {StarPowerRendererRoots.Count} roots.");
+    }
 }

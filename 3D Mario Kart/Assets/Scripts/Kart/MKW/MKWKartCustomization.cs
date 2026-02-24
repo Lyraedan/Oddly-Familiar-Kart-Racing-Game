@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.Events;
@@ -30,6 +31,10 @@ public class MKWKartCustomization : MonoBehaviour
     public KartConfig CurrentKartConfig { get; private set; }
     public RacerConfig CurrentRacerConfig { get; private set; }
 
+    [Header("Combined renderers for Star Power")]
+    public List<Renderer> RacerRenderers = new();
+    public List<Material> RacerMaterials = new();
+
     public UnityEvent<GameObject, GameObject> OnSpawned;
 
     void Start()
@@ -50,6 +55,7 @@ public class MKWKartCustomization : MonoBehaviour
     {
         Kart = SpawnKart();
         Racer = SpawnRacer();
+        GetAllStarPowerRenderers();
         OnSpawned.Invoke(Kart, Racer);
     }
 
@@ -84,6 +90,28 @@ public class MKWKartCustomization : MonoBehaviour
 
         CurrentRacerConfig = racer.GetComponent<RacerConfig>();
         return racer;
+    }
+
+
+    public void GetAllStarPowerRenderers()
+    {
+        // 1. Combine all renderers
+        RacerRenderers.Clear();
+        if (CurrentKartConfig?.KartRenderers != null)
+            RacerRenderers.AddRange(CurrentKartConfig.KartRenderers);
+        if (CurrentRacerConfig?.CharacterRenderers != null)
+            RacerRenderers.AddRange(CurrentRacerConfig.CharacterRenderers);
+
+        // 2. Cache all materials
+        RacerMaterials.Clear();
+        foreach (var renderer in RacerRenderers)
+        {
+            if (renderer == null) continue;
+            // Add all materials used by this renderer
+            RacerMaterials.AddRange(renderer.sharedMaterials);
+        }
+
+        Debug.Log($"Cached {RacerMaterials.Count} materials from {RacerRenderers.Count} renderers.");
     }
 
 }

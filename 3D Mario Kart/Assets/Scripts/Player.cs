@@ -304,6 +304,9 @@ public class Player : MonoBehaviour
             Debug.Log("[Customization] Loading External sounds");
             playersounds.LoadKartSounds(config);
             playersounds.LoadCharacterSounds(racerConfig);
+
+            Debug.Log("[Customization] Setting up Item Manager");
+            //item_manager.playerRenderers = mkwCustomization.RacerRenderers.ToArray();
         }
     }
 
