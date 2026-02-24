@@ -53,6 +53,8 @@ public class IngameUIHolder : MonoBehaviour
     [Space(10)]
     public GameObject PositionCounter;
     public GameObject CourseNameUI;
+    public Text CourseNameText;
+    public Text ConsoleText;
     public List<LapCounter> LapCounters = new();
     [Space(10)]
 
@@ -108,5 +110,11 @@ public class IngameUIHolder : MonoBehaviour
             }
 
         }
+    }
+
+    public void UpdateCourse(string courseName, string console)
+    {
+        CourseNameText.text = courseName;
+        ConsoleText.text = console;
     }
 }

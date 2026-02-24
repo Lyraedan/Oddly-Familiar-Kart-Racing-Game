@@ -3599,6 +3599,8 @@ MonoBehaviour:
   Map2dEnd: {fileID: 2917844779102306072}
   PositionCounter: {fileID: 2275454863433020611}
   CourseNameUI: {fileID: 6975503836624997216}
+  CourseNameText: {fileID: 6355916029666780785}
+  ConsoleText: {fileID: 6039181459359722512}
   LapCounters: []
   ItemSystem: {fileID: 5061768885270311187}
   YourItem: {fileID: 8340267235458191941}
@@ -13064,7 +13066,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &797848451929410262
 RectTransform:
   m_ObjectHideFlags: 0
