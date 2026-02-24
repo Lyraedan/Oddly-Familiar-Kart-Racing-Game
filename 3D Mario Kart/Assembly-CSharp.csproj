@@ -64,6 +64,7 @@
     <Compile Include="Assets\Scripts\Trolley.cs" />
     <Compile Include="Assets\Spherical Skybox\Move.cs" />
     <Compile Include="Assets\Scripts\ComputerDriver.cs" />
+    <Compile Include="Assets\Scripts\Kart\KartType.cs" />
     <Compile Include="Assets\Scripts\ItemDistributionManager.cs" />
     <Compile Include="Assets\Scripts\General\FaceCamera.cs" />
     <Compile Include="Assets\Spherical Skybox\Click.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="Assets\Scripts\Camera\MirrorMainCamera.cs" />
     <Compile Include="Assets\Scripts\UI\IngameUIHolder.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
+    <Compile Include="Assets\Scripts\Kart\KartConfig.cs" />
     <Compile Include="Assets\Scripts\General\RandomRotation.cs" />
     <Compile Include="Assets\Scripts\Path\DriverPath.cs" />
     <Compile Include="Assets\Scripts\Title\MainMenu.cs" />
@@ -104,6 +106,7 @@
     <Compile Include="Assets\Scripts\RotatePlayerJumpPanel.cs" />
     <Compile Include="Assets\Models\Water Park\Ferris wheel\FerrisWHeelGondola.cs" />
     <Compile Include="Assets\Scripts\Camerafollow.cs" />
+    <Compile Include="Assets\Scripts\Kart\AxelConfig.cs" />
     <Compile Include="Assets\Models\Water Park\Track\WaterparkTV.cs" />
     <Compile Include="Assets\Scripts\Camera\SetChild.cs" />
     <Compile Include="Assets\colliderInAir.cs" />
@@ -111,10 +114,10 @@
     <Compile Include="Assets\Scripts\Items\Bobomb.cs" />
     <Compile Include="Assets\Scripts\ChainChompBall.cs" />
     <Compile Include="Assets\Scripts\General\UIGradient.cs" />
-    <Compile Include="Assets\Scripts\Kart\KartCustomization.cs" />
     <Compile Include="Assets\Scripts\ScoreCount.cs" />
     <Compile Include="Assets\SampleScenes\Scripts\PlaceTargetWithMouse.cs" />
     <Compile Include="Assets\Scripts\PlayerSounds.cs" />
+    <Compile Include="Assets\Scripts\Kart\MK8\MK8KartCustomization.cs" />
     <Compile Include="Assets\Scripts\Camera\SetSceneBuffer.cs" />
     <Compile Include="Assets\Scripts\Items\RedShell.cs" />
     <Compile Include="Assets\Scripts\JumpToAnimationTime.cs" />
@@ -122,6 +125,7 @@
     <Compile Include="Assets\Models\Rainbow Road N64\Firework Graphs\Test.cs" />
     <Compile Include="Assets\8K Skybox Pack Free\Example Scenes\Script\RotateCamera.cs" />
     <Compile Include="Assets\Scripts\General\MatchOrientation.cs" />
+    <Compile Include="Assets\Scripts\Kart\MKW\MKWKartCustomization.cs" />
     <Compile Include="Assets\Scenes\TEstStuff\TestScript.cs" />
     <Compile Include="Assets\Scripts\Camera\SetRes.cs" />
     <Compile Include="Assets\Scripts\Minimap.cs" />

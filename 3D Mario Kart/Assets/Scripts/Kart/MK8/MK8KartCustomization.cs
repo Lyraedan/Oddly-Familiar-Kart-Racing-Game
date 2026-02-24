@@ -1,28 +1,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KartCustomization : MonoBehaviour
+public class MK8KartCustomization : MonoBehaviour
 {
     // Bikes should have the same number of axels as a normal kart, just have 2 tire mesh renderers disabled
-
-    public enum KartType
-    {
-        Kart,
-        Bike
-    }
 
     public KartType type;
 
     public int CurrentlySelectedKartBodyIndex = 0;
     public int CurrentlySelectedKartWheelIndex = 0;
 
-    [System.Serializable]
-    public struct AxelConfig
-    {
-        public LayerMask mask;
-        public Transform WheelToLookAt;
-        public float hitDistance;
-    }
     [Header("This must match the number of axels in the kart chassis")]
     public List<AxelConfig> WheelsToLookAt = new();
 

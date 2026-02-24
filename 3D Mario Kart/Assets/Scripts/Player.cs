@@ -221,17 +221,58 @@ public class Player : MonoBehaviour
             tireLocalPositions[i] = TireParents[i].transform.localPosition;
         }
 
+        // Mario Kart 8 Style customization
+        MK8KartCustomization mk8Customization = GetComponent<MK8KartCustomization>();
+        if (mk8Customization != null)
+        {
+            axels = mk8Customization.CurrentChassis.AxelContainer;
+            tireArms = mk8Customization.CurrentChassis.TireArms.ToArray();
+        }
+
+        // Mario Kart World Style Customization
+        MKWKartCustomization mkwCustomization = GetComponent<MKWKartCustomization>();
+        if(mkwCustomization != null)
+        {
+            KartConfig config = mkwCustomization.CurrentKartConfig;
+            Boost_PS = config.boostParticles;
+            BoostBurstPS = config.boostBurstParticles;
+            DriftPS = config.WheelParticles;
+
+            // Dust
+            drift1 = config.dust.Drift1;
+            drift2 = config.dust.Drift2;
+            drift3 = config.dust.Drift3;
+            trails = config.Trails;
+
+            // Tires
+            Tires = config.Tires.Container;
+            tires = config.Tires.Mains.ToArray();
+            steeringwheel = config.SteeringWheel;
+
+            glider = config.Glider;
+            propeller = config.Propeller.transform;
+
+            // Driver needs to be loaded from the CurrentKartConfig Racer (TODO: Implement this)
+
+            groundLandParticles = config.GroundLandParticles;
+            antiGravityTireColor = config.antiGravityConfig.TireColor;
+            antiGravSpin = config.antiGravityConfig.Spin.ToArray();
+
+            tireRenderers = config.Tires.Renderers.ToArray();
+            axels = mkwCustomization.CurrentKartConfig.Chassis.AxelContainer;
+            tireArms = mkwCustomization.CurrentKartConfig.Chassis.TireArms.ToArray();
+            TireParents = config.Tires.Parents.ToArray();
+            antiGravityTirePositions = config.antiGravityConfig.TirePositions.ToArray();
+
+            // Figure out exactly what Kart Mat is doing lol
+
+            lightDecalColor = config.antiGravityConfig.LightDecalColor;
+        }
+
         if (Cam == null)
         {
             Cam = FindFirstObjectByType<Camerafollow>();
             Cam.player = transform; // Set to us
-        }
-
-        KartCustomization kartCustomization = GetComponent<KartCustomization>();
-        if (kartCustomization != null)
-        {
-            axels = kartCustomization.CurrentChassis.AxelContainer;
-            tireArms = kartCustomization.CurrentChassis.TireArms.ToArray();
         }
     }
 
