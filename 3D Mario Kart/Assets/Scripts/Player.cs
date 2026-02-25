@@ -203,6 +203,7 @@ public class Player : MonoBehaviour
     private bool IN_WATER = false;
     public Transform propeller;
 
+    [Header("Other stuff")]
     public Camerafollow Cam;
 
 
@@ -353,7 +354,7 @@ public class Player : MonoBehaviour
             groundRayDist = 2;
         }
 
-        //mario_face();
+        mario_face();
 
         // If the race has started, but not completed
         if (RACE_MANAGER.RACE_STARTED && !itemManager.isBullet && !RACE_MANAGER.RACE_COMPLETED)
@@ -446,7 +447,7 @@ public class Player : MonoBehaviour
                 transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.FromToRotation(transform.up * 2, hit.normal) * transform.rotation, 7.5f * Time.deltaTime);
                 // Move forward
                 currentspeed = 130;
-                rb.velocity = transform.forward * currentspeed;
+                rb.linearVelocity = transform.forward * currentspeed;
             }
             // Angle calc
             Vector3 myangle = lookat - transform.position;
@@ -751,7 +752,7 @@ public class Player : MonoBehaviour
             
             if (!itemManager.isBullet)
             {
-                rb.velocity = Vector3.zero;
+                rb.linearVelocity = Vector3.zero;
                 if (currentspeed > 50)
                     currentspeed -= 10;
                 Vector3 oldvel = collision.contacts[0].normal;
@@ -1312,9 +1313,9 @@ public class Player : MonoBehaviour
         }
         if(other.gameObject.tag == "CancelDownForce")
         {
-            Vector3 oldvel = rb.velocity;
+            Vector3 oldvel = rb.linearVelocity;
             oldvel.y *= 0.98f;
-            rb.velocity = oldvel;
+            rb.linearVelocity = oldvel;
         }
 
         if (other.gameObject.tag == "AntiGravity")
@@ -1345,9 +1346,9 @@ public class Player : MonoBehaviour
             //velocity decrease gravity
             if (!antiGravity)
             {
-                Vector3 vel = transform.InverseTransformDirection(rb.velocity);
+                Vector3 vel = transform.InverseTransformDirection(rb.linearVelocity);
                 vel.y *= 0.91f;
-                rb.velocity = transform.TransformDirection(vel);
+                rb.linearVelocity = transform.TransformDirection(vel);
             }
             
         }
@@ -1356,7 +1357,7 @@ public class Player : MonoBehaviour
 
     void Move()
     {
-        REALCURRENTSPEED = transform.InverseTransformDirection(rb.velocity).z;
+        REALCURRENTSPEED = transform.InverseTransformDirection(rb.linearVelocity).z;
 
         collideCooldown -= Time.deltaTime;
         if(!GLIDER_FLY && !JUMP_PANEL && !cancelAddforceDown)
@@ -1370,13 +1371,13 @@ public class Player : MonoBehaviour
         }
         //input speed into velocity
         Vector3 velocity = transform.forward * currentspeed;
-        if(velocity.y > rb.velocity.y )
+        if(velocity.y > rb.linearVelocity.y )
         {
             if(!antiGravity)
-                velocity.y = rb.velocity.y;
+                velocity.y = rb.linearVelocity.y;
 
         }
-        rb.velocity = velocity;
+        rb.linearVelocity = velocity;
 
         if (antiGravity)
         {
@@ -1385,7 +1386,7 @@ public class Player : MonoBehaviour
 
         if(GLIDER_FLY)
         {
-            Vector3 newVel = rb.velocity;
+            Vector3 newVel = rb.linearVelocity;
             if (!PlayerControls.GetButton(PlayerControls.GLIDER_DOWN))
             {
                 newVel.y *= 0.75f;
@@ -1394,7 +1395,7 @@ public class Player : MonoBehaviour
             {
                 newVel.y *= 0.45f;
             }
-            rb.velocity = newVel;
+            rb.linearVelocity = newVel;
         }
         if (GLIDER_FLY)
         {
@@ -1478,7 +1479,7 @@ public class Player : MonoBehaviour
         }
         if (JUMP_PANEL)
         {
-            rb.velocity = transform.forward * currentspeed;
+            rb.linearVelocity = transform.forward * currentspeed;
             jumpPanelUpForce = Mathf.Lerp(jumpPanelUpForce, jumpPanelDownForce, 2.5f * Time.deltaTime);
             rb.AddRelativeForce(Vector3.down * jumpPanelUpForce * Time.deltaTime, ForceMode.Acceleration);
             rb.AddForce(transform.forward * 60000 * Time.deltaTime, ForceMode.Acceleration);
@@ -1530,6 +1531,9 @@ public class Player : MonoBehaviour
         }
         if(reversing && !SpecialFace)
         {
+            if (faces.Length < 3)
+                return;
+
             if(reversingTime % 2 > 1.9)
             {
                 current_face_material = faces[2];
@@ -2315,9 +2319,9 @@ public class Player : MonoBehaviour
         Vector3 vel = transform.forward * currentspeed;
 
         if(!antiGravity)
-            vel.y = rb.velocity.y;
+            vel.y = rb.linearVelocity.y;
 
-        rb.velocity = vel;
+        rb.linearVelocity = vel;
 
             rb.AddRelativeForce(Vector3.down * 5000 * Time.deltaTime, ForceMode.Acceleration);
 
@@ -2466,7 +2470,6 @@ public class Player : MonoBehaviour
         
     }
 
-
     void lookAtOpponent()
     {
         if (RACE_MANAGER.RACE_STARTED)
@@ -2543,16 +2546,12 @@ public class Player : MonoBehaviour
                 headBone.localRotation = Quaternion.SlerpUnclamped(headBone.localRotation, Quaternion.Euler(0, 0, 0), 5 * Time.deltaTime);
             }
         }
-        
-
-
-
-
-
-
     }
     void blinking()
     {
+        if (faces.Length < 6)
+            return; // Not enough faces
+
         blinkingTimeCounter += Time.deltaTime;
         if(!SpecialFace && reversingTime <= 0 && !lookAtOpponentEyes)
         {
@@ -2573,6 +2572,9 @@ public class Player : MonoBehaviour
 
     IEnumerator happyFaceTrickJump()
     {
+        if (faces.Length < 4)
+            yield return null;
+
         for(int i = 0; i < 60; i++)
         {
             yield return new WaitForSeconds(0.01f);
@@ -2785,5 +2787,19 @@ public class Player : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (raycastPos == null)
+            return;
+
+        // Draw raycast
+        Gizmos.color = Color.green;
+        Gizmos.DrawSphere(raycastPos.position, 0.1f);
+        Gizmos.DrawLine(
+            raycastPos.position,
+            raycastPos.position + Vector3.down
+        );
     }
 }

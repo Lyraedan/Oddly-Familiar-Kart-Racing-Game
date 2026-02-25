@@ -17,7 +17,7 @@ public class UtilityFunctions : MonoBehaviour
 
     private RACE_MANAGER rm;
 
-
+    // What is this x_X
 
     // Start is called before the first frame update
     void Start()

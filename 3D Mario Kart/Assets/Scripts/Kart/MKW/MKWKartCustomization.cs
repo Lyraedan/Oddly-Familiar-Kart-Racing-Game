@@ -37,6 +37,8 @@ public class MKWKartCustomization : MonoBehaviour
 
     public UnityEvent<GameObject, GameObject> OnSpawned;
 
+    private Vector3 visualPos;
+
     void Start()
     {
         RemoveVisual();
@@ -47,6 +49,7 @@ public class MKWKartCustomization : MonoBehaviour
     {
         if (KartVisual != null)
         {
+            visualPos = KartVisual.transform.position;
             Destroy(KartVisual);
         }
     }
@@ -55,16 +58,23 @@ public class MKWKartCustomization : MonoBehaviour
     {
         Kart = SpawnKart();
         Racer = SpawnRacer();
+        CurrentKartConfig.UpdateEmbelem(CurrentRacerConfig);
         GetAllStarPowerRenderers();
         OnSpawned.Invoke(Kart, Racer);
     }
 
     public GameObject SpawnKart()
     {
+        currentKartIndex = Mathf.Clamp(currentKartIndex, 0, karts.Count - 1);
+
         GameObject kartToSpawn = karts[currentKartIndex];
         GameObject kart = Instantiate(kartToSpawn, kartSpawnPoint.position, kartSpawnPoint.rotation, transform);
         kart.transform.SetAsFirstSibling(); // Kart should be the very first sibling
+
         CurrentKartConfig = kart.GetComponent<KartConfig>();
+
+        kart.transform.localPosition = visualPos;
+
         UpdateKartSkin(currentKartSkinIndex);
         return kart;
     }
@@ -80,6 +90,8 @@ public class MKWKartCustomization : MonoBehaviour
 
     public GameObject SpawnRacer()
     {
+        currentRacerIndex = Mathf.Clamp(currentRacerIndex, 0, racers.Count - 1);
+
         GameObject racerToSpawn = racers[currentRacerIndex];
         Transform spawnPoint = CurrentKartConfig.Chassis.CharacterContainer;
         GameObject racer = Instantiate(racerToSpawn, spawnPoint);
@@ -95,19 +107,16 @@ public class MKWKartCustomization : MonoBehaviour
 
     public void GetAllStarPowerRenderers()
     {
-        // 1. Combine all renderers
         RacerRenderers.Clear();
         if (CurrentKartConfig?.KartRenderers != null)
             RacerRenderers.AddRange(CurrentKartConfig.KartRenderers);
         if (CurrentRacerConfig?.CharacterRenderers != null)
             RacerRenderers.AddRange(CurrentRacerConfig.CharacterRenderers);
 
-        // 2. Cache all materials
         RacerMaterials.Clear();
         foreach (var renderer in RacerRenderers)
         {
             if (renderer == null) continue;
-            // Add all materials used by this renderer
             RacerMaterials.AddRange(renderer.sharedMaterials);
         }
 

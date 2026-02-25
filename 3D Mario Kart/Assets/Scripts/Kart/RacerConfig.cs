@@ -6,6 +6,7 @@ using UnityEngine;
 public class RacerConfig : MonoBehaviour
 {
     public Animator Driver;
+    public Sprite Emblem;
 
     [System.Serializable]
     public class FaceConfig

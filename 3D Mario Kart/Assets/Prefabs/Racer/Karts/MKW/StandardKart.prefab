@@ -70324,6 +70324,7 @@ MonoBehaviour:
   SteeringWheel: {fileID: 3243956973619430397}
   Glider: {fileID: 1720665036473636333}
   Propeller: {fileID: 4346116377420577206}
+  hopAnimator: {fileID: 566765899673098046}
   StarPowerRendererRoots:
   - {fileID: 8352418439400468669}
   - {fileID: 4254492672375363112}

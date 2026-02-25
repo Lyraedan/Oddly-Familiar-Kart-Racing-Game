@@ -75,6 +75,20 @@ public class KartConfig : MonoBehaviour
     public List<GameObject> StarPowerRendererRoots;
     public List<Renderer> KartRenderers = new();
 
+    public void UpdateEmbelem(RacerConfig racerConfig)
+    {
+        // No emblem to update, skip
+        if (racerConfig.Emblem == null)
+            return;
+
+        foreach (MeshRenderer emblem in Chassis.emblems)
+        {
+            Material localMat = new Material(emblem.material);
+            localMat.SetTexture("_BaseMap", racerConfig.Emblem.texture);
+            emblem.material = localMat;
+        }
+    }
+
     [ContextMenu("Get Kart Renderers")]
     public void GetKartRenderers()
     {

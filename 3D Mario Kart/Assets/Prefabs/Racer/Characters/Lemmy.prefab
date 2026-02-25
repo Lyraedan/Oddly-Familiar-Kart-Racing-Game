@@ -305,6 +305,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RacerConfig
   Driver: {fileID: 2619514125344759545}
+  Emblem: {fileID: 21300000, guid: 4c90d2771869f7646b4e661f31745c7c, type: 3}
   Face:
     DefaultFace: {fileID: 2100000, guid: e1e5905cdc7f1b64dace158a9a4fdf77, type: 2}
     faceRenderer: {fileID: 3965185616321399046}
