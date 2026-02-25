@@ -36751,8 +36751,11 @@ MonoBehaviour:
     itemGraphic: {fileID: 21300000, guid: 05c1ef4f6b230d144b113eab7670da6a, type: 3}
     itemPrefab: {fileID: 468335106624062509, guid: c9d73f29666075f42ac98a562738396a,
       type: 3}
-  PlaySelectsound: {fileID: 2125466042143625567}
-  coinSparkle: {fileID: 0}
+  itemDistributionManager: {fileID: 2000856298303744152}
+  ItemUI: {fileID: 0}
+  SelectSound: {fileID: 2125466042143625567}
+  ItemSelectedSound: {fileID: 2934998202059707164}
+  CoinSparkle: {fileID: 5377948360265866973}
   StarPowerUp: 0
   starMat: {fileID: 2100000, guid: bc372211830b7ba4d9fedf49143fe5dc, type: 2}
   isBullet: 0

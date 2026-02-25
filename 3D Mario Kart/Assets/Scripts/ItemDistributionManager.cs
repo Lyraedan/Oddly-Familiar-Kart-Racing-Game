@@ -34,163 +34,131 @@ public class ItemDistributionManager : MonoBehaviour
     {
         if(gameObject.tag == "Player")
         {
-            if (position == 1)
-            {
-                int range = Random.Range(0, 6);
-
-                if(range < 2) { return 3; }//coin
-                else if(range < 4) { return 1; } //banana
-                else { return 2; } //green shell
-            }
-            if(position == 2)
-            {
-                int range = Random.Range(0, 5);
-
-                if (range < 1) { return 1; }//banana
-                else if (range < 3) { return 2; }//green shell
-                else { return 4; }//red shell
-            }
-            if (position == 3)
-            {
-                int range = Random.Range(0, 6);
-
-                if (range < 2) { return 6; }//mushroom
-                else if (range < 5) { return 4; }//red shell
-                else { return 11; } //bobomb
-            }
-            if(position == 4)
-            {
-                int range = Random.Range(0, 6);
-
-                if (range < 1) { return 4; }//red shell
-                else if(range < 2) { return 11; } //bobomb
-                else if (range < 3) { return 6; }//mushroom
-                else if (range < 4) { return 7; }//trip green
-                else { return 5; } //triple banana
-            }
-            if(position == 5)
-            {
-                int range = Random.Range(0, 6);
-
-                if (range < 1) { return 7; } //triple banana
-                else if (range < 2) { return 6; } //mushroom
-                else if (range < 4) { return 9; } //triple red shell
-                else { return 8; } //triple mushroom
-            }
-            if(position == 6)
-            {
-                int range = Random.Range(0, 7);
-
-                if (range < 2) { return 8; } //triple mushroom
-                else if (range < 5) { return 9; } //triple red shell
-                else{ return 12; }//blue shell
-            }
-            if(position == 7)
-            {
-                int range = Random.Range(0, 8);
-
-                if (range < 2) { return 12; } //blue shell
-                else if (range < 5) { return 10; } //golden mushroom
-                else { return 13; } //star
-            }
-            else //8th place
-            {
-                int range = Random.Range(0, 8);
-
-                if (range < 2) { return 13; } //star
-                else if (range < 5) { return 10; } //golden mushroom
-                else { return 0; } //bullet
-            }
+            int item = GetItemForPosition(position);
+            return item;
         }
-        
         else //opponent
         {
-            if(position == 1)
-            {
-                int range = Random.Range(0, 5);
-
-                if(range < 2) { return 6; }//coin
-                else if(range < 4) { return 2; } //banana
-                else { return 0; } //green shell
-            }
-            if(position == 2)
-            {
-                int range = Random.Range(0, 5);
-
-                if (range < 1) { return 2; }//banana
-                else if (range < 3) { return 0; }//green shell
-                else { return 1; }//red shell
-            }
-            if (position == 3)
-            {
-                int range = Random.Range(0, 5);
-
-                if (range < 2) { return 12; }//mushroom
-                else if (range < 4) { return 1; }//red shell
-                else { return 4; } //bobomb
-            }
-            if(position == 4)
-            {
-                int range = Random.Range(0, 6);
-
-                if (range < 1) { return 1; }//red shell
-                else if(range < 2) { return 4; } //bobomb
-                else if (range < 3) { return 12; }//mushroom
-                else if (range < 4) { return 7; }//trip green
-                else { return 10; } //triple banana
-            }
-            if(position == 5)
-            {
-                int range = Random.Range(0, 6);
-
-                if (range < 1) { return 7; } //triple banana
-                else if (range < 2) { return 12; } //mushroom
-                else if (range < 4) { return 8; } //triple red shell
-                else { return 9; } //triple mushroom
-            }
-            if(position == 6)
-            {
-                int range = Random.Range(0, 7);
-
-                if (range < 3) { return 9; } //triple mushroom
-                else if (range < 5) { return 8; } //triple red shell
-                else{
-                    if (GameObject.Find("RaceManager").GetComponent<RACE_MANAGER>().currentBlueShellCount == 0)
-                    {
-                        GameObject.Find("RaceManager").GetComponent<RACE_MANAGER>().currentBlueShellCount = 1;
-                        StartCoroutine(resetBlueShell());
-                        return 3;
-                    }
-                    else
-                        return 8;
-                }//blue shell or triple red
-            }
-            if(position == 7)
-            {
-                int range = Random.Range(0, 8);
-
-                if (range < 3) {
-                    if (GameObject.Find("RaceManager").GetComponent<RACE_MANAGER>().currentBlueShellCount == 0)
-                    {
-                        GameObject.Find("RaceManager").GetComponent<RACE_MANAGER>().currentBlueShellCount = 1;
-                        StartCoroutine(resetBlueShell());
-                        return 3;
-                    }
-                    else
-                        return 13;
-                } //blue shell or star
-                else if (range < 5) { return 11; } //golden mushroom
-                else { return 13; } //star
-            }
-            else //8th place
-            {
-                int range = Random.Range(0, 8);
-
-                if (range < 2) { return 13; } //star
-                else if (range < 5) { return 11; } //golden mushroom
-                else { return 5; } //bullet
-            }
+            int item = GetItemForOpponent(position);
+            return item;
         }
+    }
+
+    int GetItemForPosition(int position)
+    {
+        int range;
+        int[] probabilities;
+
+        switch (position)
+        {
+            case 1:
+                range = Random.Range(0, 6);
+                probabilities = new int[] { 3, 3, 1, 1, 2, 2 }; // coin, coin, banana, banana, green, green
+                break;
+            case 2:
+                range = Random.Range(0, 5);
+                probabilities = new int[] { 1, 2, 2, 4, 4 }; // banana, green, green, red, red
+                break;
+            case 3:
+                range = Random.Range(0, 6);
+                probabilities = new int[] { 6, 6, 4, 4, 4, 11 }; // mushroom, mushroom, red, red, red, bobomb
+                break;
+            case 4:
+                range = Random.Range(0, 6);
+                probabilities = new int[] { 4, 11, 6, 7, 5, 5 }; // red, bobomb, mushroom, triple green, triple banana, triple banana
+                break;
+            case 5:
+                range = Random.Range(0, 6);
+                probabilities = new int[] { 7, 6, 9, 9, 8, 8 }; // triple banana, mushroom, triple red, triple red, triple mushroom, triple mushroom
+                break;
+            case 6:
+                range = Random.Range(0, 7);
+                probabilities = new int[] { 8, 8, 9, 9, 9, 12, 12 }; // triple mushroom x2, triple red x3, blue x2
+                break;
+            case 7:
+                range = Random.Range(0, 8);
+                probabilities = new int[] { 12, 12, 10, 10, 10, 13, 13, 13 }; // blue x2, golden x3, star x3
+                break;
+            default: // 8th place
+                range = Random.Range(0, 8);
+                probabilities = new int[] { 13, 13, 10, 10, 10, 0, 0, 0 }; // star x2, golden x3, bullet x3
+                break;
+        }
+
+        return probabilities[range];
+    }
+
+    int GetItemForOpponent(int position)
+    {
+        int range;
+        int[] probabilities;
+
+        switch (position)
+        {
+            case 1:
+                range = Random.Range(0, 5);
+                probabilities = new int[] { 6, 6, 2, 2, 0 }; // coin x2, banana x2, green
+                break;
+            case 2:
+                range = Random.Range(0, 5);
+                probabilities = new int[] { 2, 0, 0, 1, 1 }; // banana, green x2, red x2
+                break;
+            case 3:
+                range = Random.Range(0, 5);
+                probabilities = new int[] { 12, 12, 1, 1, 4 }; // mushroom x2, red x2, bobomb
+                break;
+            case 4:
+                range = Random.Range(0, 6);
+                probabilities = new int[] { 1, 4, 12, 7, 10, 10 }; // red, bobomb, mushroom, triple green, triple banana x2
+                break;
+            case 5:
+                range = Random.Range(0, 6);
+                probabilities = new int[] { 7, 12, 8, 8, 9, 9 }; // triple banana, mushroom, triple red x2, triple mushroom x2
+                break;
+            case 6:
+                range = Random.Range(0, 7);
+                if (range < 3)
+                    return 9; // triple mushroom
+                else if (range < 5)
+                    return 8; // triple red shell
+                else
+                {
+                    // Blue shell logic
+                    var rm = GameObject.Find("RaceManager").GetComponent<RACE_MANAGER>();
+                    if (rm.currentBlueShellCount == 0)
+                    {
+                        rm.currentBlueShellCount = 1;
+                        StartCoroutine(resetBlueShell());
+                        return 3; // blue shell
+                    }
+                    else
+                        return 8; // triple red shell
+                }
+            case 7:
+                range = Random.Range(0, 8);
+                if (range < 3)
+                {
+                    var rm = GameObject.Find("RaceManager").GetComponent<RACE_MANAGER>();
+                    if (rm.currentBlueShellCount == 0)
+                    {
+                        rm.currentBlueShellCount = 1;
+                        StartCoroutine(resetBlueShell());
+                        return 3; // blue shell
+                    }
+                    else
+                        return 13; // star
+                }
+                else if (range < 5)
+                    return 11; // golden mushroom
+                else
+                    return 13; // star
+            default: // 8th place
+                range = Random.Range(0, 8);
+                probabilities = new int[] { 13, 13, 11, 11, 11, 5, 5, 5 }; // star x2, golden x3, bullet x3
+                break;
+        }
+
+        return probabilities[range];
     }
 
     IEnumerator resetBlueShell()

@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ItemManager : MonoBehaviour
 {
@@ -18,15 +20,30 @@ public class ItemManager : MonoBehaviour
 
     public List<Item> items = new();
 
+    [Header("Item UI")]
+    public ItemDistributionManager itemDistributionManager;
+    public Animator ItemsUIMain;
+    public Animator ItemsList;
+    public Image OurItem;
+
     [Header("Sounds")]
-    public AudioSource PlaySelectsound;
-    public AudioSource coinSparkle;
+    public AudioSource SelectSound;
+    public AudioSource ItemSelectedSound;
+    public AudioSource CoinSparkle;
 
     [Header("Power-ups")]
     public bool StarPowerUp;
     public Material starMat;
     public bool isBullet;
     public bool canUseBulletAntigravity;
+
+    private GameObject CurrentItem;
+
+    private bool itemSelecting = false;
+    private bool itemSelected = false;
+
+    public bool IsSelectingItem { get { return itemSelecting; } }
+    public bool HasItemSelected { get { return itemSelected; } }
 
     void Start()
     {
@@ -35,6 +52,10 @@ public class ItemManager : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            SelectItem();
+        }
         if (Input.GetKeyDown(KeyCode.Space))
         {
             EquipItem(items[0].itemPrefab);
@@ -61,6 +82,56 @@ public class ItemManager : MonoBehaviour
         {
             currentItemInstance?.Use(use);
         }
+    }
+
+    public void SelectItem()
+    {
+        // Do nothing if we're already selecting or have selected an item
+        if (IsSelectingItem || itemSelected)
+            return;
+
+        StartCoroutine(GetRandomItem());
+    }
+
+    IEnumerator GetRandomItem()
+    {
+        itemSelecting = true;
+        SelectSound.Play();
+
+        int itemIndex = itemDistributionManager.getItemNumber();
+        itemIndex = Mathf.Clamp(itemIndex, 0, items.Count - 1); // Clamp to valid range
+
+        OurItem.sprite = items[itemIndex].itemGraphic;
+
+        ItemsUIMain.SetBool("StartSelecting", true);
+        ItemsList.SetBool("Scroll", true);
+        yield return new WaitForSeconds(4);
+
+        itemSelecting = false;
+        GameObject selected = items[itemIndex].itemPrefab;
+        EquipItem(selected);
+        if(selected.tag != "Non-Hold-Item")
+        {
+            player.Driver.SetBool("hasItem", true);
+            player.has_item_hold = true;
+            //tripleItemCount = 0;
+
+            //if (selected.name == "GoldenMushroom")
+            //{
+            //    GoldenMushroomTimer = 10f;
+            //}
+        }
+        else
+        {
+            //tripleItemCount = 3; //triple item
+        }
+
+        SelectSound.Stop();
+        ItemSelectedSound.Play();
+
+        itemSelected = true;
+        player.hasitem = true;
+        //item_decided = true;
     }
 
     public void EquipItem(GameObject itemPrefab)
@@ -91,15 +162,27 @@ public class ItemManager : MonoBehaviour
         currentItemInstance.SetThrowSpawn(player.ThrowForward);
 
         currentItemInstance.Initialize(player, this);
+        CurrentItem = instance;
     }
 
     public void ConsumeItem(bool ShouldDestroy = true)
     {
-        player.hasitem = false;
+        ResetUI();
 
         if (currentItemInstance != null && ShouldDestroy)
             Destroy(currentItemInstance.gameObject);
 
         currentItemInstance = null;
+    }
+
+    public void ResetUI()
+    {
+        player.hasitem = false;
+        player.has_item_hold = false;
+        itemSelected = false;
+        itemSelecting = false;
+        ItemsUIMain.SetBool("StartSelecting", false);
+        player.Driver.SetBool("hasItem", false);
+        ItemsList.SetBool("Scroll", false);
     }
 }

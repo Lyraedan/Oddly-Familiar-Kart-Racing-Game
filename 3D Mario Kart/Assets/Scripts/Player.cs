@@ -968,7 +968,7 @@ public class Player : MonoBehaviour
 
         if (other.gameObject.tag == "ItemBox" && !RACE_MANAGER.RACE_COMPLETED)
         {
-            itemManager.PlaySelectsound.Play();
+            itemManager.SelectSound.Play();
             hasitem = true; //will trigger a method in the item manager script
             for(int i = 0; i < 5; i++)
             {
@@ -1033,7 +1033,7 @@ public class Player : MonoBehaviour
             other.transform.GetChild(0).GetChild(1).GetComponent<SkinnedMeshRenderer>().enabled = false;
             other.gameObject.GetComponent<Animator>().SetBool("Spawn", false); //reset to start process
             GetComponent<ScoreCount>().COINCOUNT++;
-            itemManager.coinSparkle.Play();
+            itemManager.CoinSparkle.Play();
             playersounds.PlayCoin();
 
             yield return new WaitForSeconds(1.5f);

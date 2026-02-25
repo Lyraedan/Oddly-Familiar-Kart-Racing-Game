@@ -32,6 +32,11 @@ public class GreenShellItem : ItemBase
     {
         Transform spawn = forward ? forwardSpawn : backSpawn;
 
+        if(forward)
+            player.Driver.SetTrigger("ThrowForward");
+        else
+            player.Driver.SetTrigger("ThrowBackward");
+
         // Set move direction
         moveDirection = forward ? player.transform.forward : -player.transform.forward;
         thrownBy = player.tag;
