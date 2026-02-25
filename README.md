@@ -79,6 +79,9 @@ Once thats ready open the project after adding it to your Unity Hub and let it i
 * Animations
   * Fixed animations on the Player racer. They're still broken but they look like who they're suppose to look like
 
+# Other Notes:
+   > Its incredibly buggy right now, I broke the animation for the antigravity wheels and theres alot that needs to be done before this hits main
+
 ## My plans
  * Refactor the code base because holy moly my eyeballs
  * Custom characters
