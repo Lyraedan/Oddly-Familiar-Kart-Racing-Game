@@ -11,12 +11,27 @@ public class ItemManager : MonoBehaviour
 
     private Player player;
 
-    private Dictionary<ItemSlot, ItemBase> equippedItems = new();
-    private Dictionary<ItemSlot, bool> itemSelecting = new();
-    private Dictionary<ItemSlot, bool> itemSelected = new();
-    private Dictionary<ItemSlot, GameObject> storedItemPrefabs = new();
+    [System.Serializable]
+    public class ItemSlotItem
+    {
+        public ItemBase equippedItem;
+        public bool selecting;
+        public bool selected;
+        public GameObject prefab;
+
+        public bool HasVisual()
+        {
+            return prefab != null;
+        }
+
+        public bool HasItemEquipped() { 
+            return equippedItem != null;
+        }
+    }
 
     public ItemSlot CurrentItemSlot = ItemSlot.Primary;
+    private ItemSlotItem PrimarySlot = new();
+    private ItemSlotItem SecondarySlot = new();
 
     [System.Serializable]
     public struct Item
@@ -69,13 +84,7 @@ public class ItemManager : MonoBehaviour
     {
         player = GetComponent<Player>();
 
-        foreach (ItemSlot slot in System.Enum.GetValues(typeof(ItemSlot)))
-        {
-            equippedItems[slot] = null;
-            storedItemPrefabs[slot] = null;
-            itemSelecting[slot] = false;
-            itemSelected[slot] = false;
-        }
+        
     }
 
     void Update()
@@ -138,7 +147,8 @@ public class ItemManager : MonoBehaviour
 
     public void SelectItem(ItemSlot slot)
     {
-        if (itemSelecting[slot] || itemSelected[slot])
+        ItemSlotItem itemSlotItem = GetItemSlotItem(slot);
+        if (itemSlotItem.selecting || itemSlotItem.selected)
             return;
 
         StartCoroutine(GetRandomItem(slot));
@@ -147,14 +157,14 @@ public class ItemManager : MonoBehaviour
     public void SelectItemAuto()
     {
         // Prioritize Primary first
-        if (!itemSelected[ItemSlot.Primary] && !itemSelecting[ItemSlot.Primary])
+        if (!PrimarySlot.selected && !PrimarySlot.selected)
         {
             SelectItem(ItemSlot.Primary);
             return;
         }
 
         // If Primary is occupied, try Secondary
-        if (!itemSelected[ItemSlot.Secondary] && !itemSelecting[ItemSlot.Secondary])
+        if (!SecondarySlot.selected && !SecondarySlot.selecting)
         {
             SelectItem(ItemSlot.Secondary);
             return;
@@ -165,7 +175,8 @@ public class ItemManager : MonoBehaviour
 
     IEnumerator GetRandomItem(ItemSlot slot)
     {
-        itemSelecting[slot] = true;
+        ItemSlotItem itemSlotItem = GetItemSlotItem(slot);
+        itemSlotItem.selecting = true;
 
         ItemUI ui = GetUI(slot);
 
@@ -181,12 +192,12 @@ public class ItemManager : MonoBehaviour
 
         yield return new WaitForSeconds(4f);
 
-        itemSelecting[slot] = false;
+        itemSlotItem.selecting = false;
 
         GameObject selectedPrefab = items[itemIndex].itemPrefab;
 
         // Always store the prefab
-        storedItemPrefabs[slot] = selectedPrefab;
+        itemSlotItem.prefab = selectedPrefab;
 
         // ONLY equip if Primary
         if (slot == ItemSlot.Primary)
@@ -197,7 +208,7 @@ public class ItemManager : MonoBehaviour
         SelectSound.Stop();
         ItemSelectedSound.Play();
 
-        itemSelected[slot] = true;
+        itemSlotItem.selected = true;
     }
 
     public void EquipItem(GameObject itemPrefab)
@@ -227,7 +238,7 @@ public class ItemManager : MonoBehaviour
 
         item.Initialize(player, this);
 
-        equippedItems[ItemSlot.Primary] = item;
+        PrimarySlot.equippedItem = item;
 
         player.hasitem = true;
         player.Driver.SetBool("hasItem", true);
@@ -238,22 +249,18 @@ public class ItemManager : MonoBehaviour
         ItemSlot primary = ItemSlot.Primary;
         ItemSlot secondary = ItemSlot.Secondary;
 
-        // No primary item → nothing to use
-        if (!equippedItems.ContainsKey(primary))
+        if (!PrimarySlot.HasItemEquipped())
             return;
 
-        ItemBase primaryItem = equippedItems[primary];
+        ItemBase primaryItem = PrimarySlot.equippedItem;
         if (primaryItem == null)
             return;
 
-        // Use the primary item
         primaryItem.Use(forward);
 
-        // Consume primary (this destroys it)
         ConsumeItem(primary);
 
-        // If secondary exists, promote it
-        if (equippedItems[secondary] != null)
+        if (/*SecondarySlot.HasItemEquipped()*/ SecondarySlot.selected)
         {
             PromoteSecondaryToPrimary();
         }
@@ -261,31 +268,34 @@ public class ItemManager : MonoBehaviour
 
     private void ConsumePrimaryVisual()
     {
-        if (equippedItems[ItemSlot.Primary] != null)
-            Destroy(equippedItems[ItemSlot.Primary].gameObject);
+        if (PrimarySlot.HasVisual())
+            Destroy(PrimarySlot.prefab);
 
-        equippedItems[ItemSlot.Primary] = null;
+        PrimarySlot.equippedItem = null;
     }
 
     public void ConsumeItem(ItemSlot slot = ItemSlot.Primary, bool shouldDestroy = true)
     {
+        ItemSlotItem itemSlotItem = GetItemSlotItem(slot);
         // Safety check
-        if (!equippedItems.ContainsKey(slot))
+        if (!itemSlotItem.HasItemEquipped())
             return;
 
-        ItemBase item = equippedItems[slot];
+        ItemBase item = itemSlotItem.equippedItem;
         if (item == null)
             return;
 
-        // Destroy visual instance
         if (shouldDestroy)
+        {
+            itemSlotItem.prefab = null; // Clear the prefab reference since it's being destroyed
             Destroy(item.gameObject);
+        }
 
-        equippedItems[slot] = null;
+        itemSlotItem.equippedItem = null;
 
         // Reset UI + state
-        itemSelected[slot] = false;
-        itemSelecting[slot] = false;
+        itemSlotItem.selected = false;
+        itemSlotItem.selecting = false;
 
         ItemUI ui = GetUI(slot);
         ui.Main.SetBool("StartSelecting", false);
@@ -304,19 +314,21 @@ public class ItemManager : MonoBehaviour
     {
         ItemSlot primary = ItemSlot.Primary;
         ItemSlot secondary = ItemSlot.Secondary;
+        ItemSlotItem itemSlotPrimary = GetItemSlotItem(primary);
+        ItemSlotItem itemSlotSecondary = GetItemSlotItem(secondary);
 
-        ItemBase secondaryItem = equippedItems[secondary];
+        ItemBase secondaryItem = itemSlotSecondary.equippedItem;
 
         if (secondaryItem == null)
             return;
 
         // Move reference
-        equippedItems[primary] = secondaryItem;
-        equippedItems[secondary] = null;
+        itemSlotPrimary.equippedItem = secondaryItem;
+        itemSlotSecondary.equippedItem = null;
 
         // Update state
-        itemSelected[primary] = true;
-        itemSelected[secondary] = false;
+        itemSlotPrimary.selected = true;
+        itemSlotSecondary.selected = false;
 
         // Update UI animations
         Secondary.Main.SetBool("StartSelecting", false);
@@ -332,8 +344,10 @@ public class ItemManager : MonoBehaviour
 
     public void ResetUI(ItemSlot slot)
     {
-        itemSelected[slot] = false;
-        itemSelecting[slot] = false;
+        ItemSlotItem itemSlotItem = GetItemSlotItem(slot);
+
+        itemSlotItem.selected = false;
+        itemSlotItem.selecting = false;
 
         ItemUI ui = GetUI(slot);
 
@@ -346,5 +360,10 @@ public class ItemManager : MonoBehaviour
             player.has_item_hold = false;
             player.Driver.SetBool("hasItem", false);
         }
+    }
+
+    public ItemSlotItem GetItemSlotItem(ItemSlot slot)
+    {
+        return slot == ItemSlot.Primary ? PrimarySlot : SecondarySlot;
     }
 }
