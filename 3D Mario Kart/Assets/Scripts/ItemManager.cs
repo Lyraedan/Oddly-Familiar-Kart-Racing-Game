@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class ItemManager : MonoBehaviour
 {
+    public static ItemManager Instance;
+
     private Player player;
 
     private ItemBase currentItemInstance;
@@ -44,6 +46,18 @@ public class ItemManager : MonoBehaviour
 
     public bool IsSelectingItem { get { return itemSelecting; } }
     public bool HasItemSelected { get { return itemSelected; } }
+
+    void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
 
     void Start()
     {

@@ -134,6 +134,7 @@
     <Compile Include="Assets\Scenes\TEstStuff\TestScript.cs" />
     <Compile Include="Assets\Scripts\Camera\SetRes.cs" />
     <Compile Include="Assets\Scripts\Minimap.cs" />
+    <Compile Include="Assets\Scripts\UI\ItemListPopulator.cs" />
     <Compile Include="Assets\Scripts\General\UICornersGradient.cs" />
     <Compile Include="Assets\Scripts\Items\OrbitingItems.cs" />
     <Compile Include="Assets\SampleScenes\Menu\Scripts\MenuSceneLoader.cs" />
