@@ -968,35 +968,7 @@ public class Player : MonoBehaviour
 
         if (other.gameObject.tag == "ItemBox" && !RACE_MANAGER.RACE_COMPLETED)
         {
-            itemManager.SelectSound.Play();
-            hasitem = true; //will trigger a method in the item manager script
-            for(int i = 0; i < 5; i++)
-            {
-
-                other.transform.GetChild(0).GetChild(i).GetComponent<ParticleSystem>().Play();
-
-            }
-
-            //start hiding stuff
-            other.gameObject.GetComponent<BoxCollider>().enabled = false;
-            for(int i = 1; i < 3; i++)
-            {
-                other.transform.GetChild(2).GetChild(i).GetComponent<SkinnedMeshRenderer>().enabled = false; //box
-                other.transform.GetChild(1).GetChild(1).GetComponent<SkinnedMeshRenderer>().enabled = false; //question mark
-            }
-            other.gameObject.GetComponent<Animator>().SetBool("Enlarge", false); //reset to start process
-
-            //re-enable
-            yield return new WaitForSeconds(1);
-            for (int i = 1; i < 3; i++)
-            {
-                other.transform.GetChild(2).GetChild(i).GetComponent<SkinnedMeshRenderer>().enabled = true; //box
-                other.transform.GetChild(1).GetChild(1).GetComponent<SkinnedMeshRenderer>().enabled = true; //question mark
-            }
-            other.gameObject.GetComponent<Animator>().SetBool("Enlarge", true);  //show the item box spawning with animation, even though it was already there
-            other.gameObject.GetComponent<BoxCollider>().enabled = true;
-
-
+            yield return OnItemBoxEnter(other);
         }
         if((other.gameObject.tag == "Explosion" || other.gameObject.tag == "ChainChomp") && !itemManager.isBullet && !itemManager.StarPowerUp)
         {
@@ -1111,6 +1083,39 @@ public class Player : MonoBehaviour
             other.gameObject.GetComponent<MeshCollider>().enabled = true;
         }
     }
+
+    private IEnumerator OnItemBoxEnter(Collider other)
+    {
+        //itemManager.SelectSound.Play();
+        itemManager.SelectItem();
+        hasitem = true; //will trigger a method in the item manager script
+        for (int i = 0; i < 5; i++)
+        {
+
+            other.transform.GetChild(0).GetChild(i).GetComponent<ParticleSystem>().Play();
+
+        }
+
+        //start hiding stuff
+        other.gameObject.GetComponent<BoxCollider>().enabled = false;
+        for (int i = 1; i < 3; i++)
+        {
+            other.transform.GetChild(2).GetChild(i).GetComponent<SkinnedMeshRenderer>().enabled = false; //box
+            other.transform.GetChild(1).GetChild(1).GetComponent<SkinnedMeshRenderer>().enabled = false; //question mark
+        }
+        other.gameObject.GetComponent<Animator>().SetBool("Enlarge", false); //reset to start process
+
+        //re-enable
+        yield return new WaitForSeconds(1);
+        for (int i = 1; i < 3; i++)
+        {
+            other.transform.GetChild(2).GetChild(i).GetComponent<SkinnedMeshRenderer>().enabled = true; //box
+            other.transform.GetChild(1).GetChild(1).GetComponent<SkinnedMeshRenderer>().enabled = true; //question mark
+        }
+        other.gameObject.GetComponent<Animator>().SetBool("Enlarge", true);  //show the item box spawning with animation, even though it was already there
+        other.gameObject.GetComponent<BoxCollider>().enabled = true;
+    }
+
     private IEnumerator OnTriggerExit(Collider other)
     {
         if (other.gameObject.tag == "GliderPanel")
