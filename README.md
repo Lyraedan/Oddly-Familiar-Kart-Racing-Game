@@ -56,6 +56,29 @@ Once thats ready open the project after adding it to your Unity Hub and let it i
    - UGC Maps
    > See: [how to create a custom map here](https://github.com/Lyraedan/Oddly-Familiar-Kart-Racing-Game/wiki/Creating-a-Custom-Course.)
 
+## What I'm working on: v0.4
+* Kart Customization
+  > Gone with the Mario Kart World Style over 8 as it allows porting in custom karts to be far easier to configure
+  * Selectable Racers
+    > Current options include: Mario, Luigi, Toad, Peach, Shyguy, Lemmy, Waluigi and Baby Mario
+    * Custom Racer Voices
+      > Currently only Mario and Shyguy have voices (Shyguy is really quite at the moment)
+  * Kart Chassis Selection
+    * Skinnable Chassis'
+      > If you have multiple different color variants of a Chassis this is supported
+* UI Overhaul
+  * UI Made A prefab for simplicity
+  * Item Manager Overhaul
+    > This is Player only right now
+    * Support for 2 active items from item boxes
+      > This is WIP
+    * Dynamic item population based on the items we have available
+    * Item Overhaul
+      * Items now have an ItemBase and can be spawned in dynamically and no longer need to be pooled
+        > So far only the GreenShell is partially reimplemented, you can throw it backwards but not forwards as it hits us
+* Animations
+  * Fixed animations on the Player racer. They're still broken but they look like who they're suppose to look like
+
 ## My plans
  * Refactor the code base because holy moly my eyeballs
  * Custom characters
