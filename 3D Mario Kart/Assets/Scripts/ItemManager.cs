@@ -100,6 +100,11 @@ public class ItemManager : MonoBehaviour
             UseItem(true);
         }
 
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            ResetUI(ItemSlot.Secondary);
+        }
+
         if (!player.hasitem) return;
 
         bool use = PlayerControls.GetButtonDown(PlayerControls.USE_ITEM);
@@ -317,8 +322,12 @@ public class ItemManager : MonoBehaviour
         Secondary.Main.SetBool("StartSelecting", false);
         Secondary.List.SetBool("Scroll", false);
 
-        Primary.Main.SetBool("StartSelecting", false);
-        Primary.List.SetBool("Scroll", false);
+        Primary.Main.SetBool("StartSelecting", true);
+        Primary.List.SetBool("Scroll", true);
+
+        // Update primary sprite with secondary and reset secondary
+        Primary.OurItem.sprite = Secondary.OurItem.sprite;
+        Secondary.OurItem.sprite = null;
     }
 
     public void ResetUI(ItemSlot slot)
