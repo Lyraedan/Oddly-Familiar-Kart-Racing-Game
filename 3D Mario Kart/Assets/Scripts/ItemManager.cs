@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,9 +7,16 @@ public class ItemManager : MonoBehaviour
 {
     public static ItemManager Instance;
 
+    public enum ItemSlot { Primary, Secondary }
+
     private Player player;
 
-    private ItemBase currentItemInstance;
+    private Dictionary<ItemSlot, ItemBase> equippedItems = new();
+    private Dictionary<ItemSlot, bool> itemSelecting = new();
+    private Dictionary<ItemSlot, bool> itemSelected = new();
+    private Dictionary<ItemSlot, GameObject> storedItemPrefabs = new();
+
+    public ItemSlot CurrentItemSlot = ItemSlot.Primary;
 
     [System.Serializable]
     public struct Item
@@ -24,9 +30,17 @@ public class ItemManager : MonoBehaviour
 
     [Header("Item UI")]
     public ItemDistributionManager itemDistributionManager;
-    public Animator ItemsUIMain;
-    public Animator ItemsList;
-    public Image OurItem;
+
+    [System.Serializable]
+    public struct ItemUI
+    {
+        public Animator Main;
+        public Animator List;
+        public Image OurItem;
+    }
+
+    public ItemUI Primary;
+    public ItemUI Secondary;
 
     [Header("Sounds")]
     public AudioSource SelectSound;
@@ -39,19 +53,11 @@ public class ItemManager : MonoBehaviour
     public bool isBullet;
     public bool canUseBulletAntigravity;
 
-    private GameObject CurrentItem;
-
-    private bool itemSelecting = false;
-    private bool itemSelected = false;
-
-    public bool IsSelectingItem { get { return itemSelecting; } }
-    public bool HasItemSelected { get { return itemSelected; } }
-
     void Awake()
     {
         if (Instance != null && Instance != this)
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
         else
         {
@@ -62,29 +68,36 @@ public class ItemManager : MonoBehaviour
     void Start()
     {
         player = GetComponent<Player>();
+
+        foreach (ItemSlot slot in System.Enum.GetValues(typeof(ItemSlot)))
+        {
+            equippedItems[slot] = null;
+            storedItemPrefabs[slot] = null;
+            itemSelecting[slot] = false;
+            itemSelected[slot] = false;
+        }
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.P))
         {
-            SelectItem();
-        }
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            EquipItem(items[0].itemPrefab);
-            player.hasitem = true;
-        }
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            // Use forward
-            currentItemInstance?.Use(true);
+            SelectItemAuto();
         }
 
-        if (Input.GetKeyDown(KeyCode.B))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
-            // Use backward
-            currentItemInstance?.Use(false);
+            SelectItem(CurrentItemSlot);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            SwitchSlot();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            UseItem(true);
         }
 
         if (!player.hasitem) return;
@@ -94,109 +107,235 @@ public class ItemManager : MonoBehaviour
 
         if (use || back)
         {
-            currentItemInstance?.Use(use);
+            UseItem(use);
         }
     }
 
-    public void SelectItem()
-    {
-        // Do nothing if we're already selecting or have selected an item
-        if (IsSelectingItem || itemSelected)
-            return;
+    // -------------------------------------------------
+    // SLOT HELPERS
+    // -------------------------------------------------
 
-        StartCoroutine(GetRandomItem());
+    private ItemUI GetUI(ItemSlot slot)
+    {
+        return slot == ItemSlot.Primary ? Primary : Secondary;
     }
 
-    IEnumerator GetRandomItem()
+    public void SwitchSlot()
     {
-        itemSelecting = true;
+        CurrentItemSlot = CurrentItemSlot == ItemSlot.Primary
+            ? ItemSlot.Secondary
+            : ItemSlot.Primary;
+    }
+
+    // -------------------------------------------------
+    // ITEM SELECTION
+    // -------------------------------------------------
+
+    public void SelectItem(ItemSlot slot)
+    {
+        if (itemSelecting[slot] || itemSelected[slot])
+            return;
+
+        StartCoroutine(GetRandomItem(slot));
+    }
+
+    public void SelectItemAuto()
+    {
+        // Prioritize Primary first
+        if (!itemSelected[ItemSlot.Primary] && !itemSelecting[ItemSlot.Primary])
+        {
+            SelectItem(ItemSlot.Primary);
+            return;
+        }
+
+        // If Primary is occupied, try Secondary
+        if (!itemSelected[ItemSlot.Secondary] && !itemSelecting[ItemSlot.Secondary])
+        {
+            SelectItem(ItemSlot.Secondary);
+            return;
+        }
+
+        // Both slots are busy or filled — do nothing
+    }
+
+    IEnumerator GetRandomItem(ItemSlot slot)
+    {
+        itemSelecting[slot] = true;
+
+        ItemUI ui = GetUI(slot);
+
         SelectSound.Play();
 
         int itemIndex = itemDistributionManager.getItemNumber();
-        itemIndex = Mathf.Clamp(itemIndex, 0, items.Count - 1); // Clamp to valid range
+        itemIndex = Mathf.Clamp(itemIndex, 0, items.Count - 1);
 
-        OurItem.sprite = items[itemIndex].itemGraphic;
+        ui.OurItem.sprite = items[itemIndex].itemGraphic;
 
-        ItemsUIMain.SetBool("StartSelecting", true);
-        ItemsList.SetBool("Scroll", true);
-        yield return new WaitForSeconds(4);
+        ui.Main.SetBool("StartSelecting", true);
+        ui.List.SetBool("Scroll", true);
 
-        itemSelecting = false;
-        GameObject selected = items[itemIndex].itemPrefab;
-        EquipItem(selected);
-        if(selected.tag != "Non-Hold-Item")
+        yield return new WaitForSeconds(4f);
+
+        itemSelecting[slot] = false;
+
+        GameObject selectedPrefab = items[itemIndex].itemPrefab;
+
+        // Always store the prefab
+        storedItemPrefabs[slot] = selectedPrefab;
+
+        // ONLY equip if Primary
+        if (slot == ItemSlot.Primary)
         {
-            player.Driver.SetBool("hasItem", true);
-            player.has_item_hold = true;
-            //tripleItemCount = 0;
-
-            //if (selected.name == "GoldenMushroom")
-            //{
-            //    GoldenMushroomTimer = 10f;
-            //}
-        }
-        else
-        {
-            //tripleItemCount = 3; //triple item
+            EquipItem(selectedPrefab);
         }
 
         SelectSound.Stop();
         ItemSelectedSound.Play();
 
-        itemSelected = true;
-        player.hasitem = true;
-        //item_decided = true;
+        itemSelected[slot] = true;
     }
 
     public void EquipItem(GameObject itemPrefab)
     {
-        if (currentItemInstance != null)
-            Destroy(currentItemInstance.gameObject);
+        ConsumePrimaryVisual();
 
         GameObject instance = Instantiate(itemPrefab, player.ShellBack);
-        instance.name = "Equipped_" + instance.name;
-        currentItemInstance = instance.GetComponent<ItemBase>();
+        instance.name = $"Equipped_Primary_{instance.name}";
 
-        // Zero in the item
-        instance.transform.localPosition = Vector3.zero;
-        instance.transform.localRotation = Quaternion.identity;
-        instance.transform.localScale = currentItemInstance.spawnScale;
+        ItemBase item = instance.GetComponent<ItemBase>();
 
-        if(!currentItemInstance)
+        if (!item)
         {
-            Debug.LogError("The equipped item prefab does not have an ItemBase component.");
+            Debug.LogError("Prefab missing ItemBase.");
             Destroy(instance);
             return;
         }
 
-        // Set spawn points for the item
-        currentItemInstance.SetBackSpawn(player.ShellBack);
-        currentItemInstance.SetFrontSpawn(player.ShellFront);
-        currentItemInstance.SetHandSpawn(player.ItemHand);
-        currentItemInstance.SetThrowSpawn(player.ThrowForward);
+        instance.transform.localPosition = Vector3.zero;
+        instance.transform.localRotation = Quaternion.identity;
+        instance.transform.localScale = item.spawnScale;
 
-        currentItemInstance.Initialize(player, this);
-        CurrentItem = instance;
+        item.SetBackSpawn(player.ShellBack);
+        item.SetFrontSpawn(player.ShellFront);
+        item.SetHandSpawn(player.ItemHand);
+        item.SetThrowSpawn(player.ThrowForward);
+
+        item.Initialize(player, this);
+
+        equippedItems[ItemSlot.Primary] = item;
+
+        player.hasitem = true;
+        player.Driver.SetBool("hasItem", true);
     }
 
-    public void ConsumeItem(bool ShouldDestroy = true)
+    public void UseItem(bool forward)
     {
-        ResetUI();
+        ItemSlot primary = ItemSlot.Primary;
+        ItemSlot secondary = ItemSlot.Secondary;
 
-        if (currentItemInstance != null && ShouldDestroy)
-            Destroy(currentItemInstance.gameObject);
+        // No primary item → nothing to use
+        if (!equippedItems.ContainsKey(primary))
+            return;
 
-        currentItemInstance = null;
+        ItemBase primaryItem = equippedItems[primary];
+        if (primaryItem == null)
+            return;
+
+        // Use the primary item
+        primaryItem.Use(forward);
+
+        // Consume primary (this destroys it)
+        ConsumeItem(primary);
+
+        // If secondary exists, promote it
+        if (equippedItems[secondary] != null)
+        {
+            PromoteSecondaryToPrimary();
+        }
     }
 
-    public void ResetUI()
+    private void ConsumePrimaryVisual()
     {
-        player.hasitem = false;
-        player.has_item_hold = false;
-        itemSelected = false;
-        itemSelecting = false;
-        ItemsUIMain.SetBool("StartSelecting", false);
-        player.Driver.SetBool("hasItem", false);
-        ItemsList.SetBool("Scroll", false);
+        if (equippedItems[ItemSlot.Primary] != null)
+            Destroy(equippedItems[ItemSlot.Primary].gameObject);
+
+        equippedItems[ItemSlot.Primary] = null;
+    }
+
+    public void ConsumeItem(ItemSlot slot = ItemSlot.Primary, bool shouldDestroy = true)
+    {
+        // Safety check
+        if (!equippedItems.ContainsKey(slot))
+            return;
+
+        ItemBase item = equippedItems[slot];
+        if (item == null)
+            return;
+
+        // Destroy visual instance
+        if (shouldDestroy)
+            Destroy(item.gameObject);
+
+        equippedItems[slot] = null;
+
+        // Reset UI + state
+        itemSelected[slot] = false;
+        itemSelecting[slot] = false;
+
+        ItemUI ui = GetUI(slot);
+        ui.Main.SetBool("StartSelecting", false);
+        ui.List.SetBool("Scroll", false);
+
+        // Only Primary controls player animation flags
+        if (slot == ItemSlot.Primary)
+        {
+            player.hasitem = false;
+            player.has_item_hold = false;
+            player.Driver.SetBool("hasItem", false);
+        }
+    }
+
+    private void PromoteSecondaryToPrimary()
+    {
+        ItemSlot primary = ItemSlot.Primary;
+        ItemSlot secondary = ItemSlot.Secondary;
+
+        ItemBase secondaryItem = equippedItems[secondary];
+
+        if (secondaryItem == null)
+            return;
+
+        // Move reference
+        equippedItems[primary] = secondaryItem;
+        equippedItems[secondary] = null;
+
+        // Update state
+        itemSelected[primary] = true;
+        itemSelected[secondary] = false;
+
+        // Update UI animations
+        Secondary.Main.SetBool("StartSelecting", false);
+        Secondary.List.SetBool("Scroll", false);
+
+        Primary.Main.SetBool("StartSelecting", false);
+        Primary.List.SetBool("Scroll", false);
+    }
+
+    public void ResetUI(ItemSlot slot)
+    {
+        itemSelected[slot] = false;
+        itemSelecting[slot] = false;
+
+        ItemUI ui = GetUI(slot);
+
+        ui.Main.SetBool("StartSelecting", false);
+        ui.List.SetBool("Scroll", false);
+
+        if (slot == ItemSlot.Primary)
+        {
+            player.hasitem = false;
+            player.has_item_hold = false;
+            player.Driver.SetBool("hasItem", false);
+        }
     }
 }

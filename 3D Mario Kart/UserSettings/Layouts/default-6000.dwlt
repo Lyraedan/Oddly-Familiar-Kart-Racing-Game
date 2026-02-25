@@ -21,7 +21,7 @@ MonoBehaviour:
   m_ShowMode: 4
   m_Title: Hierarchy
   m_RootView: {fileID: 2}
-  m_MinSize: {x: 875, y: 548}
+  m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
   m_Maximized: 1
 --- !u!114 &2
@@ -46,7 +46,7 @@ MonoBehaviour:
     y: 0
     width: 1920
     height: 989
-  m_MinSize: {x: 875, y: 548}
+  m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
   m_UseTopView: 1
   m_TopViewHeight: 36
@@ -683,21 +683,20 @@ MonoBehaviour:
       m_Data: 0
     m_ExpandedIDs:
     - m_Data: 0
-    - m_Data: 86536
-    - m_Data: 86540
-    - m_Data: 86544
-    - m_Data: 86546
-    - m_Data: 86548
-    - m_Data: 86550
-    - m_Data: 86552
-    - m_Data: 86554
-    - m_Data: 86556
-    - m_Data: 86558
-    - m_Data: 86560
-    - m_Data: 86564
-    - m_Data: 284336
-    - m_Data: 284486
-    - m_Data: 1000000000
+    - m_Data: 91468
+    - m_Data: 91470
+    - m_Data: 91472
+    - m_Data: 91474
+    - m_Data: 91476
+    - m_Data: 91478
+    - m_Data: 91480
+    - m_Data: 91482
+    - m_Data: 91484
+    - m_Data: 91486
+    - m_Data: 91488
+    - m_Data: 91490
+    - m_Data: 91492
+    - m_Data: 91494
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -730,21 +729,20 @@ MonoBehaviour:
       m_Data: 0
     m_ExpandedIDs:
     - m_Data: 0
-    - m_Data: 86536
-    - m_Data: 86540
-    - m_Data: 86544
-    - m_Data: 86546
-    - m_Data: 86548
-    - m_Data: 86550
-    - m_Data: 86552
-    - m_Data: 86554
-    - m_Data: 86556
-    - m_Data: 86558
-    - m_Data: 86560
-    - m_Data: 86564
-    - m_Data: 284336
-    - m_Data: 284486
-    - m_Data: 1000000000
+    - m_Data: 91468
+    - m_Data: 91470
+    - m_Data: 91472
+    - m_Data: 91474
+    - m_Data: 91476
+    - m_Data: 91478
+    - m_Data: 91480
+    - m_Data: 91482
+    - m_Data: 91484
+    - m_Data: 91486
+    - m_Data: 91488
+    - m_Data: 91490
+    - m_Data: 91492
+    - m_Data: 91494
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1504,7 +1502,7 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: 0, y: 0, z: 0}
+    m_Target: {x: -16355.644, y: 23552.617, z: -11683.909}
     speed: 2
     m_Value: {x: 0, y: 0, z: 0}
   m_RenderMode: 0
@@ -1552,11 +1550,11 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.08717229, y: 0.89959055, z: -0.21045254, w: -0.3726226}
+    m_Target: {x: -0.12479553, y: -0.20181242, z: 0.025934905, w: -0.97109455}
     speed: 2
     m_Value: {x: -0.08717229, y: 0.89959055, z: -0.21045254, w: -0.3726226}
   m_Size:
-    m_Target: 10
+    m_Target: 8.850974
     speed: 2
     m_Value: 10
   m_Ortho:
@@ -1634,8 +1632,7 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs:
-      - m_Data: 2817066
+      m_SelectedIDs: []
       m_LastClickedID:
         m_Data: 0
       m_ExpandedIDs: []

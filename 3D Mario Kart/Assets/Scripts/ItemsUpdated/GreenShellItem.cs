@@ -61,7 +61,7 @@ public class GreenShellItem : ItemBase
         sphereCollider.enabled = true;
 
         // Consume the item from the player
-        itemManager.ConsumeItem(false); // remove item but do not destroy shell
+        itemManager.ConsumeItem(shouldDestroy: false); // remove item but do not destroy shell
     }
 
     void Awake()

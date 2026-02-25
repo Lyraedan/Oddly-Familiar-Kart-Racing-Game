@@ -1087,7 +1087,7 @@ public class Player : MonoBehaviour
     private IEnumerator OnItemBoxEnter(Collider other)
     {
         //itemManager.SelectSound.Play();
-        itemManager.SelectItem();
+        itemManager.SelectItemAuto();
         hasitem = true; //will trigger a method in the item manager script
         for (int i = 0; i < 5; i++)
         {
