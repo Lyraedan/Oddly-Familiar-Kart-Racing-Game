@@ -56,14 +56,31 @@ Once thats ready open the project after adding it to your Unity Hub and let it i
    - UGC Maps
    > See: [how to create a custom map here](https://github.com/Lyraedan/Oddly-Familiar-Kart-Racing-Game/wiki/Creating-a-Custom-Course.)
 
-## What am I currently working on
-* Refactoring the codebase
-  > More specifically working on the UI right now
-* Kart customization
-  > I have this working like MK8 to a degree (wheels and chassis) but I will bench it for now in favour for a prebuilt system
-  > This will allow you to just rip a kart from whereever and easily make it work
-* Custom character
-  > Dynamic minimap icon is done
+## What I'm working on: v0.4
+* Kart Customization
+  > Gone with the Mario Kart World Style over 8 as it allows porting in custom karts to be far easier to configure
+  * Selectable Racers
+    > Current options include: Mario, Luigi, Toad, Peach, Shyguy, Lemmy, Waluigi and Baby Mario
+    * Custom Racer Voices
+      > Currently only Mario and Shyguy have voices (Shyguy is really quite at the moment)
+  * Kart Chassis Selection
+    * Skinnable Chassis'
+      > If you have multiple different color variants of a Chassis this is supported
+* UI Overhaul
+  * UI Made A prefab for simplicity
+  * Item Manager Overhaul
+    > This is Player only right now
+    * Support for 2 active items from item boxes
+      > This is WIP
+    * Dynamic item population based on the items we have available
+    * Item Overhaul
+      * Items now have an ItemBase and can be spawned in dynamically and no longer need to be pooled
+        > So far only the GreenShell is partially reimplemented, you can throw it backwards but not forwards as it hits us
+* Animations
+  * Fixed animations on the Player racer. They're still broken but they look like who they're suppose to look like
+
+# Other Notes:
+   > Its incredibly buggy right now, I broke the animation for the antigravity wheels and theres alot that needs to be done before this hits main
 
 ## My plans
  * Refactor the code base because holy moly my eyeballs
@@ -78,7 +95,6 @@ Once thats ready open the project after adding it to your Unity Hub and let it i
  * Multiplayer via Mirror & Epic Online Services
  * Character selection (characters will PURELY be cosmetic)
  * MK8 style kart building
-   > I originally wanted MK8 style BUT realized whilst implementing it that it limits what people can do when it comes to modding in vehicles so i'm going to bench the MK8 style for now in favour of prebuilts as that'll allow modders to add unique karts
  * Double Item box?
  * Integrate Mod.io for User Generate Content / Content distribution (Keys and wotnot will not be included in the repo, but they will be in Release builds)
  * Integrate Moon Sharp for lua scripting
