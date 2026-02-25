@@ -130,6 +130,7 @@
     <Compile Include="Assets\Models\Rainbow Road N64\Firework Graphs\Test.cs" />
     <Compile Include="Assets\8K Skybox Pack Free\Example Scenes\Script\RotateCamera.cs" />
     <Compile Include="Assets\Scripts\General\MatchOrientation.cs" />
+    <Compile Include="Assets\Scripts\Debug\BoxColliderVisualizer.cs" />
     <Compile Include="Assets\Scripts\Kart\MKW\MKWKartCustomization.cs" />
     <Compile Include="Assets\Scenes\TEstStuff\TestScript.cs" />
     <Compile Include="Assets\Scripts\Camera\SetRes.cs" />
