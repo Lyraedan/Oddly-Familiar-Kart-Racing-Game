@@ -72,7 +72,7 @@ public class ItemManager : MonoBehaviour
             // Use backward
             currentItemInstance?.Use(false);
         }
-        return;
+
         if (!player.hasitem) return;
 
         bool use = PlayerControls.GetButtonDown(PlayerControls.USE_ITEM);
