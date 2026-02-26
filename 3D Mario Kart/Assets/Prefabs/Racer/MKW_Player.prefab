@@ -36482,6 +36482,7 @@ GameObject:
   - component: {fileID: 6602533643879267653}
   - component: {fileID: 966161291760156164}
   - component: {fileID: 4548535788879934940}
+  - component: {fileID: 7877210976849181700}
   m_Layer: 10
   m_Name: MKW_Player
   m_TagString: Player
@@ -36594,11 +36595,11 @@ MonoBehaviour:
   JUMP_PANEL: 0
   Driver: {fileID: 0}
   playersounds: {fileID: 2545918901103431416}
-  waypointTracker: {fileID: 0}
+  waypointTracker: {fileID: 7877210976849181700}
   hasitem: 0
   has_item_hold: 0
   ItemBox: {fileID: 3415220751926584286, guid: 943441eb5534e7f42a9c92abe782fe02, type: 3}
-  itemManager: {fileID: 0}
+  itemManager: {fileID: 3606734833742908513}
   ShellFront: {fileID: 2152965717167540984}
   ShellBack: {fileID: 7722735983094658722}
   ItemHand: {fileID: 3032077599909505252}
@@ -36876,7 +36877,7 @@ MonoBehaviour:
   FellInWater: 0
   outOfBounds: 0
   PlayerBeingMoved: 0
-  tracker: {fileID: 0}
+  tracker: {fileID: 7877210976849181700}
 --- !u!75 &2622412334136134521
 ConstantForce:
   m_ObjectHideFlags: 0
@@ -36962,6 +36963,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &7877210976849181700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3297335546541666384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afbd396a7edaf2e4eb88cb761c34925f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WaypointTracker
+  path1: {fileID: 0}
+  path2: {fileID: 0}
 --- !u!1 &3761077644510608693
 GameObject:
   m_ObjectHideFlags: 0

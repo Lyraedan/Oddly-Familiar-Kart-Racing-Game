@@ -163,12 +163,13 @@ public class ItemManager : MonoBehaviour
             return;
         }
 
+        /* Disable secondary for now
         // If Primary is occupied, try Secondary
         if (!SecondarySlot.selected && !SecondarySlot.selecting)
         {
             SelectItem(ItemSlot.Secondary);
             return;
-        }
+        }*/
 
         // Both slots are busy or filled — do nothing
     }
