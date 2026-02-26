@@ -779,7 +779,10 @@ public class ComputerDriver : MonoBehaviour
                 if (current_node >= path.childCount - 1)
                 {
                     current_node = 0;
-                    ChooseRandomPath();
+                    if (pathTools.Count > 0)
+                    {
+                        ChooseRandomPath();
+                    }
                 }
                 else
                     current_node++;

@@ -76,6 +76,7 @@
     <Compile Include="Assets\Scripts\General\UITextCornersGradient.cs" />
     <Compile Include="Assets\Scripts\Items\NameChildObjects.cs" />
     <Compile Include="Assets\Scripts\Title\ScrollRawImage.cs" />
+    <Compile Include="Assets\Scripts\RotateAtSpeed.cs" />
     <Compile Include="Assets\Scripts\Camera\AspectRatioFix.cs" />
     <Compile Include="Assets\Scripts\Camera\CameraLocationTracker.cs" />
     <Compile Include="Assets\Scripts\GetGlideAngle.cs" />
