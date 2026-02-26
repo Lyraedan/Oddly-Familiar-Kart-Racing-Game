@@ -19,10 +19,20 @@ public class LapCounter : MonoBehaviour
 
     public int endPosition = 0;
 
+    public PathTool pathTool;
+    public int lastCheckpointID = -1;
+    public int highestCheckpointID = -1;    // farthest checkpoint reached moving forward
+
     private RACE_MANAGER rm;
     // Start is called before the first frame update
     void Start()
     {
+        if(pathTool != null)
+        {
+            checkpoints = pathTool.pathRoot;
+            checkpoints.GetChild(0).gameObject.tag = "NextLapCollider"; // Mark the first collider as the next lap collider
+        }
+
         checkpointsVisited = new bool[checkpoints.childCount];
         for(int i = 0; i < checkpointsVisited.Length; i++)
         {
@@ -66,39 +76,27 @@ public class LapCounter : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform.tag == "NextLapCollider")
+        if (other.CompareTag("NextLapCollider") && UpdatedCheckAllPoints())
         {
-            if (checkAllPoints())
+            LAPCOUNT++;
+            for (int i = 0; i < checkpointsVisited.Length; i++)
+                checkpointsVisited[i] = false;
+
+            if (gameObject.tag != "Player")
             {
-                LAPCOUNT++;
-                for (int i = 0; i < checkpointsVisited.Length; i++)
-                {
-                    checkpointsVisited[i] = false;
-                }
-                if(gameObject.tag != "Player")
-                {
-                    int max = RACE_MANAGER.allPaths.childCount;
-
-                    int rand = Random.Range(0, max);
-
-                    GetComponent<ComputerDriver>().path = RACE_MANAGER.allPaths.GetChild(rand); //assigning a new path
-                }
-
+                int max = RACE_MANAGER.allPaths.childCount;
+                int rand = Random.Range(0, max);
+                GetComponent<ComputerDriver>().path = RACE_MANAGER.allPaths.GetChild(rand); // new path
             }
         }
-        else if (currentCheckpointVal < checkpoints.childCount && other.transform == checkpoints.GetChild(currentCheckpointVal))
+        else
         {
-            checkpointsVisited[currentCheckpointVal] = true;
-            currentCheckpointVal++;
-            totalCheckpointVal++;
-
-            
+            Checkpoint checkpoint = other.GetComponent<Checkpoint>();
+            if (checkpoint != null)
+            {
+                UpdateCheckpointProgress(checkpoint);
+            }
         }
-
-
-
-
-
     }
 
     bool checkAllPoints()
@@ -112,6 +110,12 @@ public class LapCounter : MonoBehaviour
         }
 
         return true;
+    }
+
+    bool UpdatedCheckAllPoints()
+    {
+        // Lap is complete only when highestCheckpointID has reached the last checkpoint
+        return highestCheckpointID >= checkpoints.childCount - 1;
     }
 
     IEnumerator stopDriftRot()
@@ -144,5 +148,92 @@ public class LapCounter : MonoBehaviour
 
         //distanceToNextCheckpoint = Vector3.Distance(transform.position, checkpoints.GetChild(currentCheckpointVal).position);
 
+    }
+
+    public void UpdateCheckpointProgress(Checkpoint checkpoint)
+    {
+        int id = checkpoint.checkpointID;
+
+        // First checkpoint hit
+        if (lastCheckpointID == -1)
+        {
+            lastCheckpointID = id;
+            highestCheckpointID = id;
+            checkpointsVisited[id] = true;
+            currentCheckpointVal = id + 1;
+            totalCheckpointVal = id + 1;
+            return;
+        }
+
+        // Moving forward (including skipping checkpoints)
+        if (IsForward(id, lastCheckpointID))
+        {
+            checkpointsVisited[id] = true;
+            totalCheckpointVal++;
+            currentCheckpointVal = id + 1;
+
+            // Update highest checkpoint only if it’s further along the track
+            if (id > highestCheckpointID)
+                highestCheckpointID = id;
+        }
+        // Moving backward, ignore for progress (you can mark visited false if needed)
+        else if (IsBackward(id, lastCheckpointID))
+        {
+            checkpointsVisited[lastCheckpointID] = false;
+            totalCheckpointVal--;
+            currentCheckpointVal = id;
+        }
+
+        lastCheckpointID = id;
+    }
+
+    /// <summary>
+    /// Determines if `nextID` is forward relative to `currentID`, considering wrap-around
+    /// </summary>
+    private bool IsForward(int nextID, int currentID)
+    {
+        int count = checkpoints.childCount;
+        return (nextID - currentID + count) % count > 0;
+    }
+
+    /// <summary>
+    /// Determines if `nextID` is backward relative to `currentID`, considering wrap-around
+    /// </summary>
+    private bool IsBackward(int nextID, int currentID)
+    {
+        int count = checkpoints.childCount;
+        return (currentID - nextID + count) % count > 0;
+    }
+
+    void OldTriggereEnter(Collider other)
+    {
+        if (other.transform.tag == "NextLapCollider")
+        {
+            if (checkAllPoints())
+            {
+                LAPCOUNT++;
+                for (int i = 0; i < checkpointsVisited.Length; i++)
+                {
+                    checkpointsVisited[i] = false;
+                }
+                if (gameObject.tag != "Player")
+                {
+                    int max = RACE_MANAGER.allPaths.childCount;
+
+                    int rand = Random.Range(0, max);
+
+                    GetComponent<ComputerDriver>().path = RACE_MANAGER.allPaths.GetChild(rand); //assigning a new path
+                }
+
+            }
+        }
+        else if (currentCheckpointVal < checkpoints.childCount && other.transform == checkpoints.GetChild(currentCheckpointVal))
+        {
+            checkpointsVisited[currentCheckpointVal] = true;
+            currentCheckpointVal++;
+            totalCheckpointVal++;
+
+
+        }
     }
 }

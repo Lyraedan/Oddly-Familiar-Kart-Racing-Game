@@ -2,5 +2,5 @@ using UnityEngine;
 
 public class Checkpoint : MonoBehaviour
 {
-    public float checkpointID = 0;
+    public int checkpointID = 0;
 }

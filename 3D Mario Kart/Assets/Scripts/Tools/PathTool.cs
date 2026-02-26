@@ -12,6 +12,13 @@ using UnityEditor;
 [RequireComponent(typeof(SplineContainer))]
 public class PathTool : MonoBehaviour
 {
+    public enum PathType
+    {
+        DEFAULT,   // No extras
+        AI,        // AI Pathing
+        CHECKPOINT // LAPS
+    }
+
     [Header("Spline")]
     public SplineContainer splineContainer;
 
@@ -25,6 +32,7 @@ public class PathTool : MonoBehaviour
     public Vector3 colliderSize = new Vector3(1, 1, 1);
     public bool alignToSpline = true;
     public bool autoUpdate = true;
+    public PathType pathType = PathType.DEFAULT;
 
     [Header("Visualization")]
     public bool showVisual = true;
@@ -52,6 +60,11 @@ public class PathTool : MonoBehaviour
     }
 
     [ContextMenu("Duplicate Path With Variance")]
+    public void Context_DuplicateVariance()
+    {
+        DuplicatePathWithVariance();
+    }
+    
     public void DuplicatePathWithVariance()
     {
         if (splineContainer == null || splineContainer.Spline == null)
@@ -191,8 +204,19 @@ public class PathTool : MonoBehaviour
                 }
             }
 
-            AIPath aip = colObj.AddComponent<AIPath>();
-            aip.PathID = i;
+            switch(pathType)
+            {
+                case PathType.AI:
+                    AIPath aip = colObj.AddComponent<AIPath>();
+                    aip.PathID = i;
+                    break;
+                case PathType.CHECKPOINT:
+                    Checkpoint checkpoint = colObj.AddComponent<Checkpoint>();
+                    checkpoint.checkpointID = i;
+                    break;
+                default:
+                    break;
+            }
             var box = colObj.AddComponent<BoxCollider>();
             box.size = colliderSize;
             box.isTrigger = true;

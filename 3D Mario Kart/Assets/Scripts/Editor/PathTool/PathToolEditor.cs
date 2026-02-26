@@ -19,6 +19,12 @@ public class PathToolEditor : Editor
             tool.RebuildColliders();
         }
 
+        GUILayout.Space(5);
+        if (GUILayout.Button("Duplicate with variance"))
+        {
+            tool.DuplicatePathWithVariance();
+        }
+
         GUI.backgroundColor = Color.white;
     }
 }
