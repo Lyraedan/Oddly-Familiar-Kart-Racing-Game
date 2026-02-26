@@ -69,6 +69,7 @@ public class GreenShellItem : ItemBase
         rb = GetComponent<Rigidbody>();
         sphereCollider = GetComponent<SphereCollider>();
         rb.isKinematic = true; // initially kinematic until Use() is called
+        SetPlayer(FindFirstObjectByType<Player>());
     }
 
     public void SetPlayer(Player p)
@@ -157,6 +158,20 @@ public class GreenShellItem : ItemBase
                 DestroyShell();
             }
             ReflectShell(collision);
+            return;
+        }
+        
+        // Will be used in the future during multiplayer
+        if(tag == "OtherPlayer")
+        {
+            // Will need a manager on the other player to check if they have star powerup or not, but for now just destroy the shell and play the hit sound if thrown by player
+            if (thrownBy == "Player")
+            {
+                player.Driver.SetTrigger("HitItem");
+                if (playerSounds.CanPlayCharacterSound())
+                    playerSounds.marioItemHit.Play();
+            }
+            DestroyShell();
             return;
         }
 

@@ -162,9 +162,9 @@
     <Compile Include="Assets\Plugins\Modio\Modio\ModIndex.cs" />
     <Compile Include="Assets\Plugins\Modio\Modio\API\Generated\Definitions\RequestObjects\DeleteModMetadataRequest.cs" />
     <Compile Include="Assets\Plugins\Modio\Modio\ThirdParty\SharpZip\src\ICSharpCode.SharpZipLib\Tar\TarExtendedHeaderReader.cs" />
-    <Compile Include="Assets\Plugins\Modio\Modio\API\Generated\Endpoints\CreateMultipartUploadSession.cs" />
     <Compile Include="Assets\Plugins\Modio\Modio\API\Generated\Endpoints\SyncPlaystationNetworkEntitlements.cs" />
     <Compile Include="Assets\Plugins\Modio\Modio\ThirdParty\SharpZip\src\ICSharpCode.SharpZipLib\Zip\Compression\DeflaterHuffman.cs" />
+    <Compile Include="Assets\Plugins\Modio\Modio\API\Generated\Endpoints\CreateMultipartUploadSession.cs" />
     <Compile Include="Assets\Plugins\Modio\Modio\API\Generated\Definitions\RequestObjects\AddModRequest.cs" />
     <Compile Include="Assets\Plugins\Modio\Modio\API\Generated\Endpoints\GetUserFollowedCollections.cs" />
     <Compile Include="Assets\Plugins\Modio\Modio\ModioClient.cs" />

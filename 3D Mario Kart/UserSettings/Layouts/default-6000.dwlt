@@ -1341,6 +1341,20 @@ MonoBehaviour:
       layout: 4
       size: {x: 0, y: 0}
       sizeOverridden: 0
+    - dockPosition: 1
+      containerId: overlay-container--right
+      displayed: 0
+      id: unity-spline-inspector
+      index: 18
+      contents: '{"m_Layout":4,"m_Collapsed":false,"m_Folded":false,"m_Floating":false,"m_FloatingSnapOffset":{"x":0.0,"y":0.0},"m_SnapOffsetDelta":{"x":0.0,"y":0.0},"m_FloatingSnapCorner":0,"m_Size":{"x":0.0,"y":0.0},"m_SizeOverridden":false}'
+      floating: 0
+      collapsed: 0
+      snapOffset: {x: 0, y: 0}
+      snapOffsetDelta: {x: 0, y: 0}
+      snapCorner: 0
+      layout: 4
+      size: {x: 0, y: 0}
+      sizeOverridden: 0
     m_ContainerData:
     - containerId: overlay-toolbar__top
       scrollOffset: 0
@@ -1384,9 +1398,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: -16243.532, y: 23331.664, z: -11870.784}
+    m_Target: {x: -16395.725, y: 23366.457, z: -11667.221}
     speed: 2
-    m_Value: {x: -16460.266, y: 23361.627, z: -11694.834}
+    m_Value: {x: -16243.532, y: 23331.664, z: -11870.784}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1432,13 +1446,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.4477012, y: 0.3664769, z: -0.20803891, w: 0.7886624}
+    m_Target: {x: 0.34969306, y: 0.19195668, z: -0.07343843, w: 0.91404265}
     speed: 2
-    m_Value: {x: -0.03895807, y: 0.85051435, z: 0.063644536, w: 0.5206369}
+    m_Value: {x: 0.4477012, y: 0.36647692, z: -0.20803891, w: 0.78866243}
   m_Size:
-    m_Target: 1229.4636
+    m_Target: 301.35712
     speed: 2
-    m_Value: 21.878654
+    m_Value: 1229.4636
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -1640,20 +1654,20 @@ MonoBehaviour:
       m_Data: 89126
     m_ExpandedIDs:
     - m_Data: 0
-    - m_Data: 88466
-    - m_Data: 88468
-    - m_Data: 88470
-    - m_Data: 88472
-    - m_Data: 88474
-    - m_Data: 88476
-    - m_Data: 88478
-    - m_Data: 88480
-    - m_Data: 88482
-    - m_Data: 88484
-    - m_Data: 88486
-    - m_Data: 88488
-    - m_Data: 88490
-    - m_Data: 88492
+    - m_Data: 87734
+    - m_Data: 87736
+    - m_Data: 87738
+    - m_Data: 87740
+    - m_Data: 87742
+    - m_Data: 87744
+    - m_Data: 87746
+    - m_Data: 87748
+    - m_Data: 87750
+    - m_Data: 87752
+    - m_Data: 87754
+    - m_Data: 87756
+    - m_Data: 87758
+    - m_Data: 87760
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1686,20 +1700,20 @@ MonoBehaviour:
       m_Data: 0
     m_ExpandedIDs:
     - m_Data: 0
-    - m_Data: 88466
-    - m_Data: 88468
-    - m_Data: 88470
-    - m_Data: 88472
-    - m_Data: 88474
-    - m_Data: 88476
-    - m_Data: 88478
-    - m_Data: 88480
-    - m_Data: 88482
-    - m_Data: 88484
-    - m_Data: 88486
-    - m_Data: 88488
-    - m_Data: 88490
-    - m_Data: 88492
+    - m_Data: 87734
+    - m_Data: 87736
+    - m_Data: 87738
+    - m_Data: 87740
+    - m_Data: 87742
+    - m_Data: 87744
+    - m_Data: 87746
+    - m_Data: 87748
+    - m_Data: 87750
+    - m_Data: 87752
+    - m_Data: 87754
+    - m_Data: 87756
+    - m_Data: 87758
+    - m_Data: 87760
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 

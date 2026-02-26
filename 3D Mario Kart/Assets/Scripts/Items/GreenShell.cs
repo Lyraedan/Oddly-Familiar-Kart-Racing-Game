@@ -40,6 +40,8 @@ public class GreenShell : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         sphereCollider = GetComponent<SphereCollider>();
+        Debug.LogError("OBSOLETE GREEN SHELL SCRIPT IN USE! Please replace with GreenShellItem.cs");
+        Initialize(moveDirection, thrownBy, player);
     }
 
     void FixedUpdate()
