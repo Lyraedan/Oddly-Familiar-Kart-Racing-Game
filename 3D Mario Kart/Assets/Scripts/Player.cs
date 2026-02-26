@@ -143,6 +143,7 @@ public class Player : MonoBehaviour
     private bool showUI;
 
     public Transform RaceEndPath;
+    public PathTool raceEndPathTool;
     [HideInInspector]
     public int currentWayPoint = 0;
     float raceEndTime = 0;
@@ -240,7 +241,10 @@ public class Player : MonoBehaviour
 
         //Debug.Log("[Customization] Trying to load mario kart world customization");
         // Mario Kart World Style Customization
-        
+        if (raceEndPathTool != null)
+        {
+            RaceEndPath = raceEndPathTool.pathRoot;
+        }
 
         if (Cam == null)
         {
