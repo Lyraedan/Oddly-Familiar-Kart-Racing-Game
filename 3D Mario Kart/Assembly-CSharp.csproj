@@ -116,6 +116,7 @@
     <Compile Include="Assets\colliderInAir.cs" />
     <Compile Include="Assets\Scripts\RACE_MANAGER.cs" />
     <Compile Include="Assets\Scripts\Items\Bobomb.cs" />
+    <Compile Include="Assets\Scripts\Path\AIPath.cs" />
     <Compile Include="Assets\Scripts\ChainChompBall.cs" />
     <Compile Include="Assets\Scripts\General\UIGradient.cs" />
     <Compile Include="Assets\Scripts\ItemsUpdated\ItemBase.cs" />
@@ -159,6 +160,7 @@
     <Compile Include="Assets\Scripts\Items\PlayerBlueShellRaycast.cs" />
     <Compile Include="Assets\Models\Group of Toads\Wii U - Mario Kart 8 - Toads\Toads\ToadAnim.cs" />
     <Compile Include="Assets\Scripts\Fx\Screenshot.cs" />
+    <Compile Include="Assets\Scripts\Path\Checkpoint.cs" />
     <Compile Include="Assets\Scripts\Kart\WheelSpawnDebug.cs" />
     <Compile Include="Assets\Scripts\QuaternionUtil.cs" />
     <Compile Include="Assets\Scripts\OutOfBounds.cs" />

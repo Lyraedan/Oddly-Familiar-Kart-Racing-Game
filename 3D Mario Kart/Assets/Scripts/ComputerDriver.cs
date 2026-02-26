@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Splines;
 
 public class ComputerDriver : MonoBehaviour
 {
@@ -15,7 +17,7 @@ public class ComputerDriver : MonoBehaviour
 
     [Header("Movement")]
     public Transform path;
-    public PathTool pathTool; // Override path with a pathtool path
+    public List<PathTool> pathTools = new();
     [HideInInspector]
     public int current_node = 0;
 
@@ -112,14 +114,15 @@ public class ComputerDriver : MonoBehaviour
     private float glideAngleZ = 0;
     private float glideAngleX = 0;
 
+    private SplineContainer pathSpline;
 
     // Start is called before the first frame update
     void Start()
     {
 
-        if(pathTool != null)
+        if(pathTools.Count > 0)
         {
-            path = pathTool.pathRoot;
+            ChooseRandomPath();
         }
 
         kartMat.SetVector("Vector4_70BBF882", new Vector4(0, 0, 0, 0));
@@ -144,7 +147,7 @@ public class ComputerDriver : MonoBehaviour
         }
         
 
-        int strtBoost = Random.Range(0, 2);
+        int strtBoost = UnityEngine.Random.Range(0, 2);
         StartBoost = strtBoost == 0 ? true : false;
 
         for (int i = 0; i < TireParents.Length; i++)
@@ -223,9 +226,10 @@ public class ComputerDriver : MonoBehaviour
             if (!GetComponent<OutOfBounds>().FellInWater && !GetComponent<OutOfBounds>().outOfBounds)
             {
                 Move();
+                DriftFromSpline(pathSpline);
             }
 
-            drift_func();
+            //drift_func();
             animations();
             lookAtOthers();
 
@@ -759,19 +763,42 @@ public class ComputerDriver : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //next waypoint
-        if(other.transform == path.GetChild(current_node))
+        AIPath aip = other.GetComponent<AIPath>();
+        if (aip != null)
         {
-            if (current_node == path.childCount - 1) //if last node, set the next node to first
+            int waypointID = aip.PathID;
+
+            // If the waypoint we hit is ahead of our current node,
+            // update to that instead of circling backwards
+            if (waypointID >= current_node)
             {
-                current_node = 0;
+                current_node = waypointID;
+                SlowdownAtSplineTurns(pathSpline.Spline, current_node, slowSpeed: 70f);
+
+                // Move to next node
+                if (current_node >= path.childCount - 1)
+                {
+                    current_node = 0;
+                    ChooseRandomPath();
+                }
+                else
+                    current_node++;
             }
-            else
-                current_node++;
-
-
         }
-        if(other.gameObject.tag == "SlowDownComputer")
+
+        //next waypoint
+        //if (other.transform == path.GetChild(current_node))
+        //{
+        //    if (current_node == path.childCount - 1) //if last node, set the next node to first
+        //    {
+        //        current_node = 0;
+        //    }
+        //    else
+        //        current_node++;
+
+
+        //}
+        if (other.gameObject.tag == "SlowDownComputer")
         {
             if (boost_time < 1)
             {
@@ -1122,6 +1149,131 @@ public class ComputerDriver : MonoBehaviour
             }
         }
 
+    }
+
+    private void SlowdownAtSplineTurns(Spline spline, int currentIndex, float slowAngleThreshold = 30f, float slowSpeed = 50f)
+    {
+        if (spline == null || spline.Count < 2)
+            return;
+
+        // Safely get indices that respect spline.Count
+        int prevIndex = SplineUtility.PreviousIndex(spline, currentIndex);
+        int nextIndex = SplineUtility.NextIndex(spline, currentIndex);
+
+        // Evaluate three points along the spline:
+        Vector3 prevPos = spline.EvaluatePosition(prevIndex / (float)(spline.Count - 1));
+        Vector3 currPos = spline.EvaluatePosition(currentIndex / (float)(spline.Count - 1));
+        Vector3 nextPos = spline.EvaluatePosition(nextIndex / (float)(spline.Count - 1));
+
+        Vector3 toCurrent = (currPos - prevPos).normalized;
+        Vector3 toNext = (nextPos - currPos).normalized;
+
+        float angle = Vector3.Angle(toCurrent, toNext);
+
+        if (angle >= slowAngleThreshold)
+        {
+            Desired_Max_Speed = slowSpeed;
+            current_speed = Desired_Max_Speed;
+            slowDown = true;
+        }
+    }
+
+    void DriftFromSpline(SplineContainer splineContainer)
+    {
+        if (splineContainer == null || !grounded)
+        {
+            StopDriftCleanup();
+            return;
+        }
+
+        // find nearest normalized t on the spline to our AI position
+        float3 nearestPoint;
+        float normalizedT;
+        SplineUtility.GetNearestPoint(
+            splineContainer.Spline,
+            splineContainer.transform.InverseTransformPoint(transform.position),
+            out nearestPoint,
+            out normalizedT);
+
+        // evaluate tangent at current location
+        float3 tangentNow = math.normalize(splineContainer.Spline.EvaluateTangent(normalizedT));
+
+        // look slightly ahead on the spline
+        float aheadT = math.clamp(normalizedT + 0.05f, 0f, 1f);
+        float3 tangentAhead = math.normalize(splineContainer.Spline.EvaluateTangent(aheadT));
+
+        // find the angle between current and next tangent
+        float turnAngle = math.degrees(math.acos(math.dot(tangentNow, tangentAhead)));
+
+        // if sharp enough and moving fast, drift
+        if (turnAngle >= 25f && rb.velocity.magnitude > 40f)
+        {
+            float driftDir = math.sign(math.cross(tangentNow, tangentAhead).y);
+
+            if (driftDir < 0f)
+            {
+                driftleft = true;
+                driftright = false;
+            }
+            else
+            {
+                driftleft = false;
+                driftright = true;
+            }
+
+            if (hop_anim)
+            {
+                transform.GetChild(0).GetComponent<Animator>().SetTrigger("Drift");
+                hop_anim = false;
+            }
+
+            float leanAngle = driftDir * 30f;
+            transform.GetChild(0).localRotation = Quaternion.Lerp(
+                transform.GetChild(0).localRotation,
+                Quaternion.Euler(0, leanAngle, 0),
+                8f * Time.deltaTime);
+
+            max_speed = Desired_Max_Speed - 15;
+            drift_time += Time.deltaTime;
+            slowDown = true;
+        }
+        else
+        {
+            StopDriftCleanup();
+        }
+    }
+
+    void StopDriftCleanup()
+    {
+        if (drift_time >= 1 && drift_time < 3) { boost = true; boost_time = 0.5f; }
+        if (drift_time >= 3 && drift_time < 6) { boost = true; boost_time = 1.5f; }
+        if (drift_time >= 6) { boost = true; boost_time = 2.5f; }
+
+        driftleft = false;
+        driftright = false;
+        hop_anim = true;
+        drift_time = 0;
+        transform.GetChild(0).localRotation = Quaternion.Lerp(
+            transform.GetChild(0).localRotation,
+            Quaternion.Euler(0, 0, 0),
+            8f * Time.deltaTime);
+
+        // stop all particle systems
+        for (int i = 0; i < 5; i++)
+        {
+            Right_Wheel_Drift_PS.transform.GetChild(i).GetComponent<ParticleSystem>().Stop();
+            Left_Wheel_Drift_PS.transform.GetChild(i).GetComponent<ParticleSystem>().Stop();
+        }
+    }
+
+    void ChooseRandomPath()
+    {
+        int randomPath = UnityEngine.Random.Range(0, pathTools.Count);
+        randomPath = Mathf.Clamp(randomPath, 0, pathTools.Count - 1);
+
+        PathTool pathTool = pathTools[randomPath];
+        path = pathTool.pathRoot;
+        pathSpline = pathTool.GetComponent<SplineContainer>();
     }
 
 }

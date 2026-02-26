@@ -27,6 +27,7 @@ public class PathTool : MonoBehaviour
     public bool autoUpdate = true;
 
     [Header("Visualization")]
+    public bool showVisual = true;
     public Color lineColor = Color.green;
     public Color colliderColor = Color.red;
 
@@ -66,7 +67,15 @@ public class PathTool : MonoBehaviour
 
         var dupTool = dupObj.AddComponent<PathTool>();
 
-        var dupSplineContainer = dupObj.AddComponent<SplineContainer>();
+        dupTool.positionVariance = positionVariance;
+        dupTool.rotationVariance = rotationVariance;
+        
+        dupTool.samplesPerCurve = samplesPerCurve;
+        dupTool.colliderSize = colliderSize;
+        dupTool.alignToSpline = alignToSpline;
+        dupTool.autoUpdate = autoUpdate;
+
+        var dupSplineContainer = dupObj.GetComponent<SplineContainer>();
         dupTool.splineContainer = dupSplineContainer;
 
         // Randomize colors for this duplicate
@@ -110,8 +119,24 @@ public class PathTool : MonoBehaviour
             newSpline.Add(newKnot);
         }
 
+        newSpline.Closed = true;
         dupSplineContainer.Spline = newSpline;
         dupTool.RebuildColliders();
+
+        // Copy per-collider tags from original path
+        if (pathRoot != null && dupTool.pathRoot != null)
+        {
+            int count = Mathf.Min(pathRoot.childCount, dupTool.pathRoot.childCount);
+
+            for (int i = 0; i < count; i++)
+            {
+                Transform originalChild = pathRoot.GetChild(i);
+                Transform newChild = dupTool.pathRoot.GetChild(i);
+
+                newChild.gameObject.tag = originalChild.gameObject.tag;
+                newChild.gameObject.layer = originalChild.gameObject.layer;
+            }
+        }
 
         Debug.Log("Spline duplicated with variance!");
     }
@@ -149,6 +174,7 @@ public class PathTool : MonoBehaviour
             Vector3 worldPos = transform.TransformPoint(localPos);
 
             GameObject colObj = new GameObject($"PointCollider_{i}");
+            // Apply tag
 #if UNITY_EDITOR
             Undo.RegisterCreatedObjectUndo(colObj, "Create Path Collider");
 #endif
@@ -165,6 +191,8 @@ public class PathTool : MonoBehaviour
                 }
             }
 
+            AIPath aip = colObj.AddComponent<AIPath>();
+            aip.PathID = i;
             var box = colObj.AddComponent<BoxCollider>();
             box.size = colliderSize;
             box.isTrigger = true;
@@ -230,18 +258,21 @@ public class PathTool : MonoBehaviour
         }
 
         // Draw collider preview
-        Gizmos.color = colliderColor;
-
-        Transform root = pathRoot;
-        if (root == null) return;
-
-        foreach (Transform child in root)
+        if (showVisual)
         {
-            BoxCollider box = child.GetComponent<BoxCollider>();
-            if (box == null) continue;
+            Gizmos.color = colliderColor;
 
-            Gizmos.matrix = child.localToWorldMatrix;
-            Gizmos.DrawCube(Vector3.zero, box.size);
+            Transform root = pathRoot;
+            if (root == null) return;
+
+            foreach (Transform child in root)
+            {
+                BoxCollider box = child.GetComponent<BoxCollider>();
+                if (box == null) continue;
+
+                Gizmos.matrix = child.localToWorldMatrix;
+                Gizmos.DrawCube(Vector3.zero, box.size);
+            }
         }
     }
 }
