@@ -1,0 +1,26 @@
+# Blender MTL File: 'MKDSRender.blend'
+# Material Count: 2
+
+newmtl material_0.002
+Ns 0.000000
+Ka 0.200000 0.200000 0.200000
+Kd 0.780392 0.780392 0.780392
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 0.000000
+illum 2
+map_Kd /Textures/moon.png
+map_d /Textures/moon.png
+
+newmtl material_1.002
+Ns 0.000000
+Ka 0.200000 0.200000 0.200000
+Kd 0.972549 0.972549 0.972549
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 0.000000
+illum 2
+map_Kd /Textures/sky1.png
+map_d /Textures/sky1.png

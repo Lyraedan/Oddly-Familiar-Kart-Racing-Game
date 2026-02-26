@@ -15,6 +15,7 @@ public class ComputerDriver : MonoBehaviour
 
     [Header("Movement")]
     public Transform path;
+    public PathTool pathTool; // Override path with a pathtool path
     [HideInInspector]
     public int current_node = 0;
 
@@ -115,6 +116,11 @@ public class ComputerDriver : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        if(pathTool != null)
+        {
+            path = pathTool.pathRoot;
+        }
 
         kartMat.SetVector("Vector4_70BBF882", new Vector4(0, 0, 0, 0));
 

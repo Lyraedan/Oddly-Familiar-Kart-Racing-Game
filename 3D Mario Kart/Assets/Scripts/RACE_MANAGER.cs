@@ -11,6 +11,9 @@ public class RACE_MANAGER : MonoBehaviour
     public string Console = "Unity";
     public Sprite MinimapBackground;
 
+    public AudioClip courseMusic;
+    public AudioClip finalLapCourseMusic;
+
     [Header("Setup")]
     public GameObject FrontCam;
     public GameObject FrontFPCam;
@@ -81,6 +84,9 @@ public class RACE_MANAGER : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        music.clip = courseMusic;
+        musicFast.clip = finalLapCourseMusic;
+
         allPaths = GameObject.Find("AI PATHS").transform;
         player = GameObject.FindGameObjectWithTag("Player").transform;
 
