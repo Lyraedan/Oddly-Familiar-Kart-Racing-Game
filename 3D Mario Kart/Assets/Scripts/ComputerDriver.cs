@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Splines;
@@ -13,7 +15,13 @@ public class ComputerDriver : MonoBehaviour
     private Rigidbody rb;
     public LayerMask mask;
 
-    
+    [Header("MKW Customization")]
+    public int racerID;
+    public int kartID;
+    public int kartSkinID;
+    public bool useRandomRacer = true;
+    public bool useRandomKart = true;
+    public bool useRandomKartSkin = true;
 
     [Header("Movement")]
     public Transform path;
@@ -131,8 +139,6 @@ public class ComputerDriver : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         item_manage = GetComponent<OpponentItemManager>();
 
-
-
         Right_Wheel_Drift_PS = DriftPS.transform.GetChild(0).gameObject;
         Left_Wheel_Drift_PS = DriftPS.transform.GetChild(1).gameObject;
 
@@ -156,6 +162,63 @@ public class ComputerDriver : MonoBehaviour
         }
 
 
+    }
+
+    public void LoadMKWCustomization()
+    {
+        Debug.Log("Computer Kart spawned, Loading customization");
+        MKWKartCustomization mkwCustomization = GetComponent<MKWKartCustomization>();
+        if (mkwCustomization != null)
+        {
+            Debug.Log("[Customization] Loading Mario Kart World Style Customization on Computer Racer");
+            if (mkwCustomization.currentKartIndex != kartID || mkwCustomization.currentKartSkinIndex != kartSkinID || mkwCustomization.currentRacerIndex != racerID)
+            {
+                // TODO Add randomization functionality to the MKW Customization when I'm awake more
+                mkwCustomization.currentKartIndex = useRandomKart ? UnityEngine.Random.Range(0, mkwCustomization.karts.Count) : racerID;
+                mkwCustomization.currentKartSkinIndex = useRandomKartSkin ? UnityEngine.Random.Range(0, mkwCustomization.CurrentKartConfig.Chassis.Skins.Count) : kartSkinID;
+                mkwCustomization.currentRacerIndex = useRandomRacer ? UnityEngine.Random.Range(0, mkwCustomization.racers.Count) : racerID;
+                
+                // Update references to stop an infinite loop
+                racerID = mkwCustomization.currentRacerIndex;
+                kartID = mkwCustomization.currentKartIndex;
+                kartSkinID = mkwCustomization.currentKartSkinIndex;
+
+                mkwCustomization.Refresh();
+            }
+
+            KartConfig config = mkwCustomization.CurrentKartConfig;
+            RacerConfig racerConfig = mkwCustomization.CurrentRacerConfig;
+
+            BoostPS = config.boostParticles;
+            BoostBurstPS = config.boostBurstParticles;
+            DriftPS = config.WheelParticles;
+            dustPS = config.dust.DustParticles.gameObject;
+            tires = config.Tires.Mains.Select(go => go.transform).ToArray();
+            exhaustParticles = config.dust.ExhaustDust.gameObject;
+            GLider = config.Glider;
+
+            if(racerConfig != null)
+            {
+                DriverAnim = racerConfig.Driver;
+                head = racerConfig.HeadBone;
+            }
+
+            // Because the "Mains" for the front tires are the tire roots, we have to get their parent
+            frontLeftTire = config.Tires.Mains[0].transform.parent;
+            frontRightTire = config.Tires.Mains[1].transform.parent;
+
+            antiGravityTireColor = config.antiGravityConfig.TireColor;
+            tireRenderers = config.Tires.Renderers.ToArray();
+            axels = config.Chassis.Axels.Select(a => a.transform).ToArray();
+            TireParents = config.Tires.Parents.ToArray();
+            antiGravityTirePositions = config.antiGravityConfig.TirePositions.ToArray();
+
+            ComputerDriverSounds sounds = GetComponent<ComputerDriverSounds>();
+            if(sounds)
+            {
+                sounds.LoadKartSounds(config);
+            }
+        }
     }
 
     // Update is called once per frame

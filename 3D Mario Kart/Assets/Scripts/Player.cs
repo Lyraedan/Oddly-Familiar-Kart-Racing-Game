@@ -288,7 +288,6 @@ public class Player : MonoBehaviour
 
             glider = config.Glider;
             propeller = config.Propeller.transform;
-
             if (racerConfig != null)
             {
                 Debug.Log("[Customization] Setting up racer!");

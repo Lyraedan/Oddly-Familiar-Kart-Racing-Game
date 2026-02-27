@@ -11,6 +11,7 @@ public class ComputerDriverSounds : MonoBehaviour
 
     public AudioSource[] BulletSounds;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +23,12 @@ public class ComputerDriverSounds : MonoBehaviour
     void Update()
     {
         kart_sounds();
+    }
+
+    public void LoadKartSounds(KartConfig config)
+    {
+        kartSound = config.Sounds.KartSound;
+        kartIdle = config.Sounds.KartIdle;
     }
 
     void kart_sounds()

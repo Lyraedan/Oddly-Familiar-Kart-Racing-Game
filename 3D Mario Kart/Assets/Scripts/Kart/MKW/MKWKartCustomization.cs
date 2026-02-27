@@ -54,13 +54,31 @@ public class MKWKartCustomization : MonoBehaviour
         }
     }
 
-    public void Spawn()
+    public void Spawn(bool triggerOnSpawn = true)
     {
         Kart = SpawnKart();
         Racer = SpawnRacer();
         CurrentKartConfig.UpdateEmbelem(CurrentRacerConfig);
         GetAllStarPowerRenderers();
-        OnSpawned.Invoke(Kart, Racer);
+        
+        if(triggerOnSpawn)
+            OnSpawned.Invoke(Kart, Racer);
+    }
+
+    public void Refresh()
+    {
+        if (Kart != null)
+            Destroy(Kart);
+
+        if (Racer != null)
+            Destroy(Racer);
+
+        Kart = null;
+        Racer = null;
+        CurrentKartConfig = null;
+        CurrentRacerConfig = null;
+
+        Spawn();
     }
 
     public GameObject SpawnKart()
@@ -83,7 +101,7 @@ public class MKWKartCustomization : MonoBehaviour
     {
         if (CurrentKartConfig.Chassis.skinnable)
         {
-            CurrentKartConfig.Chassis.CurrentSkin = currentKartSkinIndex;
+            CurrentKartConfig.Chassis.CurrentSkin = index;
             CurrentKartConfig.Chassis.ApplySkin();
         }
     }
