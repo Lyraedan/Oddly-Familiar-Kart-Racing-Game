@@ -29,6 +29,9 @@ public class ComputerDriverSounds : MonoBehaviour
     {
         kartSound = config.Sounds.KartSound;
         kartIdle = config.Sounds.KartIdle;
+        // Override the audio spatial blend to not use player config since they share the customization system
+        kartSound.spatialBlend = 0.97f;
+        kartIdle.spatialBlend = 0.97f;
     }
 
     void kart_sounds()
