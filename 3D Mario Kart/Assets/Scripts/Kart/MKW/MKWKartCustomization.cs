@@ -13,6 +13,11 @@ public class MKWKartCustomization : MonoBehaviour
     public int currentRacerIndex = 0;
     public int currentKartSkinIndex = 0;
 
+    [Header("Randomization (On Spawn)")]
+    public bool randomizeKart = false;
+    public bool randomizeRacer = false;
+    public bool randomizeKartSkin = false;
+
     [Header("Setup")]
     public Transform kartSpawnPoint;
 
@@ -56,6 +61,12 @@ public class MKWKartCustomization : MonoBehaviour
 
     public void Spawn(bool triggerOnSpawn = true)
     {
+        if(randomizeKart)
+            currentKartIndex = Random.Range(0, karts.Count);
+
+        if (randomizeRacer)
+            currentRacerIndex = Random.Range(0, racers.Count);
+
         Kart = SpawnKart();
         Racer = SpawnRacer();
         CurrentKartConfig.UpdateEmbelem(CurrentRacerConfig);
@@ -92,6 +103,9 @@ public class MKWKartCustomization : MonoBehaviour
         CurrentKartConfig = kart.GetComponent<KartConfig>();
 
         kart.transform.localPosition = visualPos;
+
+        if (randomizeKartSkin)
+            currentKartSkinIndex = Random.Range(0, CurrentKartConfig.Chassis.Skins.Count);
 
         UpdateKartSkin(currentKartSkinIndex);
         return kart;

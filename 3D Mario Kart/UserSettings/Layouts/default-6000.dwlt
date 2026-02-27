@@ -1427,9 +1427,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: 1266.3828, y: -674.4088, z: 176.4358}
+    m_Target: {x: 475.58286, y: -1077.3882, z: -1105.1202}
     speed: 2
-    m_Value: {x: 811.9156, y: -775.3757, z: 804.707}
+    m_Value: {x: 1266.3828, y: -674.4088, z: 176.4358}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1475,13 +1475,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.18039925, y: 0.6253351, z: -0.15163364, w: 0.7439311}
+    m_Target: {x: 0.08063444, y: 0.90783733, z: -0.35671684, w: 0.2051988}
     speed: 2
-    m_Value: {x: -0.2636686, y: -0.36310595, z: 0.10791594, w: -0.88713115}
+    m_Value: {x: 0.18039927, y: 0.6253351, z: -0.15163365, w: 0.7439312}
   m_Size:
-    m_Target: 743.9602
+    m_Target: 799.35474
     speed: 2
-    m_Value: 717.7195
+    m_Value: 743.9602
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -1751,22 +1751,22 @@ MonoBehaviour:
       m_Data: 91234
     m_ExpandedIDs:
     - m_Data: 0
-    - m_Data: 98658
-    - m_Data: 98660
-    - m_Data: 98662
-    - m_Data: 98664
-    - m_Data: 98666
-    - m_Data: 98668
-    - m_Data: 98670
-    - m_Data: 98672
-    - m_Data: 98674
-    - m_Data: 98676
-    - m_Data: 98678
-    - m_Data: 98680
-    - m_Data: 98682
-    - m_Data: 98684
-    - m_Data: 98686
-    - m_Data: 98688
+    - m_Data: 98136
+    - m_Data: 98138
+    - m_Data: 98140
+    - m_Data: 98142
+    - m_Data: 98144
+    - m_Data: 98146
+    - m_Data: 98148
+    - m_Data: 98150
+    - m_Data: 98152
+    - m_Data: 98154
+    - m_Data: 98156
+    - m_Data: 98158
+    - m_Data: 98160
+    - m_Data: 98162
+    - m_Data: 98164
+    - m_Data: 98166
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1799,22 +1799,22 @@ MonoBehaviour:
       m_Data: 0
     m_ExpandedIDs:
     - m_Data: 0
-    - m_Data: 98658
-    - m_Data: 98660
-    - m_Data: 98662
-    - m_Data: 98664
-    - m_Data: 98666
-    - m_Data: 98668
-    - m_Data: 98670
-    - m_Data: 98672
-    - m_Data: 98674
-    - m_Data: 98676
-    - m_Data: 98678
-    - m_Data: 98680
-    - m_Data: 98682
-    - m_Data: 98684
-    - m_Data: 98686
-    - m_Data: 98688
+    - m_Data: 98136
+    - m_Data: 98138
+    - m_Data: 98140
+    - m_Data: 98142
+    - m_Data: 98144
+    - m_Data: 98146
+    - m_Data: 98148
+    - m_Data: 98150
+    - m_Data: 98152
+    - m_Data: 98154
+    - m_Data: 98156
+    - m_Data: 98158
+    - m_Data: 98160
+    - m_Data: 98162
+    - m_Data: 98164
+    - m_Data: 98166
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
