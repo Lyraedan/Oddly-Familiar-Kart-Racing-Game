@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.LowLevel;
 
 public class Player : MonoBehaviour
 {
@@ -112,7 +113,7 @@ public class Player : MonoBehaviour
     public bool has_item_hold = false;
     public GameObject ItemBox;
     public ItemManager itemManager;
-    private LapCounter lapCounter;
+    public LapCounter lapCounter;
 
     [Header("Item Spawn Points")]
     public Transform ShellFront;
@@ -223,7 +224,10 @@ public class Player : MonoBehaviour
         //playersounds = GetComponent<PlayerSounds>();
 
         itemManager = GetComponent<ItemManager>();
-        lapCounter = GetComponent<LapCounter>();
+        
+        if (lapCounter == null)
+            lapCounter = GetComponent<LapCounter>();
+        
         rotateStrengthWithStar = desired_rotate_strength + 15;
         allOpponents = GameObject.FindGameObjectsWithTag("Opponent");
         for (int i = 0; i < TireParents.Length; i++)
@@ -251,6 +255,11 @@ public class Player : MonoBehaviour
             Cam = FindFirstObjectByType<Camerafollow>();
             Cam.player = transform; // Set to us
         }
+
+        lapCounter.onPositionChanged += pos => Debug.Log("Position: " + pos);
+        lapCounter.onLapCompleted += lap => Debug.Log("Lap Completed: " + lap);
+        lapCounter.onCheckpointReached += id => Debug.Log("Checkpoint Reached: " + id);
+        lapCounter.onLastLap += lap => Debug.Log("Last Lap: " + lap);
     }
 
     public void LoadMKWCustomization()
@@ -2195,12 +2204,15 @@ public class Player : MonoBehaviour
 
     void PositionUI()
     {
-        if(!showUI && lapCounter.totalCheckpointVal > 1)
+        // Only start showing UI after player has passed first checkpoint
+        if (!showUI && lapCounter.ProgressIndex > 0)
         {
             positionUI.GetComponent<Animator>().SetTrigger("Change");
             showUI = true;
         }
-        if(lastPos != lapCounter.Position && lapCounter.totalCheckpointVal > 1)
+
+        // If race position changed
+        if (lastPos != lapCounter.Position && lapCounter.ProgressIndex > 0)
         {
             lastPos = lapCounter.Position;
             positionUI.GetComponent<Animator>().SetTrigger("Change");

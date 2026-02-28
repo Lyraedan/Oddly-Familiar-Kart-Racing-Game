@@ -224,6 +224,9 @@ public class RedShell : MonoBehaviour
     }
     void DetectTarget()
     {
+        return; // Disabled cause we'll rewrite this
+
+        /*
         if (!LockedOnTarget)
         {
             if(who_threw_shell == "Mario")
@@ -277,9 +280,8 @@ public class RedShell : MonoBehaviour
 
                 }
             }
-            
-
-        }
+        }           
+        */
     }
 
 

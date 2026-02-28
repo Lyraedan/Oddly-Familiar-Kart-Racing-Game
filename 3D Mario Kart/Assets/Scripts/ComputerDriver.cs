@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.LowLevel;
 using UnityEngine.Splines;
 
 public class ComputerDriver : MonoBehaviour
@@ -116,6 +117,8 @@ public class ComputerDriver : MonoBehaviour
 
     private SplineContainer pathSpline;
 
+    private LapCounter myLap;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -127,7 +130,7 @@ public class ComputerDriver : MonoBehaviour
 
         kartMat.SetVector("Vector4_70BBF882", new Vector4(0, 0, 0, 0));
 
-
+        myLap = GetComponent<LapCounter>();
         rb = GetComponent<Rigidbody>();
         item_manage = GetComponent<OpponentItemManager>();
 
@@ -207,14 +210,19 @@ public class ComputerDriver : MonoBehaviour
         if (!RACE_MANAGER.RACE_COMPLETED)
         {
 
-            if(GetComponent<LapCounter>().totalCheckpointVal > (GameObject.FindGameObjectWithTag("Player").GetComponent<LapCounter>().totalCheckpointVal + 15))
-            {
-                Desired_Max_Speed = 55;
-            }
+            int myProgress = myLap.RaceProgressScore;
+            int playerProgress = playerscript.lapCounter.RaceProgressScore;
+
+            int difference = myProgress - playerProgress;
+
+            if (difference > 20)
+                Desired_Max_Speed = 50;
+            else if (difference > 10)
+                Desired_Max_Speed = 65;
+            else if (difference > 5)
+                Desired_Max_Speed = 75;
             else
-            {
                 Desired_Max_Speed = 90;
-            }
         }
 
         if(!RACE_MANAGER.RACE_STARTED && !RACE_MANAGER.RACE_COMPLETED)

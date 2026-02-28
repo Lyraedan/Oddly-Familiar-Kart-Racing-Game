@@ -88,6 +88,8 @@ public class OpponentItemManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        return;
+
         invincibleTime -= Time.deltaTime;
         if(invincibleTime > 0)
         {

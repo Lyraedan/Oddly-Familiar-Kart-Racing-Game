@@ -45,7 +45,6 @@ public class RACE_MANAGER : MonoBehaviour
 
     private float RaceTime = 0;
 
-
     public List<LapCounter> lapCounters => IngameUIHolder.Instance.LapCounters;
     public List<LapCounter> sortedRacers = new List<LapCounter>();
 
@@ -256,13 +255,10 @@ public class RACE_MANAGER : MonoBehaviour
     }
     int SortByScore(LapCounter p1, LapCounter p2)
     {
-        if(p1.totalCheckpointVal != p2.totalCheckpointVal)
-            return -p1.totalCheckpointVal.CompareTo(p2.totalCheckpointVal);
-        else
-        {
-            return p1.distanceToNextCheckpoint.CompareTo(p2.distanceToNextCheckpoint);
+        if (p1.RaceProgressScore != p2.RaceProgressScore)
+            return p2.RaceProgressScore.CompareTo(p1.RaceProgressScore);
 
-        }
+        return p1.distanceToNextCheckpoint.CompareTo(p2.distanceToNextCheckpoint);
     }
 
     // Oh my f*cking god! You ever hearding of CACHING
@@ -395,24 +391,25 @@ public class RACE_MANAGER : MonoBehaviour
         warning.SetActive(true);
         warning.transform.SetParent(Canvas);
 
-        while (opponent.GetComponent<OpponentItemManager>().StarPowerUp && !RACE_COMPLETED && opponent.GetComponent<LapCounter>().totalCheckpointVal <= player.GetComponent<LapCounter>().totalCheckpointVal)
+        // EW rewrite this
+        while (opponent.GetComponent<OpponentItemManager>().StarPowerUp
+               && !RACE_COMPLETED
+               && opponent.GetComponent<LapCounter>().RaceProgressScore <= player.GetComponent<LapCounter>().RaceProgressScore)
         {
-            Vector3 myangle = player.position - opponent.position;
-            Vector3 angle = Vector3.Cross(-player.forward, myangle);
-            float dir = Vector3.Dot(angle, player.up);
+            // Direction calculation relative to player
+            Vector3 toOpponent = opponent.position - player.position;
+            Vector3 cross = Vector3.Cross(-player.forward, toOpponent);
+            float dir = Vector3.Dot(cross, player.up);
 
+            // Update UI warning position
+            RectTransform warningRect = warning.GetComponent<RectTransform>();
+            Vector3 oldPos = warningRect.localPosition;
+            oldPos.x = dir * 10f; // scale as needed
+            warningRect.localPosition = Vector3.Lerp(warningRect.localPosition, oldPos, 3f * Time.deltaTime);
 
-            Vector3 oldPos = warning.GetComponent<RectTransform>().localPosition;
-            oldPos.x = 0 + dir * 10;
-
-
-            warning.GetComponent<RectTransform>().localPosition = Vector3.Lerp(warning.GetComponent<RectTransform>().localPosition, oldPos, 3 * Time.deltaTime);
-
+            // Check if StarPowerUp ended mid-loop
             if (!opponent.GetComponent<OpponentItemManager>().StarPowerUp)
-            {
                 break;
-            }
-
 
             yield return new WaitForSeconds(0.02f);
         }
@@ -426,25 +423,26 @@ public class RACE_MANAGER : MonoBehaviour
         warning.SetActive(true);
         warning.transform.SetParent(Canvas);
 
-        while (opponent.GetComponent<OpponentItemManager>().isBullet && !RACE_COMPLETED && opponent.GetComponent<LapCounter>().totalCheckpointVal <= player.GetComponent<LapCounter>().totalCheckpointVal)
+        LapCounter opponentLap = opponent.GetComponent<LapCounter>();
+        OpponentItemManager opponentItem = opponent.GetComponent<OpponentItemManager>();
+        RectTransform warningRect = warning.GetComponent<RectTransform>();
+
+        while (opponentItem.isBullet && !RACE_COMPLETED &&
+               opponentLap.RaceProgressScore <= player.GetComponent<LapCounter>().RaceProgressScore)
         {
-            Vector3 myangle = player.position - opponent.position;
-            Vector3 angle = Vector3.Cross(-player.forward, myangle);
-            float dir = Vector3.Dot(angle, player.up);
+            // Direction relative to player
+            Vector3 toOpponent = player.position - opponent.position;
+            Vector3 cross = Vector3.Cross(-player.forward, toOpponent);
+            float dir = Vector3.Dot(cross, player.up);
 
+            // Update warning UI
+            Vector3 oldPos = warningRect.localPosition;
+            oldPos.x = dir * 10f; // scale factor
+            warningRect.localPosition = Vector3.Lerp(warningRect.localPosition, oldPos, 3f * Time.deltaTime);
 
-            Vector3 oldPos = warning.GetComponent<RectTransform>().localPosition;
-
-            oldPos.x = 0 + dir * 10;
-
-
-            warning.GetComponent<RectTransform>().localPosition = Vector3.Lerp(warning.GetComponent<RectTransform>().localPosition, oldPos, 3 * Time.deltaTime);
-
-            if (!opponent.GetComponent<OpponentItemManager>().isBullet)
-            {
+            // Exit if bullet disappears mid-loop
+            if (!opponentItem.isBullet)
                 break;
-            }
-
 
             yield return new WaitForSeconds(0.02f);
         }

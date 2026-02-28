@@ -21,5 +21,12 @@ public class Checkpoint : MonoBehaviour
         {
             checkpointID = transform.GetSiblingIndex();
         }
+
+        name = "Checkpoint " + checkpointID;
+        if (checkpointID == 0)
+        {
+            tag = "NextLapCollider"; // First checkpoint is the start/finish line, so we tag it as such for lap counting purposes
+            name += " (Start/Finish Line)";
+        }
     }
 }
