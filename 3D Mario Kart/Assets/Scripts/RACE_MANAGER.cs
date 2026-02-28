@@ -30,6 +30,7 @@ public class RACE_MANAGER : MonoBehaviour
     public GameObject MiniMap => IngameUIHolder.Instance.MiniMap;
     public GameObject PositionCounter => IngameUIHolder.Instance.PositionCounter;
     public GameObject CourseNameUI => IngameUIHolder.Instance.CourseNameUI;
+    public GameObject CourseAuthorUI => IngameUIHolder.Instance.CourseAuthorUI;
 
     private float RaceTime = 0;
 

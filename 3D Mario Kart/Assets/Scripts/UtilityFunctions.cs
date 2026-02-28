@@ -210,38 +210,25 @@ public class UtilityFunctions : MonoBehaviour
     }
     public void disableCourseNameUI()
     {
-        StartCoroutine(disableCourseNameUIFunc());
+        CanvasGroup courseNameGroup = IngameUIHolder.Instance.CourseNameUI.GetComponent<CanvasGroup>();
+        CanvasGroup courseAuthorGroup = IngameUIHolder.Instance.CourseAuthorUI.GetComponent<CanvasGroup>();
+
+        StartCoroutine(DisableCanvasGroup(courseNameGroup));
+        StartCoroutine(DisableCanvasGroup(courseAuthorGroup));
     }
-    IEnumerator disableCourseNameUIFunc()
+    IEnumerator DisableCanvasGroup(CanvasGroup group, float duration = 0.5f)
     {
-        GameObject NameUI = GameObject.Find("RaceManager").GetComponent<RACE_MANAGER>().CourseNameUI;
+        float startAlpha = group.alpha;
+        float time = 0f;
 
-        //make text transparent
-        for (int i = 0; i < 20; i++)
+        while (time < duration)
         {
-            for(int j = 0; j < NameUI.transform.GetChild(0).childCount; j++)
-            {
-                Transform text = NameUI.transform.GetChild(0);
-                text.GetChild(j).GetComponent<Text>().color -= new Color(0, 0, 0, 0.2f);
-            }
-            yield return new WaitForSeconds(0.001f);
-
+            time += Time.deltaTime;
+            group.alpha = Mathf.Lerp(startAlpha, 0f, time / duration);
+            yield return null;
         }
 
-        //make images transparent
-        for (int i = 0; i < 200; i++)
-        {
-            for (int j = 0; j < NameUI.transform.GetChild(1).childCount; j++)
-            {
-                Transform images = NameUI.transform.GetChild(1);
-                images.GetChild(j).GetComponent<Image>().color -= new Color(0, 0, 0, 0.01f);
-            }
-            NameUI.GetComponent<Image>().color -= new Color(0, 0, 0, 0.02f);
-            yield return new WaitForSeconds(0.001f);
-
-        }
-
-
+        group.alpha = 0f;
     }
 
     public void happy()

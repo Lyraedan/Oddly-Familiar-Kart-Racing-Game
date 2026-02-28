@@ -56,6 +56,8 @@ public class IngameUIHolder : MonoBehaviour
     public GameObject CourseNameUI;
     public Text CourseNameText;
     public Text ConsoleText;
+    public GameObject CourseAuthorUI;
+    public Text CourseAuthorText;
     public List<LapCounter> LapCounters = new();
     [Space(10)]
 
