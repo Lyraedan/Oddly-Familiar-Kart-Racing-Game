@@ -210,8 +210,8 @@ public class UtilityFunctions : MonoBehaviour
     }
     public void disableCourseNameUI()
     {
-        CanvasGroup courseNameGroup = IngameUIHolder.Instance.CourseNameUI.GetComponent<CanvasGroup>();
-        CanvasGroup courseAuthorGroup = IngameUIHolder.Instance.CourseAuthorUI.GetComponent<CanvasGroup>();
+        CanvasGroup courseNameGroup = IngameUIHolder.Instance.CourseNameUI;
+        CanvasGroup courseAuthorGroup = IngameUIHolder.Instance.CourseAuthorUI;
 
         StartCoroutine(DisableCanvasGroup(courseNameGroup));
         StartCoroutine(DisableCanvasGroup(courseAuthorGroup));

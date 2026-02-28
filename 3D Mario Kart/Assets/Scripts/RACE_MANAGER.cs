@@ -6,13 +6,24 @@ using System.Linq;
 
 public class RACE_MANAGER : MonoBehaviour
 {
+    [System.Serializable]
+    public struct SongDetails
+    {
+        public string songName;
+        public string author;
+        public float playbackSpeed;
+        public AudioClip clip;
+    }
+
     [Header("Course Config")]
     public string CourseName = "Map Name";
     public string Console = "Unity";
+    public string Author = "Your Name Here";
     public Sprite MinimapBackground;
 
-    public AudioClip courseMusic;
-    public AudioClip finalLapCourseMusic;
+    public SongDetails courseMusic;
+    public SongDetails finalLapCourseMusic;
+    public AudioSource finalLapSound;
 
     [Header("Setup")]
     public GameObject FrontCam;
@@ -29,8 +40,8 @@ public class RACE_MANAGER : MonoBehaviour
     public GameObject LapCounter => IngameUIHolder.Instance.LapCounter;
     public GameObject MiniMap => IngameUIHolder.Instance.MiniMap;
     public GameObject PositionCounter => IngameUIHolder.Instance.PositionCounter;
-    public GameObject CourseNameUI => IngameUIHolder.Instance.CourseNameUI;
-    public GameObject CourseAuthorUI => IngameUIHolder.Instance.CourseAuthorUI;
+    public GameObject CourseNameUI => IngameUIHolder.Instance.CourseNameUI.gameObject;
+    public GameObject CourseAuthorUI => IngameUIHolder.Instance.CourseAuthorUI.gameObject;
 
     private float RaceTime = 0;
 
@@ -85,12 +96,27 @@ public class RACE_MANAGER : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        music.clip = courseMusic;
-        musicFast.clip = finalLapCourseMusic;
+        // If no name is specified, default to the clip name
+        if (string.IsNullOrEmpty(courseMusic.songName))
+        {
+            courseMusic.songName = courseMusic.clip.name;
+        }
+
+        if (string.IsNullOrEmpty(finalLapCourseMusic.songName))
+        {
+            finalLapCourseMusic.songName = finalLapCourseMusic.clip.name;
+        }
+
+        IngameUIHolder.Instance.MusicDisplay.ChangeSongSpeed(music, courseMusic.playbackSpeed);
+        IngameUIHolder.Instance.MusicDisplay.ChangeSongSpeed(musicFast, finalLapCourseMusic.playbackSpeed);
+
+        music.clip = courseMusic.clip;
+        musicFast.clip = finalLapCourseMusic.clip;
 
         allPaths = GameObject.Find("AI PATHS").transform;
         player = GameObject.FindGameObjectWithTag("Player").transform;
 
+        IngameUIHolder.Instance.UpdateAuthor(Author);
         IngameUIHolder.Instance.UpdateCourse(CourseName, Console);
         IngameUIHolder.Instance.UpdateMinimapBackground(MinimapBackground);
     }
@@ -108,7 +134,7 @@ public class RACE_MANAGER : MonoBehaviour
             RaceTime += Time.deltaTime;
             if (!music.isPlaying && !lastLap && RaceTime > 0.5f)
             {
-                music.Play();
+                IngameUIHolder.Instance.MusicDisplay.DisplayAndPlay(music, courseMusic.author, courseMusic.songName, "Normal");
             }
             sortTime += Time.deltaTime;
 
@@ -179,8 +205,20 @@ public class RACE_MANAGER : MonoBehaviour
         {
             lastLap = true;
             music.Stop();
-            musicFast.Play();
+            PlayFinalLap();
         }
+    }
+
+    void PlayFinalLap()
+    {
+        StartCoroutine(PlayFinalLapEffect());
+    }
+
+    private IEnumerator PlayFinalLapEffect()
+    {
+        finalLapSound.Play();
+        yield return new WaitForSeconds(finalLapSound.clip.length);
+        IngameUIHolder.Instance.MusicDisplay.DisplayAndPlay(musicFast, finalLapCourseMusic.author, finalLapCourseMusic.songName, "Faster");
     }
 
     public IEnumerator CountDownTImerPlay()

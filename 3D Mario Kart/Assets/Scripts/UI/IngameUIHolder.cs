@@ -53,11 +53,20 @@ public class IngameUIHolder : MonoBehaviour
     public RectTransform Map2dEnd;
     [Space(10)]
     public GameObject PositionCounter;
-    public GameObject CourseNameUI;
+    public CanvasGroup CourseNameUI;
     public Text CourseNameText;
     public Text ConsoleText;
-    public GameObject CourseAuthorUI;
+
+    public CanvasGroup CourseAuthorUI;
     public Text CourseAuthorText;
+
+    [Space(10)]
+    public CanvasGroup SongDisplayUI;
+    public Text SongTypeText;
+    public Text SongNameText;
+    public Text SongAuthorText;
+    public MusicDisplay MusicDisplay;
+
     public List<LapCounter> LapCounters = new();
     [Space(10)]
 
@@ -113,6 +122,18 @@ public class IngameUIHolder : MonoBehaviour
             }
 
         }
+    }
+
+    public void UpdateSong(string author, string songName, string songType = "Normal")
+    {
+        SongAuthorText.text = author;
+        SongNameText.text = songName;
+        SongTypeText.text = songType;
+    }
+
+    public void UpdateAuthor(string author)
+    {
+        CourseAuthorText.text = author;
     }
 
     public void UpdateCourse(string courseName, string console)

@@ -26,6 +26,7 @@ public class BoxColliderVisualizer : MonoBehaviour
     public bool includeInactive = true;
 
     [Header("Visual")]
+    public bool show = true;
     public Color color = new Color(0f, 1f, 0f, 0.5f);
 
 #if UNITY_EDITOR
@@ -82,6 +83,8 @@ public class BoxColliderVisualizer : MonoBehaviour
 
     private void DrawCollider(BoxCollider col)
     {
+        if (!show) return;
+
         if (col == null) return;
 
         Gizmos.matrix = col.transform.localToWorldMatrix;
