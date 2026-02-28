@@ -195,18 +195,18 @@ public class OpponentItemManager : MonoBehaviour
             }
 
         }
-        if (path.GetChild(currentWayPoint) == other.transform || path2.GetChild(currentWayPoint) == other.transform)
-        {
-            if (currentWayPoint == path.childCount - 1) //if last node, set the next node to first
-            {
-                currentWayPoint = 0;
-            }
-            else
-            {
-                currentWayPoint++;
-            }
+        //if (path.GetChild(currentWayPoint) == other.transform || path2.GetChild(currentWayPoint) == other.transform)
+        //{
+        //    if (currentWayPoint == path.childCount - 1) //if last node, set the next node to first
+        //    {
+        //        currentWayPoint = 0;
+        //    }
+        //    else
+        //    {
+        //        currentWayPoint++;
+        //    }
 
-        }
+        //}
     }
 
     //selects item
