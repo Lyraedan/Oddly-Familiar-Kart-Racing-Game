@@ -25,6 +25,7 @@ public class ItemListPopulator : MonoBehaviour
             icon.sprite = item.itemGraphic;
 
             iconObject.transform.localPosition += new Vector3(0f, -69f * i, 0f);
+            iconObject.transform.SetAsFirstSibling();
         }
     }
 

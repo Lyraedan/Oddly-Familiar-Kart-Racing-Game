@@ -29,6 +29,8 @@ public class RACE_MANAGER : MonoBehaviour
     public GameObject FrontCam;
     public GameObject FrontFPCam;
     public GameObject BackCam;
+    public Transform AIPathRoot;
+    [HideInInspector] public List<PathTool> AIPaths = new List<PathTool>();
     bool FPCam = false; //first person cam
 
     public AudioSource music;
@@ -95,6 +97,8 @@ public class RACE_MANAGER : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        AIPaths = AIPathRoot.GetComponentsInChildren<PathTool>().ToList();
+
         // If no name is specified, default to the clip name
         if (string.IsNullOrEmpty(courseMusic.songName))
         {

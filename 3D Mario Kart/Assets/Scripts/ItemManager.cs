@@ -183,8 +183,9 @@ public class ItemManager : MonoBehaviour
 
         SelectSound.Play();
 
-        int itemIndex = itemDistributionManager.getItemNumber();
-        itemIndex = Mathf.Clamp(itemIndex, 0, items.Count - 1);
+        int itemIndex = 1; //itemDistributionManager.getItemNumber();
+
+        //itemIndex = Mathf.Clamp(itemIndex, 0, items.Count - 1);
 
         ui.OurItem.sprite = items[itemIndex].itemGraphic;
 
