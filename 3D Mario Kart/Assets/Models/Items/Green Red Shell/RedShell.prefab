@@ -279,8 +279,8 @@ MonoBehaviour:
   spawnScale: {x: 1.5, y: 1.5, z: 1.5}
   ReadyForUse: 0
   paths: []
-  speed: 50
-  rotationSpeed: 4
+  speed: 100
+  rotationSpeed: 8
   groundMask:
     serializedVersion: 2
     m_Bits: 44855

@@ -33,10 +33,6 @@ public class RedShellItem : ItemBase
     private Transform playerTransform;
     private bool closeToPlayer;
 
-    // --------------------------------------------------
-    // SETUP
-    // --------------------------------------------------
-
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -57,7 +53,7 @@ public class RedShellItem : ItemBase
 
         rm = FindFirstObjectByType<RACE_MANAGER>();
         paths = rm.AIPaths;
-        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        playerTransform = player.transform;
 
         currentPath = GetClosestPath();
         currentNode = GetClosestNode();
@@ -102,7 +98,7 @@ public class RedShellItem : ItemBase
         foreach (var r in racers)
         {
             // Skip self if attached to thrower object
-            if (r == thrownBy) continue;
+            if (r.RacerID == thrownBy.RacerID) continue;
 
             // Distance to this racer
             float dist = Vector3.Distance(transform.position, r.transform.position);

@@ -11,6 +11,7 @@ using Random = UnityEngine.Random;
 
 public class LapCounter : MonoBehaviour
 {
+    public int RacerID = 0;
     public int LAPCOUNT = 1;
 
     public Transform checkpoints; // Parent containing all checkpoint colliders
@@ -66,6 +67,7 @@ public class LapCounter : MonoBehaviour
             checkpointsVisited[i] = false;
 
         rm = GameObject.Find("RaceManager").GetComponent<RACE_MANAGER>();
+        RacerID = transform.GetSiblingIndex();
     }
 
     void Update()
