@@ -247,8 +247,8 @@ public class ItemManager : MonoBehaviour
 
     public void UseItem(bool forward)
     {
-        ItemSlot primary = ItemSlot.Primary;
-        ItemSlot secondary = ItemSlot.Secondary;
+        if (!RACE_MANAGER.RACE_STARTED || RACE_MANAGER.RACE_COMPLETED)
+            return;
 
         if (!PrimarySlot.HasItemEquipped())
             return;
@@ -257,9 +257,10 @@ public class ItemManager : MonoBehaviour
         if (primaryItem == null)
             return;
 
-        primaryItem.Use(forward);
+        primaryItem.Use(forward, gameObject);
 
-        ConsumeItem(primary);
+        // Items should call Consume in Use when needed
+        //ConsumeItem(primary);
 
         if (/*SecondarySlot.HasItemEquipped()*/ SecondarySlot.selected)
         {

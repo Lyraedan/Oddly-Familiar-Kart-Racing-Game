@@ -294,6 +294,7 @@ public class Player : MonoBehaviour
             {
                 Debug.Log("[Customization] Setting up racer!");
                 Driver = racerConfig.Driver;
+                Driver.enabled = false; // Disabled for now
                 faces = racerConfig.Face.Faces.ToArray();
                 current_face_material = racerConfig.Face.DefaultFace;
                 MarioFace = racerConfig.Face.faceRenderer;
@@ -2511,6 +2512,9 @@ public class Player : MonoBehaviour
 
             if (!RACE_MANAGER.RACE_COMPLETED && isIdleOrSteering)
             {
+                if (opponentLook == null)
+                    return;
+
                 if (Vector3.Distance(opponentLook.position, transform.position) < 20 && lookAtTime > 1)
                 {
                     headBone.rotation = Quaternion.SlerpUnclamped(headBone.rotation, Quaternion.LookRotation(opponentLook.position - transform.position), 5 * Time.deltaTime);

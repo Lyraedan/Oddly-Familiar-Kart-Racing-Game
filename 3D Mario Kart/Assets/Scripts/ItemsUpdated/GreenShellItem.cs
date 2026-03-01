@@ -28,14 +28,12 @@ public class GreenShellItem : ItemBase
 
     private PlayerSounds playerSounds;
 
-    public override void Use(bool forward)
+    public override void Use(bool forward, GameObject user)
     {
         Transform spawn = forward ? forwardSpawn : backSpawn;
+        ReparentAndZero(spawn);
+        PlayPlayerAnim(forward);
 
-        if(forward)
-            player.Driver.SetTrigger("ThrowForward");
-        else
-            player.Driver.SetTrigger("ThrowBackward");
 
         // Set move direction
         moveDirection = forward ? player.transform.forward : -player.transform.forward;
@@ -46,10 +44,6 @@ public class GreenShellItem : ItemBase
         // Detach from player (unparent)
         transform.parent = null;
 
-        // Teleport shell to spawn (world space)
-        transform.position = spawn.position;
-        transform.rotation = spawn.rotation;
-
         // Set initial velocity
         rb.linearVelocity = moveDirection * (forward ? forwardVelocity : backwardVelocity);
 
@@ -59,6 +53,9 @@ public class GreenShellItem : ItemBase
         // Activate physics
         rb.isKinematic = false;
         sphereCollider.enabled = true;
+
+        // Flag ready! (Allow collisions to affect shell after short delay to prevent immediate self-collisions)
+        StartUseDelay(0.25f);
 
         // Consume the item from the player
         itemManager.ConsumeItem(shouldDestroy: false); // remove item but do not destroy shell
@@ -130,6 +127,9 @@ public class GreenShellItem : ItemBase
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (!ReadyForUse)
+            return;
+
         string tag = collision.gameObject.tag;
 
         if (tag == "Ground" || tag == "Dirt" || tag == "JumpPanel" || tag == "ShellPlatforms" || tag == "GliderPanel")
@@ -139,6 +139,7 @@ public class GreenShellItem : ItemBase
         {
             if (tag != "Cow")
                 Destroy(collision.gameObject);
+
             DestroyShell();
             return;
         }

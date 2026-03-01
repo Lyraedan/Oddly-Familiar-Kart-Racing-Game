@@ -28,7 +28,7 @@ public class StarItem : ItemBase
         courseMusicParent = courseMusicObj.transform.parent.GetComponent<AudioSource>();
     }
 
-    public override void Use(bool forward)
+    public override void Use(bool forward, GameObject user)
     {
         itemManager.StartCoroutine(StarRoutine());
     }

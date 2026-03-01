@@ -11,7 +11,7 @@ public class OutOfBounds : MonoBehaviour
     [Header("Respawn Settings")]
     [SerializeField] private float respawnFreezeTime = 0.5f;
     [SerializeField] private float forwardSpawnOffset = 0.002f; // small t offset forward
-    [SerializeField] private PathTool pathTool;
+    private PathTool pathTool;
 
     [HideInInspector] public bool FellInWater;
     [HideInInspector] public bool OutOfBoundsState;

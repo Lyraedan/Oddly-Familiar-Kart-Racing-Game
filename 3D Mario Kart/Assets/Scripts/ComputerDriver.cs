@@ -187,6 +187,7 @@ public class ComputerDriver : MonoBehaviour
             if(racerConfig != null)
             {
                 DriverAnim = racerConfig.Driver;
+                DriverAnim.enabled = false; // Disabled for now
                 head = racerConfig.HeadBone;
                 GetComponent<Minimap>().config = racerConfig;
             }

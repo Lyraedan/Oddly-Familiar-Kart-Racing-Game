@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class ItemBase : MonoBehaviour
@@ -14,6 +16,7 @@ public abstract class ItemBase : MonoBehaviour
     protected Transform handSpawn;     // In characters hand
     protected Transform throwSpawn;    // Thrown forward
 
+    [HideInInspector] public bool ReadyForUse = false; // Set to true when the item is ready to be used (e.g., after a delay or animation)
     public virtual void Initialize(Player p, ItemManager manager)
     {
         player = p;
@@ -40,5 +43,38 @@ public abstract class ItemBase : MonoBehaviour
         throwSpawn = throwPos;
     }
 
-    public abstract void Use(bool forward);
+    public abstract void Use(bool forward, GameObject user);
+
+    /// <summary>
+    /// Reparent the item and zero in its local position
+    /// </summary>
+    /// <param name="newParent"></param>
+    public void ReparentAndZero(Transform newParent)
+    {
+        transform.SetParent(newParent);
+        transform.localPosition = Vector3.zero;
+    }
+    public void PlayPlayerAnim(bool forward)
+    {
+        if (player == null || player.Driver == null)
+            return;
+
+        if (forward)
+            player.Driver.SetTrigger("ThrowForward");
+        else
+            player.Driver.SetTrigger("ThrowBackward");
+    }
+
+    public void StartUseDelay(float delay)
+    {
+        ReadyForUse = false;
+        itemManager.StartCoroutine(FlagAfterDelay(delay));
+    }
+
+    IEnumerator FlagAfterDelay(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        ReadyForUse = true;
+    }
+
 }
