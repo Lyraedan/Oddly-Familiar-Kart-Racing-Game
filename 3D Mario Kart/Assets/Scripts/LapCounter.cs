@@ -23,6 +23,7 @@ public class LapCounter : MonoBehaviour
     public int endPosition = 0;
 
     public PathTool pathTool;
+    public bool usePathToolPath = false;
 
     private int lastCheckpointID = -1;
 
@@ -53,7 +54,7 @@ public class LapCounter : MonoBehaviour
 
     void Start()
     {
-        if (pathTool != null)
+        if (pathTool != null && usePathToolPath)
             checkpoints = pathTool.pathRoot;
 
         if (checkpoints == null)
@@ -236,7 +237,7 @@ public class LapCounter : MonoBehaviour
         }
     }
 
-    public bool TryGetLastCheckpointSplinePose(
+    public bool TryGetLastCheckpointSplinePose(PathTool pathTool,
     out Vector3 position,
     out Quaternion rotation)
     {
@@ -287,6 +288,41 @@ public class LapCounter : MonoBehaviour
         rotation = Quaternion.LookRotation(worldTangent);
 
         return true;
+    }
+
+    public bool IsGoingWrongWay(Transform vehicleTransform, float checkDistance = 5f)
+    {
+        if (checkpoints == null || checkpoints.childCount < 2)
+            return false; // nothing to check against
+
+        // Get the next expected checkpoint
+        Transform nextCheckpoint = checkpoints.GetChild(currentCheckpointVal);
+
+        // Direction from current position to next checkpoint
+        Vector3 toNext = (nextCheckpoint.position - vehicleTransform.position).normalized;
+
+        // Vehicle forward direction (local z axis)
+        Vector3 forward = vehicleTransform.forward;
+
+        // Check dot product: forward dot toNext
+        float dot = Vector3.Dot(forward, toNext);
+
+        if (dot < 0)
+        {
+            // vehicle is facing away from next checkpoint
+            Debug.Log("Wrong Way");
+            return true;
+        }
+
+        // Optional: check if already passed checkpoint but not updated yet
+        if (Vector3.Distance(vehicleTransform.position, nextCheckpoint.position) > checkDistance)
+        {
+            // too far behind
+            Debug.Log("Wrong Way (behind)");
+            return true;
+        }
+
+        return false;
     }
 
 }

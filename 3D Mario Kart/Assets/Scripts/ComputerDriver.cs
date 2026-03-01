@@ -18,6 +18,7 @@ public class ComputerDriver : MonoBehaviour
 
     [Header("Movement")]
     public Transform path;
+    [HideInInspector] public PathTool SelectedPathTool;
     public List<PathTool> pathTools = new();
     [HideInInspector]
     public int current_node = 0;
@@ -1334,6 +1335,7 @@ public class ComputerDriver : MonoBehaviour
         PathTool pathTool = pathTools[randomPath];
         path = pathTool.pathRoot;
         pathSpline = pathTool.GetComponent<SplineContainer>();
+        SelectedPathTool = pathTool;
     }
 
 }

@@ -11,6 +11,7 @@ public class OutOfBounds : MonoBehaviour
     [Header("Respawn Settings")]
     [SerializeField] private float respawnFreezeTime = 0.5f;
     [SerializeField] private float forwardSpawnOffset = 0.002f; // small t offset forward
+    [SerializeField] private PathTool pathTool;
 
     [HideInInspector] public bool FellInWater;
     [HideInInspector] public bool OutOfBoundsState;
@@ -132,7 +133,14 @@ public class OutOfBounds : MonoBehaviour
         if (lapCounter == null)
             return;
 
-        bool success = lapCounter.TryGetLastCheckpointSplinePose(
+        // Fetch latest pathtools (because Opponents can change)
+        if (isPlayer)
+            pathTool = player.raceEndPathTool;
+
+        if (isOpponent)
+            pathTool = computerDriver.SelectedPathTool;
+
+        bool success = lapCounter.TryGetLastCheckpointSplinePose(pathTool,
             out Vector3 pos,
             out Quaternion rot);
 
