@@ -70,6 +70,7 @@ public class KartConfig : MonoBehaviour
     public GameObject SteeringWheel;
     public GameObject Glider;
     public GameObject Propeller;
+    public GameObject Wings;
 
     [Header("Used for Star power up")]
     public List<GameObject> StarPowerRendererRoots;
