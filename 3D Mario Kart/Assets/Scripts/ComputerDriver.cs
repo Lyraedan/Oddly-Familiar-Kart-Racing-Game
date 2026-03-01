@@ -116,8 +116,14 @@ public class ComputerDriver : MonoBehaviour
     private float glideAngleX = 0;
 
     private SplineContainer pathSpline;
+    private OutOfBounds outOfBounds;
 
     public LapCounter myLap;
+
+    private void Awake()
+    {
+        outOfBounds = GetComponent<OutOfBounds>();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -274,7 +280,7 @@ public class ComputerDriver : MonoBehaviour
 
             carTires();
             steer();
-            if (!GetComponent<OutOfBounds>().FellInWater && !GetComponent<OutOfBounds>().outOfBounds)
+            if (outOfBounds != null && !outOfBounds.FellInWater && !outOfBounds.OutOfBoundsState)
             {
                 Move();
                 DriftFromSpline(pathSpline);

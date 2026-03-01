@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class WaypointTracker : MonoBehaviour
 {
+    // Obsolete since the new LapCounter rewrite
     public Transform path1;
     public Transform path2;
 

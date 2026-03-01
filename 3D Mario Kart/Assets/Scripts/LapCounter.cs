@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using NUnit.Framework;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.LowLevel;
+using UnityEngine.Splines;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class LapCounter : MonoBehaviour
 {
@@ -231,6 +234,59 @@ public class LapCounter : MonoBehaviour
                 8f * Time.deltaTime
             );
         }
+    }
+
+    public bool TryGetLastCheckpointSplinePose(
+    out Vector3 position,
+    out Quaternion rotation)
+    {
+        position = Vector3.zero;
+        rotation = Quaternion.identity;
+
+        if (lastCheckpointID < 0)
+            return false;
+
+        if (pathTool == null || pathTool.splineContainer == null)
+            return false;
+
+        var spline = pathTool.splineContainer.Spline;
+        if (spline == null || spline.Count < 2)
+            return false;
+
+        // Get checkpoint world position
+        Vector3 checkpointWorldPos =
+            checkpoints.GetChild(lastCheckpointID).position;
+
+        // Convert to spline local space
+        Vector3 localPoint =
+            pathTool.transform.InverseTransformPoint(checkpointWorldPos);
+
+        // Find nearest point on spline
+        float t;
+
+        SplineUtility.GetNearestPoint(
+            spline,
+            localPoint,
+            out float3 nearestPoint,
+            out t
+        );
+
+        // Evaluate spline at that t
+        Vector3 splineLocalPos = spline.EvaluatePosition(t);
+
+        // Convert back to world
+        Vector3 splineWorldPos =
+            pathTool.transform.TransformPoint(splineLocalPos);
+
+        // Get forward direction
+        Vector3 tangent = spline.EvaluateTangent(t);
+        Vector3 worldTangent =
+            pathTool.transform.TransformDirection(tangent);
+
+        position = splineWorldPos;
+        rotation = Quaternion.LookRotation(worldTangent);
+
+        return true;
     }
 
 }

@@ -1,216 +1,211 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class OutOfBounds : MonoBehaviour
 {
-    [HideInInspector]
-    public bool FellInWater = false;
-    [HideInInspector]
-    public bool outOfBounds = false;
+    [Header("Water Settings")]
+    [SerializeField] private float waterSinkForce = 5000f;
+    [SerializeField] private float playerWaterDelay = 0.5f;
+    [SerializeField] private float opponentWaterDelay = 1f;
 
-    [HideInInspector] 
-    public bool PlayerBeingMoved = false; //for camera
+    [Header("Respawn Settings")]
+    [SerializeField] private float respawnFreezeTime = 0.5f;
+    [SerializeField] private float forwardSpawnOffset = 0.002f; // small t offset forward
 
-    public WaypointTracker tracker;
-    // Start is called before the first frame update
-    void Start()
+    [HideInInspector] public bool FellInWater;
+    [HideInInspector] public bool OutOfBoundsState;
+    [HideInInspector] public bool PlayerBeingMoved;
+
+    private Rigidbody rb;
+    private Player player;
+    private ComputerDriver computerDriver;
+    private LapCounter lapCounter;
+    private OpponentItemManager opponentItemManager;
+
+    private bool isPlayer;
+    private bool isOpponent;
+
+    private void Awake()
     {
-        
+        rb = GetComponent<Rigidbody>();
+        player = GetComponent<Player>();
+        computerDriver = GetComponent<ComputerDriver>();
+        lapCounter = GetComponent<LapCounter>();
+        opponentItemManager = GetComponent<OpponentItemManager>();
+
+        isPlayer = CompareTag("Player");
+        isOpponent = CompareTag("Opponent");
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (FellInWater)
         {
-            GetComponent<Rigidbody>().AddRelativeForce(Vector3.down * 5000 * Time.deltaTime, ForceMode.Acceleration);
+            rb.AddRelativeForce(Vector3.down * waterSinkForce * Time.deltaTime, ForceMode.Acceleration);
         }
     }
 
-    private IEnumerator OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "Water")
+        if (other.CompareTag("Water"))
+            StartCoroutine(HandleWater());
+
+        else if (other.CompareTag("OutOfBounds"))
+            StartCoroutine(HandleOutOfBounds());
+    }
+
+    #region WATER
+
+    private IEnumerator HandleWater()
+    {
+        StopMovement();
+
+        FellInWater = true;
+        PlayerBeingMoved = true;
+
+        yield return new WaitForSeconds(isOpponent ? opponentWaterDelay : playerWaterDelay);
+
+        Freeze();
+
+        RespawnToLastCheckpointSpline();
+
+        UpdateOpponentItemWaypoint();
+
+        PlayerBeingMoved = false;
+
+        yield return new WaitForSeconds(respawnFreezeTime);
+
+        Unfreeze();
+    }
+
+    #endregion
+
+    #region OUT OF BOUNDS
+
+    private IEnumerator HandleOutOfBounds()
+    {
+        StopMovement();
+
+        OutOfBoundsState = true;
+        PlayerBeingMoved = true;
+
+        Freeze();
+
+        RespawnToLastCheckpointSpline();
+
+        MarkFutureCheckpointsVisitedIfNeeded();
+        UpdateOpponentItemWaypoint();
+
+        PlayerBeingMoved = false;
+
+        yield return new WaitForSeconds(0.5f);
+
+        Unfreeze();
+    }
+
+    #endregion
+
+    #region CORE HELPERS
+
+    private void StopMovement()
+    {
+        if (isPlayer && player != null)
+            player.currentspeed = 0;
+
+        if (isOpponent && computerDriver != null)
+            computerDriver.current_speed = 0;
+    }
+
+    private void Freeze()
+    {
+        rb.isKinematic = true;
+        rb.linearVelocity = Vector3.zero;
+    }
+
+    private void Unfreeze()
+    {
+        rb.isKinematic = false;
+    }
+
+    private void RespawnToLastCheckpointSpline()
+    {
+        if (lapCounter == null)
+            return;
+
+        bool success = lapCounter.TryGetLastCheckpointSplinePose(
+            out Vector3 pos,
+            out Quaternion rot);
+
+        Debug.Log("Spline respawn success: " + success);
+
+        if (success)
         {
-            if(gameObject.tag == "Player")
-            {
-                GetComponent<Player>().currentspeed = 0;
-                FellInWater = true;
-                PlayerBeingMoved = true;
-
-
-                yield return new WaitForSeconds(0.5f);
-
-                GetComponent<Rigidbody>().isKinematic = true;
-                GetComponent<Rigidbody>().velocity = Vector3.zero;
-
-                Transform currPoint = GetComponent<LapCounter>().checkpoints.GetChild(GetComponent<LapCounter>().currentCheckpointVal);
-
-                
-
-                transform.position = currPoint.position;
-                transform.rotation = currPoint.rotation;
-
-
-                //get item path checkpoint next
-                float dist = Mathf.Infinity;
-                int closestWaypoint = 0;
-
-                for (int i = 0; i < tracker.ActivePath.childCount; i++)
-                {
-                    float d = Vector3.Distance(tracker.ActivePath.GetChild(i).position, transform.position);
-                    if (d < dist)
-                    {
-                        dist = d;
-                        closestWaypoint = i;
-                    }
-                }
-
-                // Set the waypoint in the tracker
-                tracker.SetCurrentWaypoint(closestWaypoint + 1);
-
-
-                PlayerBeingMoved = false;
-
-                yield return new WaitForSeconds(0.5f);
-                GetComponent<Rigidbody>().isKinematic = false;
-            }
-
-            if(gameObject.tag == "Opponent")
-            {
-                GetComponent<ComputerDriver>().current_speed = 0;
-                FellInWater = true;
-                PlayerBeingMoved = true;
-                yield return new WaitForSeconds(1);
-                GetComponent<Rigidbody>().isKinematic = true;
-                GetComponent<Rigidbody>().velocity = Vector3.zero;
-
-                Transform currPoint = GetComponent<ComputerDriver>().path.GetChild(GetComponent<ComputerDriver>().current_node);
-                GetComponent<LapCounter>().currentCheckpointVal++;
-
-                //get item path checkpoint next
-                float dist = 99999;
-                int checkPointVal = 0;
-                for (int i = 0; i < GetComponent<OpponentItemManager>().path.childCount; i++)
-                {
-                    if (Vector3.Distance(GetComponent<OpponentItemManager>().path.GetChild(i).position, transform.position) < dist)
-                    {
-                        dist = Vector3.Distance(GetComponent<OpponentItemManager>().path.GetChild(i).position, transform.position);
-                        checkPointVal = i;
-                    }
-                }
-                GetComponent<OpponentItemManager>().currentWayPoint = checkPointVal + 1;
-
-
-                transform.position = currPoint.position;
-                transform.rotation = currPoint.rotation;
-                PlayerBeingMoved = false;
-
-                yield return new WaitForSeconds(0.5f);
-                GetComponent<Rigidbody>().isKinematic = false;
-
-            }
+            transform.SetPositionAndRotation(pos, rot);
         }
-        else if(other.gameObject.tag == "OutOfBounds")
+        else if (lapCounter.checkpoints != null)
         {
-            if (gameObject.tag == "Player")
-            {
-                GetComponent<Player>().currentspeed = 0;
-                outOfBounds = true;
-                PlayerBeingMoved = true;
-                GetComponent<Rigidbody>().isKinematic = true;
-                GetComponent<Rigidbody>().velocity = Vector3.zero;
+            Debug.Log("Using checkpoint fallback");
 
-                Transform currPoint;
-                if (RACE_MANAGER.RACE_COMPLETED)
-                {
-                    currPoint = GetComponent<Player>().RaceEndPath.GetChild(GetComponent<Player>().currentWayPoint);
-                    //set a few lap checkpoints to true ahead
-                    for (int i = 1; i <= 3; i++)
-                    {
-                        GetComponent<LapCounter>().checkpointsVisited[GetComponent<LapCounter>().currentCheckpointVal + i] = true;
-                    }
-                }
-                else
-                {
-                    currPoint = GetComponent<LapCounter>().checkpoints.GetChild(GetComponent<LapCounter>().currentCheckpointVal);
-                }
+            int lastID = lapCounter.ProgressIndex;
 
-                //get item path checkpoint next
-                if (tracker.ActivePath == null)
-                {
-                    Debug.LogWarning("ActivePath is null on WaypointTracker!");
-                    yield return null;
-                }
+            Transform fallback =
+                lapCounter.checkpoints.GetChild(lastID);
 
-                // Find the closest waypoint
-                float dist = Mathf.Infinity;
-                int closestWaypoint = 0;
-
-                for (int i = 0; i < tracker.ActivePath.childCount; i++)
-                {
-                    float d = Vector3.Distance(tracker.ActivePath.GetChild(i).position, transform.position);
-                    if (d < dist)
-                    {
-                        dist = d;
-                        closestWaypoint = i;
-                    }
-                }
-
-                // Update the current waypoint in the tracker
-                tracker.SetCurrentWaypoint(closestWaypoint + 1);
-
-                transform.position = currPoint.position;
-                transform.rotation = currPoint.rotation;
-                PlayerBeingMoved = false;
-
-                yield return new WaitForSeconds(0.5f);
-                GetComponent<Rigidbody>().isKinematic = false;
-            }
-            if (gameObject.tag == "Opponent")
-            {
-                GetComponent<ComputerDriver>().current_speed = 0;
-                outOfBounds = true;
-                PlayerBeingMoved = true;
-                GetComponent<Rigidbody>().isKinematic = true;
-                GetComponent<Rigidbody>().velocity = Vector3.zero;
-
-                Transform currPoint = GetComponent<ComputerDriver>().path.GetChild(GetComponent<ComputerDriver>().current_node);
-                //set a few lap checkpoints to true ahead
-                for(int i = 1; i <= 3; i++)
-                {
-                    GetComponent<LapCounter>().checkpointsVisited[GetComponent<LapCounter>().currentCheckpointVal + i] = true;
-                }
-
-                //get item path checkpoint next
-                float dist = 99999;
-                int checkPointVal = 0;
-                for (int i = 0; i < GetComponent<OpponentItemManager>().path.childCount; i++)
-                {
-                    if (Vector3.Distance(GetComponent<OpponentItemManager>().path.GetChild(i).position, transform.position) < dist)
-                    {
-                        dist = Vector3.Distance(GetComponent<OpponentItemManager>().path.GetChild(i).position, transform.position);
-                        checkPointVal = i;
-                    }
-                }
-                GetComponent<OpponentItemManager>().currentWayPoint = checkPointVal + 1;
-
-                transform.position = currPoint.position;
-                transform.rotation = currPoint.rotation;
-                PlayerBeingMoved = false;
-
-                yield return new WaitForSeconds(0.5f);
-                GetComponent<Rigidbody>().isKinematic = false;
-            }
+            transform.SetPositionAndRotation(
+                fallback.position,
+                fallback.rotation
+            );
         }
     }
+
+    private void UpdateOpponentItemWaypoint()
+    {
+        if (!isOpponent || opponentItemManager == null || opponentItemManager.path == null)
+            return;
+
+        float minDist = Mathf.Infinity;
+        int closestIndex = 0;
+
+        for (int i = 0; i < opponentItemManager.path.childCount; i++)
+        {
+            float dist = Vector3.Distance(
+                opponentItemManager.path.GetChild(i).position,
+                transform.position
+            );
+
+            if (dist < minDist)
+            {
+                minDist = dist;
+                closestIndex = i;
+            }
+        }
+
+        opponentItemManager.currentWayPoint = closestIndex + 1;
+    }
+
+    private void MarkFutureCheckpointsVisitedIfNeeded()
+    {
+        if (lapCounter == null)
+            return;
+
+        for (int i = 1; i <= 3; i++)
+        {
+            int index = lapCounter.currentCheckpointVal + i;
+
+            if (index < lapCounter.checkpointsVisited.Length)
+                lapCounter.checkpointsVisited[index] = true;
+        }
+    }
+
+    #endregion
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag == "Ground" || collision.gameObject.tag == "Dirt")
+        if (collision.gameObject.CompareTag("Ground") ||
+            collision.gameObject.CompareTag("Dirt"))
         {
             FellInWater = false;
-            outOfBounds = false;
+            OutOfBoundsState = false;
         }
     }
 }

@@ -202,6 +202,7 @@ public class Player : MonoBehaviour
     [Header("Optional stuff")]
     [HideInInspector] public Camerafollow Cam;
 
+    private OutOfBounds outOfBounds;
 
     // Start is called before the first frame update
     /// <summary>
@@ -211,6 +212,7 @@ public class Player : MonoBehaviour
     {
         kartMat.SetVector("Vector4_70BBF882", new Vector4(0, 0, 0, 0));
         rb = GetComponent<Rigidbody>();
+        outOfBounds = GetComponent<OutOfBounds>();
         Right_Wheel_Drift_PS = DriftPS.transform.GetChild(0).gameObject;
         Left_Wheel_Drift_PS = DriftPS.transform.GetChild(1).gameObject;
         FrontLeftTire = Tires.transform.GetChild(0).GetChild(0).gameObject;
@@ -390,7 +392,7 @@ public class Player : MonoBehaviour
                 }
             }
 
-            if (!GetComponent<OutOfBounds>().FellInWater && !GetComponent<OutOfBounds>().outOfBounds)
+            if (outOfBounds != null && !outOfBounds.FellInWater && !outOfBounds.OutOfBoundsState)
             {
                 Move();
                 Steer();
