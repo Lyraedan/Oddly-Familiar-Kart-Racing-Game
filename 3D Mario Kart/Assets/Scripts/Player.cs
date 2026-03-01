@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.LowLevel;
+using UnityEngine.Splines;
 
 public class Player : MonoBehaviour
 {
@@ -204,6 +206,9 @@ public class Player : MonoBehaviour
 
     private OutOfBounds outOfBounds;
 
+    private MKWKartCustomization mkwCustomization;
+    private MKWKartCustomization.GliderType gliderType = MKWKartCustomization.GliderType.Glider;
+
     // Start is called before the first frame update
     /// <summary>
     /// Unity Start method. Initializes references and sets up initial state.
@@ -258,7 +263,7 @@ public class Player : MonoBehaviour
     public void LoadMKWCustomization()
     {
         Debug.Log("Kart spawned, Loading customization");
-        MKWKartCustomization mkwCustomization = GetComponent<MKWKartCustomization>();
+        mkwCustomization = GetComponent<MKWKartCustomization>();
         if (mkwCustomization != null)
         {
             Debug.Log("[Customization] Loading Mario Kart World Style Customization");
@@ -316,6 +321,7 @@ public class Player : MonoBehaviour
 
             lightDecalColor = config.antiGravityConfig.LightDecalColor;
 
+            gliderType = mkwCustomization.gliderType;
             Debug.Log("[Customization] Loading External sounds");
             playersounds.LoadKartSounds(config);
             playersounds.LoadCharacterSounds(racerConfig);
@@ -498,7 +504,6 @@ public class Player : MonoBehaviour
         if (RACE_MANAGER.RACE_COMPLETED)
         {
             raceEndTime += Time.deltaTime;
-            steerOnPath();
             moveOnPath();
             raceEndCarMoveParts();
             {
@@ -630,8 +635,7 @@ public class Player : MonoBehaviour
             glidingTime = 0;
           
             playersounds.gliderFlutter.Stop();
-            glider.GetComponent<Animator>().SetBool("GliderOpen", false);
-            glider.GetComponent<Animator>().SetBool("GliderClose", true);
+            PlayGliderCloseAnim();
 
             for(int i = 0; i < 60; i++)
             {
@@ -978,6 +982,7 @@ public class Player : MonoBehaviour
 
         
     }
+
     IEnumerator OnTriggerEnter(Collider other)
     {
 
@@ -1176,8 +1181,7 @@ public class Player : MonoBehaviour
             {
                 if (currentspeed <= 60)
                 {
-                    glider.GetComponent<Animator>().SetBool("GliderOpen", true);
-                    glider.GetComponent<Animator>().SetBool("GliderClose", false);
+                    PlayGliderOpenAnim();
 
                     GLIDER_FLY = true;
                     glider_close_confirm = false;
@@ -1211,7 +1215,7 @@ public class Player : MonoBehaviour
                 {
                     GLIDER_FLY = true;
                     glideTrick = true;
-                    int rand = Random.Range(0, 2);
+                    int rand = UnityEngine.Random.Range(0, 2);
                     if (rand == 0)
                     {
                         transform.GetChild(0).GetChild(0).GetComponent<Animator>().SetTrigger("Glide1");
@@ -1224,8 +1228,7 @@ public class Player : MonoBehaviour
 
                     yield return new WaitForSeconds(0.45f);
 
-                    glider.GetComponent<Animator>().SetBool("GliderOpen", true);
-                    glider.GetComponent<Animator>().SetBool("GliderClose", false);
+                    PlayGliderOpenAnim();
                     glider_close_confirm = false;
 
                     yield return new WaitForSeconds(0.35f);
@@ -2142,14 +2145,12 @@ public class Player : MonoBehaviour
         {
             if (glidingTime > 0.4)
             {
-                glider.GetComponent<Animator>().SetBool("GliderOpen", true);
-                glider.GetComponent<Animator>().SetBool("GliderClose", false);
+                PlayGliderOpenAnim();
             }
         }
         else
         {
-            glider.GetComponent<Animator>().SetBool("GliderOpen", true);
-            glider.GetComponent<Animator>().SetBool("GliderClose", false);
+            PlayGliderOpenAnim();
         }
 
 
@@ -2302,54 +2303,66 @@ public class Player : MonoBehaviour
 
     }
 
-    void steerOnPath()
-    {
-        Vector3 lookat = RaceEndPath.GetChild(currentWayPoint).position;
+    void SteerOnPath(Vector3 targetForward)
+{
+    Quaternion desiredRot = Quaternion.LookRotation(targetForward, Vector3.up);
+    // Use Rigidbody.MoveRotation for smooth physics rotation
+    rb.MoveRotation(Quaternion.Slerp(rb.rotation, desiredRot, 5f * Time.deltaTime));
+}
 
-        Ray ground = new Ray(transform.position, -transform.up);
-        RaycastHit hit;
-        
-
-        if (Physics.Raycast(ground, out hit, 10, mask))//different mask
-        {
-            Quaternion rot = Quaternion.Lerp(transform.rotation, Quaternion.FromToRotation(transform.up * 2, hit.normal) * transform.rotation, 6 * Time.deltaTime);
-            GroundNormalRotation();
-        }
-        //angle calc
-        Vector3 myangle = lookat - transform.position;
-        Vector3 angle = Vector3.Cross(transform.forward, myangle);
-
-
-        float dir = Vector3.Dot(angle, transform.up);
-        float none = 0;
-
-        // maybe get dir, and make float y lerp to that dir value, and then rotate y axis (space.self) according to that y value or something
-
-        //float y = Mathf.SmoothDamp(transform.eulerAngles.y, transform.eulerAngles.y + dir, ref none, 2.5f * Time.deltaTime);
-        y = Mathf.SmoothDamp(y, dir, ref none, 2.5f * Time.deltaTime);
-        transform.Rotate(0, y / 16, 0, Space.Self);
-
-    }
     void moveOnPath()
     {
         currentspeed = Mathf.Lerp(currentspeed, desiredMaxSpeed, 1.5f * Time.deltaTime);
-        Vector3 vel = transform.forward * currentspeed;
 
-        if(!antiGravity)
-            vel.y = rb.linearVelocity.y;
+        if (raceEndPathTool == null || raceEndPathTool.splineContainer == null || raceEndPathTool.splineContainer.Spline == null)
+            return;
 
-        rb.linearVelocity = vel;
+        var spline = raceEndPathTool.splineContainer.Spline;
 
-            rb.AddRelativeForce(Vector3.down * 5000 * Time.deltaTime, ForceMode.Acceleration);
+        // --- Step 1: Find nearest t on spline ---
+        float nearestT = 0f;
+        SplineUtility.GetNearestPoint(
+            spline,
+            raceEndPathTool.transform.InverseTransformPoint(transform.position),
+            out float3 nearestPoint,
+            out nearestT
+        );
 
-        if (GLIDER_FLY)
+        // --- Step 2: Look ahead along the spline ---
+        float lookAheadDistance = 5f; // meters ahead
+        float tAhead = nearestT + lookAheadDistance / spline.GetLength(); // convert meters to normalized t
+        if (tAhead > 1f) tAhead -= 1f; // wrap around closed spline
+
+        // --- Step 3: Get world position and tangent at look-ahead ---
+        Vector3 targetPos = raceEndPathTool.transform.TransformPoint(spline.EvaluatePosition(tAhead));
+        Vector3 targetForward = raceEndPathTool.transform.TransformDirection(spline.EvaluateTangent(tAhead)).normalized;
+
+        // --- Step 4: Steer toward spline ---
+        SteerOnPath(targetForward);
+
+        // --- Step 5: Apply forward velocity ---
+        Vector3 moveVel = transform.forward * currentspeed;
+        if (!antiGravity)
+            moveVel.y = rb.linearVelocity.y;
+
+        rb.linearVelocity = moveVel;
+
+        // --- Step 6: Add downforce ---
+        rb.AddRelativeForce(Vector3.down * 5000f * Time.deltaTime, ForceMode.Acceleration);
+
+        // --- Glider / Spin ---
+        if (GLIDER_FLY) gliderMovements();
+        HandleAntiGravSpin();
+    }
+
+    private void HandleAntiGravSpin()
+    {
+        Animator anim = transform.GetChild(0).GetChild(0).GetComponent<Animator>();
+        bool spinning = anim.GetCurrentAnimatorStateInfo(2).IsName("SpinLeft") || anim.GetCurrentAnimatorStateInfo(2).IsName("SpinRight");
+
+        if (spinning && particleSystemAntigravSpinTimer < 0.95f)
         {
-            gliderMovements();
-        }
-
-        if (transform.GetChild(0).GetChild(0).GetComponent<Animator>().GetCurrentAnimatorStateInfo(2).IsName("SpinLeft") || transform.GetChild(0).GetChild(0).GetComponent<Animator>().GetCurrentAnimatorStateInfo(2).IsName("SpinRight") && particleSystemAntigravSpinTimer < 0.95f)
-        {
-            particleSystemAntigravSpinTimer += Time.deltaTime; //this timer thing is limited to 0.95 seconds because when the animation returns to original state, the trail gets weird
+            particleSystemAntigravSpinTimer += Time.deltaTime;
             if (!antiGravSpin[0].isPlaying)
             {
                 if (antiGravSpin.Length > 0)
@@ -2357,25 +2370,21 @@ public class Player : MonoBehaviour
                     antiGravSpin[0].Play();
                     antiGravSpin[1].Play();
                 }
-                    
             }
         }
         else
         {
-            if(antiGravSpin.Length > 0)
+            if (antiGravSpin.Length > 0)
             {
                 antiGravSpin[0].Stop();
                 antiGravSpin[1].Stop();
             }
-            
         }
+
         if (particleSystemAntigravSpinTimer > 1.01f)
-        {
             particleSystemAntigravSpinTimer = 0;
-        }
-
-
     }
+
     void raceEndCarMoveParts()
     {
         //spin
@@ -2813,6 +2822,44 @@ public class Player : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void PlayGliderCloseAnim()
+    {
+        switch(gliderType)
+        {
+            case MKWKartCustomization.GliderType.Glider:
+                glider.GetComponent<Animator>().SetBool("GliderOpen", false);
+                glider.GetComponent<Animator>().SetBool("GliderClose", true);
+                break;
+            case MKWKartCustomization.GliderType.Wings:
+                mkwCustomization.CurrentKartConfig.Wings.SetActive(true);
+                break;
+            default:
+                glider.GetComponent<Animator>().SetBool("GliderOpen", false);
+                glider.GetComponent<Animator>().SetBool("GliderClose", true);
+                break;
+        }
+
+    }
+
+    private void PlayGliderOpenAnim()
+    {
+        switch (gliderType)
+        {
+            case MKWKartCustomization.GliderType.Glider:
+                glider.GetComponent<Animator>().SetBool("GliderOpen", true);
+                glider.GetComponent<Animator>().SetBool("GliderClose", false);
+                break;
+            case MKWKartCustomization.GliderType.Wings:
+                mkwCustomization.CurrentKartConfig.Wings.SetActive(false);
+                break;
+            default:
+                glider.GetComponent<Animator>().SetBool("GliderOpen", true);
+                glider.GetComponent<Animator>().SetBool("GliderClose", false);
+                break;
+        }
+        
     }
 
     private void OnDrawGizmos()

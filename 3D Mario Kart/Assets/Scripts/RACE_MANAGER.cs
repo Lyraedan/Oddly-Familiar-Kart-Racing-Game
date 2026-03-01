@@ -275,7 +275,8 @@ public class RACE_MANAGER : MonoBehaviour
         FrontCam.SetActive(true);
 
         FrontCam.GetComponent<Camera>().enabled = true;
-        FrontFPCam.SetActive(false);
+        if (FrontFPCam)
+            FrontFPCam.SetActive(false);
         //end music based on position
         if (GameObject.FindGameObjectWithTag("Player").GetComponent<LapCounter>().Position == 1)
         {

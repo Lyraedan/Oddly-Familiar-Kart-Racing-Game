@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class KartConfig : MonoBehaviour
 {
-
     public ChassisConfig Chassis;
 
     [System.Serializable]

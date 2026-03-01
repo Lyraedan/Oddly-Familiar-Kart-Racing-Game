@@ -6,8 +6,14 @@ using UnityEngine.Events;
 
 public class MKWKartCustomization : MonoBehaviour
 {
+    public enum GliderType
+    {
+        Glider,
+        Wings
+    }
 
     [Header("Selection")]
+    public GliderType gliderType = GliderType.Glider;
     public KartType kartType;
     public int currentKartIndex = 0;
     public int currentRacerIndex = 0;

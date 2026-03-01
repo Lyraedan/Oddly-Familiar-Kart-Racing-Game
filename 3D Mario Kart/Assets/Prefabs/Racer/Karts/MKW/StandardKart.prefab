@@ -70324,6 +70324,7 @@ MonoBehaviour:
   SteeringWheel: {fileID: 3243956973619430397}
   Glider: {fileID: 1720665036473636333}
   Propeller: {fileID: 4346116377420577206}
+  Wings: {fileID: 4575550781921222992}
   StarPowerRendererRoots:
   - {fileID: 8352418439400468669}
   - {fileID: 4254492672375363112}
@@ -70396,6 +70397,8 @@ MonoBehaviour:
       skinnedMaterial: {fileID: 2100000, guid: a747ab496d191f94abc577457bbc8fcf, type: 2}
   emblems:
   - {fileID: 461720094558306680}
+  - {fileID: 7848885926577391707}
+  - {fileID: 3323450646350303007}
 --- !u!82 &6509759345755330976
 AudioSource:
   m_ObjectHideFlags: 0
@@ -380563,6 +380566,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wings
       objectReference: {fileID: 0}
+    - target: {fileID: 1289761971837883288, guid: 392242593b2c779459db5ba13241215b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5185645881128104084, guid: 392242593b2c779459db5ba13241215b,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -380633,9 +380641,27 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 392242593b2c779459db5ba13241215b, type: 3}
+--- !u!23 &3323450646350303007 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 37995130025164247, guid: 392242593b2c779459db5ba13241215b,
+    type: 3}
+  m_PrefabInstance: {fileID: 3357917993175134920}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4575550781921222992 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1289761971837883288, guid: 392242593b2c779459db5ba13241215b,
+    type: 3}
+  m_PrefabInstance: {fileID: 3357917993175134920}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7597192054241952348 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5185645881128104084, guid: 392242593b2c779459db5ba13241215b,
+    type: 3}
+  m_PrefabInstance: {fileID: 3357917993175134920}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &7848885926577391707 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 4788840113313282707, guid: 392242593b2c779459db5ba13241215b,
     type: 3}
   m_PrefabInstance: {fileID: 3357917993175134920}
   m_PrefabAsset: {fileID: 0}
