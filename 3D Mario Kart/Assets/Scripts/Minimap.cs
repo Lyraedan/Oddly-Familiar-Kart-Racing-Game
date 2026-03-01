@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class Minimap : MonoBehaviour
 {
-    public Sprite characterHead;
-    [HideInInspector] public RectTransform playerInMap;
-    [HideInInspector] public RectTransform map2dEnd;
+    public RacerConfig config;
+    public RectTransform playerInMap;
+    public RectTransform map2dEnd;
     public Transform map3dParent;
     public Transform map3dEnd;
-
 
     private Vector3 normalized, mapped;
 
@@ -33,7 +32,13 @@ public class Minimap : MonoBehaviour
         mapped.x *= -1;
         mapped.y *= -1;
 
-        playerInMap.localPosition = mapped;
+        try
+        {
+            playerInMap.localPosition = mapped;
+        } catch(System.Exception e)
+        {
+            playerInMap.localPosition = Vector3.zero;
+        }
     }
 
     private static Vector3 Divide(Vector3 a, Vector3 b)

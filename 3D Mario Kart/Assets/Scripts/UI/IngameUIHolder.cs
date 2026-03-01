@@ -97,30 +97,42 @@ public class IngameUIHolder : MonoBehaviour
         {
             LapCounters = new List<LapCounter>(FindObjectsByType<LapCounter>(FindObjectsSortMode.None));
         }
-        GenerateRacerMinimapIcons();
+        //GenerateAllRacerMinimapIcons();
     }
 
-    private void GenerateRacerMinimapIcons()
+    public void GenerateIconFor(LapCounter racer)
+    {
+        MinimapIcon icon = Instantiate(MinimapIcon, MiniMap.transform).GetComponent<MinimapIcon>();
+        icon.IsOurIcon = racer.CompareTag("Player");
+        if (icon.IsOurIcon)
+        {
+            icon.transform.SetAsFirstSibling();
+        }
+        else
+        {
+            icon.transform.SetSiblingIndex(1);
+        }
+
+        Minimap minimap = racer.GetComponent<Minimap>();
+        if (minimap)
+        {
+            minimap.playerInMap = icon.transform.GetComponent<RectTransform>();
+            minimap.map2dEnd = Map2dEnd;
+            if (minimap.config == null)
+            {
+                Debug.LogWarning($"Racer {racer.name} has no MinimapConfig assigned! Defaulting to {MinimapIcon.name}");
+                Destroy(icon.gameObject); // Remove invalid icon
+                return;
+            }
+            icon.UpdateSprite(minimap.config.MinimapIcon);
+        }
+    }
+
+    private void GenerateAllRacerMinimapIcons()
     {
         foreach (LapCounter racer in LapCounters)
         {
-            MinimapIcon icon = Instantiate(MinimapIcon, MiniMap.transform).GetComponent<MinimapIcon>();
-            icon.IsOurIcon = racer.CompareTag("Player");
-            if(icon.IsOurIcon)
-            {
-                icon.transform.SetAsFirstSibling();
-            } else
-            {
-                icon.transform.SetSiblingIndex(1);
-            }
-
-            Minimap minimap = racer.GetComponent<Minimap>();
-            if (minimap) {
-                minimap.playerInMap = icon.transform.GetComponent<RectTransform>();
-                minimap.map2dEnd = Map2dEnd;
-                icon.UpdateSprite(minimap.characterHead);
-            }
-
+            GenerateIconFor(racer);
         }
     }
 

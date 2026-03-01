@@ -7,6 +7,7 @@ public class RacerConfig : MonoBehaviour
 {
     public Animator Driver;
     public Sprite Emblem;
+    public Sprite MinimapIcon;
 
     [System.Serializable]
     public class FaceConfig

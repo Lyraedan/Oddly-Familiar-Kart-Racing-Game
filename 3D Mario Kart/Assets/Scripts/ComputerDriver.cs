@@ -117,7 +117,7 @@ public class ComputerDriver : MonoBehaviour
 
     private SplineContainer pathSpline;
 
-    private LapCounter myLap;
+    public LapCounter myLap;
 
     // Start is called before the first frame update
     void Start()
@@ -130,7 +130,6 @@ public class ComputerDriver : MonoBehaviour
 
         kartMat.SetVector("Vector4_70BBF882", new Vector4(0, 0, 0, 0));
 
-        myLap = GetComponent<LapCounter>();
         rb = GetComponent<Rigidbody>();
         item_manage = GetComponent<OpponentItemManager>();
 
@@ -182,6 +181,7 @@ public class ComputerDriver : MonoBehaviour
             {
                 DriverAnim = racerConfig.Driver;
                 head = racerConfig.HeadBone;
+                GetComponent<Minimap>().config = racerConfig;
             }
 
             // Because the "Mains" for the front tires are the tire roots, we have to get their parent
@@ -199,6 +199,8 @@ public class ComputerDriver : MonoBehaviour
             {
                 sounds.LoadKartSounds(config);
             }
+
+            IngameUIHolder.Instance.GenerateIconFor(myLap);
         }
     }
 

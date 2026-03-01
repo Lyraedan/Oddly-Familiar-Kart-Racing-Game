@@ -177,6 +177,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RacerConfig
   Driver: {fileID: 7071329651400929558}
   Emblem: {fileID: 21300000, guid: 3991c612035cad740adbaa080a8aac4d, type: 3}
+  MinimapIcon: {fileID: 21300000, guid: 0dc1eef88b4d310449326be23c09da33, type: 3}
   Face:
     DefaultFace: {fileID: 2100000, guid: a6a33954d44f50340924d0b551a6f065, type: 2}
     faceRenderer: {fileID: 2015288804450487172}
@@ -207,7 +208,9 @@ MonoBehaviour:
     - {fileID: 6575710428820693949}
     - {fileID: 3880505195237259358}
     - {fileID: 1328121916566422686}
-  CharacterRenderers: []
+  CharacterRenderers:
+  - {fileID: 9179702075450734328}
+  - {fileID: 2015288804450487172}
 --- !u!1 &1529317907379885310
 GameObject:
   m_ObjectHideFlags: 0
@@ -2858,6 +2861,12 @@ Animator:
 --- !u!4 &8929727241943705562 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2144706523035748604, guid: 409f2c223de777d4987d60c9f3a78a18,
+    type: 3}
+  m_PrefabInstance: {fileID: 7363179392579448614}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &9179702075450734328 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7400646999763805730, guid: 409f2c223de777d4987d60c9f3a78a18,
     type: 3}
   m_PrefabInstance: {fileID: 7363179392579448614}
   m_PrefabAsset: {fileID: 0}

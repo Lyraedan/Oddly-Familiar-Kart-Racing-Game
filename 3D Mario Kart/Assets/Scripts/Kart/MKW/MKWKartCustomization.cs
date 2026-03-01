@@ -69,11 +69,13 @@ public class MKWKartCustomization : MonoBehaviour
 
         Kart = SpawnKart();
         Racer = SpawnRacer();
+        gameObject.name = GetRacerName();
         CurrentKartConfig.UpdateEmbelem(CurrentRacerConfig);
         GetAllStarPowerRenderers();
         
         if(triggerOnSpawn)
             OnSpawned.Invoke(Kart, Racer);
+
     }
 
     public void Refresh()
@@ -153,6 +155,18 @@ public class MKWKartCustomization : MonoBehaviour
         }
 
         Debug.Log($"Cached {RacerMaterials.Count} materials from {RacerRenderers.Count} renderers.");
+    }
+
+    public string GetRacerName()
+    {
+        string racerName = "Unknown Racer";
+        if (Racer != null)
+            racerName = Racer.name;
+
+        if (transform.CompareTag("Player"))
+            racerName += " (Player)";
+
+        return racerName;
     }
 
 }

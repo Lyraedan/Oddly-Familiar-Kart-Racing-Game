@@ -94163,16 +94163,8 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 298807
-  racerID: 0
-  kartID: 0
-  kartSkinID: 0
-  useRandomRacer: 1
-  useRandomKart: 1
-  useRandomKartSkin: 1
   path: {fileID: 0}
-  pathTools:
-  - {fileID: 0}
-  - {fileID: 0}
+  pathTools: []
   current_node: 0
   max_steer_angle: 50
   max_speed: 0
@@ -94229,6 +94221,7 @@ MonoBehaviour:
   kartMat: {fileID: 2100000, guid: b06c63f1dac25644d8d5dc5e6894dc5a, type: 2}
   isDirtTrack: 0
   turnSpeedDivider: 10
+  myLap: {fileID: 8459626338917471147}
 --- !u!114 &7899859587851627250
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -94336,13 +94329,12 @@ MonoBehaviour:
   checkpoints: {fileID: 0}
   checkpointsVisited: 
   currentCheckpointVal: 0
-  totalCheckpointVal: 0
   distanceToNextCheckpoint: 0
   Position: 1
   endPosition: 0
   pathTool: {fileID: 0}
-  lastCheckpointID: -1
-  highestCheckpointID: -1
+  debugProgressIndex: 0
+  debugRaceProgressScore: 0
 --- !u!114 &7923679325952490667
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -94372,7 +94364,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 555d86479d230b14a982b8175d5af82d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterHead: {fileID: 21300000, guid: c4cb3c53136ee8042b238eab8e989ec7, type: 3}
+  config: {fileID: 0}
   playerInMap: {fileID: 0}
   map2dEnd: {fileID: 0}
   map3dParent: {fileID: 0}
@@ -94464,6 +94456,9 @@ MonoBehaviour:
   currentKartIndex: 0
   currentRacerIndex: 1
   currentKartSkinIndex: 0
+  randomizeKart: 0
+  randomizeRacer: 0
+  randomizeKartSkin: 0
   kartSpawnPoint: {fileID: 4612223620118395968}
   karts:
   - {fileID: 1900276100344347441, guid: bc4e86f7f736b1d40b3ae6e31bef82af, type: 3}

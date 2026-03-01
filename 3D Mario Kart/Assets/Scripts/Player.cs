@@ -29,8 +29,7 @@ public class Player : MonoBehaviour
     float rotate_strength;
     public Transform raycastPos;
 
-    [HideInInspector]
-    public bool grounded = false;
+    [HideInInspector] public bool grounded = false;
 
     //steer and direction of drift
     float direction;
@@ -41,52 +40,49 @@ public class Player : MonoBehaviour
 
     // what boost will I get
     float Drift_time = 0;
-    [HideInInspector]
-    public float Boost_time = 0;
+    [HideInInspector] public float Boost_time = 0;
 
     //before start boost
     private float beforeStartAccelTime;
 
-    public GameObject Boost_PS;
-    public GameObject BoostBurstPS;
-    public GameObject DriftPS;
+    [HideInInspector] public GameObject Boost_PS;
+    [HideInInspector] public GameObject BoostBurstPS;
+    [HideInInspector] public GameObject DriftPS;
     GameObject Right_Wheel_Drift_PS;
     GameObject Left_Wheel_Drift_PS;
 
     public LayerMask mask;
 
     [Header("Dust")]
-    public Transform dustParticles;
-    public Transform DriftDustLeft;
-    public Transform DriftDustRight;
-    public Transform exhaustDust;
-    public Transform AccelBeforeStartDust;
+    [HideInInspector] public Transform dustParticles;
+    [HideInInspector] public Transform DriftDustLeft;
+    [HideInInspector] public Transform DriftDustRight;
+    [HideInInspector] public Transform exhaustDust;
+    [HideInInspector] public Transform AccelBeforeStartDust;
 
 
     [Header("Particles and Tires")]
 
     //particle colors
-    public Color drift1;
-    public Color drift2;
-    public Color drift3;
-    public GameObject trails;
+    [HideInInspector] public Color drift1;
+    [HideInInspector] public Color drift2;
+    [HideInInspector] public Color drift3;
+    [HideInInspector] public GameObject trails;
 
     //drift force stuff
-    [HideInInspector]
-    public bool drifting = false;
+    [HideInInspector] public bool drifting = false;
 
     //kart gameobjects
-    public GameObject Tires;
+    [HideInInspector] public GameObject Tires;
     GameObject FrontLeftTire;
     GameObject FrontRightTire;
     float max_tire_rotation = 20;
-    public GameObject[] tires;
-    public GameObject steeringwheel;
+    [HideInInspector] public GameObject[] tires;
+    [HideInInspector] public GameObject steeringwheel;
 
     //glider stuff
-    public GameObject glider;
-    [HideInInspector]
-    public bool GLIDER_FLY = false;
+    [HideInInspector] public GameObject glider;
+    [HideInInspector] public bool GLIDER_FLY = false;
     private float glideAngleZ=0;
     private float glideAngleX = 0;
     private bool cancelAddforceDown = false; //in some areas, we want not too strong gravity
@@ -102,8 +98,9 @@ public class Player : MonoBehaviour
     private float jumpPanelDownForce = 0;
 
 
-    public Animator Driver;
+    [HideInInspector] public Animator Driver;
 
+    [Header("Misc")]
     public PlayerSounds playersounds;
     public WaypointTracker waypointTracker;
 
@@ -111,7 +108,6 @@ public class Player : MonoBehaviour
     public bool hasitem = false; //true when player hits itembox
     [HideInInspector]
     public bool has_item_hold = false;
-    public GameObject ItemBox;
     public ItemManager itemManager;
     public LapCounter lapCounter;
 
@@ -123,17 +119,15 @@ public class Player : MonoBehaviour
 
     //faces
     [Header("Faces")]
-    public Material[] faces;
-    public Material current_face_material;
-    public Renderer MarioFace;
+    [HideInInspector] public Material[] faces;
+    [HideInInspector] public Material current_face_material;
+    [HideInInspector] public Renderer MarioFace;
 
     //shell and banana
-    public bool HitByBanana_ = false;
-    public bool HitByShell_ = false;
-    [HideInInspector]
-    public bool playSpinAnim = true;
-    [HideInInspector]
-    public bool invincible = false;
+    [HideInInspector] public bool HitByBanana_ = false;
+    [HideInInspector] public bool HitByShell_ = false;
+    [HideInInspector] public bool playSpinAnim = true;
+    [HideInInspector] public bool invincible = false;
 
     //collision cooldown
     float collideCooldown = 0;
@@ -155,7 +149,7 @@ public class Player : MonoBehaviour
     public RuntimeAnimatorController kartReg;
 
     [Header("Player Head")]
-    public Transform headBone;
+    [HideInInspector] public Transform headBone;
     [HideInInspector]
     public Transform opponentLook;
     private float lookAtTime = 2;
@@ -180,21 +174,21 @@ public class Player : MonoBehaviour
     private int trickAnimCounter = 0;
     private float groundRayDist;
 
-    public bool antiGravity = false;
+    [HideInInspector] public bool antiGravity = false;
     float y; //this is for gathering data for turning along the resative y axis
 
-    public ParticleSystem groundLandParticles;
+    [HideInInspector] public ParticleSystem groundLandParticles;
 
     [Header("Anti Gravity Tire effects and animation")]
-    public Color antiGravityTireColor;
-    public ParticleSystem[] antiGravSpin;
+    [HideInInspector] public Color antiGravityTireColor;
+    [HideInInspector] public ParticleSystem[] antiGravSpin;
     private float particleSystemAntigravSpinTimer = 0;
-    public Renderer[] tireRenderers;
-    public Transform axels;
-    public Transform[] tireArms;
-    public GameObject[] TireParents;
+    [HideInInspector] public Renderer[] tireRenderers;
+    [HideInInspector] public Transform axels;
+    [HideInInspector] public Transform[] tireArms;
+    [HideInInspector] public GameObject[] TireParents;
     private Vector3[] tireLocalPositions = new Vector3[4];
-    public Vector3[] antiGravityTirePositions = new Vector3[4];
+    [HideInInspector] public Vector3[] antiGravityTirePositions = new Vector3[4];
     public Material kartMat;
     public Color lightDecalColor;
     public Color dirtColor;
@@ -203,10 +197,10 @@ public class Player : MonoBehaviour
 
     [Header("Water Stuff")]
     private bool IN_WATER = false;
-    public Transform propeller;
+    [HideInInspector] public Transform propeller;
 
-    [Header("Other stuff")]
-    public Camerafollow Cam;
+    [Header("Optional stuff")]
+    [HideInInspector] public Camerafollow Cam;
 
 
     // Start is called before the first frame update
@@ -224,9 +218,6 @@ public class Player : MonoBehaviour
         //playersounds = GetComponent<PlayerSounds>();
 
         itemManager = GetComponent<ItemManager>();
-        
-        if (lapCounter == null)
-            lapCounter = GetComponent<LapCounter>();
         
         rotateStrengthWithStar = desired_rotate_strength + 15;
         allOpponents = GameObject.FindGameObjectsWithTag("Opponent");
@@ -305,6 +296,7 @@ public class Player : MonoBehaviour
                 current_face_material = racerConfig.Face.DefaultFace;
                 MarioFace = racerConfig.Face.faceRenderer;
                 headBone = racerConfig.HeadBone;
+                GetComponent<Minimap>().config = racerConfig;
             }
 
             groundLandParticles = config.GroundLandParticles;
@@ -324,6 +316,7 @@ public class Player : MonoBehaviour
             Debug.Log("[Customization] Loading External sounds");
             playersounds.LoadKartSounds(config);
             playersounds.LoadCharacterSounds(racerConfig);
+            IngameUIHolder.Instance.GenerateIconFor(lapCounter);
 
             Debug.Log("[Customization] Setting up Item Manager");
             //item_manager.playerRenderers = mkwCustomization.RacerRenderers.ToArray();
@@ -516,13 +509,16 @@ public class Player : MonoBehaviour
             }
             if (lapCounter.endPosition < 6)
             {
-                if (raceEndTime % 4 < 0.2f)
+                if (faces.Length > 3)
                 {
-                    MarioFace.material = faces[2];
-                }
-                else
-                {
-                    MarioFace.material = faces[3];
+                    if (raceEndTime % 4 < 0.2f)
+                    {
+                        MarioFace.material = faces[2];
+                    }
+                    else
+                    {
+                        MarioFace.material = faces[3];
+                    }
                 }
             }
             else
@@ -532,13 +528,16 @@ public class Player : MonoBehaviour
                 float time = animationState.length;
                 float progress = animationState.normalizedTime % 1;
                 float currTime = time * progress;
-                if (currTime < 3.25 || currTime > 4.1)
+                if (faces.Length > 7)
                 {
-                    MarioFace.material = faces[7];
-                }
-                else
-                {
-                    MarioFace.material = faces[4];
+                    if (currTime < 3.25 || currTime > 4.1)
+                    {
+                        MarioFace.material = faces[7];
+                    }
+                    else
+                    {
+                        MarioFace.material = faces[4];
+                    }
                 }
             }
         }
@@ -2529,12 +2528,18 @@ public class Player : MonoBehaviour
 
                         if (dir > 90 && rot < 0) // look right
                         {
-                            current_face_material = faces[6];
+                            if (faces.Length > 6)
+                            {
+                                current_face_material = faces[6];
+                            }
                             lookAtOpponentEyes = true;
                         }
                         else if (dir > 90 && rot > 0) //look left
                         {
-                            current_face_material = faces[1];
+                            if (faces.Length > 1)
+                            {
+                                current_face_material = faces[1];
+                            }
                             lookAtOpponentEyes = true;
 
                         }

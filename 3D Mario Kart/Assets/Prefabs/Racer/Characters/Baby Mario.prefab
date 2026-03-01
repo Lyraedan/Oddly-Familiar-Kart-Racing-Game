@@ -693,6 +693,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RacerConfig
   Driver: {fileID: 6290750231441537134}
   Emblem: {fileID: 21300000, guid: 2413366105a9cb7438abb3c88c9bfcb6, type: 3}
+  MinimapIcon: {fileID: 21300000, guid: 2cbbd619c49d2274a891c1ed359daebc, type: 3}
   Face:
     DefaultFace: {fileID: 2100000, guid: 047c8d48b2aa8c94f8deb33066ed89fe, type: 2}
     faceRenderer: {fileID: 5603338314727100164}
