@@ -62,58 +62,38 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\Selectables\Transitions\SelectableTransitionAnimation.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Panels\Report\ModioReportDetailsPanel.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Themes\ModioThemeController.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModioUISearchProperties.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Panels\Report\ModioReportPanel.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\Common\ModioUIPropertiesBase.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\UserProperties\UserPropertyDiskUsage.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModProperties\Common\ModioResourcePropertyDateBase.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Panels\Authentication\ModioAuthenticationPanel.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModProperties\ModPropertyDateUpdated.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Panels\ModDisplayPanel.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Themes\Options\ColorSchemeOption.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Panels\Authentication\ModioAuthenticationWaitingPanel.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Panels\Authentication\ModioAuthenticationWssPanel.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\Selectables\Transitions\ISelectableTransition.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModProperties\ModPropertyCreatorAvatar.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModioUIModGroup.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Input\ModioUIPromptIconResolver.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModioUIFilterTagCategory.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModioUIFilterDisplay.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModProperties\ModPropertyTags.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Panels\ModioDebugMenu.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModProperties\Common\CollectionPropertyRating.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Panels\ModioPanelManager.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\Selectables\Transitions\SelectableTransitionActionListenerOnSelected.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModioUISearchCategoryTab.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModioUIUserProperties.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModProperties\ModioResourceProperty.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Input\ModioUIActionListener.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Panels\ModDependenciesPanel.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Themes\Options\SimpleColorOption.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Input\ModioUITabNavigationToggleGroup.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Input\ModioUIInputListenerLoader.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Common\ShowIfAttribute.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\SearchProperties\SearchPropertyFilterCount.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModioUIGroup.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModioUISortModsToggle.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Panels\Report\ModioReportWaitingPanel.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\Selectables\ModioUIButton.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Panels\MainMenuPanel.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\SearchProperties\SearchPropertyUser.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModProperties\Common\ModPropertyButtonBase.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Navigation\ModioInputFieldSelectionWrapper.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Panels\ModioErrorPanelGeneric.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModProperties\CollectionPropertySubscribeAllButton.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Navigation\ModioViewportRestraint.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Panels\Report\ModioReportErrorPanel.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\SearchProperties\SearchPropertyDisplayWhileSearching.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModProperties\ModPropertyDisableIfNull.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModProperties\ModPropertyName.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Panels\Authentication\ModioAuthenticationIEmailPanel.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModioUITermsOfUse.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\SearchProperties\SearchPropertyPagedSearch.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\SearchProperties\SearchPropertyTotalSize.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\SearchProperties\SearchPropertyTotalResults.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\UserProperties\UserPropertyCreatorAvatar.cs" />
@@ -124,8 +104,88 @@
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModProperties\ModPropertyRating.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\Common\IPropertyMonoBehaviourEvents.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\Selectables\Transitions\SelectableTransitionColorTint.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModioUITokenPurchaseButton.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Panels\Authentication\ModioAuthenticationPickerPanel.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModioUIAuthenticationPickerButton.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Panels\Monetization\ModioConfirmPurchasePanel.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Panels\Authentication\ModioAuthenticationErrorPanel.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\Common\IModioUIPropertiesOwner.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\UserProperties\UserPropertyDownloadQueue.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModioUIMaximumHeight.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\Selectables\IModioUISelectable.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Themes\ModioUIThemeSheet.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Navigation\ModioMaxSizeFitter.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModProperties\CollectionPropertyFollowers.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\Selectables\Transitions\SelectableTransitionActive.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\SearchProperties\SearchPropertyEndlessScroll.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModioUICollectionProperties.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\SearchProperties\SearchPropertyLoadMoreResults.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModioUISearchField.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModioUIMonetizationHider.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Panels\ModioDebugTestPanel.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Panels\ModGenericPanel.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModProperties\ModPropertyCreatorButton.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Panels\ModioErrorPanelBase.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Panels\ModioPanelBase.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModProperties\ModPropertyCreator.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModioUIMod.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Themes\Options\TmpFontOption.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Panels\ModCollectionSubscribePanel.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\Localization\ModioUILocalizedText.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModProperties\ICollectionProperty.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Panels\ModioPopupPositioning.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\Selectables\ModioUIToggleOutputSplitter.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Panels\Authentication\ModioAuthenticationCodePanel.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModProperties\ModPropertyModButton.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModProperties\ModPropertyDescription.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Themes\ThemeOptions.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModProperties\ModPropertyInstalled.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Themes\Options\TmpFontSizeOption.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\UserProperties\UserPropertyName.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\UserProperties\Common\UserPropertyNumberBase.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Input\ModioUIInputPrompt.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Panels\ModioWaitingPanelGeneric.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Panels\ModBrowserPanel.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\AssemblyInfo.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\SearchProperties\SearchPropertyInfoText.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModioUIModProperties.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Themes\Options\ImageOption.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\SearchProperties\SearchPropertyDisableObjectForSearchType.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Themes\Options\TmpSpacingWrapper.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Panels\ModFilterPanel.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Navigation\ModioAspectRatioFitter.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Themes\Options\TmpFontStyleOption.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Panels\ModCollectionUnsubscribePanel.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Panels\ModioEnableDebugMenu.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Panels\ModioWaitingPanelBase.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModProperties\CollectionPropertyFollowedToggle.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\UserProperties\UserPropertyEnableOnLogin.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModProperties\ModPropertyFileOperations.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\UserProperties\UserPropertyFollowToggle.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Themes\BaseStyleOption.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\Selectables\ModioUISelectableTransitions.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Navigation\ModioFlexGrid.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModProperties\CollectionPropertyOptionButtonsForPanels.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Panels\Report\ModioReportDetailsPanel.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\Common\ModioUIPropertiesBase.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Panels\Authentication\ModioAuthenticationPanel.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Themes\Options\ColorSchemeOption.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModProperties\ModPropertyCreatorAvatar.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Panels\ModioDebugMenu.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Panels\ModioPanelManager.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\Selectables\Transitions\SelectableTransitionActionListenerOnSelected.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Input\ModioUITabNavigationToggleGroup.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Input\ModioUIInputListenerLoader.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\SearchProperties\SearchPropertyFilterCount.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\Selectables\ModioUIButton.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\SearchProperties\SearchPropertyUser.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModProperties\Common\ModPropertyButtonBase.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModProperties\CollectionPropertySubscribeAllButton.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Navigation\ModioViewportRestraint.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModProperties\ModPropertyName.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Panels\Authentication\ModioAuthenticationIEmailPanel.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModioUITermsOfUse.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\SearchProperties\SearchPropertyPagedSearch.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModioUITokenPurchaseButton.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModProperties\ModPropertySubscribed.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModioUITag.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\UserProperties\UserPropertySeeMoreFromUserButton.cs" />
@@ -134,119 +194,59 @@
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Search\ModioUISearch.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModProperties\CollectionPropertySubscribedToMods.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModProperties\ModPropertyRatingsPositive.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModioUIAuthenticationPickerButton.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Panels\Monetization\ModioConfirmPurchasePanel.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Panels\Authentication\ModioAuthenticationErrorPanel.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\Common\IModioUIPropertiesOwner.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModioUICollection.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Panels\Authentication\ModioAuthenticationTermsOfServicePanel.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Input\ModioUIScrollViewControllerInput.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModProperties\ModPropertyFileSize.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\UserProperties\UserPropertyDownloadQueue.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModioUIUser.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModioUIMaximumHeight.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\Selectables\IModioUISelectable.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Themes\ModioUIThemeSheet.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Navigation\ModioMaxSizeFitter.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Themes\ModioThemeSystemSettings.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModProperties\ModPropertyRatingsNegative.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Input\ModioUIActionSender.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Input\ModioUIInput.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModProperties\CollectionPropertyFollowers.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Navigation\ModioViewportRestraintChild.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModProperties\ModPropertyCanAffordPurchase.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModGallery\ModioUIModGalleryPagination.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\Selectables\Transitions\SelectableTransitionActive.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModioUICollectionGroup.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\SearchProperties\SearchPropertyEndlessScroll.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModioUICollectionProperties.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\SearchProperties\SearchPropertyLoadMoreResults.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\Selectables\ModioUIToggleDeactivateWhenPanelLostFocus.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModioUISearchField.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Themes\IStyleOption.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModioUIMonetizationHider.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Panels\ModioDebugTestPanel.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\Localization\ModioUILocalizationManager.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Panels\ModGenericPanel.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModProperties\ModPropertyCreatorName.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModProperties\ModPropertyCreatorButton.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Panels\ModioErrorPanelBase.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Input\ModioUIHideOnControlScheme.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Search\ModioUISearchSettings.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Panels\Authentication\ModioAuthenticationLogOutPanel.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Panels\ModioPanelBase.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Panels\Report\ModioReportTypePanel.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModProperties\ModPropertyCreator.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModioUIMod.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Themes\Options\TmpFontOption.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModProperties\ModPropertyDateReleased.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Panels\ModCollectionSubscribePanel.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\Localization\ModioUILocalizedText.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModGallery\ModioUIModGallery.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModProperties\ICollectionProperty.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModProperties\ModPropertyLogo.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\Selectables\ModioUIToggle.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Panels\ModioPopupPositioning.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Navigation\ModioGridNavigation.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\Selectables\ModioUIToggleOutputSplitter.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\Selectables\Transitions\SelectableTransitionSpriteSwap.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Panels\Authentication\ModioAuthenticationCodePanel.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModProperties\ModPropertyModButton.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModProperties\ModPropertyDescription.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModProperties\ModPropertyRatingsToggles.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Themes\ThemeOptions.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Panels\ModOptionsPopupPanel.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Search\ModioUISearchCategory.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\UserProperties\UserPropertyWalletAmount.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModioUITokenPack.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModProperties\ModPropertyVersion.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModProperties\ModPropertyInstalled.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Themes\Options\TmpFontSizeOption.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\UserProperties\UserPropertyName.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\SearchProperties\ISearchProperty.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\UserProperties\Common\UserPropertyNumberBase.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Input\ModioUIInputPrompt.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\Selectables\ModioUIInputField.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModProperties\ModPropertySubscribers.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Panels\ModioWaitingPanelGeneric.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModProperties\ModPropertyDependencies.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Panels\ModBrowserPanel.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\AssemblyInfo.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\SearchProperties\SearchPropertyInfoText.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModProperties\ModPropertyEnabled.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModioUIAvatarHider.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Panels\ModCollectionDisplayPanel.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModioUIModProperties.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Themes\Options\ImageOption.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\SearchProperties\SearchPropertyDisableObjectForSearchType.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModProperties\IModProperty.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Themes\ModioUIThemeProperties.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\UserProperties\UserPropertyPlatformName.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Themes\Options\TmpSpacingWrapper.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModioUITokenPurchase.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Panels\ModFilterPanel.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Navigation\ModioAspectRatioFitter.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Themes\Options\TmpFontStyleOption.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\SearchProperties\SearchPropertySortType.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModProperties\ModPropertyDownloads.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModProperties\ModPropertySubscriptionToggle.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\SearchProperties\SearchPropertyDisplayResults.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Panels\ModCollectionUnsubscribePanel.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Panels\ModioEnableDebugMenu.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModProperties\ModPropertyPrice.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Panels\ModioWaitingPanelBase.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModProperties\CollectionPropertyFollowedToggle.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\UserProperties\UserPropertyEnableOnLogin.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModProperties\ModPropertySummary.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Common\StringFormat.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModProperties\ModPropertyFileOperations.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\UserProperties\UserPropertyFollowToggle.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModProperties\CollectionPropertyModCount.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Themes\BaseStyleOption.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\Selectables\ModioUISelectableTransitions.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Navigation\ModioFlexGrid.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Panels\Report\ModioReportConfirmationPanel.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModProperties\CollectionPropertyOptionButtonsForPanels.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModioUISearchCategoryTabGroup.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModProperties\ModPropertyOptionButtons.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Components\ModProperties\Common\ModioPropertyNumberBase.cs" />
@@ -813,7 +813,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.Collections.LowLevel.ILSupport">
-      <HintPath>Library\PackageCache\com.unity.collections@aea9d3bd5e19\Unity.Collections.LowLevel.ILSupport\Unity.Collections.LowLevel.ILSupport.dll</HintPath>
+      <HintPath>Library\PackageCache\com.unity.collections@12999e356c23\Unity.Collections.LowLevel.ILSupport\Unity.Collections.LowLevel.ILSupport.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="nunit.framework">
@@ -849,7 +849,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="System.IO.Hashing">
-      <HintPath>Library\PackageCache\com.unity.collections@aea9d3bd5e19\Unity.Collections.Tests\System.IO.Hashing\System.IO.Hashing.dll</HintPath>
+      <HintPath>Library\PackageCache\com.unity.collections@12999e356c23\Unity.Collections.Tests\System.IO.Hashing\System.IO.Hashing.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="unityplastic">
@@ -865,7 +865,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Runtime.CompilerServices.Unsafe">
-      <HintPath>Library\PackageCache\com.unity.collections@aea9d3bd5e19\Unity.Collections.Tests\System.Runtime.CompilerServices.Unsafe\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+      <HintPath>Library\PackageCache\com.unity.collections@12999e356c23\Unity.Collections.Tests\System.Runtime.CompilerServices.Unsafe\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.Analytics.StandardEvents">
@@ -874,6 +874,14 @@
     </Reference>
     <Reference Include="Google.PackageManagerResolver">
       <HintPath>Assets\MobileDependencyResolver\Editor\1.2.185\Google.PackageManagerResolver.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="websocket-sharp">
+      <HintPath>Library\PackageCache\com.unity.services.wire@9a73acde80cc\Plugins\websocket-sharp.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Cecil.Awesome">
+      <HintPath>Library\PackageCache\com.unity.entities@8b72e8a7d7d1\Unity.Entities.CodeGen\Unity.Cecil.Awesome.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="netstandard">
