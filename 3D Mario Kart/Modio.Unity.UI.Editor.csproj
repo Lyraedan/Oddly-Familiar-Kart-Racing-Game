@@ -62,12 +62,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Editor\Components\TmpFontStylePropertyDrawer.cs" />
+    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Editor\Components\ModioUIThemeSheetEditor.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Editor\Components\Selectables\ModioUISelectableTransitionsEditor.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Editor\Components\ModioUIPropertiesBaseEditor.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Editor\Common\ShowIfAttributePropertyDrawer.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Editor\Components\TmpSpacingOptionsPropertyDrawer.cs" />
     <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Editor\Components\ModioStyleOptionsPropertyDrawer.cs" />
-    <Compile Include="Assets\Plugins\Modio\Unity\UI\Scripts\Editor\Components\ModioUIThemeSheetEditor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Plugins\Modio\Unity\UI\Scripts\Editor\ModioUI.Editor.asmdef" />
@@ -633,6 +633,14 @@
       <HintPath>E:\UnityEditors\6000.3.9f1\Editor\Data\PlaybackEngines\WindowsStandaloneSupport\UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="websocket-sharp">
+      <HintPath>Library\PackageCache\com.unity.services.wire@9a73acde80cc\Plugins\websocket-sharp.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Cecil.Awesome">
+      <HintPath>Library\PackageCache\com.unity.entities@8b72e8a7d7d1\Unity.Entities.CodeGen\Unity.Cecil.Awesome.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Google.VersionHandler">
       <HintPath>Assets\MobileDependencyResolver\Editor\Google.VersionHandler.dll</HintPath>
       <Private>False</Private>
@@ -642,7 +650,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.Collections.LowLevel.ILSupport">
-      <HintPath>Library\PackageCache\com.unity.collections@aea9d3bd5e19\Unity.Collections.LowLevel.ILSupport\Unity.Collections.LowLevel.ILSupport.dll</HintPath>
+      <HintPath>Library\PackageCache\com.unity.collections@12999e356c23\Unity.Collections.LowLevel.ILSupport\Unity.Collections.LowLevel.ILSupport.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="nunit.framework">
@@ -678,7 +686,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="System.IO.Hashing">
-      <HintPath>Library\PackageCache\com.unity.collections@aea9d3bd5e19\Unity.Collections.Tests\System.IO.Hashing\System.IO.Hashing.dll</HintPath>
+      <HintPath>Library\PackageCache\com.unity.collections@12999e356c23\Unity.Collections.Tests\System.IO.Hashing\System.IO.Hashing.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="unityplastic">
@@ -694,7 +702,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Runtime.CompilerServices.Unsafe">
-      <HintPath>Library\PackageCache\com.unity.collections@aea9d3bd5e19\Unity.Collections.Tests\System.Runtime.CompilerServices.Unsafe\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+      <HintPath>Library\PackageCache\com.unity.collections@12999e356c23\Unity.Collections.Tests\System.Runtime.CompilerServices.Unsafe\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.Analytics.StandardEvents">
@@ -1221,12 +1229,12 @@
       <HintPath>Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="UnityEditor.TestRunner">
-      <HintPath>Library\ScriptAssemblies\UnityEditor.TestRunner.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="UnityEngine.TestRunner">
       <HintPath>Library\ScriptAssemblies\UnityEngine.TestRunner.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEditor.TestRunner">
+      <HintPath>Library\ScriptAssemblies\UnityEditor.TestRunner.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>

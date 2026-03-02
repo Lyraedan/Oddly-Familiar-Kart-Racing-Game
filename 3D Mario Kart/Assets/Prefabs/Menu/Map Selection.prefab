@@ -127,6 +127,7 @@ MonoBehaviour:
   contentRoot: {fileID: 4502919651498296610}
   RefreshButton: {fileID: 0}
   ugcLoadProgress: {fileID: 0}
+  mainMenu: {fileID: 0}
   Default_Maps:
   - {fileID: 7138736459650898930}
   - {fileID: 8370842391706600726}
@@ -735,6 +736,7 @@ RectTransform:
   - {fileID: 5441746152195969330}
   - {fileID: 2269746685941315333}
   - {fileID: 2049196433422803763}
+  - {fileID: 8881489047739468242}
   m_Father: {fileID: 1382617156306734881}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1164,6 +1166,185 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 434246ecb05b51b4ba8c64707f4225de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MapSelector
+--- !u!1001 &4691792775669467361
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 4502919651498296610}
+    m_Modifications:
+    - target: {fileID: 414595923526634845, guid: cfb35284e8670a043809e53dcab35179,
+        type: 3}
+      propertyPath: MapName
+      value: Luigi's Mansion
+      objectReference: {fileID: 0}
+    - target: {fileID: 414595923526634845, guid: cfb35284e8670a043809e53dcab35179,
+        type: 3}
+      propertyPath: SceneName
+      value: TestCourse
+      objectReference: {fileID: 0}
+    - target: {fileID: 1131363718686466981, guid: cfb35284e8670a043809e53dcab35179,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1131363718686466981, guid: cfb35284e8670a043809e53dcab35179,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1131363718686466981, guid: cfb35284e8670a043809e53dcab35179,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1131363718686466981, guid: cfb35284e8670a043809e53dcab35179,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1740097341346866298, guid: cfb35284e8670a043809e53dcab35179,
+        type: 3}
+      propertyPath: m_text
+      value: Luigi's Mansion
+      objectReference: {fileID: 0}
+    - target: {fileID: 4205794224245653811, guid: cfb35284e8670a043809e53dcab35179,
+        type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4205794224245653811, guid: cfb35284e8670a043809e53dcab35179,
+        type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4205794224245653811, guid: cfb35284e8670a043809e53dcab35179,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4205794224245653811, guid: cfb35284e8670a043809e53dcab35179,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4205794224245653811, guid: cfb35284e8670a043809e53dcab35179,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4205794224245653811, guid: cfb35284e8670a043809e53dcab35179,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4205794224245653811, guid: cfb35284e8670a043809e53dcab35179,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4205794224245653811, guid: cfb35284e8670a043809e53dcab35179,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4205794224245653811, guid: cfb35284e8670a043809e53dcab35179,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4205794224245653811, guid: cfb35284e8670a043809e53dcab35179,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4205794224245653811, guid: cfb35284e8670a043809e53dcab35179,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4205794224245653811, guid: cfb35284e8670a043809e53dcab35179,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4205794224245653811, guid: cfb35284e8670a043809e53dcab35179,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4205794224245653811, guid: cfb35284e8670a043809e53dcab35179,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4205794224245653811, guid: cfb35284e8670a043809e53dcab35179,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4205794224245653811, guid: cfb35284e8670a043809e53dcab35179,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4205794224245653811, guid: cfb35284e8670a043809e53dcab35179,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4205794224245653811, guid: cfb35284e8670a043809e53dcab35179,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4205794224245653811, guid: cfb35284e8670a043809e53dcab35179,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4205794224245653811, guid: cfb35284e8670a043809e53dcab35179,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8613282939377341923, guid: cfb35284e8670a043809e53dcab35179,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8613282939377341923, guid: cfb35284e8670a043809e53dcab35179,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8613282939377341923, guid: cfb35284e8670a043809e53dcab35179,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8613282939377341923, guid: cfb35284e8670a043809e53dcab35179,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9177752598225226256, guid: cfb35284e8670a043809e53dcab35179,
+        type: 3}
+      propertyPath: m_Name
+      value: Luigis Mansion
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: cfb35284e8670a043809e53dcab35179, type: 3}
+--- !u!224 &8881489047739468242 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 4205794224245653811, guid: cfb35284e8670a043809e53dcab35179,
+    type: 3}
+  m_PrefabInstance: {fileID: 4691792775669467361}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7408722891543303855
 PrefabInstance:
   m_ObjectHideFlags: 0

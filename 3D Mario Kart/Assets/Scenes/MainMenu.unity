@@ -2220,6 +2220,26 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3932803118303091970, guid: c4ea66fddc7bf8f4e91c46d546935f76,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3932803118303091970, guid: c4ea66fddc7bf8f4e91c46d546935f76,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3932803118303091970, guid: c4ea66fddc7bf8f4e91c46d546935f76,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3932803118303091970, guid: c4ea66fddc7bf8f4e91c46d546935f76,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4193357949384993938, guid: c4ea66fddc7bf8f4e91c46d546935f76,
         type: 3}
       propertyPath: m_Pivot.x
@@ -2355,6 +2375,26 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5670016421960592196, guid: c4ea66fddc7bf8f4e91c46d546935f76,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5670016421960592196, guid: c4ea66fddc7bf8f4e91c46d546935f76,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5670016421960592196, guid: c4ea66fddc7bf8f4e91c46d546935f76,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5670016421960592196, guid: c4ea66fddc7bf8f4e91c46d546935f76,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5883189776393205731, guid: c4ea66fddc7bf8f4e91c46d546935f76,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -2476,6 +2516,21 @@ PrefabInstance:
       propertyPath: ugcLoadProgress
       value: 
       objectReference: {fileID: 8007150}
+    - target: {fileID: 8881489047739468242, guid: c4ea66fddc7bf8f4e91c46d546935f76,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8881489047739468242, guid: c4ea66fddc7bf8f4e91c46d546935f76,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8881489047739468242, guid: c4ea66fddc7bf8f4e91c46d546935f76,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9104217173949623278, guid: c4ea66fddc7bf8f4e91c46d546935f76,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -3706,8 +3761,6 @@ MonoBehaviour:
   buttonSelectSound: {fileID: 1001797838}
   menuToSub: {fileID: 619761566}
   subToMenu: {fileID: 1136561704}
-  normalColor: {r: 1, g: 1, b: 1, a: 1}
-  selectedColor: {r: 1, g: 1, b: 0, a: 1}
   controls: {fileID: -944628639613478452, guid: 9f7ebc09e64be8b44afa237fcb15ce11,
     type: 3}
   menuButtons:
@@ -3926,7 +3979,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 1444081908}
   m_OnClick:
     m_PersistentCalls:
@@ -4908,7 +4961,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2048888989}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0

@@ -804,6 +804,14 @@
       <HintPath>E:\UnityEditors\6000.3.9f1\Editor\Data\PlaybackEngines\WindowsStandaloneSupport\UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="websocket-sharp">
+      <HintPath>Library\PackageCache\com.unity.services.wire@9a73acde80cc\Plugins\websocket-sharp.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Cecil.Awesome">
+      <HintPath>Library\PackageCache\com.unity.entities@8b72e8a7d7d1\Unity.Entities.CodeGen\Unity.Cecil.Awesome.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Google.VersionHandler">
       <HintPath>Assets\MobileDependencyResolver\Editor\Google.VersionHandler.dll</HintPath>
       <Private>False</Private>
@@ -874,14 +882,6 @@
     </Reference>
     <Reference Include="Google.PackageManagerResolver">
       <HintPath>Assets\MobileDependencyResolver\Editor\1.2.185\Google.PackageManagerResolver.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="websocket-sharp">
-      <HintPath>Library\PackageCache\com.unity.services.wire@9a73acde80cc\Plugins\websocket-sharp.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.Cecil.Awesome">
-      <HintPath>Library\PackageCache\com.unity.entities@8b72e8a7d7d1\Unity.Entities.CodeGen\Unity.Cecil.Awesome.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="netstandard">
