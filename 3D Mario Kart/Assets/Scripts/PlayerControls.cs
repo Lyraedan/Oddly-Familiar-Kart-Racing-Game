@@ -7,6 +7,7 @@ public class PlayerControls : MonoBehaviour
 {
     // A binder for the new Unity Input System that translates input actions into legacy-style static functions like GetButton and GetAxis.
 
+    public NetworkedPlayerManager playerManager;
     public InputActionAsset controls;
 
     private InputActionMap kartActionMap;
@@ -53,6 +54,11 @@ public class PlayerControls : MonoBehaviour
 
     private void Update()
     {
+        if (playerManager != null)
+        {
+            if (!playerManager.isLocal) return; // Only process input for the local player
+        }
+
         // Update previous button states
         foreach (var key in currentButtonStates.Keys)
         {

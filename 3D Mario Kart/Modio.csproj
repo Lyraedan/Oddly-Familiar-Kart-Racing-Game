@@ -114,8 +114,8 @@
     <Compile Include="Assets\Plugins\Modio\Modio\API\Generated\Endpoints\AddModKvpMetadata.cs" />
     <Compile Include="Assets\Plugins\Modio\Modio\API\Generated\Definitions\RequestObjects\EditModRequest.cs" />
     <Compile Include="Assets\Plugins\Modio\Modio\ThirdParty\SharpZip\src\ICSharpCode.SharpZipLib\Tar\TarException.cs" />
-    <Compile Include="Assets\Plugins\Modio\Modio\Users\Authentication.cs" />
     <Compile Include="Assets\Plugins\Modio\Modio\ThirdParty\SharpZip\src\ICSharpCode.SharpZipLib\Tar\TarBuffer.cs" />
+    <Compile Include="Assets\Plugins\Modio\Modio\Users\Authentication.cs" />
     <Compile Include="Assets\Plugins\Modio\Modio\API\Generated\Definitions\RequestObjects\DeleteModMetadataRequest.cs" />
     <Compile Include="Assets\Plugins\Modio\Modio\ThirdParty\SharpZip\src\ICSharpCode.SharpZipLib\Tar\TarExtendedHeaderReader.cs" />
     <Compile Include="Assets\Plugins\Modio\Modio\ThirdParty\SharpZip\src\ICSharpCode.SharpZipLib\Zip\Compression\DeflaterHuffman.cs" />
@@ -395,8 +395,8 @@
     <Compile Include="Assets\Plugins\Modio\Modio\Mods\ModChangeType.cs" />
     <Compile Include="Assets\Plugins\Modio\Modio\API\Generated\Endpoints\GetUsersInModMonetizationTeam.cs" />
     <Compile Include="Assets\Plugins\Modio\Modio\API\Generated\Definitions\RequestObjects\ResolveReportsRequest.cs" />
-    <Compile Include="Assets\Plugins\Modio\Modio\ThirdParty\SharpZip\src\ICSharpCode.SharpZipLib\Tar\TarArchive.cs" />
     <Compile Include="Assets\Plugins\Modio\Modio\TermsOfUse.cs" />
+    <Compile Include="Assets\Plugins\Modio\Modio\ThirdParty\SharpZip\src\ICSharpCode.SharpZipLib\Tar\TarArchive.cs" />
     <Compile Include="Assets\Plugins\Modio\Modio\ThirdParty\SharpZip\src\ICSharpCode.SharpZipLib\Zip\ZipEntryExtensions.cs" />
     <Compile Include="Assets\Plugins\Modio\Modio\FileIO\IModioDataStorage.cs" />
     <Compile Include="Assets\Plugins\Modio\Modio\API\Generated\Definitions\RequestObjects\UpdateCommentRequest.cs" />

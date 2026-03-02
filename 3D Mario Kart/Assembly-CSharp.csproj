@@ -107,6 +107,7 @@
     <Compile Include="Assets\8K Skybox Pack Free\Example Scenes\Script\RotateCamera.cs" />
     <Compile Include="Assets\Scripts\General\MatchOrientation.cs" />
     <Compile Include="Assets\Scenes\TEstStuff\TestScript.cs" />
+    <Compile Include="Assets\Scripts\Networking\NetworkedPlayerManager.cs" />
     <Compile Include="Assets\Scripts\UI\ItemListPopulator.cs" />
     <Compile Include="Assets\Scripts\General\UICornersGradient.cs" />
     <Compile Include="Assets\SampleScenes\Menu\Scripts\MenuSceneLoader.cs" />
@@ -1306,10 +1307,6 @@
       <HintPath>E:\UnityEditors\6000.3.9f1\Editor\Data\NetStandard\compat\2.1.0\shims\netfx\System.Xml.Serialization.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Unity.Services.Analytics">
-      <HintPath>Library\ScriptAssemblies\Unity.Services.Analytics.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Unity.VisualEffectGraph.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.VisualEffectGraph.Editor.dll</HintPath>
       <Private>False</Private>
@@ -1330,16 +1327,16 @@
       <HintPath>Library\ScriptAssemblies\Unity.TextMeshPro.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Unity.Services.Multiplayer.Editor.Shared">
-      <HintPath>Library\ScriptAssemblies\Unity.Services.Multiplayer.Editor.Shared.dll</HintPath>
+    <Reference Include="Unity.Multiplayer.Tools.MetricTestData">
+      <HintPath>Library\ScriptAssemblies\Unity.Multiplayer.Tools.MetricTestData.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.Services.QoS">
       <HintPath>Library\ScriptAssemblies\Unity.Services.QoS.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Unity.Multiplayer.Tools.MetricTestData">
-      <HintPath>Library\ScriptAssemblies\Unity.Multiplayer.Tools.MetricTestData.dll</HintPath>
+    <Reference Include="Unity.Services.Multiplayer.Editor.Shared">
+      <HintPath>Library\ScriptAssemblies\Unity.Services.Multiplayer.Editor.Shared.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.Postprocessing.Runtime">
@@ -1354,12 +1351,12 @@
       <HintPath>Library\ScriptAssemblies\Unity.Entities.Graphics.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Unity.RenderPipelines.Core.ShaderLibrary">
-      <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Core.ShaderLibrary.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Unity.Netcode.Runtime">
       <HintPath>Library\ScriptAssemblies\Unity.Netcode.Runtime.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Core.ShaderLibrary">
+      <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Core.ShaderLibrary.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.Services.Core">
@@ -1466,6 +1463,10 @@
       <HintPath>Library\ScriptAssemblies\Unity.Transforms.Hybrid.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Unity.Analytics.DataPrivacy">
+      <HintPath>Library\ScriptAssemblies\Unity.Analytics.DataPrivacy.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll</HintPath>
       <Private>False</Private>
@@ -1498,10 +1499,6 @@
       <HintPath>Library\ScriptAssemblies\Unity.InputSystem.ForUI.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Unity.Analytics.DataPrivacy">
-      <HintPath>Library\ScriptAssemblies\Unity.Analytics.DataPrivacy.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Unity.RenderPipelines.GPUDriven.Runtime">
       <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.GPUDriven.Runtime.dll</HintPath>
       <Private>False</Private>
@@ -1514,12 +1511,12 @@
       <HintPath>Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Unity.Services.Core.Environments">
-      <HintPath>Library\ScriptAssemblies\Unity.Services.Core.Environments.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Purchasing.Common">
       <HintPath>Library\ScriptAssemblies\Purchasing.Common.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Services.Core.Environments">
+      <HintPath>Library\ScriptAssemblies\Unity.Services.Core.Environments.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.Services.Multiplayer">
@@ -1634,16 +1631,16 @@
       <HintPath>Library\ScriptAssemblies\Unity.RenderPipelines.Universal.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Unity.VSCode.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.VSCode.Editor.dll</HintPath>
+    <Reference Include="Unity.Multiplayer.Tools.NetworkProfiler.Runtime">
+      <HintPath>Library\ScriptAssemblies\Unity.Multiplayer.Tools.NetworkProfiler.Runtime.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.Timeline">
       <HintPath>Library\ScriptAssemblies\Unity.Timeline.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Unity.Multiplayer.Tools.NetworkProfiler.Runtime">
-      <HintPath>Library\ScriptAssemblies\Unity.Multiplayer.Tools.NetworkProfiler.Runtime.dll</HintPath>
+    <Reference Include="Unity.VSCode.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.VSCode.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.Purchasing.Codeless">
@@ -1654,12 +1651,12 @@
       <HintPath>Library\ScriptAssemblies\Unity.ScriptableBuildPipeline.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Unity.Searcher.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.Searcher.Editor.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Unity.PlasticSCM.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Searcher.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.Searcher.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.Burst.Editor">
@@ -1814,24 +1811,28 @@
       <HintPath>Library\ScriptAssemblies\Unity.Multiplayer.Tools.NetworkSimulator.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Unity.Multiplayer.Tools.NetStatsMonitor.Component">
-      <HintPath>Library\ScriptAssemblies\Unity.Multiplayer.Tools.NetStatsMonitor.Component.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Unity.Multiplayer.Tools.Initialization">
       <HintPath>Library\ScriptAssemblies\Unity.Multiplayer.Tools.Initialization.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Multiplayer.Tools.NetStatsMonitor.Component">
+      <HintPath>Library\ScriptAssemblies\Unity.Multiplayer.Tools.NetStatsMonitor.Component.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.Settings.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.Settings.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Unity.Multiplayer.Tools.NetVis.Editor.UI">
+      <HintPath>Library\ScriptAssemblies\Unity.Multiplayer.Tools.NetVis.Editor.UI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="UnityEditor.UI">
       <HintPath>Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Unity.Multiplayer.Tools.NetVis.Editor.UI">
-      <HintPath>Library\ScriptAssemblies\Unity.Multiplayer.Tools.NetVis.Editor.UI.dll</HintPath>
+    <Reference Include="Unity.Services.Analytics">
+      <HintPath>Library\ScriptAssemblies\Unity.Services.Analytics.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
@@ -1840,13 +1841,17 @@
       <Project>{FFC81B6B-6DEF-BF2C-5A2F-19544284CAEB}</Project>
       <Name>Assembly-CSharp-firstpass</Name>
     </ProjectReference>
-    <ProjectReference Include="Modio.Unity.Platforms.MobilePurchasing.csproj">
-      <Project>{02F7F895-A3B1-01BD-1451-9040830EC525}</Project>
-      <Name>Modio.Unity.Platforms.MobilePurchasing</Name>
+    <ProjectReference Include="Modio.csproj">
+      <Project>{4BAB3D89-6B39-2E2C-A6B4-FDFD4F7FEDFB}</Project>
+      <Name>Modio</Name>
     </ProjectReference>
     <ProjectReference Include="Modio.Unity.UI.Editor.csproj">
       <Project>{71A18B59-B8BB-969A-952B-D15796824103}</Project>
       <Name>Modio.Unity.UI.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Modio.Unity.Platforms.MobilePurchasing.csproj">
+      <Project>{02F7F895-A3B1-01BD-1451-9040830EC525}</Project>
+      <Name>Modio.Unity.Platforms.MobilePurchasing</Name>
     </ProjectReference>
     <ProjectReference Include="Modio.Unity.UI.csproj">
       <Project>{63552B74-2BC9-7EA1-1BD6-E100732574EB}</Project>
@@ -1887,10 +1892,6 @@
     <ProjectReference Include="Modio.Unity.Examples.csproj">
       <Project>{A04E062E-834F-90EE-B3F0-06977E82F3C5}</Project>
       <Name>Modio.Unity.Examples</Name>
-    </ProjectReference>
-    <ProjectReference Include="Modio.csproj">
-      <Project>{4BAB3D89-6B39-2E2C-A6B4-FDFD4F7FEDFB}</Project>
-      <Name>Modio</Name>
     </ProjectReference>
     <ProjectReference Include="Modio.Unity.csproj">
       <Project>{EB2344F3-7F55-3F28-D1D3-E908713D760E}</Project>

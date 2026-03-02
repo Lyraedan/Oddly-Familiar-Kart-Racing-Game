@@ -36469,6 +36469,7 @@ GameObject:
   - component: {fileID: 4416480253218519661}
   - component: {fileID: -6949353498751627167}
   - component: {fileID: 1845059836881227922}
+  - component: {fileID: 966161291760156164}
   - component: {fileID: 642502366008012189}
   - component: {fileID: 2545918901103431416}
   - component: {fileID: 3606734833742908513}
@@ -36481,9 +36482,11 @@ GameObject:
   - component: {fileID: 8286838362554438954}
   - component: {fileID: 2622412334136134521}
   - component: {fileID: 6602533643879267653}
-  - component: {fileID: 966161291760156164}
   - component: {fileID: 4548535788879934940}
   - component: {fileID: 7877210976849181700}
+  - component: {fileID: 6199646542970063458}
+  - component: {fileID: 4943002482830203105}
+  - component: {fileID: 1966686514914806223}
   m_Layer: 10
   m_Name: MKW_Player_Networked
   m_TagString: Player
@@ -36557,7 +36560,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 2628693913
+  GlobalObjectIdHash: 3679227253
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -36690,6 +36693,21 @@ MonoBehaviour:
   isRainbowRoad: 0
   propeller: {fileID: 0}
   Cam: {fileID: 0}
+--- !u!114 &966161291760156164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3297335546541666384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11ee6042e98fba24fa91cbc7c017d2cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerManager: {fileID: 6199646542970063458}
+  controls: {fileID: -944628639613478452, guid: 9f7ebc09e64be8b44afa237fcb15ce11,
+    type: 3}
 --- !u!135 &642502366008012189
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -36938,20 +36956,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hopEnd: 0
---- !u!114 &966161291760156164
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3297335546541666384}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11ee6042e98fba24fa91cbc7c017d2cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controls: {fileID: -944628639613478452, guid: 9f7ebc09e64be8b44afa237fcb15ce11,
-    type: 3}
 --- !u!114 &4548535788879934940
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37016,6 +37020,84 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WaypointTracker
   path1: {fileID: 0}
   path2: {fileID: 0}
+--- !u!114 &6199646542970063458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3297335546541666384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 302cf50d83c863641aea220488bf2f87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NetworkedPlayerManager
+  ShowTopMostFoldoutHeaderGroup: 1
+  player: {fileID: 1845059836881227922}
+  isLocal: 1
+--- !u!114 &4943002482830203105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3297335546541666384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.Components.NetworkTransform
+  ShowTopMostFoldoutHeaderGroup: 1
+  NetworkTransformExpanded: 0
+  AutoOwnerAuthorityTickOffset: 1
+  PositionInterpolationType: 0
+  RotationInterpolationType: 0
+  ScaleInterpolationType: 0
+  PositionLerpSmoothing: 1
+  PositionMaxInterpolationTime: 0.1
+  RotationLerpSmoothing: 1
+  RotationMaxInterpolationTime: 0.1
+  ScaleLerpSmoothing: 1
+  ScaleMaxInterpolationTime: 0.1
+  AuthorityMode: 0
+  TickSyncChildren: 0
+  UseUnreliableDeltas: 0
+  SyncPositionX: 1
+  SyncPositionY: 1
+  SyncPositionZ: 1
+  SyncRotAngleX: 1
+  SyncRotAngleY: 1
+  SyncRotAngleZ: 1
+  SyncScaleX: 1
+  SyncScaleY: 1
+  SyncScaleZ: 1
+  PositionThreshold: 0.001
+  RotAngleThreshold: 0.01
+  ScaleThreshold: 0.01
+  UseQuaternionSynchronization: 0
+  UseQuaternionCompression: 0
+  UseHalfFloatPrecision: 0
+  InLocalSpace: 0
+  SwitchTransformSpaceWhenParented: 0
+  Interpolate: 1
+  SlerpPosition: 0
+--- !u!114 &1966686514914806223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3297335546541666384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6c0be61502bb534f922ebb746851216, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.Components.NetworkRigidbody
+  ShowTopMostFoldoutHeaderGroup: 1
+  NetworkRigidbodyBaseExpanded: 0
+  UseRigidBodyForMotion: 1
+  AutoUpdateKinematicState: 1
+  AutoSetKinematicOnDespawn: 1
 --- !u!1 &3761077644510608693
 GameObject:
   m_ObjectHideFlags: 0
