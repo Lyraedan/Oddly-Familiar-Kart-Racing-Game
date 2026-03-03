@@ -29,7 +29,6 @@ public class RedShellItem : ItemBase
     private Transform chaseTarget;
     private bool lockedOnTarget = false;
 
-    private RACE_MANAGER rm;
     private Transform playerTransform;
     private bool closeToPlayer;
 
@@ -51,8 +50,7 @@ public class RedShellItem : ItemBase
         thrownBy = user.GetComponent<LapCounter>();
         AntiGravity = user.GetComponent<Player>().antiGravity;
 
-        rm = FindFirstObjectByType<RACE_MANAGER>();
-        paths = rm.AIPaths;
+        paths = RaceManager.Instance.AIPaths;
         playerTransform = player.transform;
 
         currentPath = GetClosestPath();
@@ -257,7 +255,7 @@ public class RedShellItem : ItemBase
             thrownBy.gameObject != playerTransform.gameObject)
         {
             closeToPlayer = true;
-            StartCoroutine(rm.warningRedShell(transform));
+            StartCoroutine(rm.WarningRedShell(transform));
         }
     }
 

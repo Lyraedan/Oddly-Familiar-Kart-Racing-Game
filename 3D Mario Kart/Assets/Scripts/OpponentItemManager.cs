@@ -70,9 +70,6 @@ public class OpponentItemManager : MonoBehaviour
     [HideInInspector]
     public int tripleItemCount = 0;
 
-    private RACE_MANAGER rm;
-
-
 
     // Start is called before the first frame update
     void Start()
@@ -82,7 +79,6 @@ public class OpponentItemManager : MonoBehaviour
         comp_sounds = GetComponent<ComputerDriverSounds>();
 
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        rm = GameObject.Find("RaceManager").GetComponent<RACE_MANAGER>();
     }
 
     // Update is called once per frame
@@ -112,13 +108,13 @@ public class OpponentItemManager : MonoBehaviour
         if(StarPowerUp && !closeToPlayer && Vector3.Distance(transform.position, player.position) < 100)
         {
             closeToPlayer = true;
-            StartCoroutine(rm.warningStar(transform));
+            StartCoroutine(RaceManager.Instance.WarningStar(transform));
         }
 
         if(isBullet && !closeToPlayer && Vector3.Distance(transform.position, player.position) < 100)
         {
             closeToPlayer = true;
-            StartCoroutine(rm.warningBullet(transform));
+            StartCoroutine(RaceManager.Instance.WarningBullet(transform));
         }
     }
 
@@ -178,7 +174,7 @@ public class OpponentItemManager : MonoBehaviour
             other.gameObject.GetComponent<BoxCollider>().enabled = true;
 
             yield return new WaitForSeconds(2);
-            if (!already_has_item && !RACE_MANAGER.RACE_COMPLETED)
+            if (!already_has_item && !RaceManager.RACE_COMPLETED)
                 ItemSelect();
 
 

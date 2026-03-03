@@ -344,7 +344,7 @@ public class Player : MonoBehaviour
             StartCoroutine(trickJump());
         }
         // Drift input
-        if (RACE_MANAGER.RACE_STARTED && !itemManager.isBullet && !RACE_MANAGER.RACE_COMPLETED)
+        if (RaceManager.RACE_STARTED && !itemManager.isBullet && !RaceManager.RACE_COMPLETED)
         {
             Drift();
         }
@@ -371,7 +371,7 @@ public class Player : MonoBehaviour
         mario_face();
 
         // If the race has started, but not completed
-        if (RACE_MANAGER.RACE_STARTED && !itemManager.isBullet && !RACE_MANAGER.RACE_COMPLETED)
+        if (RaceManager.RACE_STARTED && !itemManager.isBullet && !RaceManager.RACE_COMPLETED)
         {
             AccelBeforeStartDust.GetChild(0).GetComponent<ParticleSystem>().Stop();
             AccelBeforeStartDust.GetChild(1).GetComponent<ParticleSystem>().Stop();
@@ -472,7 +472,7 @@ public class Player : MonoBehaviour
             transform.Rotate(0, y / 6, 0, Space.Self);
         }
         // Before race starts
-        else if (!RACE_MANAGER.RACE_STARTED && !RACE_MANAGER.RACE_COMPLETED)
+        else if (!RaceManager.RACE_STARTED && !RaceManager.RACE_COMPLETED)
         {
             GroundNormalRotation();
             if (PlayerControls.GetButton(PlayerControls.ACCELERATE))
@@ -498,10 +498,10 @@ public class Player : MonoBehaviour
             }
         }
 
-        if (RACE_MANAGER.RACE_STARTED && !RACE_MANAGER.RACE_COMPLETED)
+        if (RaceManager.RACE_STARTED && !RaceManager.RACE_COMPLETED)
             PositionUI();
 
-        if (RACE_MANAGER.RACE_COMPLETED)
+        if (RaceManager.RACE_COMPLETED)
         {
             raceEndTime += Time.deltaTime;
             moveOnPath();
@@ -816,7 +816,7 @@ public class Player : MonoBehaviour
                 {
                     if(!itemManager.StarPowerUp && !itemManager.isBullet)
                     {
-                        if (!RACE_MANAGER.RACE_COMPLETED)
+                        if (!RaceManager.RACE_COMPLETED)
                         {
                             playersounds.cowHit.Play();
                         }
@@ -986,7 +986,7 @@ public class Player : MonoBehaviour
     IEnumerator OnTriggerEnter(Collider other)
     {
 
-        if (other.gameObject.tag == "ItemBox" && !RACE_MANAGER.RACE_COMPLETED)
+        if (other.gameObject.tag == "ItemBox" && !RaceManager.RACE_COMPLETED)
         {
             yield return OnItemBoxEnter(other);
         }
@@ -1038,7 +1038,7 @@ public class Player : MonoBehaviour
         }
 
         //next waypoint
-        if (other.transform == RaceEndPath.GetChild(currentWayPoint) && RACE_MANAGER.RACE_COMPLETED)
+        if (other.transform == RaceEndPath.GetChild(currentWayPoint) && RaceManager.RACE_COMPLETED)
         {
             if (currentWayPoint == RaceEndPath.childCount - 1) //if last node, set the next node to first
             {
@@ -1247,7 +1247,7 @@ public class Player : MonoBehaviour
 
 
                     //sounds
-                    if (playersounds.CanPlayCharacterSound() && !playersounds.gliderVoice.isPlaying && !RACE_MANAGER.RACE_COMPLETED)
+                    if (playersounds.CanPlayCharacterSound() && !playersounds.gliderVoice.isPlaying && !RaceManager.RACE_COMPLETED)
                     {
                         playersounds.gliderVoice.Play();
                     }
@@ -1289,7 +1289,7 @@ public class Player : MonoBehaviour
     {
         if (other.gameObject.tag == "ColliderInAir")
         {
-            if((!RACE_MANAGER.RACE_COMPLETED) || (RACE_MANAGER.RACE_COMPLETED && other.gameObject.GetComponent<colliderInAir>().isForRaceEnd))
+            if((!RaceManager.RACE_COMPLETED) || (RaceManager.RACE_COMPLETED && other.gameObject.GetComponent<colliderInAir>().isForRaceEnd))
             {
                 if (GLIDER_FLY && !other.GetComponent<colliderInAir>().isONLYforRaceEnd)
                 {
@@ -1307,7 +1307,7 @@ public class Player : MonoBehaviour
                     rb.AddRelativeForce(Vector3.down * other.GetComponent<colliderInAir>().force * Time.deltaTime, ForceMode.Acceleration);
                 }
             }
-            if (RACE_MANAGER.RACE_COMPLETED)
+            if (RaceManager.RACE_COMPLETED)
             {
                 if (GLIDER_FLY)
                 {
@@ -1519,7 +1519,7 @@ public class Player : MonoBehaviour
             {
                 playersounds.kartSkidReverse.Play();
             }
-            if(GameObject.Find("RaceManager").GetComponent<RACE_MANAGER>().FrontCam.activeSelf)
+            if(RaceManager.Instance.FrontCam.activeSelf)
                 GameObject.Find("Main Camera").GetComponent<Animator>().SetBool("Vibrate", true);
         }
         else
@@ -1528,7 +1528,7 @@ public class Player : MonoBehaviour
             AccelBeforeStartDust.GetChild(0).GetComponent<ParticleSystem>().Stop();
             AccelBeforeStartDust.GetChild(1).GetComponent<ParticleSystem>().Stop();
             playersounds.kartSkidReverse.Stop();
-            if(PlayerControls.GetButton(PlayerControls.LOOK_BEHIND) && GameObject.Find("RaceManager").GetComponent<RACE_MANAGER>().FrontCam.activeSelf)
+            if(PlayerControls.GetButton(PlayerControls.LOOK_BEHIND) && RaceManager.Instance.FrontCam.activeSelf)
                 GameObject.Find("Main Camera").GetComponent<Animator>().SetBool("Vibrate", false);
 
         }
@@ -2136,7 +2136,7 @@ public class Player : MonoBehaviour
 
         float none = 0;
         inputHorizontalSmooth = Mathf.SmoothDamp(inputHorizontalSmooth, PlayerControls.GetSteerAxis() * -1, ref none, 5 * Time.deltaTime);
-        if (RACE_MANAGER.RACE_COMPLETED)
+        if (RaceManager.RACE_COMPLETED)
         {
             inputHorizontalSmooth = 0;
         }
@@ -2159,12 +2159,12 @@ public class Player : MonoBehaviour
         //turn left and right, up and down
         
         {
-            if (PlayerControls.GetButton(PlayerControls.GLIDER_UP) && !RACE_MANAGER.RACE_COMPLETED)
+            if (PlayerControls.GetButton(PlayerControls.GLIDER_UP) && !RaceManager.RACE_COMPLETED)
             {
                 kart.rotation = Quaternion.SlerpUnclamped(kart.rotation, Quaternion.Euler(25 + glideAngleX, kart.eulerAngles.y, kart.eulerAngles.z), 1.5f * Time.deltaTime);
                 rb.AddForce(Vector3.down * 2000 * Time.deltaTime, ForceMode.Acceleration);
             }
-            else if (PlayerControls.GetButton(PlayerControls.GLIDER_DOWN) && !RACE_MANAGER.RACE_COMPLETED)
+            else if (PlayerControls.GetButton(PlayerControls.GLIDER_DOWN) && !RaceManager.RACE_COMPLETED)
             {
                 float angle = transform.localEulerAngles.x;
                 angle = (angle > 180) ? angle - 360 : angle;
@@ -2240,7 +2240,7 @@ public class Player : MonoBehaviour
         Boost_time = 0;
         stopDrift();
 
-        if (!RACE_MANAGER.RACE_COMPLETED)
+        if (!RaceManager.RACE_COMPLETED)
         {
             current_face_material = faces[4];
             SpecialFace = true;
@@ -2254,7 +2254,7 @@ public class Player : MonoBehaviour
         playSpinAnim = true;
         invincible = false;
 
-        if (!RACE_MANAGER.RACE_COMPLETED)
+        if (!RaceManager.RACE_COMPLETED)
         {
             current_face_material = faces[0];
             SpecialFace = false;
@@ -2269,7 +2269,7 @@ public class Player : MonoBehaviour
         HitByShell_ = true;
         Boost_time = 0;
         stopDrift();
-        if (!RACE_MANAGER.RACE_COMPLETED)
+        if (!RaceManager.RACE_COMPLETED)
         {
             current_face_material = faces[4];
             Driver.SetBool("Hurt", true);
@@ -2282,7 +2282,7 @@ public class Player : MonoBehaviour
         playSpinAnim = true;
         invincible = false;
 
-        if (!RACE_MANAGER.RACE_COMPLETED)
+        if (!RaceManager.RACE_COMPLETED)
         {
             current_face_material = faces[0];
             Driver.SetBool("Hurt", false);
@@ -2498,7 +2498,7 @@ public class Player : MonoBehaviour
 
     void lookAtOpponent()
     {
-        if (RACE_MANAGER.RACE_STARTED)
+        if (RaceManager.RACE_STARTED)
         {
             lookAtTime += Time.deltaTime;
             float dist = 99999;
@@ -2519,7 +2519,7 @@ public class Player : MonoBehaviour
             //animatiom booleans
             bool isIdleOrSteering = (Driver.GetCurrentAnimatorStateInfo(0).IsName("New State") || Driver.GetCurrentAnimatorStateInfo(0).IsName("TurnLeft") || Driver.GetCurrentAnimatorStateInfo(0).IsName("TurnRight") || Driver.GetCurrentAnimatorStateInfo(0).IsName("NormalWithItem") || Driver.GetCurrentAnimatorStateInfo(0).IsName("TurnLeftWithItem") || Driver.GetCurrentAnimatorStateInfo(0).IsName("TurnRightWithItem")) && currentspeed > -5;
 
-            if (!RACE_MANAGER.RACE_COMPLETED && isIdleOrSteering)
+            if (!RaceManager.RACE_COMPLETED && isIdleOrSteering)
             {
                 if (opponentLook == null)
                     return;
@@ -2572,7 +2572,7 @@ public class Player : MonoBehaviour
                     headBone.localRotation = Quaternion.SlerpUnclamped(headBone.localRotation, Quaternion.Euler(0, 0, 0), 5 * Time.deltaTime);
                 }
             }
-            else if (!isIdleOrSteering && !RACE_MANAGER.RACE_COMPLETED)
+            else if (!isIdleOrSteering && !RaceManager.RACE_COMPLETED)
             {
                 headBone.localRotation = Quaternion.SlerpUnclamped(headBone.localRotation, Quaternion.Euler(0, 0, 0), 8 * Time.deltaTime);
             }

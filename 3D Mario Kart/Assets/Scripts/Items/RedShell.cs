@@ -32,7 +32,6 @@ public class RedShell : MonoBehaviour
     private bool grounded;
 
     private bool closeToPlayer = false;
-    private RACE_MANAGER rm;
     private Transform player;
 
     [HideInInspector]
@@ -65,12 +64,7 @@ public class RedShell : MonoBehaviour
         }
 
         opponents = GameObject.FindGameObjectsWithTag("Opponent");
-
-        rm = GameObject.Find("RaceManager").GetComponent<RACE_MANAGER>();
-        player = GameObject.FindGameObjectWithTag("Player").transform;
-
-
-        
+        player = GameObject.FindGameObjectWithTag("Player").transform;   
     }
 
 
@@ -106,7 +100,7 @@ public class RedShell : MonoBehaviour
                 if(Vector3.Distance(player.position, transform.position) < 100 && who_threw_shell != player.name)
                 {
                     closeToPlayer = true;
-                    StartCoroutine(rm.warningRedShell(transform));
+                    //StartCoroutine(rm.warningRedShell(transform));
                 }
             
         }

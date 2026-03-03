@@ -86,7 +86,6 @@ public class ComputerDriver : MonoBehaviour
     [HideInInspector]
     public Transform personToLookAt = null;
 
-    private RACE_MANAGER raceManager;
     private List<Transform> allPlayers = new List<Transform>();
 
     bool StartBoost = false;
@@ -143,13 +142,12 @@ public class ComputerDriver : MonoBehaviour
         Right_Wheel_Drift_PS = DriftPS.transform.GetChild(0).gameObject;
         Left_Wheel_Drift_PS = DriftPS.transform.GetChild(1).gameObject;
 
-        raceManager = GameObject.Find("RaceManager").GetComponent<RACE_MANAGER>();
         //get all players except yourself
-        for(int i = 0; i < raceManager.lapCounters.Count; i++)
+        for(int i = 0; i < RaceManager.Instance.lapCounters.Count; i++)
         {
-            if(raceManager.lapCounters[i] != GetComponent<LapCounter>())
+            if(RaceManager.Instance.lapCounters[i] != GetComponent<LapCounter>())
             {
-                allPlayers.Add(raceManager.lapCounters[i].transform);
+                allPlayers.Add(RaceManager.Instance.lapCounters[i].transform);
             }
         }
         
@@ -217,7 +215,7 @@ public class ComputerDriver : MonoBehaviour
     {
         groundNormalRotation();
 
-        if (!RACE_MANAGER.RACE_COMPLETED)
+        if (!RaceManager.RACE_COMPLETED)
         {
 
             int myProgress = myLap.RaceProgressScore;
@@ -235,11 +233,11 @@ public class ComputerDriver : MonoBehaviour
                 Desired_Max_Speed = 90;
         }
 
-        if(!RACE_MANAGER.RACE_STARTED && !RACE_MANAGER.RACE_COMPLETED)
+        if(!RaceManager.RACE_STARTED && !RaceManager.RACE_COMPLETED)
         {
             if (StartBoost)
             {
-                if(RACE_MANAGER.countDownTime > 1.2f)
+                if(RaceManager.countDownTime > 1.2f)
                 {
                     transform.GetChild(0).GetChild(0).GetComponent<Animator>().SetBool("StartTurbo", true);
                     tires[2].transform.Rotate(-90 * Time.deltaTime * 75 / 5.5f, 0, 0);
@@ -256,7 +254,7 @@ public class ComputerDriver : MonoBehaviour
         }
 
         REALSPEED = transform.InverseTransformDirection(rb.velocity).z;
-        if (RACE_MANAGER.RACE_STARTED && !item_manage.isBullet)
+        if (RaceManager.RACE_STARTED && !item_manage.isBullet)
         {
             startBoostTime -= Time.deltaTime;
             if(startBoostTime > 0)
@@ -368,7 +366,7 @@ public class ComputerDriver : MonoBehaviour
                 rb.velocity = transform.forward * current_speed;
             }
         }
-        if (RACE_MANAGER.RACE_STARTED)
+        if (RaceManager.RACE_STARTED)
         {
             for(int i = 0; i < exhaustParticles.transform.childCount; i++)
             {

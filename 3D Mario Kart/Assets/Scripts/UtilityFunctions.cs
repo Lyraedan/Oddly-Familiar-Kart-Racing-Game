@@ -15,8 +15,6 @@ public class UtilityFunctions : MonoBehaviour
     [HideInInspector]
     public bool hopEnd = false;
 
-    private RACE_MANAGER rm;
-
     // What is this x_X
 
     // Start is called before the first frame update
@@ -41,8 +39,6 @@ public class UtilityFunctions : MonoBehaviour
             StartCoroutine(palmTreeAnim());
         }
 
-        rm = GameObject.Find("RaceManager").GetComponent<RACE_MANAGER>();
-
         StartCoroutine(trolleyAudioSource());
     }
 
@@ -66,7 +62,7 @@ public class UtilityFunctions : MonoBehaviour
 
         if(gameObject.tag == "GliderPanel" || gameObject.tag == "ColliderInAir")
         {
-            if (RACE_MANAGER.RACE_COMPLETED)
+            if (RaceManager.RACE_COMPLETED)
             {
                 GetComponent<BoxCollider>().enabled = false;
             }
@@ -84,7 +80,7 @@ public class UtilityFunctions : MonoBehaviour
         if(transform.parent.tag == "Player")
         {
 
-            if(!GameObject.Find("RaceManager").GetComponent<RACE_MANAGER>().FrontFPCam.activeSelf)
+            if(!RaceManager.Instance.FrontFPCam.activeSelf)
                 Camera.main.GetComponent<Animator>().SetTrigger("Shake");
         }
     }
@@ -170,10 +166,10 @@ public class UtilityFunctions : MonoBehaviour
     }
     public void raceStarted()
     {
-        RACE_MANAGER.RACE_STARTED = true;
-        if(rm.trolleySystem != null)
+        RaceManager.RACE_STARTED = true;
+        if(RaceManager.Instance.trolleySystem != null)
         {
-            rm.trolleySystem.InstantiateFirstTram();
+            RaceManager.Instance.trolleySystem.InstantiateFirstTram();
         }
     }
 
@@ -201,7 +197,7 @@ public class UtilityFunctions : MonoBehaviour
 
     public void startCountDown()
     {
-        StartCoroutine(GameObject.Find("RaceManager").GetComponent<RACE_MANAGER>().CountDownTImerPlay());
+        StartCoroutine(RaceManager.Instance.CountDownTimerPlay());
     }
     public void disableThisCam()
     {
@@ -275,7 +271,7 @@ public class UtilityFunctions : MonoBehaviour
 
         try
         {
-            rm.FrontCam.GetComponent<Animator>().SetTrigger("Shake2");
+            RaceManager.Instance.FrontCam.GetComponent<Animator>().SetTrigger("Shake2");
         }
         catch (Exception e)
         {
@@ -328,19 +324,19 @@ public class UtilityFunctions : MonoBehaviour
 
     public void disableSet1()
     {
-        GameObject.Find("RaceManager").GetComponent<RACE_MANAGER>().DisableSet1();
+        RaceManager.Instance.DisableSet1();
     }
     public void disableSet2()
     {
-        GameObject.Find("RaceManager").GetComponent<RACE_MANAGER>().DisableSet2();
+        RaceManager.Instance.DisableSet2();
     }
     public void disableSet3()
     {
-        GameObject.Find("RaceManager").GetComponent<RACE_MANAGER>().DisableSet3();
+        RaceManager.Instance.DisableSet3();
     }
     public void enableSets()
     {
-        GameObject.Find("RaceManager").GetComponent<RACE_MANAGER>().enableAllSets();
+        RaceManager.Instance.EnableAllSets();
     }
 
     //to make the lens flare system detect that this camera is a camera to include in the post processing effects, but immediately disable after game starts when not using.

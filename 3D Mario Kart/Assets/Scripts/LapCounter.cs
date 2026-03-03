@@ -28,8 +28,6 @@ public class LapCounter : MonoBehaviour
 
     private int lastCheckpointID = -1;
 
-    private RACE_MANAGER rm;
-
     [Header("Debug Info (Read-Only in Inspector)")]
     [SerializeField] private int debugProgressIndex;
     [SerializeField] private int debugRaceProgressScore;
@@ -66,7 +64,6 @@ public class LapCounter : MonoBehaviour
         for (int i = 0; i < checkpointsVisited.Length; i++)
             checkpointsVisited[i] = false;
 
-        rm = GameObject.Find("RaceManager").GetComponent<RACE_MANAGER>();
         RacerID = transform.GetSiblingIndex();
     }
 
@@ -88,14 +85,14 @@ public class LapCounter : MonoBehaviour
         }
 
         // Update UI for player
-        if (gameObject.CompareTag("Player") && LAPCOUNT <= rm.MAXLAPS)
+        if (gameObject.CompareTag("Player") && LAPCOUNT <= RaceManager.Instance.MAXLAPS)
         {
-            IngameUIHolder.Instance.lapCounterUI.UpdateText(LAPCOUNT + "/" + rm.MAXLAPS);
+            IngameUIHolder.Instance.lapCounterUI.UpdateText(LAPCOUNT + "/" + RaceManager.Instance.MAXLAPS);
         }
 
-        if (gameObject.CompareTag("Player") && LAPCOUNT > rm.MAXLAPS && endPosition == 0)
+        if (gameObject.CompareTag("Player") && LAPCOUNT > RaceManager.Instance.MAXLAPS && endPosition == 0)
         {
-            RACE_MANAGER.RACE_COMPLETED = true;
+            RaceManager.RACE_COMPLETED = true;
             endPosition = Position;
 
             GetComponent<Player>().stopDrift();
@@ -159,7 +156,7 @@ public class LapCounter : MonoBehaviour
 
         onLapCompleted?.Invoke(LAPCOUNT);
 
-        if (LAPCOUNT == rm.MAXLAPS)
+        if (LAPCOUNT == RaceManager.Instance.MAXLAPS)
         {
             onLastLap?.Invoke(LAPCOUNT);
         }
@@ -175,9 +172,9 @@ public class LapCounter : MonoBehaviour
 
         if (!gameObject.CompareTag("Player"))
         {
-            int max = RACE_MANAGER.allPaths.childCount;
+            int max = RaceManager.allPaths.childCount;
             int rand = Random.Range(0, max);
-            GetComponent<ComputerDriver>().path = RACE_MANAGER.allPaths.GetChild(rand);
+            GetComponent<ComputerDriver>().path = RaceManager.allPaths.GetChild(rand);
         }
     }
 

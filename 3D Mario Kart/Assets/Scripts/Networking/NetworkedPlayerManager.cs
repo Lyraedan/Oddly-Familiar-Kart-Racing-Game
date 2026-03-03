@@ -15,19 +15,22 @@ public class NetworkedPlayerManager : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
+        Debug.Log("Spawned player with client ID: " + OwnerClientId + " GameObject: " + gameObject.name);
         Transform spawnPoint = GameObject.Find("PlayerSpawnPoint").transform;
         transform.position = spawnPoint.position;
         transform.rotation = spawnPoint.rotation;
 
-        isLocal = IsOwner; // Set isLocal based on ownership of the network object
+        isLocal = IsLocalPlayer; // Set isLocal based on ownership of the network object
         if(!isLocal)
         {
             player.enabled = false; // Disable player script for non-local players to prevent input processing
+            gameObject.name += " (OtherPlayer " + OwnerClientId + ")"; // Rename the GameObject for clarity in the hierarchy
         } 
         else
         {
             var cam = FindFirstObjectByType<Camerafollow>();
             cam.player = transform; // Set to us
+            cam.UpdatePlayer(cam.gameObject);
         }
 
         FindAllAnimatorsAndNetwork();

@@ -22,7 +22,6 @@ public class GreenShell : MonoBehaviour
     private Vector3 moveDirection;
 
     // References injected at spawn
-    private RACE_MANAGER raceManager;
     private Player player;
     private PlayerSounds playerSounds;
 
@@ -31,7 +30,6 @@ public class GreenShell : MonoBehaviour
         moveDirection = direction;
         thrownBy = owner;
 
-        raceManager = GameObject.Find("RACE_MANAGER").GetComponent<RACE_MANAGER>();
         player = mainPlayer;
         playerSounds = mainPlayer.GetComponent<PlayerSounds>();
     }

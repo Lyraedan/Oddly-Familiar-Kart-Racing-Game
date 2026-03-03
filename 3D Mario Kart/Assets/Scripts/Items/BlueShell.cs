@@ -40,8 +40,6 @@ public class BlueShell : MonoBehaviour
     [HideInInspector]
     public bool initiateWarning = false;
 
-    private RACE_MANAGER rm;
-
     [HideInInspector]
     public bool AntiGravity = false;
     private float smoothTime = 2.5f;
@@ -61,7 +59,6 @@ public class BlueShell : MonoBehaviour
 
 
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        rm = GameObject.Find("RaceManager").GetComponent<RACE_MANAGER>();
         sphereCollider = GetComponent<SphereCollider>();
         rb = GetComponent<Rigidbody>();
         
@@ -104,16 +101,11 @@ public class BlueShell : MonoBehaviour
 
         if (Vector3.Distance(transform.position, player.position) < 100 && !initiateWarning)
         {
-            StartCoroutine(rm.warningBlueShell(transform));
+            //StartCoroutine(rm.warningBlueShell(transform));
             initiateWarning = true;
         }
 
     }
-
-
-
-
-
 
     void RotateTowards()
     {

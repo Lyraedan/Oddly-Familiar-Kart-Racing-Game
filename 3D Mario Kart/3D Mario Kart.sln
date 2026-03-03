@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modio.Unity.UI", "Modio.Unity.UI.csproj", "{63552B74-2BC9-7EA1-1BD6-E100732574EB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "com.rlabrecque.steamworks.net", "com.rlabrecque.steamworks.net.csproj", "{BFE2DCDE-F1EE-E97D-DC1D-2864C1216C9C}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modio", "Modio.csproj", "{4BAB3D89-6B39-2E2C-A6B4-FDFD4F7FEDFB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{7D37FAD6-7A25-3D3D-4E27-3F55CF77F9B6}"
@@ -14,6 +16,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modio.Unity.UI.Editor", "Modio.Unity.UI.Editor.csproj", "{71A18B59-B8BB-969A-952B-D15796824103}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modio.Unity", "Modio.Unity.csproj", "{EB2344F3-7F55-3F28-D1D3-E908713D760E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "com.rlabrecque.steamworks.net.editor", "com.rlabrecque.steamworks.net.editor.csproj", "{4D799F7D-D7FB-3774-3289-366199B5DA64}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modio.Unity.Platforms.Ios", "Modio.Unity.Platforms.Ios.csproj", "{472D6BAE-8BDE-B8BC-4A21-5AB343CE7BA1}"
 EndProject
@@ -45,6 +49,10 @@ Global
 		{63552B74-2BC9-7EA1-1BD6-E100732574EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{63552B74-2BC9-7EA1-1BD6-E100732574EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{63552B74-2BC9-7EA1-1BD6-E100732574EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFE2DCDE-F1EE-E97D-DC1D-2864C1216C9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFE2DCDE-F1EE-E97D-DC1D-2864C1216C9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFE2DCDE-F1EE-E97D-DC1D-2864C1216C9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFE2DCDE-F1EE-E97D-DC1D-2864C1216C9C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4BAB3D89-6B39-2E2C-A6B4-FDFD4F7FEDFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4BAB3D89-6B39-2E2C-A6B4-FDFD4F7FEDFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4BAB3D89-6B39-2E2C-A6B4-FDFD4F7FEDFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -69,6 +77,10 @@ Global
 		{EB2344F3-7F55-3F28-D1D3-E908713D760E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB2344F3-7F55-3F28-D1D3-E908713D760E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB2344F3-7F55-3F28-D1D3-E908713D760E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D799F7D-D7FB-3774-3289-366199B5DA64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D799F7D-D7FB-3774-3289-366199B5DA64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D799F7D-D7FB-3774-3289-366199B5DA64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D799F7D-D7FB-3774-3289-366199B5DA64}.Release|Any CPU.Build.0 = Release|Any CPU
 		{472D6BAE-8BDE-B8BC-4A21-5AB343CE7BA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{472D6BAE-8BDE-B8BC-4A21-5AB343CE7BA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{472D6BAE-8BDE-B8BC-4A21-5AB343CE7BA1}.Release|Any CPU.ActiveCfg = Release|Any CPU

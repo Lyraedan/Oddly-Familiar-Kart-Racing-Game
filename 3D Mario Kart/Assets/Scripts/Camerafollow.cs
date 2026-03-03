@@ -51,6 +51,11 @@ public class Camerafollow : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
+        if(playerscript == null || playerscriptItem == null)
+        {
+            return;
+        }
+
         if (!playerscript.GetComponent<OutOfBounds>().PlayerBeingMoved)
         {
             antiGravityTimeAgo += Time.deltaTime;
@@ -61,7 +66,7 @@ public class Camerafollow : MonoBehaviour
                 Ray upRay = new Ray(player.position, player.up);
 
                 Vector3 upDist;
-                if (!RACE_MANAGER.RACE_COMPLETED)
+                if (!RaceManager.RACE_COMPLETED)
                 {
                     upDist = upRay.GetPoint(offset);
                 }
@@ -79,7 +84,7 @@ public class Camerafollow : MonoBehaviour
                 }
             }
 
-            if (!playerscript.GLIDER_FLY && !playerscript.trickBoostPending && RACE_MANAGER.RACE_STARTED)
+            if (!playerscript.GLIDER_FLY && !playerscript.trickBoostPending && RaceManager.RACE_STARTED)
             {
                 transform.rotation = Quaternion.Slerp(transform.rotation, player.rotation, 3f * Time.deltaTime);
             }
@@ -125,7 +130,7 @@ public class Camerafollow : MonoBehaviour
             }
 
 
-            if ((playerscript.Boost || playerscript.trickBoostPending) && !playerscriptItem.isBullet && !RACE_MANAGER.RACE_COMPLETED)
+            if ((playerscript.Boost || playerscript.trickBoostPending) && !playerscriptItem.isBullet && !RaceManager.RACE_COMPLETED)
             {
                 if (!rotateCamAntiGravity)
                     transform.GetChild(0).localPosition = Vector3.Lerp(transform.GetChild(0).localPosition, boost_pos, 4f * Time.deltaTime);
@@ -143,17 +148,17 @@ public class Camerafollow : MonoBehaviour
                     transform.GetChild(0).localPosition = Vector3.Lerp(transform.GetChild(0).localPosition, new Vector3(orig_pos.x, antiGravityPosY, orig_pos.z), 4f * Time.deltaTime);
                 }
             }
-            if (RACE_MANAGER.RACE_COMPLETED)
+            if (RaceManager.RACE_COMPLETED)
             {
                 transform.GetChild(0).localPosition = Vector3.Lerp(transform.GetChild(0).localPosition, orig_pos, 3 * Time.deltaTime);
             }
-            if (playerscriptItem.isBullet && !RACE_MANAGER.RACE_COMPLETED)
+            if (playerscriptItem.isBullet && !RaceManager.RACE_COMPLETED)
             {
                 transform.GetChild(0).localPosition = Vector3.Lerp(transform.GetChild(0).localPosition, bulletPos, 6 * Time.deltaTime);
             }
         }
 
-        if (RACE_MANAGER.RACE_COMPLETED)
+        if (RaceManager.RACE_COMPLETED)
         {
             transform.localScale = new Vector3(1, 1, 1);
             if(raceEndFOV > 1)
@@ -161,7 +166,11 @@ public class Camerafollow : MonoBehaviour
                 transform.GetChild(0).GetChild(0).GetComponent<Camera>().fieldOfView = raceEndFOV;
             }
         }
+    }
 
-
+    public void UpdatePlayer(GameObject newPlayer)
+    {
+        playerscript = newPlayer.gameObject.GetComponent<Player>();
+        playerscriptItem = newPlayer.gameObject.GetComponent<ItemManager>();
     }
 }

@@ -50,7 +50,7 @@ public class Cow : MonoBehaviour
         GroundNormalRotation();
         moveOnPath();
 
-        if(RACE_MANAGER.RACE_STARTED && !raceStarted)
+        if(RaceManager.RACE_STARTED && !raceStarted)
         {
             raceStarted = true;
             transform.position = startPos;
@@ -118,7 +118,7 @@ public class Cow : MonoBehaviour
     {
         yield return new WaitForSeconds(x);
 
-        while (!RACE_MANAGER.RACE_COMPLETED)
+        while (!RaceManager.RACE_COMPLETED)
         {
             int cowsPlayingSounds = 0;
 

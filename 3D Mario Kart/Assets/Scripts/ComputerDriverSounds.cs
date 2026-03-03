@@ -120,16 +120,16 @@ public class ComputerDriverSounds : MonoBehaviour
         {
             kartSound.Stop();
         }
-        if (aiScript.GLIDER_FLY && !RACE_MANAGER.RACE_COMPLETED)
+        if (aiScript.GLIDER_FLY && !RaceManager.RACE_COMPLETED)
         {
             kartSound.volume = 0.5f;
         }
-        else if (!aiScript.GLIDER_FLY && !RACE_MANAGER.RACE_COMPLETED)
+        else if (!aiScript.GLIDER_FLY && !RaceManager.RACE_COMPLETED)
         {
             kartSound.volume = 1f;
         }
 
-        if (RACE_MANAGER.RACE_COMPLETED && kartSound.volume > 0)
+        if (RaceManager.RACE_COMPLETED && kartSound.volume > 0)
         {
 
             kartSound.volume -= 0.01f;
