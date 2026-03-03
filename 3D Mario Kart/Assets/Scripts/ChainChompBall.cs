@@ -55,7 +55,7 @@ public class ChainChompBall : MonoBehaviour
             cf.force = new Vector3(0, -force, 0);
             audiosrc.Play();
 
-            if (Vector3.Distance(GameObject.FindGameObjectWithTag("Player").transform.position, transform.position) < 150)
+            if (Vector3.Distance(RaceManager.Instance.LocalPlayer.transform.position, transform.position) < 150)
             {
                 try
                 {

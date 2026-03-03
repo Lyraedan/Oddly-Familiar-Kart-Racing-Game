@@ -255,7 +255,7 @@ public class RedShellItem : ItemBase
             thrownBy.gameObject != playerTransform.gameObject)
         {
             closeToPlayer = true;
-            StartCoroutine(rm.WarningRedShell(transform));
+            StartCoroutine(RaceManager.Instance.WarningRedShell(transform));
         }
     }
 

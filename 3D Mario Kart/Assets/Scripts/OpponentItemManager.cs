@@ -64,7 +64,6 @@ public class OpponentItemManager : MonoBehaviour
     [HideInInspector]
     public bool StarPowerUp;
 
-    private Transform player;
     private bool closeToPlayer = false;
 
     [HideInInspector]
@@ -77,8 +76,6 @@ public class OpponentItemManager : MonoBehaviour
         ai_script = GetComponent<ComputerDriver>();
         lap_counter = GetComponent<LapCounter>();
         comp_sounds = GetComponent<ComputerDriverSounds>();
-
-        player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     // Update is called once per frame
@@ -105,13 +102,13 @@ public class OpponentItemManager : MonoBehaviour
             usingItem();
         }
 
-        if(StarPowerUp && !closeToPlayer && Vector3.Distance(transform.position, player.position) < 100)
+        if(StarPowerUp && !closeToPlayer && Vector3.Distance(transform.position, RaceManager.Instance.LocalPlayer.transform.position) < 100)
         {
             closeToPlayer = true;
             StartCoroutine(RaceManager.Instance.WarningStar(transform));
         }
 
-        if(isBullet && !closeToPlayer && Vector3.Distance(transform.position, player.position) < 100)
+        if(isBullet && !closeToPlayer && Vector3.Distance(transform.position, RaceManager.Instance.LocalPlayer.transform.position) < 100)
         {
             closeToPlayer = true;
             StartCoroutine(RaceManager.Instance.WarningBullet(transform));
@@ -127,9 +124,9 @@ public class OpponentItemManager : MonoBehaviour
                 hitByBanana();
                 if (collision.gameObject.GetComponent<Banana>().whoThrewBanana == "Mario")
                 {
-                    GameObject.Find("Mario").GetComponent<Player>().Driver.SetTrigger("HitItem");
-                    if (GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSounds>().CanPlayCharacterSound())
-                        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSounds>().marioItemHit.Play();
+                    RaceManager.Instance.LocalPlayer.Driver.SetTrigger("HitItem");
+                    if (RaceManager.Instance.LocalPlayerSounds.CanPlayCharacterSound())
+                        RaceManager.Instance.LocalPlayerSounds.marioItemHit.Play();
 
                 }
                 Destroy(collision.gameObject);

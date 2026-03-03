@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +10,12 @@ public class ItemListPopulator : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        StartCoroutine(WaitToPopulate());
+    }
+
+    IEnumerator WaitToPopulate()
+    {
+        yield return new WaitUntil(() => RaceManager.Instance.LocalPlayer != null);
         Populate();
     }
 

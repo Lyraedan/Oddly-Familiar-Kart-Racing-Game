@@ -72,7 +72,7 @@ public class Bobomb : MonoBehaviour
     }
     public void Move()
     {
-        if (!GetComponent<AudioSource>().isPlaying && !exploded && Vector3.Distance(GameObject.FindGameObjectWithTag("Player").transform.position, transform.position) < 50)
+        if (!GetComponent<AudioSource>().isPlaying && !exploded && Vector3.Distance(RaceManager.Instance.LocalPlayer.transform.position, transform.position) < 50)
         {
             GetComponent<AudioSource>().Play();
         }
@@ -171,7 +171,7 @@ public class Bobomb : MonoBehaviour
                 spark[i].SetActive(false);
             }
             exploded = true;
-            if(Vector3.Distance(GameObject.FindGameObjectWithTag("Player").transform.position, transform.position) < 250)
+            if(Vector3.Distance(RaceManager.Instance.LocalPlayer.transform.position, transform.position) < 250)
             {
                 clone.GetComponent<AudioSource>().Play();
                 Camera.main.GetComponent<Animator>().SetTrigger("Shake2");
@@ -200,7 +200,7 @@ public class Bobomb : MonoBehaviour
                 spark[i].SetActive(false);
             }
             exploded = true;
-            if (Vector3.Distance(GameObject.FindGameObjectWithTag("Player").transform.position, transform.position) < 250)
+            if (Vector3.Distance(RaceManager.Instance.LocalPlayer.transform.position, transform.position) < 250)
             {
                 clone.GetComponent<AudioSource>().Play();
                 try

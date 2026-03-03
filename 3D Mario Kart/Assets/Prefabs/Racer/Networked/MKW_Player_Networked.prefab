@@ -36560,7 +36560,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 3679227253
+  GlobalObjectIdHash: 2628693913
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -36585,13 +36585,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90b6f399aa8bb034a8f45235de8d837a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Boost: 0
+  IsOnlineLobby: 1
   boost_speed: 120
   drift_speed: 0
   desiredMaxSpeed: 90
   max_speed: 90
   currentspeed: 0
   REALCURRENTSPEED: 0
+  Boost: 0
   desired_rotate_strength: 25
   raycastPos: {fileID: 483036507850153567}
   grounded: 0

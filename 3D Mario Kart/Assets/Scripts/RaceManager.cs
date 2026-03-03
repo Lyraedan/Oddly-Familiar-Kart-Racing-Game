@@ -96,6 +96,44 @@ public class RaceManager : MonoBehaviour
 
     public List<Player> AllPlayers = new List<Player>();
 
+    void Awake()
+    {
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Application.targetFrameRate = 60;
+    }
+
+    void Start()
+    {
+        // Cache AI paths
+        AIPaths = AIPathRoot.GetComponentsInChildren<PathTool>().ToList();
+        allPaths = GameObject.Find("AI PATHS")?.transform;
+
+        // Default song names
+        if (string.IsNullOrEmpty(courseMusic.songName)) courseMusic.songName = courseMusic.clip.name;
+        if (string.IsNullOrEmpty(finalLapCourseMusic.songName)) finalLapCourseMusic.songName = finalLapCourseMusic.clip.name;
+
+        // Setup music playback speed
+        IngameUIHolder.Instance.MusicDisplay.ChangeSongSpeed(music, courseMusic.playbackSpeed);
+        IngameUIHolder.Instance.MusicDisplay.ChangeSongSpeed(musicFast, finalLapCourseMusic.playbackSpeed);
+
+        music.clip = courseMusic.clip;
+        musicFast.clip = finalLapCourseMusic.clip;
+
+        // Update UI
+        IngameUIHolder.Instance.UpdateAuthor(Author);
+        IngameUIHolder.Instance.UpdateCourse(CourseName, Console);
+        IngameUIHolder.Instance.UpdateMinimapBackground(MinimapBackground);
+    }
+
     public void RegisterLocalPlayer(Player player)
     {
         LocalPlayer = player;
@@ -113,49 +151,6 @@ public class RaceManager : MonoBehaviour
     {
         if (AllPlayers.Contains(player))
             AllPlayers.Remove(player);
-    }
-
-    void Awake()
-    {
-        if(Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        Application.targetFrameRate = 60;
-    }
-
-        void Start()
-    {
-        // Cache AI paths
-        AIPaths = AIPathRoot.GetComponentsInChildren<PathTool>().ToList();
-        allPaths = GameObject.Find("AI PATHS")?.transform;
-
-        // Cache player and components
-        player = GameObject.FindGameObjectWithTag("Player")?.transform;
-        playerSounds = player?.GetComponent<PlayerSounds>();
-        playerLap = player?.GetComponent<LapCounter>();
-
-        // Default song names
-        if (string.IsNullOrEmpty(courseMusic.songName)) courseMusic.songName = courseMusic.clip.name;
-        if (string.IsNullOrEmpty(finalLapCourseMusic.songName)) finalLapCourseMusic.songName = finalLapCourseMusic.clip.name;
-
-        // Setup music playback speed
-        IngameUIHolder.Instance.MusicDisplay.ChangeSongSpeed(music, courseMusic.playbackSpeed);
-        IngameUIHolder.Instance.MusicDisplay.ChangeSongSpeed(musicFast, finalLapCourseMusic.playbackSpeed);
-
-        music.clip = courseMusic.clip;
-        musicFast.clip = finalLapCourseMusic.clip;
-
-        // Update UI
-        IngameUIHolder.Instance.UpdateAuthor(Author);
-        IngameUIHolder.Instance.UpdateCourse(CourseName, Console);
-        IngameUIHolder.Instance.UpdateMinimapBackground(MinimapBackground);
     }
 
     void Update()
@@ -193,13 +188,13 @@ public class RaceManager : MonoBehaviour
     {
         if (!RACE_STARTED || RACE_COMPLETED) return;
 
-        if (Input.GetKeyDown(KeyCode.Alpha1) && !Input.GetKey(KeyCode.B))
+        if (Input.GetKeyDown(KeyCode.Alpha1) && !PlayerControls.GetButton(PlayerControls.LOOK_BEHIND))
             SwitchToFPCam();
-        if (Input.GetKeyDown(KeyCode.Alpha2) && !Input.GetKey(KeyCode.B))
+        if (Input.GetKeyDown(KeyCode.Alpha2) && !PlayerControls.GetButton(PlayerControls.LOOK_BEHIND))
             SwitchToFrontCam();
-        if (Input.GetKeyDown(KeyCode.B))
+        if (PlayerControls.GetButtonDown(PlayerControls.LOOK_BEHIND))
             SwitchToBackCam();
-        if (Input.GetKeyUp(KeyCode.B))
+        if (PlayerControls.GetButtonUp(PlayerControls.LOOK_BEHIND))
             RestoreCamera();
     }
 
@@ -259,14 +254,6 @@ public class RaceManager : MonoBehaviour
 
     private IEnumerator FinishRace()
     {
-        // Cache references to the player and their components
-        GameObject playerGO = GameObject.FindGameObjectWithTag("Player");
-        if (playerGO == null) yield break;
-
-        Player player = playerGO.GetComponent<Player>();
-        PlayerSounds playerSounds = playerGO.GetComponent<PlayerSounds>();
-        LapCounter playerLap = playerGO.GetComponent<LapCounter>();
-
         // Play goal sound
         playerSounds.goal.Play();
 
@@ -293,7 +280,7 @@ public class RaceManager : MonoBehaviour
         if (playerPos == 1)
         {
             // First place sequence
-            player.Driver.SetBool("FirstPlace", true);
+            LocalPlayer.Driver.SetBool("FirstPlace", true);
             playerSounds.firstPlaceVoice.Play();
             yield return new WaitForSeconds(1f);
 
@@ -311,7 +298,7 @@ public class RaceManager : MonoBehaviour
         else if (playerPos < 6)
         {
             // 2nd–5th place sequence
-            player.Driver.SetBool("FirstPlace", true); // maybe this should be adjusted for non-first places
+            LocalPlayer.Driver.SetBool("FirstPlace", true); // maybe this should be adjusted for non-first places
             playerSounds.firstPlaceVoice.Play();
             yield return new WaitForSeconds(1f);
 
@@ -329,7 +316,7 @@ public class RaceManager : MonoBehaviour
         else
         {
             // Last place or beyond
-            player.Driver.SetBool("LoseAnim", true);
+            LocalPlayer.Driver.SetBool("LoseAnim", true);
             playerSounds.marioLose.Play();
             yield return new WaitForSeconds(1f);
 
@@ -359,6 +346,7 @@ public class RaceManager : MonoBehaviour
     {
         GameObject.Find("FadeInOut")?.GetComponent<Animator>()?.SetTrigger("FadeIn");
 
+        yield return new WaitUntil(() => LocalPlayer != null);
         CoinCounter.SetActive(true);
         LapCounterUI.SetActive(true);
         MiniMap.SetActive(true);

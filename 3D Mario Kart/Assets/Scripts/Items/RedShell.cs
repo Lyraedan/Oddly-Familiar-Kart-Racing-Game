@@ -32,7 +32,6 @@ public class RedShell : MonoBehaviour
     private bool grounded;
 
     private bool closeToPlayer = false;
-    private Transform player;
 
     [HideInInspector]
     public bool isactive = true;
@@ -64,7 +63,6 @@ public class RedShell : MonoBehaviour
         }
 
         opponents = GameObject.FindGameObjectsWithTag("Opponent");
-        player = GameObject.FindGameObjectWithTag("Player").transform;   
     }
 
 
@@ -84,7 +82,7 @@ public class RedShell : MonoBehaviour
         
         move();
 
-        if (!GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().GLIDER_FLY)
+        if (!RaceManager.Instance.LocalPlayer.GLIDER_FLY)
         {
             if(!AntiGravity)
                 rb.AddForce(Vector3.down * 15000 * Time.deltaTime, ForceMode.Acceleration);
@@ -97,7 +95,7 @@ public class RedShell : MonoBehaviour
         if(!closeToPlayer)
         {
             
-                if(Vector3.Distance(player.position, transform.position) < 100 && who_threw_shell != player.name)
+                if(Vector3.Distance(RaceManager.Instance.LocalPlayer.transform.position, transform.position) < 100 && who_threw_shell != RaceManager.Instance.LocalPlayer.name)
                 {
                     closeToPlayer = true;
                     //StartCoroutine(rm.warningRedShell(transform));
@@ -395,9 +393,9 @@ public class RedShell : MonoBehaviour
                     collision.gameObject.GetComponent<OpponentItemManager>().hitByShell(); //the opponent has the function that does all this work
                     if (who_threw_shell == "Mario")
                     {
-                        GameObject.Find("Mario").GetComponent<Player>().Driver.SetTrigger("HitItem");
-                        if (GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSounds>().CanPlayCharacterSound())
-                            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSounds>().marioItemHit.Play();
+                        RaceManager.Instance.LocalPlayer.Driver.SetTrigger("HitItem");
+                        if (RaceManager.Instance.LocalPlayerSounds.CanPlayCharacterSound())
+                            RaceManager.Instance.LocalPlayerSounds.marioItemHit.Play();
                     }
                     destroyShell();
                     if (who_threw_shell == "Mario")

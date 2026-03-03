@@ -152,7 +152,7 @@ public class PlayerSounds : MonoBehaviour
 
     private void HandleVolume()
     {
-        if (RACE_MANAGER.RACE_COMPLETED)
+        if (RaceManager.RACE_COMPLETED)
         {
             if (kartEngine.volume > 0f)
                 kartEngine.volume -= 0.01f;
@@ -184,7 +184,7 @@ public class PlayerSounds : MonoBehaviour
 
     public void PlayHurt()
     {
-        if (RACE_MANAGER.RACE_COMPLETED || hurtSounds.Count == 0) return;
+        if (RaceManager.RACE_COMPLETED || hurtSounds.Count == 0) return;
 
         hurtSounds[hurtIndex].Play();
         hurtIndex = (hurtIndex + 1) % hurtSounds.Count;

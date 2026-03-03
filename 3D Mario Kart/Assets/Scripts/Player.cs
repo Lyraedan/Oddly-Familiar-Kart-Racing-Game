@@ -11,8 +11,9 @@ public class Player : MonoBehaviour
 
     // Oh my sweet jesus christ. Refactoring this is gonna SUCK
 
-    [HideInInspector]
-    public bool Boost = false;
+    public bool IsOnlineLobby = false; // Used to disable certain things that would cause issues in the lobby, like the position counter and boost particles
+    [Space(25)]
+
 
     //movements
     public float boost_speed = 90;
@@ -23,6 +24,8 @@ public class Player : MonoBehaviour
     public float currentspeed = 0;
     [HideInInspector]
     public float REALCURRENTSPEED;
+    [HideInInspector]
+    public bool Boost = false;
 
     private Rigidbody rb;
 
@@ -202,9 +205,9 @@ public class Player : MonoBehaviour
     [HideInInspector] public Transform propeller;
 
     [Header("Optional stuff")]
-    [HideInInspector] public Camerafollow Cam;
+    [HideInInspector] public CameraFollow Cam;
 
-    private OutOfBounds outOfBounds;
+    public OutOfBounds outOfBounds;
 
     private MKWKartCustomization mkwCustomization;
     private MKWKartCustomization.GliderType gliderType = MKWKartCustomization.GliderType.Glider;
@@ -248,16 +251,18 @@ public class Player : MonoBehaviour
             RaceEndPath = raceEndPathTool.pathRoot;
         }
 
-        if (Cam == null)
-        {
-            Cam = FindFirstObjectByType<Camerafollow>();
-            Cam.player = transform; // Set to us
-        }
-
         lapCounter.onPositionChanged += pos => Debug.Log("Position: " + pos);
         lapCounter.onLapCompleted += lap => Debug.Log("Lap Completed: " + lap);
         lapCounter.onCheckpointReached += id => Debug.Log("Checkpoint Reached: " + id);
         lapCounter.onLastLap += lap => Debug.Log("Last Lap: " + lap);
+
+        // Temp for now
+        if(RaceManager.Instance.LocalPlayer == null && !IsOnlineLobby)
+        {
+            Debug.Log("Not in a lobby! Registering manually!");
+            RaceManager.Instance.RegisterLocalPlayer(this);
+            RaceManager.Instance.RegisterPlayer(this);
+        }
     }
 
     public void LoadMKWCustomization()

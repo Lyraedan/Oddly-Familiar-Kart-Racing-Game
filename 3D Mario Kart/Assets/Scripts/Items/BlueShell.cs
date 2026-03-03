@@ -34,8 +34,6 @@ public class BlueShell : MonoBehaviour
     public GameObject blueExplosion;
     public GameObject smoke;
 
-    private Transform player;
-
     public bool isactive = true;
     [HideInInspector]
     public bool initiateWarning = false;
@@ -58,7 +56,6 @@ public class BlueShell : MonoBehaviour
         path = pathOption1;
 
 
-        player = GameObject.FindGameObjectWithTag("Player").transform;
         sphereCollider = GetComponent<SphereCollider>();
         rb = GetComponent<Rigidbody>();
         
@@ -90,7 +87,7 @@ public class BlueShell : MonoBehaviour
         if(!attackingTarget)
             move();
 
-        if (!grounded && !GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().GLIDER_FLY && !AntiGravity)
+        if (!grounded && !RaceManager.Instance.LocalPlayer.GLIDER_FLY && !AntiGravity)
         {
             rb.AddForce(Vector3.down * 15000 * Time.deltaTime, ForceMode.Acceleration);
         }
@@ -99,7 +96,7 @@ public class BlueShell : MonoBehaviour
             rb.AddRelativeForce(Vector3.down * 15000 * Time.deltaTime, ForceMode.Acceleration);
         }
 
-        if (Vector3.Distance(transform.position, player.position) < 100 && !initiateWarning)
+        if (Vector3.Distance(transform.position, RaceManager.Instance.LocalPlayer.transform.position) < 100 && !initiateWarning)
         {
             //StartCoroutine(rm.warningBlueShell(transform));
             initiateWarning = true;

@@ -160,8 +160,8 @@
     <Compile Include="Assets\com.rlabrecque.steamworks.net\Runtime\types\SteamHTMLSurface\HHTMLBrowser.cs" />
     <Compile Include="Assets\com.rlabrecque.steamworks.net\Runtime\types\SteamTimeline\TimelineEventHandle_t.cs" />
     <Compile Include="Assets\com.rlabrecque.steamworks.net\Runtime\types\SteamInput\InputHandle_t.cs" />
-    <Compile Include="Assets\com.rlabrecque.steamworks.net\Runtime\autogen\isteamgameserverstats.cs" />
     <Compile Include="Assets\com.rlabrecque.steamworks.net\Runtime\autogen\isteamgameservernetworkingmessages.cs" />
+    <Compile Include="Assets\com.rlabrecque.steamworks.net\Runtime\autogen\isteamgameserverstats.cs" />
     <Compile Include="Assets\com.rlabrecque.steamworks.net\Runtime\autogen\isteamapps.cs" />
     <Compile Include="Assets\com.rlabrecque.steamworks.net\Runtime\autogen\isteamremoteplay.cs" />
     <Compile Include="Assets\com.rlabrecque.steamworks.net\Runtime\types\SteamRemoteStorage\UGCHandle_t.cs" />

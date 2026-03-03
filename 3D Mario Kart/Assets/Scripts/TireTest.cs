@@ -33,7 +33,7 @@ public class TireTest : MonoBehaviour
         }
         driftCooldown -= Time.deltaTime;
 
-        if (GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().antiGravity)
+        if (RaceManager.Instance.LocalPlayer.antiGravity)
         {
             transform.GetChild(0).localPosition = Vector3.LerpUnclamped(transform.GetChild(0).localPosition, pos, 10 * Time.deltaTime);
         }
@@ -41,10 +41,10 @@ public class TireTest : MonoBehaviour
 
         if (gameObject.name.IndexOf("Axel") < 0) //is a tire
         {
-            if (!GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().antiGravity)
+            if (!RaceManager.Instance.LocalPlayer.antiGravity)
             {
                 RaycastHit hit;
-                if (GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().GLIDER_FLY) //this helps prevent the tires from simulating suspension on trigger colliders placed around the track when gliding because it would look awkward
+                if (RaceManager.Instance.LocalPlayer.GLIDER_FLY) //this helps prevent the tires from simulating suspension on trigger colliders placed around the track when gliding because it would look awkward
                 {
                     if (Physics.Raycast(transform.position, -transform.up, out hit, 0.75f, mask))
                     {
@@ -60,12 +60,12 @@ public class TireTest : MonoBehaviour
                 {
                     //dont want the suspension effect to act too much when hopping
                     float lerpSpeed = 20;
-                    if (driftCooldown > 0 && !GameObject.FindGameObjectWithTag("Player").transform.GetChild(0).GetComponent<UtilityFunctions>().hopEnd)
+                    if (driftCooldown > 0 && !RaceManager.Instance.LocalPlayer.GetComponent<UtilityFunctions>().hopEnd)
                     {
                         lerpSpeed = 5;
                     }
 
-                    if (GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().REALCURRENTSPEED < 20)
+                    if (RaceManager.Instance.LocalPlayer.REALCURRENTSPEED < 20)
                     {
                         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, hitDistance, mask))
                         {

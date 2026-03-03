@@ -20,20 +20,22 @@ public class NetworkedPlayerManager : NetworkBehaviour
         transform.position = spawnPoint.position;
         transform.rotation = spawnPoint.rotation;
 
-        isLocal = IsLocalPlayer; // Set isLocal based on ownership of the network object
+        isLocal = IsLocalPlayer;
         if(!isLocal)
         {
-            player.enabled = false; // Disable player script for non-local players to prevent input processing
-            gameObject.name += " (OtherPlayer " + OwnerClientId + ")"; // Rename the GameObject for clarity in the hierarchy
+            player.enabled = false; 
+            gameObject.name += " (OtherPlayer " + OwnerClientId + ")";
+            gameObject.tag = "OtherPlayer";
         } 
         else
         {
-            var cam = FindFirstObjectByType<Camerafollow>();
-            cam.player = transform; // Set to us
-            cam.UpdatePlayer(cam.gameObject);
+            RaceManager.Instance.RegisterLocalPlayer(player);
+            gameObject.tag = "Player";
         }
 
         FindAllAnimatorsAndNetwork();
+
+        RaceManager.Instance.RegisterPlayer(player);
     }
 
     public void FindAllAnimatorsAndNetwork()

@@ -6,9 +6,6 @@ using System;
 
 public class UtilityFunctions : MonoBehaviour
 {
-    private PlayerSounds playersounds;
-    private Player playerscript;
-
     private bool drifting;
     private Vector3 offset;
 
@@ -20,9 +17,6 @@ public class UtilityFunctions : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playersounds = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSounds>();
-        playerscript = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-
         //cow stuff
         if(gameObject.name.IndexOf("Cow") >= 0)
         {
@@ -99,12 +93,12 @@ public class UtilityFunctions : MonoBehaviour
     }
     public void gliderOpenflapSound()
     {
-        playersounds.gliderFlapOpen.Play();
+        RaceManager.Instance.LocalPlayerSounds.gliderFlapOpen.Play();
     }
 
     public void is_drifting()
     {
-       GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().drifting = true;
+        RaceManager.Instance.LocalPlayer.drifting = true;
         hopEnd = true;
     }
     public void hopStart()
@@ -126,7 +120,7 @@ public class UtilityFunctions : MonoBehaviour
         {
             
 
-            if (playerscript.REALCURRENTSPEED > 40)
+            if (RaceManager.Instance.LocalPlayer.REALCURRENTSPEED > 40)
             {
                 gameObject.GetComponent<Animator>().SetBool("moustaceMove", true);
             }
@@ -143,7 +137,7 @@ public class UtilityFunctions : MonoBehaviour
     {
         if(gameObject.name == "Hair")
         {
-            if(playerscript.REALCURRENTSPEED > 40)
+            if(RaceManager.Instance.LocalPlayer.REALCURRENTSPEED > 40)
             {
                 gameObject.GetComponent<Animator>().SetBool("HairMove", true);
             }
@@ -235,7 +229,7 @@ public class UtilityFunctions : MonoBehaviour
     {
         for(int i = 0; i < 40; i++)
         {
-            playerscript.MarioFace.material = playerscript.faces[3];
+            RaceManager.Instance.LocalPlayer.MarioFace.material = RaceManager.Instance.LocalPlayer.faces[3];
             yield return new WaitForSeconds(0.016f);
         }
     }
@@ -244,7 +238,7 @@ public class UtilityFunctions : MonoBehaviour
     {
         for (int i = 0; i < transform.childCount; i++)
         {
-            if (i + 1 != GameObject.FindGameObjectWithTag("Player").GetComponent<LapCounter>().Position)
+            if (i + 1 != RaceManager.Instance.LocalPlayer.GetComponent<LapCounter>().Position)
             {
                 transform.GetChild(i).gameObject.SetActive(false);
             }
@@ -263,9 +257,9 @@ public class UtilityFunctions : MonoBehaviour
         {
             if(transform.parent.GetComponent<BlueShell>().who_threw_shell == "Mario")
             {
-                GameObject.Find("Mario").GetComponent<Player>().Driver.SetTrigger("HitItem");
-                if(GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSounds>().CanPlayCharacterSound())
-                    GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSounds>().marioItemHit.Play();
+                RaceManager.Instance.LocalPlayer.Driver.SetTrigger("HitItem");
+                if(RaceManager.Instance.LocalPlayerSounds.CanPlayCharacterSound())
+                    RaceManager.Instance.LocalPlayerSounds.marioItemHit.Play();
             }
         }
 

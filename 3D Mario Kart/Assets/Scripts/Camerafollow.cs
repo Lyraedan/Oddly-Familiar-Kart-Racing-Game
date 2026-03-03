@@ -2,18 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Camerafollow : MonoBehaviour
+public class CameraFollow : MonoBehaviour
 {
-    public Transform player;
     public float offset; // we need to change this to a lesser value whenever there is antigravity AND the race is completed
 
     public Vector3 boost_pos = new Vector3(0, 1.24f, -6.5f);
     public Vector3 orig_pos;
     public Vector3 bulletPos;
     public float antiGravityPosY;
-
-    private Player playerscript;
-    private ItemManager playerscriptItem;
 
     [HideInInspector]
     public float antiGravityTimeAgo = 0;
@@ -34,36 +30,24 @@ public class Camerafollow : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(player == null)
-        {
-            player = GameObject.FindGameObjectWithTag("Player").transform;
-            if(player == null)
-            {
-                Debug.LogError("Player not found! Please assign the player transform in the inspector or give the player the \"Player\" tag.");
-                return;
-            }
-        }
 
-        playerscript = player.GetComponent<Player>();
-        playerscriptItem = player.GetComponent<ItemManager>();
     }
 
     // Update is called once per frame
     void LateUpdate()
     {
-        if(playerscript == null || playerscriptItem == null)
-        {
+        Player player = RaceManager.Instance.LocalPlayer;
+        if (player == null)
             return;
-        }
 
-        if (!playerscript.GetComponent<OutOfBounds>().PlayerBeingMoved)
+        if (!player.outOfBounds.PlayerBeingMoved)
         {
             antiGravityTimeAgo += Time.deltaTime;
 
             //anti gravity vs regular position
-            if (playerscript.antiGravity || antiGravityTimeAgo < 3 || playerscript.GLIDER_FLY)
+            if (player.antiGravity || antiGravityTimeAgo < 3 || player.GLIDER_FLY)
             {
-                Ray upRay = new Ray(player.position, player.up);
+                Ray upRay = new Ray(player.transform.position, player.transform.up);
 
                 Vector3 upDist;
                 if (!RaceManager.RACE_COMPLETED)
@@ -80,13 +64,13 @@ public class Camerafollow : MonoBehaviour
             {
 
                 {
-                    transform.position = player.position + new Vector3(0, offset, 0);
+                    transform.position = player.transform.position + new Vector3(0, offset, 0);
                 }
             }
 
-            if (!playerscript.GLIDER_FLY && !playerscript.trickBoostPending && RaceManager.RACE_STARTED)
+            if (!player.GLIDER_FLY && !player.trickBoostPending && RaceManager.RACE_STARTED)
             {
-                transform.rotation = Quaternion.Slerp(transform.rotation, player.rotation, 3f * Time.deltaTime);
+                transform.rotation = Quaternion.Slerp(transform.rotation, player.transform.rotation, 3f * Time.deltaTime);
             }
             else
             {
@@ -94,26 +78,26 @@ public class Camerafollow : MonoBehaviour
                     float angle = transform.localEulerAngles.x;
                     angle = (angle > 180) ? angle - 360 : angle;
 
-                if (playerscript.GLIDER_FLY)
+                if (player.GLIDER_FLY)
                 {
-                    transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(glideAngleX, player.eulerAngles.y, glideAngleZ), 1 * Time.deltaTime);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(glideAngleX, player.transform.eulerAngles.y, glideAngleZ), 1 * Time.deltaTime);
                 }
-                else if(playerscript.trickBoostPending && !playerscript.antiGravity)
+                else if(player.trickBoostPending && !player.antiGravity)
                 {
-                    transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, player.eulerAngles.y, 0), 3 * Time.deltaTime);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, player.transform.eulerAngles.y, 0), 3 * Time.deltaTime);
                 }
 
 
 
             }
 
-            if (playerscript.JUMP_PANEL)
+            if (player.JUMP_PANEL)
             {
-                transform.rotation = Quaternion.Slerp(transform.rotation, player.rotation, 0.4f * Time.deltaTime);
+                transform.rotation = Quaternion.Slerp(transform.rotation, player.transform.rotation, 0.4f * Time.deltaTime);
             }
 
             //rotation antigravity
-            if (playerscript.antiGravity)
+            if (player.antiGravity)
             {
                 if (rotateCamAntiGravity)
                 {
@@ -130,7 +114,7 @@ public class Camerafollow : MonoBehaviour
             }
 
 
-            if ((playerscript.Boost || playerscript.trickBoostPending) && !playerscriptItem.isBullet && !RaceManager.RACE_COMPLETED)
+            if ((player.Boost || player.trickBoostPending) && !player.itemManager.isBullet && !RaceManager.RACE_COMPLETED)
             {
                 if (!rotateCamAntiGravity)
                     transform.GetChild(0).localPosition = Vector3.Lerp(transform.GetChild(0).localPosition, boost_pos, 4f * Time.deltaTime);
@@ -139,7 +123,7 @@ public class Camerafollow : MonoBehaviour
                     transform.GetChild(0).localPosition = Vector3.Lerp(transform.GetChild(0).localPosition, new Vector3(boost_pos.x, antiGravityPosY, boost_pos.z), 4f * Time.deltaTime);
                 }
             }
-            if (!playerscript.Boost && !playerscriptItem.isBullet)
+            if (!player.Boost && !player.itemManager.isBullet)
             {
                 if (!rotateCamAntiGravity)
                     transform.GetChild(0).localPosition = Vector3.Lerp(transform.GetChild(0).localPosition, orig_pos, 4f * Time.deltaTime);
@@ -152,7 +136,7 @@ public class Camerafollow : MonoBehaviour
             {
                 transform.GetChild(0).localPosition = Vector3.Lerp(transform.GetChild(0).localPosition, orig_pos, 3 * Time.deltaTime);
             }
-            if (playerscriptItem.isBullet && !RaceManager.RACE_COMPLETED)
+            if (player.itemManager.isBullet && !RaceManager.RACE_COMPLETED)
             {
                 transform.GetChild(0).localPosition = Vector3.Lerp(transform.GetChild(0).localPosition, bulletPos, 6 * Time.deltaTime);
             }
@@ -166,11 +150,5 @@ public class Camerafollow : MonoBehaviour
                 transform.GetChild(0).GetChild(0).GetComponent<Camera>().fieldOfView = raceEndFOV;
             }
         }
-    }
-
-    public void UpdatePlayer(GameObject newPlayer)
-    {
-        playerscript = newPlayer.gameObject.GetComponent<Player>();
-        playerscriptItem = newPlayer.gameObject.GetComponent<ItemManager>();
     }
 }

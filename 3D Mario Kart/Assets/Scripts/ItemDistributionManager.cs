@@ -124,10 +124,9 @@ public class ItemDistributionManager : MonoBehaviour
                 else
                 {
                     // Blue shell logic
-                    var rm = GameObject.Find("RaceManager").GetComponent<RACE_MANAGER>();
-                    if (rm.currentBlueShellCount == 0)
+                    if (RaceManager.Instance.currentBlueShellCount == 0)
                     {
-                        rm.currentBlueShellCount = 1;
+                        RaceManager.Instance.currentBlueShellCount = 1;
                         StartCoroutine(resetBlueShell());
                         return 3; // blue shell
                     }
@@ -138,10 +137,9 @@ public class ItemDistributionManager : MonoBehaviour
                 range = Random.Range(0, 8);
                 if (range < 3)
                 {
-                    var rm = GameObject.Find("RaceManager").GetComponent<RACE_MANAGER>();
-                    if (rm.currentBlueShellCount == 0)
+                    if (RaceManager.Instance.currentBlueShellCount == 0)
                     {
-                        rm.currentBlueShellCount = 1;
+                        RaceManager.Instance.currentBlueShellCount = 1;
                         StartCoroutine(resetBlueShell());
                         return 3; // blue shell
                     }
@@ -164,6 +162,6 @@ public class ItemDistributionManager : MonoBehaviour
     IEnumerator resetBlueShell()
     {
         yield return new WaitForSeconds(10);
-        GameObject.Find("RaceManager").GetComponent<RACE_MANAGER>().currentBlueShellCount = 0;
+        RaceManager.Instance.currentBlueShellCount = 0;
     }
 }

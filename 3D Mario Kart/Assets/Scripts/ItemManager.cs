@@ -248,7 +248,7 @@ public class ItemManager : MonoBehaviour
 
     public void UseItem(bool forward)
     {
-        if (!RACE_MANAGER.RACE_STARTED || RACE_MANAGER.RACE_COMPLETED)
+        if (!RaceManager.RACE_STARTED || RaceManager.RACE_COMPLETED)
             return;
 
         if (!PrimarySlot.HasItemEquipped())

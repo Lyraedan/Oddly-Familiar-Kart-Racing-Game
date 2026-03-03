@@ -955,7 +955,7 @@ public class ComputerDriver : MonoBehaviour
             if ((item_manage.StarPowerUp || item_manage.isBullet) && !collision.gameObject.GetComponent<ItemManager>().StarPowerUp )
             {
                 StartCoroutine(collision.gameObject.GetComponent<Player>().hitByShell()); //the player has the function that does all this work
-                if(!raceManager.FrontFPCam.activeSelf)
+                if(!RaceManager.Instance.FrontFPCam.activeSelf)
                     GameObject.Find("Main Camera").GetComponent<Animator>().SetTrigger("ShellHit");
             }
         }

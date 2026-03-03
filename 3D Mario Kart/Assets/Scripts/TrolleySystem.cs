@@ -19,7 +19,7 @@ public class TrolleySystem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (RACE_MANAGER.RACE_STARTED)
+        if (RaceManager.RACE_STARTED)
         {
             timeSinceStartedRace += Time.deltaTime;
             if(timeSinceStartedRace > interval)
