@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
+using Unity.Netcode.Transports.SinglePlayer;
+using Unity.Netcode.Transports.UTP;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -17,17 +20,28 @@ public class MainMenu : MonoBehaviour
         Settings
     }
 
+    public enum NetworkTransport
+    {
+        SINGLEPLAYER,
+        UNITY,
+        STEAM
+    }
+
     [Header("UI References")]
     public RectTransform logoPanel;
     public RectTransform leftPanel;
     public RectTransform rightPanel;
     public GameObject startTextObject;
 
+    [Header("Networking")]
+    public NetworkTransport networkTransport = NetworkTransport.SINGLEPLAYER;
+
     [Header("Fade Group")]
     public CanvasGroup menuButtonsCanvasGroup;
 
     [Header("Submenus")]
     public CanvasGroup singleplayerCanvasGroup;
+    public CanvasGroup multiplayerCanvasGroup;
 
     [Header("Animation Speeds")]
     public float logoMoveTime = 0.35f;
@@ -100,6 +114,13 @@ public class MainMenu : MonoBehaviour
             singleplayerCanvasGroup.alpha = 0f;
             singleplayerCanvasGroup.interactable = false;
             singleplayerCanvasGroup.blocksRaycasts = false;
+        }
+
+        if (multiplayerCanvasGroup != null)
+        {
+            multiplayerCanvasGroup.alpha = 0f;
+            multiplayerCanvasGroup.interactable = false;
+            multiplayerCanvasGroup.blocksRaycasts = false;
         }
 
         StartCoroutine(WaitToStart());
@@ -226,8 +247,20 @@ public class MainMenu : MonoBehaviour
     public void OnClick_Multiplayer()
     {
         buttonSelectSound.Play();
+        StartCoroutine(SwitchMenu(menuButtonsCanvasGroup, multiplayerCanvasGroup));
+        menuToSub.StartCrossfade();
         CurrentMenu = MenuState.Multiplayer;
         Debug.Log("Multiplayer button clicked!");
+    }
+
+    public void OnClick_HostGame()
+    {
+        
+    }
+
+    public void OnClick_FindGame()
+    {
+
     }
 
     public void OnClick_Settings()
@@ -251,6 +284,14 @@ public class MainMenu : MonoBehaviour
         CurrentMenu = MenuState.Main;
     }
 
+    public void OnClick_ReturnFromMultiplayer()
+    {
+        returnSound.Play();
+        StartCoroutine(SwitchMenu(multiplayerCanvasGroup, menuButtonsCanvasGroup));
+        subToMenu.StartCrossfade();
+        CurrentMenu = MenuState.Main;
+    }
+
     private void OnStartPressed(InputAction.CallbackContext context)
     {
         if (!canStart || isAnimating)
@@ -269,6 +310,9 @@ public class MainMenu : MonoBehaviour
         {
             case MenuState.Singleplayer:
                 OnClick_ReturnFromSingleplayer();
+                break;
+            case MenuState.Multiplayer:
+                OnClick_ReturnFromMultiplayer();
                 break;
 
             case MenuState.Main:
@@ -330,5 +374,46 @@ public class MainMenu : MonoBehaviour
 
         if (button != null && button.interactable)
             button.onClick.Invoke();
+    }
+
+    public void UpdateNetworkTransport(NetworkTransport transport)
+    {
+        GameObject networkManager = GameObject.Find("NetworkManager"); // Because this is a do not destroy
+
+        // Reset transport
+        if(networkManager.GetComponent<SinglePlayerTransport>() != null)
+            Destroy(networkManager.GetComponent<SinglePlayerTransport>());
+
+        if(networkManager.GetComponent<UnityTransport>() != null)
+            Destroy(networkManager.GetComponent<UnityTransport>());
+
+        // Steam TODO ADD
+
+        NetworkManager.Singleton.NetworkConfig = new NetworkConfig
+        {
+            NetworkTransport = null
+        };
+
+        switch (transport)
+        {
+            case NetworkTransport.SINGLEPLAYER:
+                NetworkManager.Singleton.NetworkConfig = new NetworkConfig
+                {
+                    NetworkTransport = networkManager.AddComponent<SinglePlayerTransport>()
+                };
+                break;
+            case NetworkTransport.UNITY:
+                NetworkManager.Singleton.NetworkConfig = new NetworkConfig
+                {
+                    NetworkTransport = networkManager.AddComponent<UnityTransport>()
+                };
+                break;
+            case NetworkTransport.STEAM:
+                NetworkManager.Singleton.NetworkConfig = new NetworkConfig
+                {
+                    NetworkTransport = networkManager.AddComponent<SinglePlayerTransport>() // TODO: Create
+                };
+                break;
+        }
     }
 }

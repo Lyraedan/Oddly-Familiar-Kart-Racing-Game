@@ -18,16 +18,20 @@ public class NetworkedPlayerManager : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
+
+        RacerSpawn.Instance.RemoveComputerRacer();
         int spawnIndex = ((int)OwnerClientId) % RaceManager.Instance.RacerSpawns.SpawnPoints.Count;
         Transform spawnPoint = RaceManager.Instance.RacerSpawns.SpawnPoints[spawnIndex].transform;
         transform.position = spawnPoint.position;
         transform.rotation = spawnPoint.rotation;
+        RacerSpawn.Instance.AssignSpace(spawnIndex);
 
         isLocal = IsLocalPlayer;
         MKWKartCustomization customization = GetComponent<MKWKartCustomization>();
 
         if (!isLocal)
         {
+            player.IsMine = false;
             player.enabled = false;
             gameObject.name += " (OtherPlayer " + OwnerClientId + ")";
             gameObject.tag = "OtherPlayer";

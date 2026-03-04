@@ -12,8 +12,8 @@ public class Player : MonoBehaviour
     // Oh my sweet jesus christ. Refactoring this is gonna SUCK
 
     public bool IsOnlineLobby = false; // Used to disable certain things that would cause issues in the lobby, like the position counter and boost particles
+    public bool IsMine = true; // True by default, modified by NetworkedPlayerManager to determine if this is the local player or not.
     [Space(25)]
-
 
     //movements
     public float boost_speed = 90;
@@ -1122,6 +1122,9 @@ public class Player : MonoBehaviour
 
     private IEnumerator OnItemBoxEnter(Collider other)
     {
+        if (!IsMine)
+            yield return null;
+
         //itemManager.SelectSound.Play();
         itemManager.SelectItemAuto();
         hasitem = true; //will trigger a method in the item manager script

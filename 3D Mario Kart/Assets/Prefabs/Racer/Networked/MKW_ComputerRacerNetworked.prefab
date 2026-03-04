@@ -94069,8 +94069,11 @@ GameObject:
   - component: {fileID: 6640688319974301576}
   - component: {fileID: 6992856103262095268}
   - component: {fileID: 7124179505464490719}
+  - component: {fileID: 6422478011861375467}
+  - component: {fileID: 2517952070819235667}
+  - component: {fileID: 162808134625982211}
   m_Layer: 22
-  m_Name: MKW_ComputerRacer_Networked
+  m_Name: MKW_ComputerRacerNetworked
   m_TagString: Opponent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -94164,7 +94167,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 298807
   path: {fileID: 0}
-  pathTools: []
+  SelectedPathTool: {fileID: 0}
   current_node: 0
   max_steer_angle: 50
   max_speed: 0
@@ -94325,6 +94328,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ecf0a65c8eef5d4c91c08945938d4dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RacerID: 0
   LAPCOUNT: 1
   checkpoints: {fileID: 0}
   checkpointsVisited: 
@@ -94333,6 +94337,7 @@ MonoBehaviour:
   Position: 1
   endPosition: 0
   pathTool: {fileID: 0}
+  usePathToolPath: 0
   debugProgressIndex: 0
   debugRaceProgressScore: 0
 --- !u!114 &7923679325952490667
@@ -94422,10 +94427,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fb2c8d890b803841820c167ac46df64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waterSinkForce: 5000
+  playerWaterDelay: 0.5
+  opponentWaterDelay: 1
+  respawnFreezeTime: 0.5
+  forwardSpawnOffset: 0.002
   FellInWater: 0
-  outOfBounds: 0
+  OutOfBoundsState: 0
   PlayerBeingMoved: 0
-  tracker: {fileID: 6992856103262095268}
 --- !u!114 &6992856103262095268
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -94452,13 +94461,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39b99614cb3f5c545bb306e0476af518, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MKWKartCustomization
+  gliderType: 0
   kartType: 0
   currentKartIndex: 0
   currentRacerIndex: 1
   currentKartSkinIndex: 0
   randomizeKart: 0
-  randomizeRacer: 0
-  randomizeKartSkin: 0
+  randomizeRacer: 1
+  randomizeKartSkin: 1
   kartSpawnPoint: {fileID: 4612223620118395968}
   karts:
   - {fileID: 1900276100344347441, guid: bc4e86f7f736b1d40b3ae6e31bef82af, type: 3}
@@ -94489,6 +94499,94 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &6422478011861375467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6634977793334069617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
+  GlobalObjectIdHash: 1098990307
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  DeferredDespawnTick: 0
+  Ownership: 1
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0
+--- !u!114 &2517952070819235667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6634977793334069617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.Components.NetworkTransform
+  ShowTopMostFoldoutHeaderGroup: 1
+  NetworkTransformExpanded: 0
+  AutoOwnerAuthorityTickOffset: 1
+  PositionInterpolationType: 0
+  RotationInterpolationType: 0
+  ScaleInterpolationType: 0
+  PositionLerpSmoothing: 1
+  PositionMaxInterpolationTime: 0.1
+  RotationLerpSmoothing: 1
+  RotationMaxInterpolationTime: 0.1
+  ScaleLerpSmoothing: 1
+  ScaleMaxInterpolationTime: 0.1
+  AuthorityMode: 0
+  TickSyncChildren: 0
+  UseUnreliableDeltas: 0
+  SyncPositionX: 1
+  SyncPositionY: 1
+  SyncPositionZ: 1
+  SyncRotAngleX: 1
+  SyncRotAngleY: 1
+  SyncRotAngleZ: 1
+  SyncScaleX: 1
+  SyncScaleY: 1
+  SyncScaleZ: 1
+  PositionThreshold: 0.001
+  RotAngleThreshold: 0.01
+  ScaleThreshold: 0.01
+  UseQuaternionSynchronization: 0
+  UseQuaternionCompression: 0
+  UseHalfFloatPrecision: 0
+  InLocalSpace: 0
+  SwitchTransformSpaceWhenParented: 0
+  Interpolate: 1
+  SlerpPosition: 0
+--- !u!114 &162808134625982211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6634977793334069617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6c0be61502bb534f922ebb746851216, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.Components.NetworkRigidbody
+  ShowTopMostFoldoutHeaderGroup: 1
+  NetworkRigidbodyBaseExpanded: 0
+  UseRigidBodyForMotion: 1
+  AutoUpdateKinematicState: 1
+  AutoSetKinematicOnDespawn: 1
 --- !u!1 &6646970740852319708
 GameObject:
   m_ObjectHideFlags: 0

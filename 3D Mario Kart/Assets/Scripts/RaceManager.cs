@@ -5,6 +5,7 @@ using System.Linq;
 using System.IO;
 using UnityEngine.Splines;
 using UnityEngine.UI;
+using Unity.Netcode;
 
 public class RaceManager : MonoBehaviour
 {
@@ -143,10 +144,10 @@ public class RaceManager : MonoBehaviour
 
     IEnumerator WaitToPlaySceneEntry()
     {
-        yield return new WaitUntil(() => LocalPlayer != null);
         yield return UtilityFunctions.FadeCanvasGroup(IngameUIHolder.Instance.WaitingForPlayers, 1f, 0.25f);
-
+        yield return new WaitUntil(() => LocalPlayer != null);
         yield return new WaitUntil(() => ReadyToStartGame());
+        RacerSpawn.Instance.SpawnComputerRacers();
         yield return UtilityFunctions.FadeCanvasGroup(IngameUIHolder.Instance.WaitingForPlayers, 0f, 0.25f);
         
         sceneEntrySound.Play();
@@ -155,7 +156,8 @@ public class RaceManager : MonoBehaviour
 
     public bool ReadyToStartGame()
     {
-        return true;
+        // Wait for every player to load in from the lobby
+        return Input.GetKeyDown(KeyCode.Space);
     }
 
     public void RegisterLocalPlayer(Player player)
@@ -490,5 +492,11 @@ public class RaceManager : MonoBehaviour
         outPath = pathTool.pathRoot;
         outPathSpline = pathTool.GetComponent<SplineContainer>();
         outSelectedPathTool = pathTool;
+    }
+
+    private void OnDestroy()
+    {
+        if (Instance == this)
+            Instance = null;
     }
 }

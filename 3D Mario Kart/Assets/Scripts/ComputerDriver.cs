@@ -9,8 +9,6 @@ using UnityEngine.Splines;
 
 public class ComputerDriver : MonoBehaviour
 {
-    public Player playerscript; //some parts of this script are the same constants defined in player script, so just access them directly
-
     private OpponentItemManager item_manage;
 
     private Rigidbody rb;
@@ -217,7 +215,7 @@ public class ComputerDriver : MonoBehaviour
         {
 
             int myProgress = myLap.RaceProgressScore;
-            int playerProgress = playerscript.lapCounter.RaceProgressScore;
+            int playerProgress = RaceManager.Instance.LocalPlayerLap.RaceProgressScore;
 
             int difference = myProgress - playerProgress;
 
@@ -545,8 +543,8 @@ public class ComputerDriver : MonoBehaviour
                     ParticleSystem DriftPS2 = Left_Wheel_Drift_PS.transform.GetChild(i).gameObject.GetComponent<ParticleSystem>(); //left wheel particles
                     ParticleSystem.MainModule PSMAIN2 = DriftPS2.main;
 
-                    PSMAIN.startColor = playerscript.drift1; //accessing them from playerscript because they are constants common to everyone
-                    PSMAIN2.startColor = playerscript.drift1;
+                    PSMAIN.startColor = RaceManager.Instance.LocalPlayer.drift1; //accessing them from playerscript because they are constants common to everyone
+                    PSMAIN2.startColor = RaceManager.Instance.LocalPlayer.drift1;
 
                     if (!DriftPS.isPlaying && !DriftPS2.isPlaying)
                     {
@@ -565,8 +563,8 @@ public class ComputerDriver : MonoBehaviour
                     ParticleSystem.MainModule PSMAIN = DriftPS.main;
                     ParticleSystem DriftPS2 = Left_Wheel_Drift_PS.transform.GetChild(i).gameObject.GetComponent<ParticleSystem>();
                     ParticleSystem.MainModule PSMAIN2 = DriftPS2.main;
-                    PSMAIN.startColor = playerscript.drift2;
-                    PSMAIN2.startColor = playerscript.drift2;
+                    PSMAIN.startColor = RaceManager.Instance.LocalPlayer.drift2;
+                    PSMAIN2.startColor = RaceManager.Instance.LocalPlayer.drift2;
             }
 
             }
@@ -579,8 +577,8 @@ public class ComputerDriver : MonoBehaviour
                     ParticleSystem.MainModule PSMAIN = DriftPS.main;
                     ParticleSystem DriftPS2 = Left_Wheel_Drift_PS.transform.GetChild(i).gameObject.GetComponent<ParticleSystem>();
                     ParticleSystem.MainModule PSMAIN2 = DriftPS2.main;
-                    PSMAIN.startColor = playerscript.drift3;
-                    PSMAIN2.startColor = playerscript.drift3;
+                    PSMAIN.startColor = RaceManager.Instance.LocalPlayer.drift3;
+                    PSMAIN2.startColor = RaceManager.Instance.LocalPlayer.drift3;
 
                 }
 ;

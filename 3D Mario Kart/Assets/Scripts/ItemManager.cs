@@ -69,15 +69,21 @@ public class ItemManager : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        if (Instance == this)
+            Instance = null;
+    }
+
     void Start()
     {
         player = GetComponent<Player>();
-
-        
     }
 
     void Update()
     {
+        if (!player.IsMine) return;
+
         if (Input.GetKeyDown(KeyCode.P))
         {
             SelectItemAuto();
