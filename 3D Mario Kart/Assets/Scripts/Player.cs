@@ -262,6 +262,7 @@ public class Player : MonoBehaviour
             Debug.Log("Not in a lobby! Registering manually!");
             RaceManager.Instance.RegisterLocalPlayer(this);
             RaceManager.Instance.RegisterPlayer(this);
+            IngameUIHolder.Instance.WaitingForPlayers.alpha = 0; // Auto hide waiting for player screen
         }
     }
 

@@ -27,6 +27,8 @@ public class RaceManager : MonoBehaviour
     public AudioSource finalLapSound;
 
     [Header("Setup")]
+    public List<Player> AllPlayers = new List<Player>();
+
     public GameObject FrontCam;
     public GameObject FrontFPCam;
     public GameObject BackCam;
@@ -39,10 +41,6 @@ public class RaceManager : MonoBehaviour
     private bool lastLap = false;
 
     public int MAXLAPS = 3;
-
-    private Transform player;
-    private PlayerSounds playerSounds;
-    private LapCounter playerLap;
 
     private float raceTime = 0f;
     private float sortTime = 0f;
@@ -90,11 +88,13 @@ public class RaceManager : MonoBehaviour
 
     public GameObject spectatorSounds;
 
+    [Header("Scene Entry Camera")]
+    public Animator sceneEntryCamera;
+    public AudioSource sceneEntrySound;
+
     [HideInInspector] public Player LocalPlayer;
     [HideInInspector] public LapCounter LocalPlayerLap;
     [HideInInspector] public PlayerSounds LocalPlayerSounds;
-
-    public List<Player> AllPlayers = new List<Player>();
 
     void Awake()
     {
@@ -132,6 +132,25 @@ public class RaceManager : MonoBehaviour
         IngameUIHolder.Instance.UpdateAuthor(Author);
         IngameUIHolder.Instance.UpdateCourse(CourseName, Console);
         IngameUIHolder.Instance.UpdateMinimapBackground(MinimapBackground);
+
+        StartCoroutine(WaitToPlaySceneEntry());
+    }
+
+    IEnumerator WaitToPlaySceneEntry()
+    {
+        yield return new WaitUntil(() => LocalPlayer != null);
+        yield return UtilityFunctions.FadeCanvasGroup(IngameUIHolder.Instance.WaitingForPlayers, 1f, 0.25f);
+
+        yield return new WaitUntil(() => ReadyToStartGame());
+        yield return UtilityFunctions.FadeCanvasGroup(IngameUIHolder.Instance.WaitingForPlayers, 0f, 0.25f);
+        
+        sceneEntrySound.Play();
+        sceneEntryCamera.enabled = true;
+    }
+
+    public bool ReadyToStartGame()
+    {
+        return true;
     }
 
     public void RegisterLocalPlayer(Player player)
@@ -235,7 +254,7 @@ public class RaceManager : MonoBehaviour
 
     private void CheckFinalLap()
     {
-        if (playerLap != null && playerLap.LAPCOUNT == MAXLAPS && !lastLap)
+        if (LocalPlayerLap != null && LocalPlayerLap.LAPCOUNT == MAXLAPS && !lastLap)
         {
             lastLap = true;
             music.Stop();
@@ -255,7 +274,7 @@ public class RaceManager : MonoBehaviour
     private IEnumerator FinishRace()
     {
         // Play goal sound
-        playerSounds.goal.Play();
+        LocalPlayerSounds.goal.Play();
 
         // Disable spectator sounds and item system
         if (spectatorSounds != null)
@@ -275,16 +294,16 @@ public class RaceManager : MonoBehaviour
         if (FrontFPCam != null) FrontFPCam.SetActive(false);
 
         // Check player's final position
-        int playerPos = playerLap.Position;
+        int playerPos = LocalPlayerLap.Position;
 
         if (playerPos == 1)
         {
             // First place sequence
             LocalPlayer.Driver.SetBool("FirstPlace", true);
-            playerSounds.firstPlaceVoice.Play();
+            LocalPlayerSounds.firstPlaceVoice.Play();
             yield return new WaitForSeconds(1f);
 
-            playerSounds.firstPlaceResult.Play();
+            LocalPlayerSounds.firstPlaceResult.Play();
             yield return new WaitForSeconds(2.5f);
 
             FrontCam.GetComponent<Animator>().SetBool("RaceEndCam", true);
@@ -293,16 +312,16 @@ public class RaceManager : MonoBehaviour
             resultsUI.createResults(sortedRacers);
             yield return new WaitForSeconds(3f);
 
-            playerSounds.resultsGood.Play();
+            LocalPlayerSounds.resultsGood.Play();
         }
         else if (playerPos < 6)
         {
             // 2nd–5th place sequence
             LocalPlayer.Driver.SetBool("FirstPlace", true); // maybe this should be adjusted for non-first places
-            playerSounds.firstPlaceVoice.Play();
+            LocalPlayerSounds.firstPlaceVoice.Play();
             yield return new WaitForSeconds(1f);
 
-            playerSounds.secondToSixth.Play();
+            LocalPlayerSounds.secondToSixth.Play();
             yield return new WaitForSeconds(2.5f);
 
             FrontCam.GetComponent<Animator>().SetBool("RaceEndCam", true);
@@ -311,16 +330,16 @@ public class RaceManager : MonoBehaviour
             resultsUI.createResults(sortedRacers);
             yield return new WaitForSeconds(3f);
 
-            playerSounds.resultsGood.Play();
+            LocalPlayerSounds.resultsGood.Play();
         }
         else
         {
             // Last place or beyond
             LocalPlayer.Driver.SetBool("LoseAnim", true);
-            playerSounds.marioLose.Play();
+            LocalPlayerSounds.marioLose.Play();
             yield return new WaitForSeconds(1f);
 
-            playerSounds.loseResult.Play();
+            LocalPlayerSounds.loseResult.Play();
             yield return new WaitForSeconds(2.5f);
 
             FrontCam.GetComponent<Animator>().SetBool("RaceEndCam", true);
@@ -329,7 +348,7 @@ public class RaceManager : MonoBehaviour
             resultsUI.createResults(sortedRacers);
             yield return new WaitForSeconds(3f);
 
-            playerSounds.resultsBad.Play();
+            LocalPlayerSounds.resultsBad.Play();
         }
     }
 
@@ -351,7 +370,7 @@ public class RaceManager : MonoBehaviour
         LapCounterUI.SetActive(true);
         MiniMap.SetActive(true);
 
-        playerSounds.SceneEntryFinished = true;
+        LocalPlayerSounds.SceneEntryFinished = true;
 
         FrontCam.SetActive(true);
         FrontCam.GetComponent<Animator>()?.SetTrigger("Entry");
@@ -437,9 +456,9 @@ public class RaceManager : MonoBehaviour
         T component = target.GetComponent<T>();
         while (condition(component) && !RACE_COMPLETED)
         {
-            Vector3 toTarget = target.position - player.position;
-            Vector3 cross = Vector3.Cross(-player.forward, toTarget);
-            float dir = Vector3.Dot(cross, player.up);
+            Vector3 toTarget = target.position - LocalPlayer.transform.position;
+            Vector3 cross = Vector3.Cross(-LocalPlayer.transform.forward, toTarget);
+            float dir = Vector3.Dot(cross, LocalPlayer.transform.up);
 
             Vector3 pos = warningRect.localPosition;
             pos.x = Mathf.Lerp(pos.x, dir * 10f, 3f * Time.deltaTime);
@@ -451,9 +470,9 @@ public class RaceManager : MonoBehaviour
         Destroy(warning);
     }
 
-    public IEnumerator WarningRedShell(Transform redshell) => WarningRoutine<RedShell>(redshell, RedShellWarning, c => c.isactive && c.current_node <= playerLap.currentCheckpointVal);
-    public IEnumerator WarningBlueShell(Transform blueshell) => WarningRoutine<BlueShell>(blueshell, BlueShellWarning, c => c.isactive && c.current_node <= playerLap.currentCheckpointVal && Vector3.Distance(player.position, blueshell.position) < 100f);
-    public IEnumerator WarningStar(Transform opponent) => WarningRoutine<OpponentItemManager>(opponent, StarWarning, c => c.StarPowerUp && opponent.GetComponent<LapCounter>().RaceProgressScore <= playerLap.RaceProgressScore);
-    public IEnumerator WarningBullet(Transform opponent) => WarningRoutine<OpponentItemManager>(opponent, BulletWarning, c => c.isBullet && opponent.GetComponent<LapCounter>().RaceProgressScore <= playerLap.RaceProgressScore);
+    public IEnumerator WarningRedShell(Transform redshell) => WarningRoutine<RedShell>(redshell, RedShellWarning, c => c.isactive && c.current_node <= LocalPlayerLap.currentCheckpointVal);
+    public IEnumerator WarningBlueShell(Transform blueshell) => WarningRoutine<BlueShell>(blueshell, BlueShellWarning, c => c.isactive && c.current_node <= LocalPlayerLap.currentCheckpointVal && Vector3.Distance(LocalPlayer.transform.position, blueshell.position) < 100f);
+    public IEnumerator WarningStar(Transform opponent) => WarningRoutine<OpponentItemManager>(opponent, StarWarning, c => c.StarPowerUp && opponent.GetComponent<LapCounter>().RaceProgressScore <= LocalPlayerLap.RaceProgressScore);
+    public IEnumerator WarningBullet(Transform opponent) => WarningRoutine<OpponentItemManager>(opponent, BulletWarning, c => c.isBullet && opponent.GetComponent<LapCounter>().RaceProgressScore <= LocalPlayerLap.RaceProgressScore);
     #endregion
 }

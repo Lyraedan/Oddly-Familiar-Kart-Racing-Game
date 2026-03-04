@@ -43,6 +43,7 @@ TagManager:
   - IngameUI
   - MinimapIcon
   - LapCheckpointsContainer
+  - SceneEntryCam
   layers:
   - Default
   - TransparentFX

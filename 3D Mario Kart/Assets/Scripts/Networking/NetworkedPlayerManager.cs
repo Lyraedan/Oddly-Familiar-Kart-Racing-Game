@@ -36,6 +36,7 @@ public class NetworkedPlayerManager : NetworkBehaviour
         FindAllAnimatorsAndNetwork();
 
         RaceManager.Instance.RegisterPlayer(player);
+        IngameUIHolder.Instance.WaitingForPlayersCount.text = $"{RaceManager.Instance.AllPlayers.Count} players";
     }
 
     public void FindAllAnimatorsAndNetwork()

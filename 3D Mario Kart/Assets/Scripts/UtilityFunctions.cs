@@ -376,5 +376,24 @@ public class UtilityFunctions : MonoBehaviour
         }
     }
 
+    public static IEnumerator FadeCanvasGroup(CanvasGroup canvasGroup, float targetAlpha, float duration)
+    {
+        float startAlpha = canvasGroup.alpha;
+        float time = 0f;
+
+        while (time < duration)
+        {
+            time += Time.deltaTime;
+            canvasGroup.alpha = Mathf.Lerp(startAlpha, targetAlpha, time / duration);
+            yield return null;
+        }
+
+        canvasGroup.alpha = targetAlpha;
+
+        // Optional: toggle interaction automatically
+        canvasGroup.interactable = targetAlpha > 0.9f;
+        canvasGroup.blocksRaycasts = targetAlpha > 0.9f;
+    }
+
 
 }

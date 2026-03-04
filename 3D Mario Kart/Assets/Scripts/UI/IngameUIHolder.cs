@@ -83,6 +83,10 @@ public class IngameUIHolder : MonoBehaviour
     public TextUIElement coinUI = new();
     public TextUIElement lapCounterUI = new();
 
+    [Space(10)]
+    public CanvasGroup WaitingForPlayers;
+    public Text WaitingForPlayersCount;
+
     void Awake()
     {
         if (_instance == null)
