@@ -363,7 +363,7 @@ public class UtilityFunctions : MonoBehaviour
 
     void playerAntiGravityConstantForce()
     {
-        if(gameObject.tag == "Player")
+        if(gameObject.CompareTag("Player"))
         {
             if (GetComponent<Player>().antiGravity)
             {

@@ -36467,9 +36467,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6064369078986834943}
   - component: {fileID: 4416480253218519661}
-  - component: {fileID: -6949353498751627167}
   - component: {fileID: 1845059836881227922}
-  - component: {fileID: 966161291760156164}
   - component: {fileID: 642502366008012189}
   - component: {fileID: 2545918901103431416}
   - component: {fileID: 3606734833742908513}
@@ -36482,13 +36480,15 @@ GameObject:
   - component: {fileID: 8286838362554438954}
   - component: {fileID: 2622412334136134521}
   - component: {fileID: 6602533643879267653}
+  - component: {fileID: 966161291760156164}
   - component: {fileID: 4548535788879934940}
   - component: {fileID: 7877210976849181700}
-  - component: {fileID: 6199646542970063458}
-  - component: {fileID: 4943002482830203105}
-  - component: {fileID: 1966686514914806223}
+  - component: {fileID: 3275598206049947040}
+  - component: {fileID: 4579137258998091558}
+  - component: {fileID: 4559794175292193188}
+  - component: {fileID: 4148897729001203590}
   m_Layer: 10
-  m_Name: MKW_Player_Networked
+  m_Name: MKW_PlayerNetworked
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36548,31 +36548,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 2
---- !u!114 &-6949353498751627167
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3297335546541666384}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 3679227253
-  InScenePlacedSourceGlobalObjectIdHash: 0
-  DeferredDespawnTick: 0
-  Ownership: 1
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
-  SyncOwnerTransformWhenParented: 1
-  AllowOwnerToParent: 0
 --- !u!114 &1845059836881227922
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36585,7 +36560,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90b6f399aa8bb034a8f45235de8d837a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsOnlineLobby: 1
+  IsOnlineLobby: 0
   boost_speed: 120
   drift_speed: 0
   desiredMaxSpeed: 90
@@ -36695,21 +36670,6 @@ MonoBehaviour:
   propeller: {fileID: 0}
   Cam: {fileID: 0}
   outOfBounds: {fileID: 0}
---- !u!114 &966161291760156164
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3297335546541666384}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11ee6042e98fba24fa91cbc7c017d2cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerManager: {fileID: 6199646542970063458}
-  controls: {fileID: -944628639613478452, guid: 9f7ebc09e64be8b44afa237fcb15ce11,
-    type: 3}
 --- !u!135 &642502366008012189
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -36950,6 +36910,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hopEnd: 0
+--- !u!114 &966161291760156164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3297335546541666384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11ee6042e98fba24fa91cbc7c017d2cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerManager: {fileID: 0}
+  controls: {fileID: -944628639613478452, guid: 9f7ebc09e64be8b44afa237fcb15ce11,
+    type: 3}
 --- !u!114 &4548535788879934940
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36968,8 +36943,8 @@ MonoBehaviour:
   currentRacerIndex: 0
   currentKartSkinIndex: 0
   randomizeKart: 0
-  randomizeRacer: 1
-  randomizeKartSkin: 1
+  randomizeRacer: 0
+  randomizeKartSkin: 0
   kartSpawnPoint: {fileID: 6064369078986834943}
   karts:
   - {fileID: 1900276100344347441, guid: bc4e86f7f736b1d40b3ae6e31bef82af, type: 3}
@@ -37014,7 +36989,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WaypointTracker
   path1: {fileID: 0}
   path2: {fileID: 0}
---- !u!114 &6199646542970063458
+--- !u!114 &3275598206049947040
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -37023,19 +36998,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 3297335546541666384}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 302cf50d83c863641aea220488bf2f87, type: 3}
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NetworkedPlayerManager
-  ShowTopMostFoldoutHeaderGroup: 1
-  player: {fileID: 1845059836881227922}
-  isLocal: 1
-  KartId:
-    m_InternalValue: 0
-  KartSkinId:
-    m_InternalValue: 0
-  RacerId:
-    m_InternalValue: 0
---- !u!114 &4943002482830203105
+  m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
+  GlobalObjectIdHash: 551350787
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  DeferredDespawnTick: 0
+  Ownership: 1
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0
+--- !u!114 &4579137258998091558
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -37059,7 +37038,7 @@ MonoBehaviour:
   RotationMaxInterpolationTime: 0.1
   ScaleLerpSmoothing: 1
   ScaleMaxInterpolationTime: 0.1
-  AuthorityMode: 0
+  AuthorityMode: 1
   TickSyncChildren: 0
   UseUnreliableDeltas: 0
   SyncPositionX: 1
@@ -37081,7 +37060,7 @@ MonoBehaviour:
   SwitchTransformSpaceWhenParented: 0
   Interpolate: 1
   SlerpPosition: 0
---- !u!114 &1966686514914806223
+--- !u!114 &4559794175292193188
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -37098,6 +37077,27 @@ MonoBehaviour:
   UseRigidBodyForMotion: 1
   AutoUpdateKinematicState: 1
   AutoSetKinematicOnDespawn: 1
+--- !u!114 &4148897729001203590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3297335546541666384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 302cf50d83c863641aea220488bf2f87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NetworkedPlayerManager
+  ShowTopMostFoldoutHeaderGroup: 1
+  player: {fileID: 1845059836881227922}
+  isLocal: 1
+  KartId:
+    m_InternalValue: 0
+  KartSkinId:
+    m_InternalValue: 0
+  RacerId:
+    m_InternalValue: 0
 --- !u!1 &3761077644510608693
 GameObject:
   m_ObjectHideFlags: 0

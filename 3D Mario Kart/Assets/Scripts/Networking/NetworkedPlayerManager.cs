@@ -28,7 +28,7 @@ public class NetworkedPlayerManager : NetworkBehaviour
 
         if (!isLocal)
         {
-            player.enabled = false; 
+            player.enabled = false;
             gameObject.name += " (OtherPlayer " + OwnerClientId + ")";
             gameObject.tag = "OtherPlayer";
             //LoadPlayersCharacter(customization);

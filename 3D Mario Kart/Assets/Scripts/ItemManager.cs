@@ -61,7 +61,7 @@ public class ItemManager : MonoBehaviour
     {
         if (Instance != null && Instance != this)
         {
-            Destroy(gameObject);
+            Destroy(this); // Remove the copy off this object
         }
         else
         {
