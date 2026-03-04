@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -75,13 +76,14 @@ public class MKWKartCustomization : MonoBehaviour
 
         Kart = SpawnKart();
         Racer = SpawnRacer();
-        gameObject.name = GetRacerName();
+        //gameObject.name = GetRacerName();
         CurrentKartConfig.UpdateEmbelem(CurrentRacerConfig);
         GetAllStarPowerRenderers();
         
         if(triggerOnSpawn)
             OnSpawned.Invoke(Kart, Racer);
 
+        // https://docs.unity3d.com/Packages/com.unity.netcode.gameobjects@2.9/manual/basics/object-spawning.html
     }
 
     public void Refresh()

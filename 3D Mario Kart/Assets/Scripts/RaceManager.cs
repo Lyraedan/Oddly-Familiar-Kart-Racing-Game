@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System.IO;
+using UnityEngine.Splines;
+using UnityEngine.UI;
 
 public class RaceManager : MonoBehaviour
 {
@@ -29,11 +32,13 @@ public class RaceManager : MonoBehaviour
     [Header("Setup")]
     public List<Player> AllPlayers = new List<Player>();
 
+    [Space(25)]
     public GameObject FrontCam;
     public GameObject FrontFPCam;
     public GameObject BackCam;
+    public RacerSpawn RacerSpawns;
     public Transform AIPathRoot;
-    [HideInInspector] public List<PathTool> AIPaths = new List<PathTool>();
+    public List<PathTool> AIPaths = new List<PathTool>();
     private bool FPCam = false; // First-person camera flag
 
     public AudioSource music;
@@ -475,4 +480,15 @@ public class RaceManager : MonoBehaviour
     public IEnumerator WarningStar(Transform opponent) => WarningRoutine<OpponentItemManager>(opponent, StarWarning, c => c.StarPowerUp && opponent.GetComponent<LapCounter>().RaceProgressScore <= LocalPlayerLap.RaceProgressScore);
     public IEnumerator WarningBullet(Transform opponent) => WarningRoutine<OpponentItemManager>(opponent, BulletWarning, c => c.isBullet && opponent.GetComponent<LapCounter>().RaceProgressScore <= LocalPlayerLap.RaceProgressScore);
     #endregion
+
+    public void ChooseRandomAIPath(out Transform outPath, out SplineContainer outPathSpline, out PathTool outSelectedPathTool)
+    {
+        int randomPath = UnityEngine.Random.Range(0, AIPaths.Count);
+        randomPath = Mathf.Clamp(randomPath, 0, AIPaths.Count - 1);
+
+        PathTool pathTool = AIPaths[randomPath];
+        outPath = pathTool.pathRoot;
+        outPathSpline = pathTool.GetComponent<SplineContainer>();
+        outSelectedPathTool = pathTool;
+    }
 }

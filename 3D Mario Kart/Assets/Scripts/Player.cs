@@ -221,12 +221,6 @@ public class Player : MonoBehaviour
         kartMat.SetVector("Vector4_70BBF882", new Vector4(0, 0, 0, 0));
         rb = GetComponent<Rigidbody>();
         outOfBounds = GetComponent<OutOfBounds>();
-        Right_Wheel_Drift_PS = DriftPS.transform.GetChild(0).gameObject;
-        Left_Wheel_Drift_PS = DriftPS.transform.GetChild(1).gameObject;
-        FrontLeftTire = Tires.transform.GetChild(0).GetChild(0).gameObject;
-        FrontRightTire = Tires.transform.GetChild(1).GetChild(0).gameObject;
-        //playersounds = GetComponent<PlayerSounds>();
-
         itemManager = GetComponent<ItemManager>();
         
         rotateStrengthWithStar = desired_rotate_strength + 15;
@@ -246,10 +240,7 @@ public class Player : MonoBehaviour
 
         //Debug.Log("[Customization] Trying to load mario kart world customization");
         // Mario Kart World Style Customization
-        if (raceEndPathTool != null)
-        {
-            RaceEndPath = raceEndPathTool.pathRoot;
-        }
+
 
         lapCounter.onPositionChanged += pos => Debug.Log("Position: " + pos);
         lapCounter.onLapCompleted += lap => Debug.Log("Lap Completed: " + lap);
@@ -257,7 +248,7 @@ public class Player : MonoBehaviour
         lapCounter.onLastLap += lap => Debug.Log("Last Lap: " + lap);
 
         // Temp for now
-        if(RaceManager.Instance.LocalPlayer == null && !IsOnlineLobby)
+        if (RaceManager.Instance.LocalPlayer == null && !IsOnlineLobby)
         {
             Debug.Log("Not in a lobby! Registering manually!");
             RaceManager.Instance.RegisterLocalPlayer(this);
@@ -335,6 +326,25 @@ public class Player : MonoBehaviour
 
             Debug.Log("[Customization] Setting up Item Manager");
             //item_manager.playerRenderers = mkwCustomization.RacerRenderers.ToArray();
+
+            Right_Wheel_Drift_PS = DriftPS.transform.GetChild(0).gameObject;
+            Left_Wheel_Drift_PS = DriftPS.transform.GetChild(1).gameObject;
+            FrontLeftTire = Tires.transform.GetChild(0).GetChild(0).gameObject;
+            FrontRightTire = Tires.transform.GetChild(1).GetChild(0).gameObject;
+
+            if (raceEndPathTool != null)
+            {
+                RaceEndPath = raceEndPathTool.pathRoot;
+            }
+            else
+            {
+                // Choose a random race path
+                Transform path;
+                SplineContainer splineContainer;
+                PathTool randomRaceEndPathTool;
+                RaceManager.Instance.ChooseRandomAIPath(out path, out splineContainer, out randomRaceEndPathTool);
+                RaceEndPath = path;
+            }
         }
     }
 
@@ -2504,6 +2514,9 @@ public class Player : MonoBehaviour
 
     void lookAtOpponent()
     {
+        if (allOpponents == null || allOpponents.Length == 0)
+            return;
+
         if (RaceManager.RACE_STARTED)
         {
             lookAtTime += Time.deltaTime;

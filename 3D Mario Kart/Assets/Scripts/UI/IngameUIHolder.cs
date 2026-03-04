@@ -72,6 +72,17 @@ public class IngameUIHolder : MonoBehaviour
 
     public GameObject ItemSystem;
     public Image YourItem;
+    [System.Serializable]
+    public struct UIItem
+    {
+        public Animator Main;
+        public Animator List;
+        public Image OurItem;
+    }
+    [Header("UI")]
+    public UIItem PrimaryItem;
+    public UIItem SecondaryItem;
+
     public ResultsUI ResultsUI;
     public GameObject FinishUI;
     public GameObject RedShellWarning;

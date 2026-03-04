@@ -46,17 +46,6 @@ public class ItemManager : MonoBehaviour
     [Header("Item UI")]
     public ItemDistributionManager itemDistributionManager;
 
-    [System.Serializable]
-    public struct ItemUI
-    {
-        public Animator Main;
-        public Animator List;
-        public Image OurItem;
-    }
-
-    public ItemUI Primary;
-    public ItemUI Secondary;
-
     [Header("Sounds")]
     public AudioSource SelectSound;
     public AudioSource ItemSelectedSound;
@@ -129,9 +118,9 @@ public class ItemManager : MonoBehaviour
     // SLOT HELPERS
     // -------------------------------------------------
 
-    private ItemUI GetUI(ItemSlot slot)
+    private IngameUIHolder.UIItem GetUI(ItemSlot slot)
     {
-        return slot == ItemSlot.Primary ? Primary : Secondary;
+        return slot == ItemSlot.Primary ? IngameUIHolder.Instance.PrimaryItem : IngameUIHolder.Instance.SecondaryItem;
     }
 
     public void SwitchSlot()
@@ -179,11 +168,11 @@ public class ItemManager : MonoBehaviour
         ItemSlotItem itemSlotItem = GetItemSlotItem(slot);
         itemSlotItem.selecting = true;
 
-        ItemUI ui = GetUI(slot);
+        IngameUIHolder.UIItem ui = GetUI(slot);
 
         SelectSound.Play();
 
-        int itemIndex = 1; //itemDistributionManager.getItemNumber();
+        int itemIndex = 0; //itemDistributionManager.getItemNumber();
 
         //itemIndex = Mathf.Clamp(itemIndex, 0, items.Count - 1);
 
@@ -300,7 +289,7 @@ public class ItemManager : MonoBehaviour
         itemSlotItem.selected = false;
         itemSlotItem.selecting = false;
 
-        ItemUI ui = GetUI(slot);
+        IngameUIHolder.UIItem ui = GetUI(slot);
         ui.Main.SetBool("StartSelecting", false);
         ui.List.SetBool("Scroll", false);
 
@@ -334,15 +323,15 @@ public class ItemManager : MonoBehaviour
         itemSlotSecondary.selected = false;
 
         // Update UI animations
-        Secondary.Main.SetBool("StartSelecting", false);
-        Secondary.List.SetBool("Scroll", false);
+        IngameUIHolder.Instance.SecondaryItem.Main.SetBool("StartSelecting", false);
+        IngameUIHolder.Instance.SecondaryItem.List.SetBool("Scroll", false);
 
-        Primary.Main.SetBool("StartSelecting", true);
-        Primary.List.SetBool("Scroll", true);
+        IngameUIHolder.Instance.PrimaryItem.Main.SetBool("StartSelecting", true);
+        IngameUIHolder.Instance.PrimaryItem.List.SetBool("Scroll", true);
 
         // Update primary sprite with secondary and reset secondary
-        Primary.OurItem.sprite = Secondary.OurItem.sprite;
-        Secondary.OurItem.sprite = null;
+        IngameUIHolder.Instance.PrimaryItem.OurItem.sprite = IngameUIHolder.Instance.SecondaryItem.OurItem.sprite;
+        IngameUIHolder.Instance.SecondaryItem.OurItem.sprite = null;
     }
 
     public void ResetUI(ItemSlot slot)
@@ -352,7 +341,7 @@ public class ItemManager : MonoBehaviour
         itemSlotItem.selected = false;
         itemSlotItem.selecting = false;
 
-        ItemUI ui = GetUI(slot);
+        IngameUIHolder.UIItem ui = GetUI(slot);
 
         ui.Main.SetBool("StartSelecting", false);
         ui.List.SetBool("Scroll", false);

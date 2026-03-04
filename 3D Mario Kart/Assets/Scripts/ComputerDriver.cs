@@ -19,7 +19,6 @@ public class ComputerDriver : MonoBehaviour
     [Header("Movement")]
     public Transform path;
     [HideInInspector] public PathTool SelectedPathTool;
-    public List<PathTool> pathTools = new();
     [HideInInspector]
     public int current_node = 0;
 
@@ -128,12 +127,6 @@ public class ComputerDriver : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
-        if(pathTools.Count > 0)
-        {
-            ChooseRandomPath();
-        }
-
         kartMat.SetVector("Vector4_70BBF882", new Vector4(0, 0, 0, 0));
 
         rb = GetComponent<Rigidbody>();
@@ -213,6 +206,11 @@ public class ComputerDriver : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (RaceManager.Instance.AIPaths.Count > 0 && path == null)
+        {
+            ChooseRandomPath();
+        }
+
         groundNormalRotation();
 
         if (!RaceManager.RACE_COMPLETED)
@@ -836,7 +834,7 @@ public class ComputerDriver : MonoBehaviour
                 if (current_node >= path.childCount - 1)
                 {
                     current_node = 0;
-                    if (pathTools.Count > 0)
+                    if (RaceManager.Instance.AIPaths.Count > 0)
                     {
                         ChooseRandomPath();
                     }
@@ -1328,10 +1326,10 @@ public class ComputerDriver : MonoBehaviour
 
     void ChooseRandomPath()
     {
-        int randomPath = UnityEngine.Random.Range(0, pathTools.Count);
-        randomPath = Mathf.Clamp(randomPath, 0, pathTools.Count - 1);
+        int randomPath = UnityEngine.Random.Range(0, RaceManager.Instance.AIPaths.Count);
+        randomPath = Mathf.Clamp(randomPath, 0, RaceManager.Instance.AIPaths.Count - 1);
 
-        PathTool pathTool = pathTools[randomPath];
+        PathTool pathTool = RaceManager.Instance.AIPaths[randomPath];
         path = pathTool.pathRoot;
         pathSpline = pathTool.GetComponent<SplineContainer>();
         SelectedPathTool = pathTool;

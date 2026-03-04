@@ -3353,6 +3353,14 @@ MonoBehaviour:
   LapCounters: []
   ItemSystem: {fileID: 5061768885270311187}
   YourItem: {fileID: 8340267235458191941}
+  PrimaryItem:
+    Main: {fileID: 9219417003889927663}
+    List: {fileID: 2829659412033349282}
+    OurItem: {fileID: 8340267235458191941}
+  SecondaryItem:
+    Main: {fileID: 7532578513634189061}
+    List: {fileID: 6763807206025359059}
+    OurItem: {fileID: 1718877933027373184}
   ResultsUI: {fileID: 3672916994792881565}
   FinishUI: {fileID: 4895652753460505583}
   RedShellWarning: {fileID: 872603491172165163}
