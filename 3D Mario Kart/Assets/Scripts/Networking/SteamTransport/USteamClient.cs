@@ -1,129 +1,176 @@
 using UnityEngine;
 using Steamworks;
-using UnityEditor.MemoryProfiler;
+using System;
+using System.Collections.Generic;
+using System.IO;
 
 public class USteamClient : MonoBehaviour
 {
-    /// <summary>
-    /// The Steam App ID.
-    /// Use your own AppID here; 480 works for development/testing.
-    /// </summary>
-    public uint steamAppId = 480;
+    public static USteamClient Instance { get; private set; }
 
-    private bool steamInitialized = false;
+    [Header("Steam Settings")]
+    [SerializeField] private uint steamAppId = 480;
 
-    public static HSteamNetConnection? Connection { get; private set; }
-    private static SteamNetConnectionRealTimeStatus_t? connectionHealth = null;
+    public uint SteamAppId => steamAppId;
+    public bool IsInitialized { get; private set; }
+    public CSteamID CurrentLobbyId { get; private set; }
 
-    void Awake()
+    // Events
+    public event Action OnSteamInitialized;
+    public event Action<CSteamID> OnLobbyCreated;
+    public event Action<CSteamID> OnLobbyJoined;
+    public event Action OnLobbyLeft;
+    public event Action<List<CSteamID>> OnLobbyListReceived;
+
+    private Callback<LobbyCreated_t> _lobbyCreated;
+    private Callback<LobbyEnter_t> _lobbyEntered;
+    private Callback<LobbyMatchList_t> _lobbyMatchList;
+    private Callback<GameLobbyJoinRequested_t> _joinRequested;
+
+    private bool _steamInitializedInternally;
+
+    private void Awake()
     {
-        DontDestroyOnLoad(this);
-
-        if (!SteamAPI.RestartAppIfNecessary((AppId_t)steamAppId))
+        if (Instance != null)
         {
-            Debug.LogError("SteamAPI RestartAppIfNecessary failed.");
+            Destroy(gameObject);
             return;
         }
 
-        steamInitialized = SteamAPI.Init();
-        if (!steamInitialized)
-        {
-            Debug.LogError("SteamAPI.Init() failed. Make sure Steam is running and steam_appid.txt is present.");
-            return;
-        }
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
 
-        Debug.Log("Steam initialized!");
+        InitializeSteam();
     }
 
-    void Update()
+    private void InitializeSteam()
     {
-        if (steamInitialized)
+        if (IsInitialized)
+            return;
+
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+        WriteSteamAppIdFile();
+#endif
+
+        try
+        {
+            if (!SteamAPI.Init())
+            {
+                Debug.LogError("SteamAPI.Init() failed.");
+                return;
+            }
+
+            _steamInitializedInternally = true;
+            IsInitialized = true;
+
+            RegisterCallbacks();
+
+            Debug.Log($"Steam initialized. AppId: {steamAppId}");
+            OnSteamInitialized?.Invoke();
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"Steam initialization exception: {e}");
+        }
+    }
+
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+    private void WriteSteamAppIdFile()
+    {
+        string path = Path.Combine(Directory.GetCurrentDirectory(), "steam_appid.txt");
+        File.WriteAllText(path, steamAppId.ToString());
+    }
+#endif
+
+    private void RegisterCallbacks()
+    {
+        _lobbyCreated = Callback<LobbyCreated_t>.Create(OnLobbyCreatedCallback);
+        _lobbyEntered = Callback<LobbyEnter_t>.Create(OnLobbyEnteredCallback);
+        _lobbyMatchList = Callback<LobbyMatchList_t>.Create(OnLobbyMatchListCallback);
+        _joinRequested = Callback<GameLobbyJoinRequested_t>.Create(OnJoinRequestedCallback);
+    }
+
+    private void Update()
+    {
+        if (IsInitialized)
         {
             SteamAPI.RunCallbacks();
-            connectionHealth = QueryConnectionHealth();
         }
     }
 
-    void OnApplicationQuit()
+    private void OnDestroy()
     {
-        if (steamInitialized)
+        if (_steamInitializedInternally)
         {
             SteamAPI.Shutdown();
-            Debug.Log("Steam API shutdown.");
         }
     }
 
-    public static SteamNetConnectionRealTimeStatus_t? QueryConnectionHealth()
+    #region Lobby API
+
+    public void CreateLobby(ELobbyType type, int maxMembers)
     {
-        if (Connection.HasValue)
+        SteamMatchmaking.CreateLobby(type, maxMembers);
+    }
+
+    public void SearchLobbies()
+    {
+        SteamMatchmaking.RequestLobbyList();
+    }
+
+    public void JoinLobby(CSteamID lobbyId)
+    {
+        SteamMatchmaking.JoinLobby(lobbyId);
+    }
+
+    public void LeaveLobby()
+    {
+        if (CurrentLobbyId.IsValid())
         {
-            SteamNetConnectionRealTimeStatus_t status = default;
-            SteamNetConnectionRealTimeLaneStatus_t laneStatus = default;
-
-            EResult res = SteamNetworkingSockets.GetConnectionRealTimeStatus(
-                    Connection.Value,
-                    ref status,
-                    0,
-                    ref laneStatus
-            );
-
-            if (res == EResult.k_EResultOK)
-            {
-                return status;
-            }
+            SteamMatchmaking.LeaveLobby(CurrentLobbyId);
+            CurrentLobbyId = CSteamID.Nil;
+            OnLobbyLeft?.Invoke();
         }
-        return null;
     }
 
-    #region Connection Health
-    // 1 is good, 0.85 is degraded, 0.7 is bad, packet quality locally
-    public static float GetLocalPacketQuality()
+    #endregion
+
+    #region Steam Callbacks
+
+    private void OnLobbyCreatedCallback(LobbyCreated_t callback)
     {
-        if (!connectionHealth.HasValue)
-            return 0f;
+        if (callback.m_eResult != EResult.k_EResultOK)
+        {
+            Debug.LogError("Lobby creation failed.");
+            return;
+        }
 
-        return connectionHealth.Value.m_flConnectionQualityLocal;
+        CurrentLobbyId = new CSteamID(callback.m_ulSteamIDLobby);
+        OnLobbyCreated?.Invoke(CurrentLobbyId);
     }
 
-    // 1 is good, 0.85 is degraded, 0.7 is bad, packet quality from the host
-    public static float GetRemotePacketQuality()
+    private void OnLobbyEnteredCallback(LobbyEnter_t callback)
     {
-        if (!connectionHealth.HasValue)
-            return 0f;
-
-        return connectionHealth.Value.m_flConnectionQualityRemote;
+        CurrentLobbyId = new CSteamID(callback.m_ulSteamIDLobby);
+        OnLobbyJoined?.Invoke(CurrentLobbyId);
     }
 
-    public static int GetPingToHost()
+    private void OnLobbyMatchListCallback(LobbyMatchList_t callback)
     {
-        if (!connectionHealth.HasValue)
-            return -1;
+        var lobbyIds = new List<CSteamID>();
 
-        return connectionHealth.Value.m_nPing;
+        for (int i = 0; i < callback.m_nLobbiesMatching; i++)
+        {
+            lobbyIds.Add(SteamMatchmaking.GetLobbyByIndex(i));
+        }
+
+        OnLobbyListReceived?.Invoke(lobbyIds);
     }
 
-    public static int GetUnackedReliable()
+    private void OnJoinRequestedCallback(GameLobbyJoinRequested_t callback)
     {
-        if (!connectionHealth.HasValue)
-            return -1;
-
-        return connectionHealth.Value.m_cbSentUnackedReliable;
+        JoinLobby(callback.m_steamIDLobby);
     }
 
-    public static int GetPendingUnreliable()
-    {
-        if (!connectionHealth.HasValue)
-            return -1;
-
-        return connectionHealth.Value.m_cbPendingUnreliable;
-    }
-
-    public static long GetUsecQueueTime()
-    {
-        if (!connectionHealth.HasValue)
-            return -1;
-
-        return (long)connectionHealth.Value.m_usecQueueTime;
-    }
     #endregion
 }

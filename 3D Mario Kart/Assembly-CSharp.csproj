@@ -83,7 +83,6 @@
     <Compile Include="Assets\Scripts\Camera\AspectRatioFix.cs" />
     <Compile Include="Assets\Scripts\Camera\CameraLocationTracker.cs" />
     <Compile Include="Assets\Scripts\Pylon.cs" />
-    <Compile Include="Assets\Scripts\Networking\SteamTransport\SteamP2PRelayTransport.cs" />
     <Compile Include="Assets\Scripts\Title\AudioCrossfade.cs" />
     <Compile Include="Assets\Scripts\Map Selector\MapSelector.cs" />
     <Compile Include="Assets\SampleScenes\Scripts\LevelReset.cs" />
