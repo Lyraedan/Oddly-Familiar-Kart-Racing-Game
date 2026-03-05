@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 public abstract class ItemBase : MonoBehaviour
 {
     protected Player player;
     protected ItemManager itemManager;
+
+    public NetworkObject networkedObject;
 
     [Header("The scale of the item when spawned in the world")]
     public Vector3 spawnScale = Vector3.one;
@@ -49,11 +52,14 @@ public abstract class ItemBase : MonoBehaviour
     /// Reparent the item and zero in its local position
     /// </summary>
     /// <param name="newParent"></param>
+    [ServerRpc]
     public void ReparentAndZero(Transform newParent)
     {
-        transform.SetParent(newParent);
+        networkedObject.TrySetParent(newParent, false);
+        //transform.SetParent(newParent);
         transform.localPosition = Vector3.zero;
     }
+
     public void PlayPlayerAnim(bool forward)
     {
         if (player == null || player.Driver == null)

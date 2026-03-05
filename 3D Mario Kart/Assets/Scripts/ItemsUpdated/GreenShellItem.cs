@@ -34,7 +34,7 @@ public class GreenShellItem : ItemBase
         ReparentAndZero(spawn);
         PlayPlayerAnim(forward);
 
-
+        gameObject.name = "GreenShell";
         // Set move direction
         moveDirection = forward ? player.transform.forward : -player.transform.forward;
         thrownBy = player.tag;
@@ -71,7 +71,9 @@ public class GreenShellItem : ItemBase
 
     public void SetPlayer(Player p)
     {
+        // TODO This needs updating to account for multiplayer
         player = p;
+        Debug.LogWarning("Setting player on GreenShell - Not updated for Multiplayer!");
     }
 
     void FixedUpdate()

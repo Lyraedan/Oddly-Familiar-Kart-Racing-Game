@@ -104,7 +104,7 @@ public class RacerSpawn : MonoBehaviour
                 NetworkObject networkedObject = computerRacer.GetComponent<NetworkObject>();
                 if (networkedObject != null)
                 {
-                    networkedObject.Spawn();
+                    networkedObject.Spawn(true);
                 }
             }
         }

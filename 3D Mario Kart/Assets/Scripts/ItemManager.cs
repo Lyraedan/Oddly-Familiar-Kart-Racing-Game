@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ItemManager : MonoBehaviour
+public class ItemManager : NetworkBehaviour
 {
     public static ItemManager Instance;
 
@@ -142,11 +144,13 @@ public class ItemManager : MonoBehaviour
 
     public void SelectItem(ItemSlot slot)
     {
-        ItemSlotItem itemSlotItem = GetItemSlotItem(slot);
-        if (itemSlotItem.selecting || itemSlotItem.selected)
-            return;
+        //ItemSlotItem itemSlotItem = GetItemSlotItem(slot);
+        //if (itemSlotItem.selecting || itemSlotItem.selected)
+        //    return;
 
-        StartCoroutine(GetRandomItem(slot));
+        //StartCoroutine(GetRandomItem(slot));
+
+        SelectItemServerRPC((int) slot);
     }
 
     public void SelectItemAuto()
@@ -243,6 +247,11 @@ public class ItemManager : MonoBehaviour
 
     public void UseItem(bool forward)
     {
+        if (!IsOwner) return;
+
+        UseItemServerRpc(forward);
+
+        /*
         if (!RaceManager.RACE_STARTED || RaceManager.RACE_COMPLETED)
             return;
 
@@ -258,10 +267,20 @@ public class ItemManager : MonoBehaviour
         // Items should call Consume in Use when needed
         //ConsumeItem(primary);
 
-        if (/*SecondarySlot.HasItemEquipped()*/ SecondarySlot.selected)
+        if (/*SecondarySlot.HasItemEquipped()*/ /*SecondarySlot.selected)
         {
             PromoteSecondaryToPrimary();
-        }
+        }*/
+    }
+
+    [Rpc(SendTo.Server, InvokePermission = RpcInvokePermission.Everyone)]
+    public void UseItemServerRpc(bool forward)
+    {
+        if (!PrimarySlot.HasItemEquipped())
+            return;
+
+        ItemBase item = PrimarySlot.equippedItem;
+        item.Use(forward, gameObject);
     }
 
     private void ConsumePrimaryVisual()
@@ -286,7 +305,8 @@ public class ItemManager : MonoBehaviour
         if (shouldDestroy)
         {
             itemSlotItem.prefab = null; // Clear the prefab reference since it's being destroyed
-            Destroy(item.gameObject);
+            //Destroy(item.gameObject);
+            item.networkedObject.Despawn();
         }
 
         itemSlotItem.equippedItem = null;
@@ -363,5 +383,80 @@ public class ItemManager : MonoBehaviour
     public ItemSlotItem GetItemSlotItem(ItemSlot slot)
     {
         return slot == ItemSlot.Primary ? PrimarySlot : SecondarySlot;
+    }
+
+    [Rpc(SendTo.Server, InvokePermission = RpcInvokePermission.Everyone)]
+    public void SelectItemServerRPC(int slot)
+    {
+        ItemSlot itemSlot = (ItemSlot)slot;
+        StartCoroutine(GetRandomItemServer(itemSlot));
+    }
+
+    private IEnumerator GetRandomItemServer(ItemSlot slot)
+    {
+        ItemSlotItem itemSlotItem = GetItemSlotItem(slot);
+        itemSlotItem.selecting = true;
+        int itemIndex = 0;
+
+        SelectItemClientRpc(slot, itemIndex);
+        yield return new WaitForSeconds(4f);
+
+        GameObject selectedPrefab = items[itemIndex].itemPrefab;
+
+        if(slot == ItemSlot.Primary)
+        {
+            SpawnItemServer(selectedPrefab);
+        }
+
+        itemSlotItem.selected = true;
+        SelectedItemClientRpc();
+    }
+
+    private void SpawnItemServer(GameObject prefab)
+    {
+        GameObject instance = Instantiate(prefab);
+        instance.name = $"Equipped_Primary_{instance.name}";
+
+        NetworkObject networkObject = instance.GetComponent<NetworkObject>();
+        if(networkObject == null)
+        {
+            Debug.LogError("Prefab missing NetworkObject.");
+            Destroy(instance); // Destroy the instance since it can't be networked
+            return;
+        }
+
+        networkObject.Spawn(true);
+        networkObject.TrySetParent(player.ShellBack, false);
+
+        ItemBase item = instance.GetComponent<ItemBase>();
+
+        instance.transform.localPosition = Vector3.zero;
+        instance.transform.localRotation = Quaternion.identity;
+
+        item.SetBackSpawn(player.ShellBack);
+        item.SetFrontSpawn(player.ShellFront);
+        item.SetHandSpawn(player.ItemHand);
+        item.SetThrowSpawn(player.ThrowForward);
+
+        item.Initialize(player, this);
+        PrimarySlot.equippedItem = item;
+    }
+
+    [Rpc(SendTo.Owner)]
+    public void SelectItemClientRpc(ItemSlot slot, int itemIndex)
+    {
+        IngameUIHolder.UIItem ui = GetUI(slot);
+        ui.OurItem.sprite = items[itemIndex].itemGraphic;
+        ui.Main.SetBool("StartSelecting", true);
+        ui.List.SetBool("Scroll", true);
+        SelectSound.Play();
+    }
+
+    [Rpc(SendTo.Owner)]
+    public void SelectedItemClientRpc()
+    {
+        SelectSound.Stop();
+        ItemSelectedSound.Play();
+        player.Driver.SetBool("hasItem", true);
     }
 }

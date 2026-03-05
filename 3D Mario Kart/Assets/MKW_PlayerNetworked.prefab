@@ -36470,6 +36470,7 @@ GameObject:
   - component: {fileID: 1845059836881227922}
   - component: {fileID: 642502366008012189}
   - component: {fileID: 2545918901103431416}
+  - component: {fileID: 3275598206049947040}
   - component: {fileID: 3606734833742908513}
   - component: {fileID: 5821174935118249453}
   - component: {fileID: 2910043631570364714}
@@ -36483,7 +36484,6 @@ GameObject:
   - component: {fileID: 966161291760156164}
   - component: {fileID: 4548535788879934940}
   - component: {fileID: 7877210976849181700}
-  - component: {fileID: 3275598206049947040}
   - component: {fileID: 4579137258998091558}
   - component: {fileID: 4559794175292193188}
   - component: {fileID: 4148897729001203590}
@@ -36561,6 +36561,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsOnlineLobby: 0
+  IsMine: 1
   boost_speed: 120
   drift_speed: 0
   desiredMaxSpeed: 90
@@ -36742,6 +36743,31 @@ MonoBehaviour:
   marioLose: {fileID: 0}
   gliderVoice: {fileID: 0}
   SceneEntryFinished: 0
+--- !u!114 &3275598206049947040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3297335546541666384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
+  GlobalObjectIdHash: 551350787
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  DeferredDespawnTick: 0
+  Ownership: 1
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0
 --- !u!114 &3606734833742908513
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36754,6 +36780,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01917bd865e13584aa6e7cb3bd21255c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   CurrentItemSlot: 0
   items:
   - name: Green Shell
@@ -36943,8 +36970,8 @@ MonoBehaviour:
   currentRacerIndex: 0
   currentKartSkinIndex: 0
   randomizeKart: 0
-  randomizeRacer: 0
-  randomizeKartSkin: 0
+  randomizeRacer: 1
+  randomizeKartSkin: 1
   kartSpawnPoint: {fileID: 6064369078986834943}
   karts:
   - {fileID: 1900276100344347441, guid: bc4e86f7f736b1d40b3ae6e31bef82af, type: 3}
@@ -36989,31 +37016,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WaypointTracker
   path1: {fileID: 0}
   path2: {fileID: 0}
---- !u!114 &3275598206049947040
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3297335546541666384}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 551350787
-  InScenePlacedSourceGlobalObjectIdHash: 0
-  DeferredDespawnTick: 0
-  Ownership: 1
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
-  SyncOwnerTransformWhenParented: 1
-  AllowOwnerToParent: 0
 --- !u!114 &4579137258998091558
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1314,6 +1314,9 @@ public class ComputerDriver : MonoBehaviour
             Quaternion.Euler(0, 0, 0),
             8f * Time.deltaTime);
 
+        if (Right_Wheel_Drift_PS == null || Left_Wheel_Drift_PS == null)
+            return;
+
         // stop all particle systems
         for (int i = 0; i < 5; i++)
         {

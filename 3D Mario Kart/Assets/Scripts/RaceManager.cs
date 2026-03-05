@@ -7,6 +7,7 @@ using UnityEngine.Splines;
 using UnityEngine.UI;
 using Unity.Netcode;
 using Unity.Netcode.Transports.SinglePlayer;
+using Netcode.Transports;
 
 public class RaceManager : MonoBehaviour
 {
@@ -148,7 +149,7 @@ public class RaceManager : MonoBehaviour
         yield return UtilityFunctions.FadeCanvasGroup(IngameUIHolder.Instance.WaitingForPlayers, 1f, 0.25f);
         yield return new WaitUntil(() => LocalPlayer != null);
         yield return new WaitUntil(() => ReadyToStartGame());
-        RacerSpawn.Instance.SpawnComputerRacers();
+        //RacerSpawn.Instance.SpawnComputerRacers(); // Disabled for testing
         yield return UtilityFunctions.FadeCanvasGroup(IngameUIHolder.Instance.WaitingForPlayers, 0f, 0.25f);
 
         Debug.Log(NetworkManager.Singleton.ConnectedClients.Count + " clients!");
@@ -165,7 +166,22 @@ public class RaceManager : MonoBehaviour
             return true;
         }
 
-        return AllPlayers.Count >= USteamClient.Instance.LobbyMembers.Count;
+        // We are relaying through Steam so we can check lobby members instead of waiting for network objects to spawn
+        if (NetworkManager.Singleton.NetworkConfig.NetworkTransport is SteamNetworkingSocketsTransport)
+        {
+            return AllPlayers.Count >= USteamClient.Instance.LobbyMembers.Count;
+        }
+
+        // Wait for each connected client to have a spawned player
+        foreach (var client in NetworkManager.Singleton.ConnectedClientsList)
+        {
+            if (client.PlayerObject == null || !client.PlayerObject.IsSpawned)
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public void RegisterLocalPlayer(Player player)
