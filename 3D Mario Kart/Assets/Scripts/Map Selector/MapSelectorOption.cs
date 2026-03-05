@@ -1,5 +1,8 @@
 using System.Collections;
+using System.Linq;
 using TMPro;
+using Unity.Netcode;
+using Unity.Netcode.Transports.SinglePlayer;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -8,6 +11,7 @@ public class MapSelectorOption : MonoBehaviour
 {
     public string MapName;
     public string SceneName;
+    public UGC.CourseBundle Bundle; // Not used but could come in handy in the future
 
     public TextMeshProUGUI MapNameText;
     public Button PlayButton;
@@ -36,6 +40,6 @@ public class MapSelectorOption : MonoBehaviour
     }
     public void PlayMap()
     {
-        SceneManager.LoadScene(SceneName, LoadSceneMode.Single);
+        NetworkUtils.Instance.LoadMapAndHost(SceneName);
     }
 }

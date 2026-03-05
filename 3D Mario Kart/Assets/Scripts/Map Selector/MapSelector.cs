@@ -169,7 +169,7 @@ public class MapSelector : MonoBehaviour
 
             displayName += " / " + sceneName;
 
-            GenerateOption(displayName, sceneName);
+            GenerateOption(bundle, displayName, sceneName);
 
             ugcSceneMap.Add((bundleIndex, sceneIndex));
         }
@@ -184,7 +184,7 @@ public class MapSelector : MonoBehaviour
         ugcSceneMap.Clear();
     }
 
-    void GenerateOption(string mapName, string sceneName)
+    void GenerateOption(UGC.CourseBundle bundle, string mapName, string sceneName)
     {
         GameObject option = Instantiate(mapOptionPrefab, contentRoot);
 
@@ -192,6 +192,7 @@ public class MapSelector : MonoBehaviour
         optionScript.MapName = mapName;
         optionScript.SceneName = sceneName;
         optionScript.MapNameText.text = mapName;
+        optionScript.Bundle = bundle;
 
         UGC_Maps.Add(option);
     }

@@ -944,7 +944,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1174499643}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.99976414
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1645,7 +1645,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.000035970665}
+  m_AnchoredPosition: {x: 0, y: 0.000729758}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &648255617
@@ -4200,6 +4200,8 @@ GameObject:
   - component: {fileID: 1087500804}
   - component: {fileID: 1087500803}
   - component: {fileID: 1087500805}
+  - component: {fileID: 1087500806}
+  - component: {fileID: 1087500807}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -4222,8 +4224,9 @@ MonoBehaviour:
   NetworkManagerExpanded: 0
   NetworkConfig:
     ProtocolVersion: 0
-    NetworkTransport: {fileID: 0}
-    PlayerPrefab: {fileID: 0}
+    NetworkTransport: {fileID: 1087500806}
+    PlayerPrefab: {fileID: 3297335546541666384, guid: 1ba70159c05acf240b0e35c339db3115,
+      type: 3}
     Prefabs:
       NetworkPrefabsLists:
       - {fileID: 11400000, guid: 7540837ba8faa9340811fa3b668d0b53, type: 2}
@@ -4278,6 +4281,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::USteamClient
   steamAppId: 480
+--- !u!114 &1087500806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1087500801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6fd89dc549847f4096c58273ff2e979, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.Transports.SinglePlayer.SinglePlayerTransport
+--- !u!114 &1087500807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1087500801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faafa86ba3daad64fbca450854d04148, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NetworkUtils
 --- !u!1 &1088446863
 GameObject:
   m_ObjectHideFlags: 0

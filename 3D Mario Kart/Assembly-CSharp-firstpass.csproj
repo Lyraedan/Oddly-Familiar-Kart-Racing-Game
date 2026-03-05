@@ -1704,6 +1704,10 @@
       <HintPath>Library\ScriptAssemblies\Unity.Postprocessing.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="SteamNetworkingSockets Transport for Netcode for GameObjects">
+      <HintPath>Library\ScriptAssemblies\SteamNetworkingSockets Transport for Netcode for GameObjects.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Unity.RenderPipeline.Universal.ShaderLibrary">
       <HintPath>Library\ScriptAssemblies\Unity.RenderPipeline.Universal.ShaderLibrary.dll</HintPath>
       <Private>False</Private>

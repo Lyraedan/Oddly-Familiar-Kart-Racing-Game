@@ -107,6 +107,7 @@
     <Compile Include="Assets\Scripts\CameraRotateAntigravity.cs" />
     <Compile Include="Assets\8K Skybox Pack Free\Example Scenes\Script\RotateCamera.cs" />
     <Compile Include="Assets\Scripts\General\MatchOrientation.cs" />
+    <Compile Include="Assets\Scripts\Networking\SteamTransport\SteamNetworkingSocketsTransport.cs" />
     <Compile Include="Assets\Scenes\TEstStuff\TestScript.cs" />
     <Compile Include="Assets\Scripts\Networking\NetworkedPlayerManager.cs" />
     <Compile Include="Assets\Scripts\UI\ItemListPopulator.cs" />
@@ -159,6 +160,7 @@
     <Compile Include="Assets\Scripts\ResultsUI.cs" />
     <Compile Include="Assets\Scripts\General\RotationConstraint.cs" />
     <Compile Include="Assets\Scripts\General\Rotator.cs" />
+    <Compile Include="Assets\Scripts\Networking\NetworkUtils.cs" />
     <Compile Include="Assets\Models\Water Park\Ferris wheel\FerrisWHeelGondola.cs" />
     <Compile Include="Assets\Scripts\Camerafollow.cs" />
     <Compile Include="Assets\colliderInAir.cs" />
@@ -1786,6 +1788,10 @@
     </Reference>
     <Reference Include="Unity.Postprocessing.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.Postprocessing.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SteamNetworkingSockets Transport for Netcode for GameObjects">
+      <HintPath>Library\ScriptAssemblies\SteamNetworkingSockets Transport for Netcode for GameObjects.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.RenderPipeline.Universal.ShaderLibrary">

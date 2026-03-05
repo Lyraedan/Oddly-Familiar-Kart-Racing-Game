@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Netcode.Transports;
 using Unity.Netcode;
 using Unity.Netcode.Transports.SinglePlayer;
 using Unity.Netcode.Transports.UTP;
@@ -249,6 +250,7 @@ public class MainMenu : MonoBehaviour
         buttonSelectSound.Play();
         StartCoroutine(SwitchMenu(menuButtonsCanvasGroup, multiplayerCanvasGroup));
         menuToSub.StartCrossfade();
+        UpdateNetworkTransport(NetworkTransport.STEAM);
         CurrentMenu = MenuState.Multiplayer;
         Debug.Log("Multiplayer button clicked!");
     }
@@ -289,6 +291,7 @@ public class MainMenu : MonoBehaviour
         returnSound.Play();
         StartCoroutine(SwitchMenu(multiplayerCanvasGroup, menuButtonsCanvasGroup));
         subToMenu.StartCrossfade();
+        UpdateNetworkTransport(NetworkTransport.SINGLEPLAYER);
         CurrentMenu = MenuState.Main;
     }
 
@@ -388,6 +391,8 @@ public class MainMenu : MonoBehaviour
             Destroy(networkManager.GetComponent<UnityTransport>());
 
         // Steam TODO ADD
+        if (networkManager.GetComponent<SteamNetworkingSocketsTransport>() != null)
+            Destroy(networkManager.GetComponent<SteamNetworkingSocketsTransport>());
 
         NetworkManager.Singleton.NetworkConfig = new NetworkConfig
         {
@@ -402,7 +407,7 @@ public class MainMenu : MonoBehaviour
                     NetworkTransport = networkManager.AddComponent<SinglePlayerTransport>()
                 };
                 break;
-            case NetworkTransport.UNITY:
+            case NetworkTransport.UNITY: // Used for internal testing, not recommended for actual multiplayer use. Use Steam or another third party transport instead.
                 NetworkManager.Singleton.NetworkConfig = new NetworkConfig
                 {
                     NetworkTransport = networkManager.AddComponent<UnityTransport>()
@@ -411,9 +416,22 @@ public class MainMenu : MonoBehaviour
             case NetworkTransport.STEAM:
                 NetworkManager.Singleton.NetworkConfig = new NetworkConfig
                 {
-                    NetworkTransport = networkManager.AddComponent<SinglePlayerTransport>() // TODO: Create
+                    NetworkTransport = networkManager.AddComponent<SteamNetworkingSocketsTransport>()
                 };
                 break;
+        }
+    }
+
+    /// <summary>
+    /// When joining a lobby update the host ID to this
+    /// </summary>
+    /// <param name="hostId"></param>
+    public void UpdateLobbyHost(ulong hostId)
+    {
+        SteamNetworkingSocketsTransport transport = NetworkManager.Singleton.NetworkConfig.NetworkTransport as SteamNetworkingSocketsTransport;
+        if (transport != null)
+        {
+            transport.ConnectToSteamID = hostId;
         }
     }
 }

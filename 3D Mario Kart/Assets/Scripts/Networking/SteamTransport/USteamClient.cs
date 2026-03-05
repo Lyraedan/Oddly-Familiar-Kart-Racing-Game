@@ -1,8 +1,8 @@
-using UnityEngine;
 using Steamworks;
-using System;
 using System.Collections.Generic;
 using System.IO;
+using System;
+using UnityEngine;
 
 public class USteamClient : MonoBehaviour
 {
@@ -15,12 +15,15 @@ public class USteamClient : MonoBehaviour
     public bool IsInitialized { get; private set; }
     public CSteamID CurrentLobbyId { get; private set; }
 
+    public List<CSteamID> LobbyMembers { get; private set; } = new List<CSteamID>();
+
     // Events
     public event Action OnSteamInitialized;
     public event Action<CSteamID> OnLobbyCreated;
     public event Action<CSteamID> OnLobbyJoined;
     public event Action OnLobbyLeft;
     public event Action<List<CSteamID>> OnLobbyListReceived;
+    public event Action<List<CSteamID>> OnLobbyMembersUpdated;
 
     private Callback<LobbyCreated_t> _lobbyCreated;
     private Callback<LobbyEnter_t> _lobbyEntered;
@@ -129,8 +132,26 @@ public class USteamClient : MonoBehaviour
         {
             SteamMatchmaking.LeaveLobby(CurrentLobbyId);
             CurrentLobbyId = CSteamID.Nil;
+            LobbyMembers.Clear();
             OnLobbyLeft?.Invoke();
         }
+    }
+
+    private void UpdateLobbyMembers()
+    {
+        if (!CurrentLobbyId.IsValid())
+            return;
+
+        LobbyMembers.Clear();
+        int memberCount = SteamMatchmaking.GetNumLobbyMembers(CurrentLobbyId);
+
+        for (int i = 0; i < memberCount; i++)
+        {
+            CSteamID memberId = SteamMatchmaking.GetLobbyMemberByIndex(CurrentLobbyId, i);
+            LobbyMembers.Add(memberId);
+        }
+
+        OnLobbyMembersUpdated?.Invoke(new List<CSteamID>(LobbyMembers));
     }
 
     #endregion
@@ -146,12 +167,14 @@ public class USteamClient : MonoBehaviour
         }
 
         CurrentLobbyId = new CSteamID(callback.m_ulSteamIDLobby);
+        UpdateLobbyMembers();
         OnLobbyCreated?.Invoke(CurrentLobbyId);
     }
 
     private void OnLobbyEnteredCallback(LobbyEnter_t callback)
     {
         CurrentLobbyId = new CSteamID(callback.m_ulSteamIDLobby);
+        UpdateLobbyMembers();
         OnLobbyJoined?.Invoke(CurrentLobbyId);
     }
 

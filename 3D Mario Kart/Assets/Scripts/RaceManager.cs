@@ -6,6 +6,7 @@ using System.IO;
 using UnityEngine.Splines;
 using UnityEngine.UI;
 using Unity.Netcode;
+using Unity.Netcode.Transports.SinglePlayer;
 
 public class RaceManager : MonoBehaviour
 {
@@ -149,15 +150,22 @@ public class RaceManager : MonoBehaviour
         yield return new WaitUntil(() => ReadyToStartGame());
         RacerSpawn.Instance.SpawnComputerRacers();
         yield return UtilityFunctions.FadeCanvasGroup(IngameUIHolder.Instance.WaitingForPlayers, 0f, 0.25f);
-        
+
+        Debug.Log(NetworkManager.Singleton.ConnectedClients.Count + " clients!");
         sceneEntrySound.Play();
         sceneEntryCamera.enabled = true;
     }
 
     public bool ReadyToStartGame()
     {
-        // Wait for every player to load in from the lobby
-        return Input.GetKeyDown(KeyCode.Space);
+        if(NetworkManager.Singleton.NetworkConfig.NetworkTransport is SinglePlayerTransport)
+        {
+            Debug.Log("Singleplayer mode detected, skipping wait for players.");
+            // Singleplayer, don't need to wait
+            return true;
+        }
+
+        return AllPlayers.Count >= USteamClient.Instance.LobbyMembers.Count;
     }
 
     public void RegisterLocalPlayer(Player player)
