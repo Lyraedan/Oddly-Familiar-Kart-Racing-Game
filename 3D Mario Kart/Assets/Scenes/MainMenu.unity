@@ -1916,7 +1916,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.0010496617}
+  m_AnchoredPosition: {x: 0, y: 0.0010458364}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &648255617
@@ -4697,7 +4697,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.0010496617}
+  m_AnchoredPosition: {x: 0, y: 0.0010458364}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &1070704760
@@ -6366,9 +6366,13 @@ MonoBehaviour:
   rightPanel: {fileID: 2035569570}
   startTextObject: {fileID: 868062460}
   networkTransport: 0
+  DefaultPlayerPrefab: {fileID: 3297335546541666384, guid: 1ba70159c05acf240b0e35c339db3115,
+    type: 3}
+  NetworkPrefabsList: {fileID: 11400000, guid: 7540837ba8faa9340811fa3b668d0b53, type: 2}
   menuButtonsCanvasGroup: {fileID: 270269796}
   singleplayerCanvasGroup: {fileID: 2048888991}
   multiplayerCanvasGroup: {fileID: 1358500928}
+  multiplayerMenu: {fileID: 0}
   logoMoveTime: 0.6
   sideMoveTime: 0.35
   fadeTime: 0.25
@@ -6524,9 +6528,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29beb74fbd8483b40b26c77a416173c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MultiplayerMenu
+  mainMenu: {fileID: 0}
   MultiplayerMenuButtons: {fileID: 876395092}
   FindGroup: {fileID: 469706572}
   Lobby: {fileID: 2131455375}
+  LobbyMemberPrefab: {fileID: 0}
+  BrowserEntryPrefab: {fileID: 0}
 --- !u!1 &1369389431
 GameObject:
   m_ObjectHideFlags: 0

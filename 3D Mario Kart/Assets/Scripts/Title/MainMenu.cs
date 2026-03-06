@@ -38,6 +38,8 @@ public class MainMenu : MonoBehaviour
 
     [Header("Networking")]
     public NetworkTransport networkTransport = NetworkTransport.SINGLEPLAYER;
+    public GameObject DefaultPlayerPrefab;
+    public NetworkPrefabsList NetworkPrefabsList;
 
     [Header("Fade Group")]
     public CanvasGroup menuButtonsCanvasGroup;
@@ -424,32 +426,30 @@ public class MainMenu : MonoBehaviour
         if (networkManager.GetComponent<SteamNetworkingSocketsTransport>() != null)
             Destroy(networkManager.GetComponent<SteamNetworkingSocketsTransport>());
 
-        NetworkManager.Singleton.NetworkConfig = new NetworkConfig
-        {
-            NetworkTransport = null
-        };
+        Unity.Netcode.NetworkTransport newTransport = null;
 
         switch (transport)
         {
             case NetworkTransport.SINGLEPLAYER:
-                NetworkManager.Singleton.NetworkConfig = new NetworkConfig
-                {
-                    NetworkTransport = networkManager.AddComponent<SinglePlayerTransport>()
-                };
+                newTransport = networkManager.AddComponent<SinglePlayerTransport>();
                 break;
-            case NetworkTransport.UNITY: // Used for internal testing, not recommended for actual multiplayer use. Use Steam or another third party transport instead.
-                NetworkManager.Singleton.NetworkConfig = new NetworkConfig
-                {
-                    NetworkTransport = networkManager.AddComponent<UnityTransport>()
-                };
+
+            case NetworkTransport.UNITY:
+                newTransport = networkManager.AddComponent<UnityTransport>();
                 break;
+
             case NetworkTransport.STEAM:
-                NetworkManager.Singleton.NetworkConfig = new NetworkConfig
-                {
-                    NetworkTransport = networkManager.AddComponent<SteamNetworkingSocketsTransport>()
-                };
+                newTransport = networkManager.AddComponent<SteamNetworkingSocketsTransport>();
                 break;
         }
+
+        NetworkManager nm = NetworkManager.Singleton;
+        nm.NetworkConfig.NetworkTransport = newTransport;
+
+        nm.NetworkConfig.PlayerPrefab = DefaultPlayerPrefab;
+
+        nm.NetworkConfig.Prefabs.NetworkPrefabsLists.Clear();
+        nm.NetworkConfig.Prefabs.NetworkPrefabsLists.Add(NetworkPrefabsList);
     }
 
     /// <summary>
