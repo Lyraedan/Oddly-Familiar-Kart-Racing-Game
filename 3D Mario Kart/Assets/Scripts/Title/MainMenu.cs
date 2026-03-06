@@ -18,6 +18,8 @@ public class MainMenu : MonoBehaviour
         Main,
         Singleplayer,
         Multiplayer,
+        Multiplayer_FindLobby,
+        Multiplayer_Lobby,
         Settings
     }
 
@@ -43,6 +45,7 @@ public class MainMenu : MonoBehaviour
     [Header("Submenus")]
     public CanvasGroup singleplayerCanvasGroup;
     public CanvasGroup multiplayerCanvasGroup;
+    public MultiplayerMenu multiplayerMenu; // Has steam lobby callbacks on it
 
     [Header("Animation Speeds")]
     public float logoMoveTime = 0.35f;
@@ -257,12 +260,20 @@ public class MainMenu : MonoBehaviour
 
     public void OnClick_HostGame()
     {
-        
+        buttonSelectSound.Play();
+        USteamClient.Instance.CreatePublicLobby();
+    }
+
+    public void OnClick_LeaveLobby()
+    {
+        buttonSelectSound.Play();
+        USteamClient.Instance.LeaveLobby();
     }
 
     public void OnClick_FindGame()
     {
-
+        buttonSelectSound.Play();
+        
     }
 
     public void OnClick_Settings()
@@ -295,6 +306,19 @@ public class MainMenu : MonoBehaviour
         CurrentMenu = MenuState.Main;
     }
 
+    public void OnClick_ReturnFromMultiplayerBrowser()
+    {
+        returnSound.Play();
+        CurrentMenu = MenuState.Multiplayer;
+    }
+
+    public void OnClick_ReturnFromMultiplayerLobby()
+    {
+        returnSound.Play();
+        USteamClient.Instance.LeaveLobby();
+        CurrentMenu = MenuState.Multiplayer;
+    }
+
     private void OnStartPressed(InputAction.CallbackContext context)
     {
         if (!canStart || isAnimating)
@@ -316,6 +340,12 @@ public class MainMenu : MonoBehaviour
                 break;
             case MenuState.Multiplayer:
                 OnClick_ReturnFromMultiplayer();
+                break;
+            case MenuState.Multiplayer_FindLobby:
+                OnClick_ReturnFromMultiplayerBrowser();
+                break;
+            case MenuState.Multiplayer_Lobby:
+                OnClick_ReturnFromMultiplayerLobby();
                 break;
 
             case MenuState.Main:
@@ -433,5 +463,10 @@ public class MainMenu : MonoBehaviour
         {
             transport.ConnectToSteamID = hostId;
         }
+    }
+
+    public void UpdateMenu(MenuState menu)
+    {
+        CurrentMenu = menu;
     }
 }

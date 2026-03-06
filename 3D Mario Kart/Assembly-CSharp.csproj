@@ -106,6 +106,7 @@
     <Compile Include="Assets\Scripts\JumpToAnimationTime.cs" />
     <Compile Include="Assets\Scripts\CameraRotateAntigravity.cs" />
     <Compile Include="Assets\8K Skybox Pack Free\Example Scenes\Script\RotateCamera.cs" />
+    <Compile Include="Assets\Scripts\Title\MultiplayerMenu.cs" />
     <Compile Include="Assets\Scripts\General\MatchOrientation.cs" />
     <Compile Include="Assets\Scripts\Networking\SteamTransport\SteamNetworkingSocketsTransport.cs" />
     <Compile Include="Assets\Scenes\TEstStuff\TestScript.cs" />
