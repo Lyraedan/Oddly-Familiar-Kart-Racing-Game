@@ -78,6 +78,8 @@ Once thats ready open the project after adding it to your Unity Hub and let it i
         > So far only the GreenShell is partially reimplemented, you can throw it backwards but not forwards as it hits us
 * Animations
   * Fixed animations on the Player racer. They're still broken but they look like who they're suppose to look like
+* Multiplayer
+  > Went with Netcode for GameObjects w/ Steamworks Transport so I could learn how Unity's Multiplayer framework works
 
 # Other Notes:
    > Its incredibly buggy right now, I broke the animation for the antigravity wheels and theres alot that needs to be done before this hits main
