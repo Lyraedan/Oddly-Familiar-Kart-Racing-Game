@@ -111,6 +111,31 @@ public class USteamClient : MonoBehaviour
 
     #region Lobby API
 
+    public void CreatePublicLobby()
+    {
+        CreateLobby(ELobbyType.k_ELobbyTypePublic, 12);
+    }
+
+    public void CreateFriendsOnlyLobby()
+    {
+        CreateLobby(ELobbyType.k_ELobbyTypeFriendsOnly, 12);
+    }
+
+    public void CreateInvisibleLobby()
+    {
+        CreateLobby(ELobbyType.k_ELobbyTypeInvisible, 12);
+    }
+
+    public void CreatePrivateLobby()
+    {
+        CreateLobby(ELobbyType.k_ELobbyTypePrivate, 12);
+    }
+
+    public void CreatePrivateUniqueLobby()
+    {
+        CreateLobby(ELobbyType.k_ELobbyTypePrivateUnique, 12);
+    }
+
     public void CreateLobby(ELobbyType type, int maxMembers)
     {
         SteamMatchmaking.CreateLobby(type, maxMembers);
