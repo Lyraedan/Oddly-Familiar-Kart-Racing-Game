@@ -123,7 +123,7 @@ public class RaceManager : MonoBehaviour
     {
         // Cache AI paths
         AIPaths = AIPathRoot.GetComponentsInChildren<PathTool>().ToList();
-        allPaths = GameObject.Find("AI PATHS")?.transform;
+        allPaths = AIPathRoot.transform;
 
         // Default song names
         if (string.IsNullOrEmpty(courseMusic.songName)) courseMusic.songName = courseMusic.clip.name;
@@ -149,7 +149,8 @@ public class RaceManager : MonoBehaviour
         yield return UtilityFunctions.FadeCanvasGroup(IngameUIHolder.Instance.WaitingForPlayers, 1f, 0.25f);
         yield return new WaitUntil(() => LocalPlayer != null);
         yield return new WaitUntil(() => ReadyToStartGame());
-        //RacerSpawn.Instance.SpawnComputerRacers(); // Disabled for testing
+        RacerSpawn.Instance.SpawnComputerRacers(); // Disabled for testing
+        IngameUIHolder.Instance.FetchLapCounters();
         yield return UtilityFunctions.FadeCanvasGroup(IngameUIHolder.Instance.WaitingForPlayers, 0f, 0.25f);
 
         Debug.Log(NetworkManager.Singleton.ConnectedClients.Count + " clients!");

@@ -108,11 +108,13 @@ public class IngameUIHolder : MonoBehaviour
 
     private void Start()
     {
-        if (LapCounters.Count == 0)
-        {
-            LapCounters = new List<LapCounter>(FindObjectsByType<LapCounter>(FindObjectsSortMode.None));
-        }
         //GenerateAllRacerMinimapIcons();
+    }
+
+    public void FetchLapCounters()
+    {
+        LapCounters.Clear();
+        LapCounters = new List<LapCounter>(FindObjectsByType<LapCounter>(FindObjectsSortMode.None));
     }
 
     public void GenerateIconFor(LapCounter racer)
