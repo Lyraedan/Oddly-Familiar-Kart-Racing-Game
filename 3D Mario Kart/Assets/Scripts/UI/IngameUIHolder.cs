@@ -67,7 +67,6 @@ public class IngameUIHolder : MonoBehaviour
     public Text SongAuthorText;
     public MusicDisplay MusicDisplay;
 
-    public List<LapCounter> LapCounters = new();
     [Space(10)]
 
     public GameObject ItemSystem;
@@ -84,6 +83,10 @@ public class IngameUIHolder : MonoBehaviour
     public UIItem SecondaryItem;
 
     public ResultsUI ResultsUI;
+    public List<LapCounter> LapCounters = new();
+    public Transform ResultEntriesRoot;
+    public GameObject ResultEntryPrefab;
+    [Space(5)]
     public GameObject FinishUI;
     public GameObject RedShellWarning;
     public GameObject BlueShellWarning;
@@ -115,6 +118,22 @@ public class IngameUIHolder : MonoBehaviour
     {
         LapCounters.Clear();
         LapCounters = new List<LapCounter>(FindObjectsByType<LapCounter>(FindObjectsSortMode.None));
+        for(int i = 0; i < LapCounters.Count; i++)
+        {
+            GenerateResultEntry();
+        }
+    }
+
+    public void GenerateResultEntry()
+    {
+        GameObject entry = Instantiate(ResultEntryPrefab, ResultEntriesRoot);
+        ResultsEntry resultsEntry = entry.GetComponent<ResultsEntry>();
+        LapCounter assignee = LapCounters[ResultsUI.transform.childCount - 1];
+        resultsEntry.AssignRacer(assignee);
+
+        //MKWKartCustomization customization = assignee.GetComponent<MKWKartCustomization>();
+        //RacerConfig config = customization.CurrentRacerConfig;
+        //resultsEntry.UpdateEntry(assignee.Position, config.CharacterName, config.CharacterIcon);
     }
 
     public void GenerateIconFor(LapCounter racer)

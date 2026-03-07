@@ -37,6 +37,9 @@ public class LapCounter : MonoBehaviour
     public UnityAction<int> onCheckpointReached;
     public UnityAction<int> onLastLap;
 
+    public bool RaceComplete { get; private set; } = false;
+    public int RaceEndPosition { get; private set; } = 1;
+
     public int ProgressIndex
     {
         get { return Mathf.Max(0, lastCheckpointID); }
@@ -65,10 +68,15 @@ public class LapCounter : MonoBehaviour
             checkpointsVisited[i] = false;
 
         RacerID = transform.GetSiblingIndex();
+        RaceComplete = false;
     }
 
     void Update()
     {
+        // Racer finished. Stop
+        if (RaceComplete)
+            return;
+
         debugProgressIndex = ProgressIndex;
         debugRaceProgressScore = RaceProgressScore;
 
@@ -78,7 +86,7 @@ public class LapCounter : MonoBehaviour
         CalculateDistanceToNextCheckpoint();
 
         var allRacers = IngameUIHolder.Instance.LapCounters;
-        // Update position every frame (or you can throttle for performance)
+
         if (allRacers != null && allRacers.Count > 0)
         {
             UpdatePositions(allRacers);
@@ -89,19 +97,14 @@ public class LapCounter : MonoBehaviour
         {
             IngameUIHolder.Instance.lapCounterUI.UpdateText(LAPCOUNT + "/" + RaceManager.Instance.MAXLAPS);
         }
-
-        if (gameObject.CompareTag("Player") && LAPCOUNT > RaceManager.Instance.MAXLAPS && endPosition == 0)
-        {
-            RaceManager.RACE_COMPLETED = true;
-            endPosition = Position;
-
-            GetComponent<Player>().stopDrift();
-            StartCoroutine(StopDriftRotation());
-        }
+        
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        if (RaceComplete)
+            return;
+
         Checkpoint checkpoint = other.GetComponent<Checkpoint>();
         if (checkpoint == null)
             return;
@@ -159,6 +162,20 @@ public class LapCounter : MonoBehaviour
         if (LAPCOUNT == RaceManager.Instance.MAXLAPS)
         {
             onLastLap?.Invoke(LAPCOUNT);
+        }
+
+        if(LAPCOUNT > RaceManager.Instance.MAXLAPS) 
+        {
+            RaceComplete = true;
+            RaceEndPosition = Position;
+            if (gameObject.CompareTag("Player") && endPosition == 0)
+            {
+                RaceManager.RACE_COMPLETED = true;
+                endPosition = Position;
+
+                GetComponent<Player>().stopDrift();
+                StartCoroutine(StopDriftRotation());
+            }
         }
 
 
@@ -322,6 +339,20 @@ public class LapCounter : MonoBehaviour
         }
 
         return false;
+    }
+
+    public void ResetLapCounter()
+    {
+        LAPCOUNT = 1;
+        currentCheckpointVal = 0;
+        lastCheckpointID = -1;
+        RaceComplete = false;
+        for (int i = 0; i < checkpointsVisited.Length; i++)
+            checkpointsVisited[i] = false;
+        if (gameObject.CompareTag("Player"))
+        {
+            IngameUIHolder.Instance.lapCounterUI.UpdateText(LAPCOUNT + "/" + RaceManager.Instance.MAXLAPS);
+        }
     }
 
 }

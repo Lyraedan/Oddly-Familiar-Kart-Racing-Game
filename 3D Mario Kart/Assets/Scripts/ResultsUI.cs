@@ -8,21 +8,9 @@ public class ResultsUI : MonoBehaviour
 {
     private int playerResult;
 
-    // Start is called before the first frame update
-    void Start()
+    public void CreateResults()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-  
-    }
-
-    public void createResults(List<LapCounter> players)
-    {
-        foreach (LapCounter player in players)
+        foreach (LapCounter player in IngameUIHolder.Instance.LapCounters)
         {
             MKWKartCustomization customization = player.GetComponent<MKWKartCustomization>();
             RacerConfig config = customization.CurrentRacerConfig;

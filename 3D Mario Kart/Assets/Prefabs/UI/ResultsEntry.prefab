@@ -184,6 +184,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1f0b7fb27f5ff3448ec3a096af9fad3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ResultsEntry
+  assignedRacer: {fileID: 0}
   Position: {fileID: 4884937290685332007}
   CharacterName: {fileID: 1997373345288433482}
   Icon: {fileID: 4025037901758143246}
@@ -329,8 +330,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -28.5, y: 8.999993}
-  m_SizeDelta: {x: 30, y: 30}
+  m_AnchoredPosition: {x: -26.733696, y: -1.4342}
+  m_SizeDelta: {x: 100.65199, y: 95.3561}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6629998434996224124
 CanvasRenderer:
@@ -362,20 +363,18 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: c9319fca0166be54eb993f1bfe0c43b6, type: 3}
-    m_FontSize: 90
+    m_FontSize: 60
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
-    m_MaxSize: 100
-    m_Alignment: 0
+    m_MaxSize: 300
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: '1
-
-'
+  m_Text: 1
 --- !u!114 &8686774431688067151
 MonoBehaviour:
   m_ObjectHideFlags: 0

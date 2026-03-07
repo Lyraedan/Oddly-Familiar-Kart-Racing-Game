@@ -151,6 +151,10 @@ public class RaceManager : MonoBehaviour
         yield return new WaitUntil(() => ReadyToStartGame());
         RacerSpawn.Instance.SpawnComputerRacers(); // Disabled for testing
         IngameUIHolder.Instance.FetchLapCounters();
+        foreach(LapCounter player in IngameUIHolder.Instance.LapCounters)
+        {
+            
+        }
         yield return UtilityFunctions.FadeCanvasGroup(IngameUIHolder.Instance.WaitingForPlayers, 0f, 0.25f);
 
         Debug.Log(NetworkManager.Singleton.ConnectedClients.Count + " clients!");
@@ -305,86 +309,98 @@ public class RaceManager : MonoBehaviour
 
     private IEnumerator FinishRace()
     {
-        // Play goal sound
         LocalPlayerSounds.goal.Play();
 
-        // Disable spectator sounds and item system
-        if (spectatorSounds != null)
-            spectatorSounds.SetActive(false);
+        if(spectatorSounds != null)
+            spectatorSounds?.SetActive(false);
+        
         itemSystem.SetActive(false);
 
-        // Stop camera audio on the FrontCam parent
-        FrontCam.transform.parent.parent.GetComponent<AudioSource>()?.Stop();
+        if(FrontCam != null)
+            FrontCam.transform.parent.parent.GetComponent<AudioSource>()?.Stop(); // This is f*cking foul
 
-        // Enable finish UI animations
         finishUI.GetComponent<Animator>().SetBool("Finish", true);
 
-        // Camera setup
-        BackCam.SetActive(false);
-        FrontCam.SetActive(true);
-        FrontCam.GetComponent<Camera>().enabled = true;
-        if (FrontFPCam != null) FrontFPCam.SetActive(false);
+        if(BackCam != null)
+            BackCam.SetActive(false);
+        if (FrontCam != null)
+        {
+            FrontCam.SetActive(true);
+            FrontCam.GetComponent<Camera>().enabled = true;
+        }
+        
+        if(FrontFPCam != null)
+            FrontFPCam?.SetActive(false);
 
-        // Check player's final position
         int playerPos = LocalPlayerLap.Position;
 
         if (playerPos == 1)
         {
-            // First place sequence
-            LocalPlayer.Driver.SetBool("FirstPlace", true);
-            LocalPlayerSounds.firstPlaceVoice.Play();
-            yield return new WaitForSeconds(1f);
-
-            LocalPlayerSounds.firstPlaceResult.Play();
-            yield return new WaitForSeconds(2.5f);
-
-            FrontCam?.GetComponent<Animator>().SetBool("RaceEndCam", true);
-            yield return new WaitForSeconds(0.5f);
-
-            yield return StartCoroutine(UtilityFunctions.FadeCanvasGroup(resultsUI.GetComponent<CanvasGroup>(), 1f, 0.5f));
-            resultsUI.createResults(sortedRacers);
-            yield return new WaitForSeconds(3f);
-
-            LocalPlayerSounds.resultsGood.Play();
+            yield return StartCoroutine(FirstPlaceSequence());
         }
-        else if (playerPos < 6)
+        else if (playerPos <= 6)
         {
-            // 2nd–5th place sequence
-            LocalPlayer.Driver.SetBool("FirstPlace", true); // maybe this should be adjusted for non-first places
-            LocalPlayerSounds.firstPlaceVoice.Play();
-            yield return new WaitForSeconds(1f);
-
-            LocalPlayerSounds.secondToSixth.Play();
-            yield return new WaitForSeconds(2.5f);
-
-            FrontCam?.GetComponent<Animator>().SetBool("RaceEndCam", true);
-            yield return new WaitForSeconds(0.5f);
-
-            yield return StartCoroutine(UtilityFunctions.FadeCanvasGroup(resultsUI.GetComponent<CanvasGroup>(), 1f, 0.5f));
-            resultsUI.createResults(sortedRacers);
-            yield return new WaitForSeconds(3f);
-
-            LocalPlayerSounds.resultsGood.Play();
+            yield return StartCoroutine(MidPlaceSequence());
         }
         else
         {
-            // Last place or beyond
-            LocalPlayer.Driver.SetBool("LoseAnim", true);
-            LocalPlayerSounds.marioLose.Play();
-            yield return new WaitForSeconds(1f);
-
-            LocalPlayerSounds.loseResult.Play();
-            yield return new WaitForSeconds(2.5f);
-
-            FrontCam?.GetComponent<Animator>().SetBool("RaceEndCam", true);
-            yield return new WaitForSeconds(0.5f);
-
-            yield return StartCoroutine(UtilityFunctions.FadeCanvasGroup(resultsUI.GetComponent<CanvasGroup>(), 1f, 0.5f));
-            resultsUI.createResults(sortedRacers);
-            yield return new WaitForSeconds(3f);
-
-            LocalPlayerSounds.resultsBad.Play();
+            yield return StartCoroutine(LoseSequence());
         }
+
+        yield return StartCoroutine(ShowResults(playerPos < 6));
+    }
+
+    private IEnumerator FirstPlaceSequence()
+    {
+        LocalPlayer.Driver.SetBool("FirstPlace", true);
+
+        LocalPlayerSounds.firstPlaceVoice.Play();
+        yield return new WaitForSeconds(1f);
+
+        LocalPlayerSounds.firstPlaceResult.Play();
+        yield return new WaitForSeconds(2.5f);
+    }
+
+    private IEnumerator MidPlaceSequence()
+    {
+        LocalPlayer.Driver.SetBool("FirstPlace", true); // adjust if needed
+
+        LocalPlayerSounds.firstPlaceVoice.Play();
+        yield return new WaitForSeconds(1f);
+
+        LocalPlayerSounds.secondToSixth.Play();
+        yield return new WaitForSeconds(2.5f);
+    }
+
+    private IEnumerator LoseSequence()
+    {
+        LocalPlayer.Driver.SetBool("LoseAnim", true);
+
+        LocalPlayerSounds.marioLose.Play();
+        yield return new WaitForSeconds(1f);
+
+        LocalPlayerSounds.loseResult.Play();
+        yield return new WaitForSeconds(2.5f);
+    }
+
+    private IEnumerator ShowResults(bool goodResult)
+    {
+        FrontCam?.GetComponent<Animator>().SetBool("RaceEndCam", true);
+        yield return new WaitForSeconds(0.5f);
+
+        CanvasGroup resultsGroup = resultsUI.GetComponent<CanvasGroup>();
+
+        yield return StartCoroutine(
+            UtilityFunctions.FadeCanvasGroup(resultsGroup, 1f, 0.5f)
+        );
+
+        resultsUI.CreateResults();
+        yield return new WaitForSeconds(3f);
+
+        if (goodResult)
+            LocalPlayerSounds.resultsGood.Play();
+        else
+            LocalPlayerSounds.resultsBad.Play();
     }
 
     private void PlayFinalLap() => StartCoroutine(PlayFinalLapEffect());
