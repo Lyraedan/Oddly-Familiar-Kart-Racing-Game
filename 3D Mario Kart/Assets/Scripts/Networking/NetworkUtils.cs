@@ -29,6 +29,7 @@ public class NetworkUtils : MonoBehaviour
         // Load scene locally on host
         var asyncLoad = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
         yield return asyncLoad;
+        CustomizableSpriteLibrary.Instance.AssignSpritesInScene(); // Update custom UI
         NetworkManager.Singleton.StartHost();
         yield return StartCoroutine(UtilityFunctions.FadeCanvasGroup(loadingScreenCanvas, 0f, 0.25f)); // Fade the loading screen away after the scene has loaded
     }

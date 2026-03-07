@@ -117,6 +117,8 @@
     <Compile Include="Assets\SampleScenes\Menu\Scripts\MenuSceneLoader.cs" />
     <Compile Include="Assets\Scripts\Cow.cs" />
     <Compile Include="Assets\Scripts\OpponentItemManager.cs" />
+    <Compile Include="Assets\Scripts\UI\CustomizableSprite.cs" />
+    <Compile Include="Assets\Scripts\UI\CustomizableSpriteLibrary.cs" />
     <Compile Include="Assets\Scripts\JumpPanelScript.cs" />
     <Compile Include="Assets\Scripts\Kart\RacerConfig.cs" />
     <Compile Include="Assets\Scripts\Camera\GetRes.cs" />

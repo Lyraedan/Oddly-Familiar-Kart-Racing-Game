@@ -4982,6 +4982,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1127100565}
   - component: {fileID: 1127100564}
+  - component: {fileID: 1127100566}
   m_Layer: 0
   m_Name: UGC
   m_TagString: Untagged
@@ -5017,6 +5018,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1127100566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1127100563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81848328c0b83584aafd6626c8699881, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CustomizableSpriteLibrary
+  spriteSets:
+  - element: 0
+    sprites:
+    - {fileID: 21300000, guid: 6ceec045f0f865d42998383d7baa34c2, type: 3}
+    - {fileID: 21300000, guid: 4b11ff81901046947890daf9ae3abf30, type: 3}
+    - {fileID: 21300000, guid: 7c3d7e7fca186344ca1fc6659df1ddfa, type: 3}
+    - {fileID: 21300000, guid: 8484e4d8cdf66a247be25baae0ef25d9, type: 3}
+    - {fileID: 21300000, guid: 78bbd844d6c034843bd0f6832c6f495c, type: 3}
+    - {fileID: 21300000, guid: 4c8972a18e032244bb162f4d688bff05, type: 3}
+    - {fileID: 21300000, guid: 667e77efe39f11e4883270ec64ba7b0a, type: 3}
+    - {fileID: 21300000, guid: 30799885837d8e147b7da240cc0f4c6d, type: 3}
+    - {fileID: 21300000, guid: 453a649195b308b42b45560826fca33a, type: 3}
+    - {fileID: 21300000, guid: d0fd2289691b7ef4ab894184c6ca326b, type: 3}
+    - {fileID: 21300000, guid: 64218182076d8af40821646fa3430b5f, type: 3}
+    - {fileID: 21300000, guid: 715c3dd334e6fd348b7a60546b678cdc, type: 3}
+  - element: 1
+    sprites:
+    - {fileID: 21300000, guid: 6ceec045f0f865d42998383d7baa34c2, type: 3}
+    - {fileID: 21300000, guid: 6ceec045f0f865d42998383d7baa34c2, type: 3}
 --- !u!1 &1136561702
 GameObject:
   m_ObjectHideFlags: 0
