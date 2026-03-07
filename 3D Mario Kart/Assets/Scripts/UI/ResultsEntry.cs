@@ -17,7 +17,10 @@ public class ResultsEntry : MonoBehaviour
         assignedRacer = player;
         assignedRacer.onPositionChanged += (position) => 
         {
-            transform.SetSiblingIndex(position - 1); // When the position changes, move the entry to the correct spot in the list
+            if (!assignedRacer.RaceComplete)
+                transform.SetSiblingIndex(position - 1); // When the position changes, move the entry to the correct spot in the list
+            else
+                transform.SetSiblingIndex(player.RaceEndPosition - 1);
         };
 
         StartCoroutine(HideUntilFinished());
@@ -39,8 +42,14 @@ public class ResultsEntry : MonoBehaviour
         }
         // Wait for the LocalPlayer to be finished
         yield return new WaitUntil(() => RaceManager.Instance.LocalPlayerLap.RaceComplete);
+        MKWKartCustomization customization = assignedRacer.GetComponent<MKWKartCustomization>();
+        RacerConfig config = customization.CurrentRacerConfig;
+        int resultsIndex = assignedRacer.RaceEndPosition - 1;
+
+        UpdateEntry(assignedRacer.RaceEndPosition, config.CharacterName, config.CharacterIcon);
+        transform.SetSiblingIndex(resultsIndex); // Assign the entry to the correct spot in the list based on their finishing position
+
         // Fade the results entry in
         StartCoroutine(UtilityFunctions.FadeCanvasGroup(GetComponent<CanvasGroup>(), 1, 0.25f));
-        transform.SetSiblingIndex(assignedRacer.RaceEndPosition - 1); // Assign the entry to the correct spot in the list based on their finishing position
     }
 }
