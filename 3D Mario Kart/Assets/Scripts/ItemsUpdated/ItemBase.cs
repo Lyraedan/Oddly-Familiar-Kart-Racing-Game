@@ -12,6 +12,8 @@ public abstract class ItemBase : MonoBehaviour
 
     [Header("The scale of the item when spawned in the world")]
     public Vector3 spawnScale = Vector3.one;
+    public bool isHeld = false;
+    public Transform holdPoint;
 
     [Header("Spawns")]
     protected Transform forwardSpawn;  // Infront of kart
@@ -46,18 +48,35 @@ public abstract class ItemBase : MonoBehaviour
         throwSpawn = throwPos;
     }
 
+    [Rpc(SendTo.Server)]
+    public void UpdateHoldPoint(Transform point)
+    {
+        holdPoint = point;
+    }
+
     public abstract void Use(bool forward, GameObject user);
 
-    /// <summary>
-    /// Reparent the item and zero in its local position
-    /// </summary>
-    /// <param name="newParent"></param>
-    [ServerRpc]
-    public void ReparentAndZero(Transform newParent)
+    public void MoveToHoldPoint()
     {
-        networkedObject.TrySetParent(newParent, false);
-        //transform.SetParent(newParent);
-        transform.localPosition = Vector3.zero;
+        transform.position = holdPoint.position;
+    }
+
+    public void Update()
+    {
+        if (isHeld)
+        {
+            MoveToHoldPoint();
+        }
+    }
+
+    /// <summary>
+    /// Releases the item from the player, unparents it, and allows it to exist independently in the world.
+    /// </summary>
+    public void Release()
+    {
+        isHeld = false;
+        holdPoint = null;
+        networkedObject.TryRemoveParent(true);
     }
 
     public void PlayPlayerAnim(bool forward)

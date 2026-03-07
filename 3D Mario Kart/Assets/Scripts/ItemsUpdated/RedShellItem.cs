@@ -42,7 +42,7 @@ public class RedShellItem : ItemBase
     public override void Use(bool forward, GameObject user)
     {
         Transform spawn = forward ? forwardSpawn : backSpawn;
-        ReparentAndZero(spawn);
+        UpdateHoldPoint(spawn);
         PlayPlayerAnim(forward);
 
         transform.parent = null;
@@ -61,6 +61,7 @@ public class RedShellItem : ItemBase
 
         StartUseDelay(0.25f);
         itemManager.ConsumeItem(shouldDestroy: false);
+        Release();
     }
 
 

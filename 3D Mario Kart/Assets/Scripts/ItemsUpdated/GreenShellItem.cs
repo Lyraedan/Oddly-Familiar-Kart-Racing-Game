@@ -31,7 +31,7 @@ public class GreenShellItem : ItemBase
     public override void Use(bool forward, GameObject user)
     {
         Transform spawn = forward ? forwardSpawn : backSpawn;
-        ReparentAndZero(spawn);
+        UpdateHoldPoint(spawn);
         PlayPlayerAnim(forward);
 
         gameObject.name = "GreenShell";
@@ -59,6 +59,7 @@ public class GreenShellItem : ItemBase
 
         // Consume the item from the player
         itemManager.ConsumeItem(shouldDestroy: false); // remove item but do not destroy shell
+        Release();
     }
 
     void Awake()

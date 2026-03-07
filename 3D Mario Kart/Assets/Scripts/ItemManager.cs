@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using Unity.Netcode;
+using Unity.Netcode.Components;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -412,8 +413,15 @@ public class ItemManager : NetworkBehaviour
         SelectedItemClientRpc();
     }
 
+    // Executed by server
     private void SpawnItemServer(GameObject prefab)
     {
+        if(!NetworkManager.Singleton.IsServer)
+        {
+            Debug.LogError("SpawnItemServer called on client!");
+            return;
+        }
+
         GameObject instance = Instantiate(prefab);
         instance.name = $"Equipped_Primary_{instance.name}";
 
@@ -426,17 +434,20 @@ public class ItemManager : NetworkBehaviour
         }
 
         networkObject.Spawn(true);
-        networkObject.TrySetParent(player.ShellBack, false);
+
+        networkObject.TrySetParent(transform, false);
+
+        instance.transform.rotation = Quaternion.identity;
 
         ItemBase item = instance.GetComponent<ItemBase>();
-
-        instance.transform.localPosition = Vector3.zero;
-        instance.transform.localRotation = Quaternion.identity;
 
         item.SetBackSpawn(player.ShellBack);
         item.SetFrontSpawn(player.ShellFront);
         item.SetHandSpawn(player.ItemHand);
         item.SetThrowSpawn(player.ThrowForward);
+
+        item.UpdateHoldPoint(player.ShellBack);
+        item.isHeld = true;
 
         item.Initialize(player, this);
         PrimarySlot.equippedItem = item;
