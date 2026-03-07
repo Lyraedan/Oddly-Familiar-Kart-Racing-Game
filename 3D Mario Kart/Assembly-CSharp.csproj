@@ -76,6 +76,7 @@
     <Compile Include="Assets\Scripts\ItemsUpdated\MultiUseItem.cs" />
     <Compile Include="Assets\Scripts\ComputerDriver.cs" />
     <Compile Include="Assets\Scripts\Kart\KartType.cs" />
+    <Compile Include="Assets\Scripts\Title\LobbyMemberEntry.cs" />
     <Compile Include="Assets\Scripts\ItemsUpdated\RedShellItem.cs" />
     <Compile Include="Assets\Scripts\General\UITextCornersGradient.cs" />
     <Compile Include="Assets\Scripts\Items\NameChildObjects.cs" />
@@ -155,6 +156,7 @@
     <Compile Include="Assets\Scripts\ItemsUpdated\StarItem.cs" />
     <Compile Include="Assets\Scripts\Title\RandomSongPlayer.cs" />
     <Compile Include="Assets\Scripts\UI\MusicDisplay.cs" />
+    <Compile Include="Assets\Scripts\Title\ServerEntry.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\Kart\KartConfig.cs" />
     <Compile Include="Assets\Scripts\General\RandomRotation.cs" />

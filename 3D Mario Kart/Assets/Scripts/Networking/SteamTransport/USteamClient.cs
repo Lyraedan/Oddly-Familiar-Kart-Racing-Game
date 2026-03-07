@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System;
 using UnityEngine;
+using Unity.Services.Lobbies.Models;
 
 public class USteamClient : MonoBehaviour
 {
@@ -143,6 +144,8 @@ public class USteamClient : MonoBehaviour
 
     public void SearchLobbies()
     {
+        SteamMatchmaking.AddRequestLobbyListStringFilter("game", "OddlyFamiliarKartRacing", ELobbyComparison.k_ELobbyComparisonEqual);
+        SteamMatchmaking.AddRequestLobbyListStringFilter("version", MainMenu.Version, ELobbyComparison.k_ELobbyComparisonEqual);
         SteamMatchmaking.RequestLobbyList();
     }
 
@@ -179,10 +182,6 @@ public class USteamClient : MonoBehaviour
         OnLobbyMembersUpdated?.Invoke(new List<CSteamID>(LobbyMembers));
     }
 
-    #endregion
-
-    #region Steam Callbacks
-
     private void OnLobbyCreatedCallback(LobbyCreated_t callback)
     {
         if (callback.m_eResult != EResult.k_EResultOK)
@@ -192,6 +191,21 @@ public class USteamClient : MonoBehaviour
         }
 
         CurrentLobbyId = new CSteamID(callback.m_ulSteamIDLobby);
+
+        // Setup lobby data
+        SteamNetworkPingLocation_t location = new SteamNetworkPingLocation_t();
+        SteamNetworkingUtils.GetLocalPingLocation(out location);
+
+        const int bufferSize = 1024;
+        string locationString;
+        SteamNetworkingUtils.ConvertPingLocationToString(ref location, out locationString, bufferSize);
+        SteamMatchmaking.SetLobbyData(CurrentLobbyId, "ping_location", locationString);
+
+        SteamMatchmaking.SetLobbyData(CurrentLobbyId, "host_id", SteamUser.GetSteamID().ToString());
+        SteamMatchmaking.SetLobbyData(CurrentLobbyId, "lobby_name", $"{SteamFriends.GetPersonaName()}'s Lobby");
+        SteamMatchmaking.SetLobbyData(CurrentLobbyId, "game", "OddlyFamiliarKartRacing");
+        SteamMatchmaking.SetLobbyData(CurrentLobbyId, "version", MainMenu.Version);
+
         UpdateLobbyMembers();
         OnLobbyCreated?.Invoke(CurrentLobbyId);
     }

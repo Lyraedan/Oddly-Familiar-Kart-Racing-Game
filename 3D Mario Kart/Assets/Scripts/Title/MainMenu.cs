@@ -12,6 +12,8 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
+    public static string Version = "0.4";
+    
     public enum MenuState
     {
         None,
@@ -275,7 +277,7 @@ public class MainMenu : MonoBehaviour
     public void OnClick_FindGame()
     {
         buttonSelectSound.Play();
-        
+        multiplayerMenu.RequestSearchLobby();
     }
 
     public void OnClick_Settings()
