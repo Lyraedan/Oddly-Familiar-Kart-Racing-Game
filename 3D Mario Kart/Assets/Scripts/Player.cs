@@ -238,10 +238,6 @@ public class Player : MonoBehaviour
             tireArms = mk8Customization.CurrentChassis.TireArms.ToArray();
         }
 
-        //Debug.Log("[Customization] Trying to load mario kart world customization");
-        // Mario Kart World Style Customization
-
-
         lapCounter.onPositionChanged += pos => Debug.Log("Position: " + pos);
         lapCounter.onLapCompleted += lap => Debug.Log("Lap Completed: " + lap);
         lapCounter.onCheckpointReached += id => Debug.Log("Checkpoint Reached: " + id);
@@ -576,7 +572,6 @@ public class Player : MonoBehaviour
         }
     }
 
-
     private void OnCollisionStay(Collision other)
     {
         if(other.gameObject.tag == "Ground" || other.gameObject.tag == "AntiGravity")
@@ -612,8 +607,6 @@ public class Player : MonoBehaviour
 
         if (collision.gameObject.tag == "Ground" || collision.gameObject.tag == "Dirt")
         {
-
-
             //when I hit the ground after jumping off a jump panel
             if (JUMP_PANEL)
             {
@@ -2250,6 +2243,9 @@ public class Player : MonoBehaviour
     
     void mario_face()
     {
+        if (MarioFace == null)
+            return;
+
         if(!itemManager.StarPowerUp)
             MarioFace.sharedMaterial = current_face_material;
         else

@@ -146,12 +146,23 @@ public class RaceManager : MonoBehaviour
 
     IEnumerator WaitToPlaySceneEntry()
     {
+        // Setup UI for scene entry
+        IngameUIHolder.Instance.CourseAuthorUI.alpha = 0;
+        IngameUIHolder.Instance.CourseNameUI.alpha = 0;
         yield return UtilityFunctions.FadeCanvasGroup(IngameUIHolder.Instance.WaitingForPlayers, 1f, 0.25f);
+        
+        // Wait for racers
         yield return new WaitUntil(() => LocalPlayer != null);
         yield return new WaitUntil(() => ReadyToStartGame());
         RacerSpawn.Instance.SpawnComputerRacers(); // Disabled for testing
         IngameUIHolder.Instance.FetchLapCounters();
+
+        // Fade UI
         yield return UtilityFunctions.FadeCanvasGroup(IngameUIHolder.Instance.WaitingForPlayers, 0f, 0.25f);
+        IngameUIHolder.Instance.CourseAuthorUI.alpha = 1f;
+        IngameUIHolder.Instance.CourseNameUI.alpha = 1f;
+
+        // Start camera sequence
         sceneEntrySound.Play();
         sceneEntryCamera.enabled = true;
     }

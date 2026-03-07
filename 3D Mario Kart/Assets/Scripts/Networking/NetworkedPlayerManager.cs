@@ -35,6 +35,7 @@ public class NetworkedPlayerManager : NetworkBehaviour
             player.enabled = false;
             gameObject.name += " (OtherPlayer " + OwnerClientId + ")";
             gameObject.tag = "OtherPlayer";
+            //gameObject.tag = "Opponent"; // Look at what this does for kart bumping
             //LoadPlayersCharacter(customization);
         }
         else

@@ -154,6 +154,7 @@
     <Compile Include="Assets\Scripts\UGC\UGC.cs" />
     <Compile Include="Assets\Models\Test\Rotate.cs" />
     <Compile Include="Assets\SampleScenes\Menu\Scripts\PauseMenu.cs" />
+    <Compile Include="Assets\Samples\Shader Graph\17.3.0\UGUI Shaders\Scripts\Timer.cs" />
     <Compile Include="Assets\Scripts\ItemsUpdated\StarItem.cs" />
     <Compile Include="Assets\Scripts\Title\RandomSongPlayer.cs" />
     <Compile Include="Assets\Scripts\UI\MusicDisplay.cs" />
@@ -203,6 +204,7 @@
     <Compile Include="Assets\SampleScenes\Scripts\ParticleSceneControls.cs" />
     <Compile Include="Assets\Models\Rainbow Road N64\RingGround\Spin.cs" />
     <Compile Include="Assets\Scenes\LoadSceneTemp.cs" />
+    <Compile Include="Assets\Samples\Shader Graph\17.3.0\UGUI Shaders\Scripts\BlurredHexagonController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
@@ -239,6 +241,7 @@
     <None Include="Assets\Editor Default Resources\nu Assets\Shared\Shaders\CanvasUtil.cginc" />
     <None Include="Assets\Editor Default Resources\nu Assets\Shared\Shaders\UnlitColorAlpha.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
+    <None Include="Assets\Samples\Shader Graph\17.3.0\UGUI Shaders\Subgraphs\Helpers\SafeHDSceneColor.hlsl" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
     <None Include="Assets\Models\CharacterTexturesAndAnim\Shy Guy Stuff\info.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
@@ -1814,10 +1817,6 @@
       <HintPath>Library\ScriptAssemblies\Unity.Serialization.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Unity.ShaderGraph.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.ShaderGraph.Editor.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Unity.Multiplayer.Tools.NetStatsMonitor.Implementation">
       <HintPath>Library\ScriptAssemblies\Unity.Multiplayer.Tools.NetStatsMonitor.Implementation.dll</HintPath>
       <Private>False</Private>
@@ -1896,6 +1895,10 @@
       <Project>{7F20F78B-0D35-6727-F57B-87E6F8E2D8C9}</Project>
       <Name>Modio.Unity.Platforms.Android</Name>
     </ProjectReference>
+    <ProjectReference Include="Unity.UI.Shaders.Sample.Editor.csproj">
+      <Project>{5223F6F0-1C34-3FC0-6EFD-FF5F1BA544C4}</Project>
+      <Name>Unity.UI.Shaders.Sample.Editor</Name>
+    </ProjectReference>
     <ProjectReference Include="Modio.Unity.Examples.Ios.csproj">
       <Project>{D7F2FFD0-F298-6569-FC0B-061E2791DD65}</Project>
       <Name>Modio.Unity.Examples.Ios</Name>
@@ -1915,6 +1918,14 @@
     <ProjectReference Include="Modio.Unity.Examples.csproj">
       <Project>{A04E062E-834F-90EE-B3F0-06977E82F3C5}</Project>
       <Name>Modio.Unity.Examples</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.UI.Shaders.Sample.csproj">
+      <Project>{A0BEF86E-D093-A59D-7095-EFAD7C418976}</Project>
+      <Name>Unity.UI.Shaders.Sample</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.ShaderGraph.Editor.csproj">
+      <Project>{611F32BA-92AB-C537-BFDB-96B9E8F32287}</Project>
+      <Name>Unity.ShaderGraph.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="Modio.Unity.csproj">
       <Project>{EB2344F3-7F55-3F28-D1D3-E908713D760E}</Project>

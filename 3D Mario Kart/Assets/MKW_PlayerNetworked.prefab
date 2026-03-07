@@ -36560,7 +36560,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90b6f399aa8bb034a8f45235de8d837a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsOnlineLobby: 0
+  IsOnlineLobby: 1
   IsMine: 1
   boost_speed: 120
   drift_speed: 0
@@ -36967,11 +36967,11 @@ MonoBehaviour:
   gliderType: 0
   kartType: 0
   currentKartIndex: 0
-  currentRacerIndex: 0
+  currentRacerIndex: 8
   currentKartSkinIndex: 0
   randomizeKart: 0
-  randomizeRacer: 0
-  randomizeKartSkin: 0
+  randomizeRacer: 1
+  randomizeKartSkin: 1
   kartSpawnPoint: {fileID: 6064369078986834943}
   karts:
   - {fileID: 1900276100344347441, guid: bc4e86f7f736b1d40b3ae6e31bef82af, type: 3}

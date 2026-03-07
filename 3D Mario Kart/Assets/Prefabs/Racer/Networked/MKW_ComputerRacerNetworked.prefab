@@ -94162,7 +94162,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce77b5de8d651c6468da1a6ee9073d72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerscript: {fileID: 0}
   mask:
     serializedVersion: 2
     m_Bits: 298807
@@ -94511,7 +94510,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 1098990307
+  GlobalObjectIdHash: 3984566485
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
