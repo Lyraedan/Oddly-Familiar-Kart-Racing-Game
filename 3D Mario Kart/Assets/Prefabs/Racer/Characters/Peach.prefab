@@ -2164,6 +2164,8 @@ MonoBehaviour:
   Driver: {fileID: 177474851168232174}
   Emblem: {fileID: 21300000, guid: 23fc833f4ec41654fa64477af3a52637, type: 3}
   MinimapIcon: {fileID: 21300000, guid: 9de96bfa70909bc4da155a39c15c7812, type: 3}
+  CharacterName: Princess Peach
+  CharacterIcon: {fileID: 21300000, guid: 2402509b943ef444bbb305f286cfdccd, type: 3}
   Face:
     DefaultFace: {fileID: 2100000, guid: 3fca16780d819124388c7e5caac83197, type: 2}
     faceRenderer: {fileID: 1778853478851838113}
@@ -2194,7 +2196,9 @@ MonoBehaviour:
     - {fileID: 2151880725387261254}
     - {fileID: 5515373308113777747}
     - {fileID: 2626323937887242699}
-  CharacterRenderers: []
+  CharacterRenderers:
+  - {fileID: 8952212453963431389}
+  - {fileID: 1778853478851838113}
 --- !u!1 &6540047394610952315
 GameObject:
   m_ObjectHideFlags: 0
@@ -2859,6 +2863,12 @@ Animator:
 --- !u!4 &8697783696487853311 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2144706523035748604, guid: 14d6bf35670895548b40fef0c2a565db,
+    type: 3}
+  m_PrefabInstance: {fileID: 7311377427204531203}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &8952212453963431389 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7400646999763805730, guid: 14d6bf35670895548b40fef0c2a565db,
     type: 3}
   m_PrefabInstance: {fileID: 7311377427204531203}
   m_PrefabAsset: {fileID: 0}

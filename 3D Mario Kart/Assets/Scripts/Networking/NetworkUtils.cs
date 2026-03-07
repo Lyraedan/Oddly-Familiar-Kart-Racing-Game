@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class NetworkUtils : MonoBehaviour
 {
     public static NetworkUtils Instance;
+    public CanvasGroup loadingScreenCanvas;
 
     private void Awake()
     {
@@ -29,5 +30,6 @@ public class NetworkUtils : MonoBehaviour
         var asyncLoad = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
         yield return asyncLoad;
         NetworkManager.Singleton.StartHost();
+        yield return StartCoroutine(UtilityFunctions.FadeCanvasGroup(loadingScreenCanvas, 0f, 0.25f)); // Fade the loading screen away after the scene has loaded
     }
 }

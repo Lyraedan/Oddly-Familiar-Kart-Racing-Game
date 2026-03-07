@@ -338,9 +338,10 @@ public class RaceManager : MonoBehaviour
             LocalPlayerSounds.firstPlaceResult.Play();
             yield return new WaitForSeconds(2.5f);
 
-            FrontCam.GetComponent<Animator>().SetBool("RaceEndCam", true);
+            FrontCam?.GetComponent<Animator>().SetBool("RaceEndCam", true);
             yield return new WaitForSeconds(0.5f);
 
+            yield return StartCoroutine(UtilityFunctions.FadeCanvasGroup(resultsUI.GetComponent<CanvasGroup>(), 1f, 0.5f));
             resultsUI.createResults(sortedRacers);
             yield return new WaitForSeconds(3f);
 
@@ -356,9 +357,10 @@ public class RaceManager : MonoBehaviour
             LocalPlayerSounds.secondToSixth.Play();
             yield return new WaitForSeconds(2.5f);
 
-            FrontCam.GetComponent<Animator>().SetBool("RaceEndCam", true);
+            FrontCam?.GetComponent<Animator>().SetBool("RaceEndCam", true);
             yield return new WaitForSeconds(0.5f);
 
+            yield return StartCoroutine(UtilityFunctions.FadeCanvasGroup(resultsUI.GetComponent<CanvasGroup>(), 1f, 0.5f));
             resultsUI.createResults(sortedRacers);
             yield return new WaitForSeconds(3f);
 
@@ -374,9 +376,10 @@ public class RaceManager : MonoBehaviour
             LocalPlayerSounds.loseResult.Play();
             yield return new WaitForSeconds(2.5f);
 
-            FrontCam.GetComponent<Animator>().SetBool("RaceEndCam", true);
+            FrontCam?.GetComponent<Animator>().SetBool("RaceEndCam", true);
             yield return new WaitForSeconds(0.5f);
 
+            yield return StartCoroutine(UtilityFunctions.FadeCanvasGroup(resultsUI.GetComponent<CanvasGroup>(), 1f, 0.5f));
             resultsUI.createResults(sortedRacers);
             yield return new WaitForSeconds(3f);
 

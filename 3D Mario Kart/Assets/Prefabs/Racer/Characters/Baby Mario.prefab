@@ -694,6 +694,8 @@ MonoBehaviour:
   Driver: {fileID: 6290750231441537134}
   Emblem: {fileID: 21300000, guid: 2413366105a9cb7438abb3c88c9bfcb6, type: 3}
   MinimapIcon: {fileID: 21300000, guid: 2cbbd619c49d2274a891c1ed359daebc, type: 3}
+  CharacterName: Baby Mario
+  CharacterIcon: {fileID: 21300000, guid: 4e8fa7dc7a37f3f48925940b3f4df574, type: 3}
   Face:
     DefaultFace: {fileID: 2100000, guid: 047c8d48b2aa8c94f8deb33066ed89fe, type: 2}
     faceRenderer: {fileID: 5603338314727100164}
@@ -724,7 +726,9 @@ MonoBehaviour:
     - {fileID: 5587403653232445752}
     - {fileID: 8920424460661477434}
     - {fileID: 6658242864206597258}
-  CharacterRenderers: []
+  CharacterRenderers:
+  - {fileID: 2976996562671694456}
+  - {fileID: 5603338314727100164}
 --- !u!1 &1830689529753335975
 GameObject:
   m_ObjectHideFlags: 0
@@ -2811,6 +2815,12 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 6290750231441537134}
   m_SourcePrefab: {fileID: 100100000, guid: aa3f9831108865d4dbe139780b60f9d1, type: 3}
+--- !u!137 &2976996562671694456 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7400646999763805730, guid: aa3f9831108865d4dbe139780b60f9d1,
+    type: 3}
+  m_PrefabInstance: {fileID: 3466633006660086694}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3303517193393415002 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2144706523035748604, guid: aa3f9831108865d4dbe139780b60f9d1,

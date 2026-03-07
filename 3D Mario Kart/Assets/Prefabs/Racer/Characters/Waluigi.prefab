@@ -1221,8 +1221,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2636254924680704040}
-  - component: {fileID: 2004444374557555263}
   - component: {fileID: 9179031344041803009}
+  - component: {fileID: 2004444374557555263}
   m_Layer: 0
   m_Name: Waluigi
   m_TagString: Untagged
@@ -1247,28 +1247,6 @@ Transform:
   - {fileID: 4350301466087945079}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &2004444374557555263
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4123642122302570789}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: bf8401dcc084f36458063d71924dc85b, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &9179031344041803009
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1284,6 +1262,8 @@ MonoBehaviour:
   Driver: {fileID: 1922560695497772915}
   Emblem: {fileID: 21300000, guid: b068889d8985c344b8a1b90a2957ca1d, type: 3}
   MinimapIcon: {fileID: 21300000, guid: 9b3556c2d5537c94b877f5e5d8b79f70, type: 3}
+  CharacterName: Waluigi
+  CharacterIcon: {fileID: 21300000, guid: 7d31f8cc649f38c4abff9d3d6cc1653e, type: 3}
   Face:
     DefaultFace: {fileID: 2100000, guid: 374c09b1a0f88d74badde72ec205ee71, type: 2}
     faceRenderer: {fileID: 5047729820676288574}
@@ -1314,7 +1294,31 @@ MonoBehaviour:
     - {fileID: 7768401137632603240}
     - {fileID: 5714938495848912271}
     - {fileID: 1349148063696504512}
-  CharacterRenderers: []
+  CharacterRenderers:
+  - {fileID: 2494509981528853826}
+  - {fileID: 5047729820676288574}
+--- !u!95 &2004444374557555263
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4123642122302570789}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bf8401dcc084f36458063d71924dc85b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4397285204912341772
 GameObject:
   m_ObjectHideFlags: 0
@@ -2834,6 +2838,12 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1922560695497772915}
   m_SourcePrefab: {fileID: 100100000, guid: d2add106da29ef14190323a661b47c45, type: 3}
+--- !u!137 &2494509981528853826 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7400646999763805730, guid: d2add106da29ef14190323a661b47c45,
+    type: 3}
+  m_PrefabInstance: {fileID: 4311591220568986780}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2744484820405410912 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2144706523035748604, guid: d2add106da29ef14190323a661b47c45,

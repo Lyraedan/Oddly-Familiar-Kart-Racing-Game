@@ -178,6 +178,8 @@ MonoBehaviour:
   Driver: {fileID: 7071329651400929558}
   Emblem: {fileID: 21300000, guid: 3991c612035cad740adbaa080a8aac4d, type: 3}
   MinimapIcon: {fileID: 21300000, guid: 0dc1eef88b4d310449326be23c09da33, type: 3}
+  CharacterName: Shy Guy
+  CharacterIcon: {fileID: 21300000, guid: f97fdb21b8aa1c54e9c8ac9e5e8eb00c, type: 3}
   Face:
     DefaultFace: {fileID: 2100000, guid: a6a33954d44f50340924d0b551a6f065, type: 2}
     faceRenderer: {fileID: 2015288804450487172}

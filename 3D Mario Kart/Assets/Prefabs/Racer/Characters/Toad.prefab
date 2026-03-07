@@ -2035,6 +2035,8 @@ MonoBehaviour:
   Driver: {fileID: 9018204034834545934}
   Emblem: {fileID: 21300000, guid: 35349d9a6c438f743898b34f4ef70680, type: 3}
   MinimapIcon: {fileID: 21300000, guid: e75d56269d9f3c848a499a474be5dd27, type: 3}
+  CharacterName: Toad
+  CharacterIcon: {fileID: 21300000, guid: 5733805402177de478e0a31931498f1f, type: 3}
   Face:
     DefaultFace: {fileID: 2100000, guid: 90eac282b09329b44b48b8cfcafb1efa, type: 2}
     faceRenderer: {fileID: 7595446071430528849}
@@ -2065,7 +2067,9 @@ MonoBehaviour:
     - {fileID: 3792339420063474065}
     - {fileID: 988625532873238611}
     - {fileID: 1370464797947294530}
-  CharacterRenderers: []
+  CharacterRenderers:
+  - {fileID: 5622645655747444664}
+  - {fileID: 7595446071430528849}
 --- !u!1 &8117219299135120664
 GameObject:
   m_ObjectHideFlags: 0
@@ -2821,6 +2825,12 @@ Transform:
 --- !u!4 &4712725539742845129 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1707243787577406375, guid: e40a72543b516694185b9107d3d79c38,
+    type: 3}
+  m_PrefabInstance: {fileID: 6257663468565150574}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &5622645655747444664 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7435432358108756778, guid: e40a72543b516694185b9107d3d79c38,
     type: 3}
   m_PrefabInstance: {fileID: 6257663468565150574}
   m_PrefabAsset: {fileID: 0}

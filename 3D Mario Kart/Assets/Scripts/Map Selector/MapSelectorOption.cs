@@ -34,6 +34,7 @@ public class MapSelectorOption : MonoBehaviour
         if (pressSound != null)
             pressSound.Play();
 
+        yield return StartCoroutine(UtilityFunctions.FadeCanvasGroup(NetworkUtils.Instance.loadingScreenCanvas, 1f, 0.25f));
         yield return new WaitForSeconds(pressSound.clip.length);
         PlayButton.interactable = true;
         PlayMap();

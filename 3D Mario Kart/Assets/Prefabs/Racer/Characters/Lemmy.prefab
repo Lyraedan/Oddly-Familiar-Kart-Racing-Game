@@ -307,6 +307,8 @@ MonoBehaviour:
   Driver: {fileID: 2619514125344759545}
   Emblem: {fileID: 21300000, guid: 4c90d2771869f7646b4e661f31745c7c, type: 3}
   MinimapIcon: {fileID: 21300000, guid: acdeed2c0ca2c5142b9b7cfa629cdaee, type: 3}
+  CharacterName: Lemmy
+  CharacterIcon: {fileID: 21300000, guid: 88e94e1b51860a3418e5c31a41d85817, type: 3}
   Face:
     DefaultFace: {fileID: 2100000, guid: e1e5905cdc7f1b64dace158a9a4fdf77, type: 2}
     faceRenderer: {fileID: 3965185616321399046}
@@ -337,7 +339,9 @@ MonoBehaviour:
     - {fileID: 4466385196742912406}
     - {fileID: 4635802445035830565}
     - {fileID: 3001110169903202082}
-  CharacterRenderers: []
+  CharacterRenderers:
+  - {fileID: 6022525828115248250}
+  - {fileID: 3965185616321399046}
 --- !u!1 &1497011534123090882
 GameObject:
   m_ObjectHideFlags: 0
@@ -2848,6 +2852,12 @@ Animator:
 --- !u!4 &5572475468488460879 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c8330bd5d3f9bc94a956002a845e57c2,
+    type: 3}
+  m_PrefabInstance: {fileID: 5395261326902177188}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &6022525828115248250 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7400646999763805730, guid: c8330bd5d3f9bc94a956002a845e57c2,
     type: 3}
   m_PrefabInstance: {fileID: 5395261326902177188}
   m_PrefabAsset: {fileID: 0}
