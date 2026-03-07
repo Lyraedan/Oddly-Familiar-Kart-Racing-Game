@@ -8,8 +8,8 @@ public class RacerConfig : MonoBehaviour
     public Animator Driver;
     public Sprite Emblem;
     public Sprite MinimapIcon;
-    public string CharacterName = "Racer"; // TODO Wire up
-    public Sprite CharacterIcon; // TODO Wire up
+    public string CharacterName = "Racer";
+    public Sprite CharacterIcon;
 
     [System.Serializable]
     public class FaceConfig
