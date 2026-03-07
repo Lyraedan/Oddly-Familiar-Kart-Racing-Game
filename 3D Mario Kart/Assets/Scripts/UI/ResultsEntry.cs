@@ -20,7 +20,7 @@ public class ResultsEntry : MonoBehaviour
             if (!assignedRacer.RaceComplete)
                 transform.SetSiblingIndex(position - 1); // When the position changes, move the entry to the correct spot in the list
             else
-                transform.SetSiblingIndex(player.RaceEndPosition - 1);
+                transform.SetSiblingIndex(player.RaceEndPosition - 1); // Fix where the racer finished
         };
 
         StartCoroutine(HideUntilFinished());

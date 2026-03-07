@@ -36970,8 +36970,8 @@ MonoBehaviour:
   currentRacerIndex: 0
   currentKartSkinIndex: 0
   randomizeKart: 0
-  randomizeRacer: 1
-  randomizeKartSkin: 1
+  randomizeRacer: 0
+  randomizeKartSkin: 0
   kartSpawnPoint: {fileID: 6064369078986834943}
   karts:
   - {fileID: 1900276100344347441, guid: bc4e86f7f736b1d40b3ae6e31bef82af, type: 3}

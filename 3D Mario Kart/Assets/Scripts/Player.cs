@@ -2226,19 +2226,26 @@ public class Player : MonoBehaviour
 
     void PositionUI()
     {
-        // Only start showing UI after player has passed first checkpoint
-        if (!showUI && lapCounter.ProgressIndex > 0)
+        // rework this garbage
+        if (!showUI)
         {
-            positionUI.GetComponent<Animator>().SetTrigger("Change");
+            StartCoroutine(DelayShowPositionUI());
             showUI = true;
         }
 
-        // If race position changed
-        if (lastPos != lapCounter.Position && lapCounter.ProgressIndex > 0)
+
+        // If race position changed TODO Wire into event
+        if (lastPos != lapCounter.Position && showUI)
         {
             lastPos = lapCounter.Position;
             positionUI.GetComponent<Animator>().SetTrigger("Change");
         }
+    }
+
+    IEnumerator DelayShowPositionUI()
+    {
+        yield return new WaitForSeconds(0.1f);
+        positionUI.GetComponent<Animator>().SetTrigger("Change");
     }
     
     void mario_face()

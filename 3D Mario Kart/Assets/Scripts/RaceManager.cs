@@ -151,13 +151,7 @@ public class RaceManager : MonoBehaviour
         yield return new WaitUntil(() => ReadyToStartGame());
         RacerSpawn.Instance.SpawnComputerRacers(); // Disabled for testing
         IngameUIHolder.Instance.FetchLapCounters();
-        foreach(LapCounter player in IngameUIHolder.Instance.LapCounters)
-        {
-            
-        }
         yield return UtilityFunctions.FadeCanvasGroup(IngameUIHolder.Instance.WaitingForPlayers, 0f, 0.25f);
-
-        Debug.Log(NetworkManager.Singleton.ConnectedClients.Count + " clients!");
         sceneEntrySound.Play();
         sceneEntryCamera.enabled = true;
     }
@@ -390,9 +384,7 @@ public class RaceManager : MonoBehaviour
 
         CanvasGroup resultsGroup = resultsUI.GetComponent<CanvasGroup>();
 
-        yield return StartCoroutine(
-            UtilityFunctions.FadeCanvasGroup(resultsGroup, 1f, 0.5f)
-        );
+        yield return StartCoroutine(UtilityFunctions.FadeCanvasGroup(resultsGroup, 1f, 0.5f));
 
         resultsUI.CreateResults();
         yield return new WaitForSeconds(3f);

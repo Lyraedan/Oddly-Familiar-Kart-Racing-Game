@@ -3069,13 +3069,13 @@ MonoBehaviour:
   CountDownTimer: {fileID: 4402452259080814309}
   CoinCounter: {fileID: 7725785947794639528}
   LapCounter: {fileID: 4942277854363808887}
+  PositionCounter: {fileID: 2275454863433020611}
   MinimapBackground: {fileID: 7022855933937168969}
   MiniMap: {fileID: 7179396050838324384}
   MinimapIcon: {fileID: 1542080176299526549, guid: 9fba4d2abfc337e4bb6142cc513d762c,
     type: 3}
   Map2dEnd: {fileID: 2917844779102306072}
-  PositionCounter: {fileID: 2275454863433020611}
-  CourseNameUI: {fileID: 6975503836624997216}
+  CourseNameUI: {fileID: 5382469779149695727}
   CourseNameText: {fileID: 6355916029666780785}
   ConsoleText: {fileID: 6039181459359722512}
   CourseAuthorUI: {fileID: 693874917589869017}
@@ -3095,8 +3095,8 @@ MonoBehaviour:
     Main: {fileID: 7532578513634189061}
     List: {fileID: 6763807206025359059}
     OurItem: {fileID: 1718877933027373184}
-  ResultsUI: {fileID: 3672916994792881565}
   LapCounters: []
+  ResultsUI: {fileID: 3672916994792881565}
   ResultEntriesRoot: {fileID: 2662604895347755081}
   ResultEntryPrefab: {fileID: 2420678036239219012, guid: f6408b25f8e90b2479eafcb4449a0305,
     type: 3}
@@ -11810,6 +11810,7 @@ GameObject:
   - component: {fileID: 861035428017119330}
   - component: {fileID: 7067256924343131282}
   - component: {fileID: 2062054914807212100}
+  - component: {fileID: 5382469779149695727}
   m_Layer: 5
   m_Name: CourseName
   m_TagString: Untagged
@@ -11903,6 +11904,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 1
+--- !u!225 &5382469779149695727
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6975503836624997216}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &7030445761490932762
 GameObject:
   m_ObjectHideFlags: 0

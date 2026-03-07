@@ -42,17 +42,20 @@ public class IngameUIHolder : MonoBehaviour
         }
     }
 
+    [Header("Main UI")]
     public Canvas Canvas;
     public GameObject CountDownTimer;
     public GameObject CoinCounter;
     public GameObject LapCounter;
+    public GameObject PositionCounter;
+
     [Header("Minimap")]
     public Image MinimapBackground;
     public GameObject MiniMap;
     public GameObject MinimapIcon;
     public RectTransform Map2dEnd;
-    [Space(10)]
-    public GameObject PositionCounter;
+
+    [Header("Course Info")]
     public CanvasGroup CourseNameUI;
     public Text CourseNameText;
     public Text ConsoleText;
@@ -60,17 +63,17 @@ public class IngameUIHolder : MonoBehaviour
     public CanvasGroup CourseAuthorUI;
     public Text CourseAuthorText;
 
-    [Space(10)]
+    [Header("Song Display")]
     public CanvasGroup SongDisplayUI;
     public Text SongTypeText;
     public Text SongNameText;
     public Text SongAuthorText;
     public MusicDisplay MusicDisplay;
 
-    [Space(10)]
-
+    [Header("Items")]
     public GameObject ItemSystem;
     public Image YourItem;
+
     [System.Serializable]
     public struct UIItem
     {
@@ -78,26 +81,33 @@ public class IngameUIHolder : MonoBehaviour
         public Animator List;
         public Image OurItem;
     }
-    [Header("UI")]
+
+    [Header("Item Slots")]
     public UIItem PrimaryItem;
     public UIItem SecondaryItem;
 
-    public ResultsUI ResultsUI;
+    [Header("Lap System")]
     public List<LapCounter> LapCounters = new();
+
+    [Header("Results")]
+    public ResultsUI ResultsUI;
     public Transform ResultEntriesRoot;
     public GameObject ResultEntryPrefab;
-    [Space(5)]
+
+    [Header("Race Finish UI")]
     public GameObject FinishUI;
+
+    [Header("Warnings")]
     public GameObject RedShellWarning;
     public GameObject BlueShellWarning;
     public GameObject StarWarning;
     public GameObject BulletWarning;
-    [Space(10)]
 
+    [Header("Counters")]
     public TextUIElement coinUI = new();
     public TextUIElement lapCounterUI = new();
 
-    [Space(10)]
+    [Header("Multiplayer")]
     public CanvasGroup WaitingForPlayers;
     public Text WaitingForPlayersCount;
 
@@ -130,10 +140,6 @@ public class IngameUIHolder : MonoBehaviour
         ResultsEntry resultsEntry = entry.GetComponent<ResultsEntry>();
         LapCounter assignee = LapCounters[ResultsUI.transform.childCount - 1];
         resultsEntry.AssignRacer(assignee);
-
-        //MKWKartCustomization customization = assignee.GetComponent<MKWKartCustomization>();
-        //RacerConfig config = customization.CurrentRacerConfig;
-        //resultsEntry.UpdateEntry(assignee.Position, config.CharacterName, config.CharacterIcon);
     }
 
     public void GenerateIconFor(LapCounter racer)
