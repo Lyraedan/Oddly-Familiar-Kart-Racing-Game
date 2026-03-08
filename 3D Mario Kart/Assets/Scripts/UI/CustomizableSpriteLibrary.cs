@@ -11,7 +11,8 @@ public class CustomizableSpriteLibrary : MonoBehaviour
     public enum ReplaceableElement
     {
         PLACEMENT_NUMBER,
-        ITEM_BOX
+        ITEM_BOX_BORDER,
+        ITEM_BOX_MASK
     }
 
     [System.Serializable]
@@ -71,6 +72,8 @@ public class CustomizableSpriteLibrary : MonoBehaviour
 
             if (s != null)
                 sprite.SetSprite(s);
+
+            sprite.SetTint(sprite.tint);
         }
     }
 }

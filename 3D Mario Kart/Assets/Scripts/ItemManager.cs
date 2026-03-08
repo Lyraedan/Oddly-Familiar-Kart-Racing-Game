@@ -306,7 +306,6 @@ public class ItemManager : NetworkBehaviour
         if (shouldDestroy)
         {
             itemSlotItem.prefab = null; // Clear the prefab reference since it's being destroyed
-            //Destroy(item.gameObject);
             item.networkedObject.Despawn();
         }
 

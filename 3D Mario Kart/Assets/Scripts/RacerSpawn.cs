@@ -106,8 +106,34 @@ public class RacerSpawn : MonoBehaviour
                 {
                     networkedObject.Spawn(true);
                 }
+                racers.Add(computerRacer);
             }
         }
+    }
+
+    public void SpawnReplacementComputerRacer(Transform spawnPoint, int lastLap, int lastCheckpointID)
+    {
+        // Only the host can spawn replacement racers
+        if (!NetworkManager.Singleton.IsHost)
+            return;
+
+        GameObject computerRacer = Instantiate(ComputerRacerPrefab);
+        computerRacer.transform.position = spawnPoint.position;
+        computerRacer.transform.rotation = spawnPoint.rotation;
+        NetworkObject networkedObject = computerRacer.GetComponent<NetworkObject>();
+        if (networkedObject != null)
+        {
+            networkedObject.Spawn(true);
+        }
+        LapCounter lapCounter = computerRacer.GetComponent<LapCounter>();
+        if (lapCounter != null)
+        {
+            lapCounter.LAPCOUNT = lastLap;
+            lapCounter.RegisterAllCheckPointsPriorToId(lastCheckpointID); // Register previous checkpoints
+            lapCounter.RegisterCheckpoint(lastCheckpointID + 1); // Register the last checkpoint they were on so they don't get stuck trying to reach it again
+
+        }
+        racers.Add(computerRacer);
     }
 
     public void RemoveComputerRacer() // Remove the racer behind the player
@@ -115,6 +141,7 @@ public class RacerSpawn : MonoBehaviour
         // Only the host can remove racers
         if (!NetworkManager.Singleton.IsHost)
             return;
+
         if (racers.Count > 0)
         {
             GameObject racer = racers[0];
@@ -125,7 +152,6 @@ public class RacerSpawn : MonoBehaviour
                 {
                     networkedObject.Despawn();
                 }
-                Destroy(racer);
             }
             racers.RemoveAt(0);
         }

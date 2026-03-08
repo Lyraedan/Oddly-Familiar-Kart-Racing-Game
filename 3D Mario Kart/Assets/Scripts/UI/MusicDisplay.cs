@@ -39,7 +39,6 @@ public class MusicDisplay : MonoBehaviour
 
     IEnumerator FadeIn(CanvasGroup group, float duration = 0.5f)
     {
-        group.gameObject.SetActive(true);
         group.alpha = 0f;
 
         float time = 0f;
@@ -67,6 +66,5 @@ public class MusicDisplay : MonoBehaviour
         }
 
         group.alpha = 0f;
-        group.gameObject.SetActive(false);
     }
 }

@@ -73,6 +73,7 @@ public class IngameUIHolder : MonoBehaviour
     [Header("Items")]
     public GameObject ItemSystem;
     public Image YourItem;
+    public CanvasGroup ItemCanvasGroup;
 
     [System.Serializable]
     public struct UIItem

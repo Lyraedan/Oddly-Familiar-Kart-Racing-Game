@@ -165,6 +165,7 @@ public class UtilityFunctions : MonoBehaviour
         {
             RaceManager.Instance.trolleySystem.InstantiateFirstTram();
         }
+        StartCoroutine(UtilityFunctions.FadeCanvasGroup(IngameUIHolder.Instance.ItemCanvasGroup, 1f, 0.25f));
     }
 
     public void fadeOut()

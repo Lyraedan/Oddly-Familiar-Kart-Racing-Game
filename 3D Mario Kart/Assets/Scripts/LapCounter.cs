@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using NUnit.Framework;
+using Unity.Entities.UniversalDelegates;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Events;
@@ -137,7 +138,7 @@ public class LapCounter : MonoBehaviour
         }
     }
 
-    void RegisterCheckpoint(int id)
+    public void RegisterCheckpoint(int id)
     {
         bool lapCompleted = id == 0 && lastCheckpointID >= checkpoints.childCount - 1;
 
@@ -150,6 +151,14 @@ public class LapCounter : MonoBehaviour
         if (lapCompleted)
         {
             CompleteLap();
+        }
+    }
+
+    public void RegisterAllCheckPointsPriorToId(int id)
+    {
+        for (int i = 0; i < id; i++)
+        {
+            checkpointsVisited[i] = true;
         }
     }
 
@@ -172,6 +181,7 @@ public class LapCounter : MonoBehaviour
             {
                 RaceManager.RACE_COMPLETED = true;
                 endPosition = Position;
+                StartCoroutine(UtilityFunctions.FadeCanvasGroup(IngameUIHolder.Instance.ItemCanvasGroup, 0f, 0.25f));
 
                 GetComponent<Player>().stopDrift();
                 StartCoroutine(StopDriftRotation());

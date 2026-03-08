@@ -57,6 +57,13 @@ public class NetworkedPlayerManager : NetworkBehaviour
         Debug.Log("Spawned player with client ID: " + OwnerClientId + " GameObject: " + gameObject.name);
     }
 
+    public override void OnNetworkDespawn()
+    {
+        base.OnNetworkDespawn();
+        RaceManager.Instance.UnregisterPlayer(player);
+        RacerSpawn.Instance.SpawnReplacementComputerRacer(transform, player.lapCounter.LAPCOUNT, player.lapCounter.currentCheckpointVal);   
+    }
+
     public void FindAllAnimatorsAndNetwork()
     {
         // Find all Animator components in this GameObject and its children
