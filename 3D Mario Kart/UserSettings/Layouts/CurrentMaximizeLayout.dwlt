@@ -24,7 +24,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 112}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 29157
+  controlID: 33994
   draggingID: 0
 --- !u!114 &2
 MonoBehaviour:
@@ -154,7 +154,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 112}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 29158
+  controlID: 33995
   draggingID: 0
 --- !u!114 &4
 MonoBehaviour:
@@ -180,7 +180,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 56}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 29159
+  controlID: 33996
   draggingID: 0
 --- !u!114 &5
 MonoBehaviour:
@@ -249,11 +249,11 @@ MonoBehaviour:
     m_DynamicPanelBehavior: 0
   m_SceneHierarchy:
     m_TreeViewState:
-      scrollPos: {x: 0, y: 1584}
+      scrollPos: {x: 0, y: 504}
       m_SelectedIDs:
-      - m_Data: 175792
+      - m_Data: -259216
       m_LastClickedID:
-        m_Data: 175792
+        m_Data: -259216
       m_ExpandedIDs:
       - m_Data: -259216
       - m_Data: -137858
@@ -958,9 +958,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: -130.05104, y: 87.1219, z: -23.735195}
+    m_Target: {x: -378.5978, y: 23.205784, z: 241.14803}
     speed: 2
-    m_Value: {x: -130.05104, y: 87.1219, z: -23.735195}
+    m_Value: {x: -378.5978, y: 23.205784, z: 241.14803}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1006,20 +1006,20 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.25808254, y: 0.5968459, z: -0.2110575, w: 0.72982013}
+    m_Target: {x: 0.033241898, y: 0.943398, z: -0.31462264, w: 0.09970801}
     speed: 2
-    m_Value: {x: 0.25808254, y: 0.5968459, z: -0.21105751, w: 0.7298202}
+    m_Value: {x: 0.033241894, y: 0.94339794, z: -0.31462264, w: 0.099708006}
   m_Size:
-    m_Target: 29.711634
+    m_Target: 13.394461
     speed: 2
-    m_Value: 29.711634
+    m_Value: 13.394461
   m_Ortho:
     m_Target: 0
     speed: 2
     m_Value: 0
   m_CameraSettings:
-    m_Speed: 1.5821003
-    m_SpeedNormalized: 0.79000014
+    m_Speed: 2
+    m_SpeedNormalized: 1
     m_SpeedMin: 0.01
     m_SpeedMax: 2
     m_EasingEnabled: 1
@@ -1933,7 +1933,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 56}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 29239
+  controlID: 34073
   draggingID: 0
 --- !u!114 &12
 MonoBehaviour:
@@ -2013,7 +2013,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/AssetBundles/TestCourse/TestCourseAssets/Switch Version
+    - Assets/AssetBundles/TestCourse/TestCourseAssets/Switch Version/Textures
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -2023,7 +2023,7 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/AssetBundles/TestCourse/TestCourseAssets/Switch Version
+  - Assets/AssetBundles/TestCourse/TestCourseAssets/Switch Version/Textures
   m_LastFoldersGridSize: -1
   m_LastProjectPath: D:\Github\Oddly-Familiar-Kart-Racing-Game\3D Mario Kart
   m_LockTracker:
@@ -2032,9 +2032,9 @@ MonoBehaviour:
   m_FolderTreeState:
     scrollPos: {x: 0, y: 207}
     m_SelectedIDs:
-    - m_Data: 177370
+    - m_Data: 178050
     m_LastClickedID:
-      m_Data: 177370
+      m_Data: 178050
     m_ExpandedIDs:
     - m_Data: 0
     - m_Data: 102400
@@ -2044,6 +2044,7 @@ MonoBehaviour:
     - m_Data: 102564
     - m_Data: 177268
     - m_Data: 177270
+    - m_Data: 177370
     - m_Data: 1000000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -2109,8 +2110,8 @@ MonoBehaviour:
       m_ResourceFile: 
   m_ListAreaState:
     m_SelectedInstanceIDs:
-    - m_Data: 175792
-    m_LastClickedInstanceID: 175792
+    - m_Data: -259216
+    m_LastClickedInstanceID: -259216
     m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs:
     - m_Data: 110892
@@ -2152,7 +2153,7 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
     m_NewAssetIndexInList: -1
-    m_ScrollPosition: {x: 0, y: 2805.5}
+    m_ScrollPosition: {x: 0, y: 152.5}
     m_GridSize: 64
   m_SkipHiddenPackages: 0
   m_DirectoriesAreaWidth: 200
@@ -2197,7 +2198,7 @@ MonoBehaviour:
     m_DynamicPanelBehavior: 0
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: -259244
+  m_LastSelectedObjectID: -95486
 --- !u!114 &15
 MonoBehaviour:
   m_ObjectHideFlags: 52
