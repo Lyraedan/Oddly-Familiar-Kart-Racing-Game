@@ -32,16 +32,15 @@ public class RaceManager : MonoBehaviour
     public SongDetails finalLapCourseMusic;
     public AudioSource finalLapSound;
 
-    [Header("Setup")]
-    public List<Player> AllPlayers = new List<Player>();
+    [HideInInspector]public List<Player> AllPlayers = new List<Player>();
 
     [Space(25)]
     public GameObject FrontCam;
-    public GameObject FrontFPCam;
+    [HideInInspector] public GameObject FrontFPCam;
     public GameObject BackCam;
     public RacerSpawn RacerSpawns;
     public Transform AIPathRoot;
-    public List<PathTool> AIPaths = new List<PathTool>();
+    [HideInInspector] public List<PathTool> AIPaths = new List<PathTool>();
     private bool FPCam = false; // First-person camera flag
 
     public AudioSource music;
@@ -58,7 +57,7 @@ public class RaceManager : MonoBehaviour
     public static bool raceFinishStuff = false;
 
     public List<LapCounter> lapCounters => IngameUIHolder.Instance.LapCounters;
-    public List<LapCounter> sortedRacers = new List<LapCounter>();
+    [HideInInspector] public List<LapCounter> sortedRacers = new List<LapCounter>();
 
     [Header("Scene Entry Camera Disables")]
     public List<GameObject> set1 = new();
@@ -154,7 +153,7 @@ public class RaceManager : MonoBehaviour
         // Wait for racers
         yield return new WaitUntil(() => LocalPlayer != null);
         yield return new WaitUntil(() => ReadyToStartGame());
-        RacerSpawn.Instance.SpawnComputerRacers(); // Disabled for testing
+        //RacerSpawn.Instance.SpawnComputerRacers(); // Disabled for testing
         IngameUIHolder.Instance.FetchLapCounters();
 
         // Fade UI

@@ -341,6 +341,11 @@ public class Player : MonoBehaviour
                 RaceManager.Instance.ChooseRandomAIPath(out path, out splineContainer, out randomRaceEndPathTool);
                 RaceEndPath = path;
             }
+
+            if (IsMine)
+            {
+                RaceManager.Instance.FrontFPCam = racerConfig.FirstPersonCamera.gameObject;
+            }
         }
     }
 

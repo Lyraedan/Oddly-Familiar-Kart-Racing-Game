@@ -10,6 +10,7 @@ public class RacerConfig : MonoBehaviour
     public Sprite MinimapIcon;
     public string CharacterName = "Racer";
     public Sprite CharacterIcon;
+    public Camera FirstPersonCamera;
 
     [System.Serializable]
     public class FaceConfig

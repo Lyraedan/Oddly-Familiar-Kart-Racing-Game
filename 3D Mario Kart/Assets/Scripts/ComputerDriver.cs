@@ -384,7 +384,7 @@ public class ComputerDriver : MonoBehaviour
     void steer()
     {
 
-        Vector3 lookat = path.GetChild(current_node).position;
+        Vector3 lookat = path.GetChild(current_node % path.childCount).position;
 
         
         //angle calc
