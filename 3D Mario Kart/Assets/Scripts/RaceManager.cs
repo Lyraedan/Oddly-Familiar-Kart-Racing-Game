@@ -178,6 +178,7 @@ public class RaceManager : MonoBehaviour
         // We are relaying through Steam so we can check lobby members instead of waiting for network objects to spawn
         if (NetworkManager.Singleton.NetworkConfig.NetworkTransport is SteamNetworkingSocketsTransport)
         {
+            // All players get automatically populated on player spawn so we can just check if we have enough player objects for all lobby members
             return AllPlayers.Count >= USteamClient.Instance.LobbyMembers.Count;
         }
 
