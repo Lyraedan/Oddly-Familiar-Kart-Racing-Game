@@ -100,6 +100,7 @@
     <Compile Include="Assets\Scripts\Kart\AxelConfig.cs" />
     <Compile Include="Assets\Models\Water Park\Track\WaterparkTV.cs" />
     <Compile Include="Assets\Scripts\Camera\SetChild.cs" />
+    <Compile Include="Assets\Scripts\TransformVisualizer.cs" />
     <Compile Include="Assets\Scripts\Path\AIPath.cs" />
     <Compile Include="Assets\Scripts\ChainChompBall.cs" />
     <Compile Include="Assets\Scripts\ItemsUpdated\ItemBase.cs" />

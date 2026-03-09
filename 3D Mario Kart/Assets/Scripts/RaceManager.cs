@@ -153,7 +153,7 @@ public class RaceManager : MonoBehaviour
         // Wait for racers
         yield return new WaitUntil(() => LocalPlayer != null);
         yield return new WaitUntil(() => ReadyToStartGame());
-        //RacerSpawn.Instance.SpawnComputerRacers(); // Disabled for testing
+        RacerSpawn.Instance.SpawnComputerRacers(); // Disabled for testing
         IngameUIHolder.Instance.FetchLapCounters();
 
         // Fade UI
