@@ -95,14 +95,20 @@ public class MultiplayerMenu : MonoBehaviour
 
         foreach (var member in list)
         {
-            GameObject entry = SpawnMemberEntry();
+            for (int i = 0; i < 12; i++)
+            {
+                GameObject entry = SpawnMemberEntry();
 
-            //SteamFriends.RequestUserInformation(member, true); // TODO Implement later for public lobbies
-            string name = SteamFriends.GetFriendPersonaName(member);
-            bool isHost = member == hostId;
+                //SteamFriends.RequestUserInformation(member, true); // TODO Implement later for public lobbies
+                string name = SteamFriends.GetFriendPersonaName(member);
 
-            LobbyMemberEntry memberEntry = entry.GetComponent<LobbyMemberEntry>();
-            memberEntry.UpdateEntry(name, member.m_SteamID, isHost);
+                bool isHost = member == hostId;
+
+
+                LobbyMemberEntry memberEntry = entry.GetComponent<LobbyMemberEntry>();
+                memberEntry.UpdateEntry(name, member.m_SteamID, isHost);
+                memberEntry.RequestAvatar(member);
+            }
         }
     }
 
