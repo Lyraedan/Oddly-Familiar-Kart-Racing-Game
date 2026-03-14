@@ -49,7 +49,12 @@ public class LuaBehaviour : MonoBehaviour
 
     private void OnCollisionEnter(Collision other) => CallLua("OnCollisionEnter", new LuaGameObject(other.gameObject));
 
+    private void OnCollisionExit(Collision collision) => CallLua("OnCollisionExit", new LuaGameObject(collision.gameObject));
+    
+
     private void OnTriggerEnter(Collider other) => CallLua("OnTriggerEnter", new LuaGameObject(other.gameObject));
+
+    private void OnTriggerExit(Collider other) => CallLua("OnTriggerExit", new LuaGameObject(other.gameObject));
 
     private void CallLua(string funcName, params object[] args)
     {
