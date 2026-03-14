@@ -55,7 +55,7 @@ public class LuaBehaviour : MonoBehaviour
 
     private void OnTriggerExit(Collider other) => CallLua("OnTriggerExit", new LuaGameObject(other.gameObject));
 
-    private void CallLua(string funcName, params object[] args)
+    public void CallLua(string funcName, params object[] args)
     {
         if (luaFuncs.TryGetValue(funcName, out var func))
         {
@@ -91,7 +91,9 @@ public class LuaBehaviour : MonoBehaviour
         foreach (var pair in luaObject.Pairs)
         {
             if (pair.Value.Type == DataType.Function)
+            {
                 luaFuncs[pair.Key.String] = pair.Value;
+            }
         }
     }
 

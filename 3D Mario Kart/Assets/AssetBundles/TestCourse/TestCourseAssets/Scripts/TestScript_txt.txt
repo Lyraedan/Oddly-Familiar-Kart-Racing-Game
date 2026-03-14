@@ -10,6 +10,9 @@ local function Start(self)
     self.flame:SetEnabled(true)
     self.flame:SetIntensity(2.0)
 
+	-- Flag the pathtool to loop on finishes
+	self.pathtool.resetProgressOnFinish = true
+
     -- Start coroutine example
     startCoroutine(function()
         print("Waiting for race to start...")
@@ -22,6 +25,11 @@ local function Start(self)
         print("Race started! Playing fire audio...")
         self.fire:Play()
     end)
+end
+
+-- What happens when the pathtool finishes
+function OnPathFinished(self)
+	print("END")
 end
 
 local function Update(self, dt)
@@ -45,5 +53,6 @@ end
 
 return {
     Start = Start,
-    Update = Update
+    Update = Update,
+	pathtool_OnPathFinished = OnPathFinished -- Register the Pathtools OnPathFinished
 }

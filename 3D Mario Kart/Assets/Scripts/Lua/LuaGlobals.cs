@@ -18,9 +18,9 @@ public static class LuaGlobals
         lua.Globals["startCoroutine"] = (Action<DynValue>)((fn) => behaviour.StartLuaCoroutine(fn));
 
         Table timeTable = new Table(lua);
-        timeTable["deltaTime"] = Time.deltaTime;
-        timeTable["fixedDeltaTime"] = Time.fixedDeltaTime;
-        timeTable["time"] = Time.time;
+        timeTable["deltaTime"] = (Func<float>)(() => Time.deltaTime);
+        timeTable["fixedDeltaTime"] = (Func<float>)(() => Time.fixedDeltaTime);
+        timeTable["time"] = (Func<float>)(() => Time.time);
         lua.Globals["time"] = timeTable;
 
         Table raceTable = new Table(lua);

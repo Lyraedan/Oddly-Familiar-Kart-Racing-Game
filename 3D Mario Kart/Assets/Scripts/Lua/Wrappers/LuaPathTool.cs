@@ -5,6 +5,8 @@ public class LuaPathTool : LuaComponent
 {
     public PathTool pathTool;
 
+    public bool resetProgressOnFinish = true;
+
     private float progress;
 
     protected override void Awake()
@@ -129,9 +131,14 @@ public class LuaPathTool : LuaComponent
     public void FollowPath(float speed, float deltaTime)
     {
         progress += deltaTime * speed;
+        progress = Mathf.Clamp01(progress);
 
-        if (progress > 1f)
-            progress -= 1f;
+        if (progress >= 1f)
+        {
+            luaBehaviour.CallLua($"{luaName}_OnPathFinished");
+            if(resetProgressOnFinish)
+                progress -= 1f;
+        }
 
         MoveActorAligned(progress);
     }

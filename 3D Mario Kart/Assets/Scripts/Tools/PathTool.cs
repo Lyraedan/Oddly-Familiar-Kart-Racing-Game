@@ -27,6 +27,7 @@ public class PathTool : MonoBehaviour
     public float rotationVariance = 5f; // degrees
 
     [Header("Collider Settings")]
+    public bool usesColliders = true;
     [Min(1)]
     public int samplesPerCurve = 10;
     public Vector3 colliderSize = new Vector3(1, 1, 1);
@@ -157,6 +158,9 @@ public class PathTool : MonoBehaviour
 
     public void RebuildColliders()
     {
+        if (!usesColliders)
+            return;
+
         if (splineContainer == null)
             splineContainer = GetComponent<SplineContainer>();
 
