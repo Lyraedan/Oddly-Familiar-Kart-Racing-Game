@@ -1,0 +1,52 @@
+function PlayRandomSound(self)
+    self.boolaugh:Play()
+    waitUntil(function() return not self.boolaugh.playing end)
+end
+
+function PlayRandomAnimation(self)
+    local anim = math.random(1, 3)
+    if anim == 1 then
+        -- Remain idle
+    elseif anim == 2 then
+        Shake(self)
+    else
+        Escape(self)
+    end
+end
+
+function Escape(self)
+    local escapeLength = math.random(1, 3)
+    self.painting:SetBool("Escape", true)
+    wait(escapeLength) -- Shake for 3 to 5 seconds
+    self.painting:SetBool("Escape", false)
+end
+
+function Shake(self)
+    local shakeLength = math.random(3, 5)
+    self.painting:SetBool("Shaking", true)
+    wait(shakeLength) -- Shake for 3 to 5 seconds
+    self.painting:SetBool("Shaking", false)
+end
+
+local function Start(self)
+    self.actor.name = "Boo Painting"
+    self.boolaugh.actor.name = "Boo Laugh Sound"
+
+    startCoroutine(function()
+        while true do
+            PlayRandomAnimation(self)
+            wait(5) -- Wait a few seconds before playing the next anim
+        end
+    end)
+
+    startCoroutine(function()
+        while true do
+            PlayRandomSound(self)
+            wait(5) -- Wait a few seconds before playing the next sound
+        end
+    end)
+end
+
+return {
+    Start = Start
+}

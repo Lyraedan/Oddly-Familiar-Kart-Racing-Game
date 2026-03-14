@@ -5,6 +5,29 @@ public class LuaAudioSource : LuaComponent
 {
     private AudioSource audioSource;
 
+    public bool loop
+    {
+        get => GetLoop();
+        set => SetLoop(value);
+    }
+
+    public bool playing
+    {
+        get => IsPlaying();
+    }
+
+    public float volume
+    {
+        get => GetVolume();
+        set => SetVolume(value);
+    }
+
+    public float pitch
+    {
+        get => GetPitch();
+        set => SetPitch(value);
+    }
+
     protected override void Awake()
     {
         base.Awake();

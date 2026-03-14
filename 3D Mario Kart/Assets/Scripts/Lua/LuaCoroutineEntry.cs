@@ -1,4 +1,5 @@
 using MoonSharp.Interpreter;
+using UnityEngine;
 
 public class LuaCoroutineEntry
 {
@@ -18,10 +19,11 @@ public class LuaCoroutineEntry
         public DynValue Condition;      // for waitUntil(func)
     }
 
-    public Coroutine Thread;
+    public MoonSharp.Interpreter.Coroutine Thread;
+    public UnityEngine.Coroutine UnityCoroutine;      // Unity IEnumerator coroutine
     public WaitInstruction Waiting = new WaitInstruction();
 
-    public LuaCoroutineEntry(Coroutine thread)
+    public LuaCoroutineEntry(MoonSharp.Interpreter.Coroutine thread)
     {
         Thread = thread;
     }

@@ -115,22 +115,37 @@ public class LuaBehaviour : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        StopAllLuaCoroutines();
+    }
+
     public void StartLuaCoroutine(DynValue fn)
     {
         if (fn.Type != DataType.Function)
             return;
 
-        // Create a MoonSharp coroutine
         Coroutine co = lua.CreateCoroutine(fn).Coroutine;
-        StartCoroutine(RunLuaCoroutine(co));
+        var entry = new LuaCoroutineEntry(co);
+        entry.UnityCoroutine = StartCoroutine(RunLuaCoroutine(entry));
+        coroutines.Add(entry);
     }
 
-    private IEnumerator RunLuaCoroutine(Coroutine co)
+    public void StopAllLuaCoroutines()
     {
-        while (co.State != CoroutineState.Dead)
+        foreach (var entry in coroutines)
         {
-            // Resume the Lua coroutine
-            DynValue result = co.Resume(luaObject);
+            if (entry.UnityCoroutine != null)
+                StopCoroutine(entry.UnityCoroutine);
+        }
+        coroutines.Clear();
+    }
+
+    private IEnumerator RunLuaCoroutine(LuaCoroutineEntry entry)
+    {
+        while (entry.Thread.State != CoroutineState.Dead)
+        {
+            DynValue result = entry.Thread.Resume(luaObject);
 
             if (result.Type == DataType.Tuple && result.Tuple.Length >= 1 && result.Tuple[0].Type == DataType.String)
             {
@@ -153,8 +168,25 @@ public class LuaBehaviour : MonoBehaviour
                         break;
 
                     case "waitUntil":
-                        DynValue cond = result.Tuple[1];
-                        yield return new WaitUntil(() => lua.Call(cond).CastToBool());
+                        DynValue condFunc = result.Tuple[1];
+                        if (condFunc.Type != DataType.Function)
+                        {
+                            Debug.LogWarning("waitUntil expects a function.");
+                            yield break;
+                        }
+                        yield return new WaitUntil(() =>
+                        {
+                            try
+                            {
+                                DynValue val = lua.Call(condFunc);
+                                return val.Type == DataType.Boolean && val.Boolean;
+                            }
+                            catch (ScriptRuntimeException ex)
+                            {
+                                Debug.LogWarning("[Lua] waitUntil function error: " + ex.DecoratedMessage);
+                                return false;
+                            }
+                        });
                         break;
 
                     default:
@@ -164,9 +196,11 @@ public class LuaBehaviour : MonoBehaviour
             }
             else
             {
-                // If nothing was yielded, just wait a frame
                 yield return null;
             }
         }
+
+        // Clean up when finished
+        coroutines.Remove(entry);
     }
 }

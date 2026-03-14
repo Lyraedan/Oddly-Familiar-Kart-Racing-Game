@@ -6,19 +6,26 @@ public static class LuaGlobals
 {
     public static void Register(Script lua, LuaBehaviour behaviour)
     {
-        // Logging
         lua.Globals["print"] = (Action<DynValue>)LuaPrint;
         lua.Globals["warning"] = (Action<DynValue>)LuaWarning;
         lua.Globals["error"] = (Action<DynValue>)LuaError;
 
-        // Coroutine helpers
         lua.Globals["yield"] = (Func<DynValue>)Yield;
         lua.Globals["wait"] = (Func<double, DynValue>)Wait;
         lua.Globals["waitFrames"] = (Func<int, DynValue>)WaitFrames;
         lua.Globals["waitUntil"] = (Func<DynValue, DynValue>)WaitUntil;
 
-        // Coroutine start (needs behaviour reference)
         lua.Globals["startCoroutine"] = (Action<DynValue>)((fn) => behaviour.StartLuaCoroutine(fn));
+
+        Table raceTable = new Table(lua);
+        raceTable["raceStarted"] = (Func<bool>)(() => RaceManager.RACE_STARTED);
+        raceTable["raceCompleted"] = (Func<bool>)(() => RaceManager.RACE_COMPLETED);
+        lua.Globals["raceManager"] = raceTable;
+
+        Table playerTable = new Table(lua);
+        playerTable["currentLap"] = (Func<int>)(() => RaceManager.Instance.LocalPlayerLap.LAPCOUNT);
+        playerTable["raceCompleted"] = (Func<bool>)(() => RaceManager.Instance.LocalPlayerLap.RaceComplete);
+        lua.Globals["ourPlayer"] = playerTable;
     }
 
     #region Coroutine helpers

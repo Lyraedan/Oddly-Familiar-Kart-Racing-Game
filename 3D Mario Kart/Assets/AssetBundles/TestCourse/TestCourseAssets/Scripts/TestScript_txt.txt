@@ -1,0 +1,45 @@
+local function Start(self)
+    print("Lantern started")
+
+    -- Rename objects
+    self.actor.name = "Lantern"
+    self.flame.actor.name = "Flame Light"
+    self.flame.actor.transform:SetParent(self.fire.actor) -- Parent the fire audio to the flame light
+
+    -- Turn flame light on
+    self.flame:SetEnabled(true)
+    self.flame:SetIntensity(2.0)
+
+    -- Start coroutine example
+    startCoroutine(function()
+        print("Waiting for race to start...")
+    
+        -- Wait until raceStarted becomes true
+        waitUntil(function()
+            return raceManager.raceStarted == true
+        end)
+    
+        print("Race started! Playing fire audio...")
+        self.fire:Play()
+    end)
+end
+
+local function Update(self, dt)
+    -- Move and rotate the lantern
+    self.actor.transform:MoveForward(2 * dt)
+    self.actor.transform:Rotate(0, 30 * dt, 0)
+
+    -- Flicker the flame
+    local flicker = 1.8 + math.random() * 0.4
+    self.flame:SetIntensity(flicker)
+    self.flame:SetColor(
+        1.0,
+        0.5 + math.random() * 0.5,
+        0.0
+    )
+end
+
+return {
+    Start = Start,
+    Update = Update
+}
