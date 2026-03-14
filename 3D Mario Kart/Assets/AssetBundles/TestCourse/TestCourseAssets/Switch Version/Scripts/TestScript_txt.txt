@@ -1,5 +1,6 @@
 return {
 
+-- Example LUA script
 Start = function(self)
 
     print("Lantern started")
@@ -11,6 +12,15 @@ Start = function(self)
     -- start fire sound
     --self.audio.fire:SetLoop(true)
     --self.audio.fire:Play()
+
+    -- Coroutine example
+    startCoroutine(function()
+	 print("Coroutine")
+	 while true do
+	     wait(1)  -- yields for 1 second
+	     print("Coroutine while, second tick")
+	 end
+    end)
 
 end,
 

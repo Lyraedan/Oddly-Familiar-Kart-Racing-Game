@@ -92,6 +92,7 @@ public class LuaBehaviour : MonoBehaviour
         lua.Globals["warning"] = (System.Action<DynValue>)LuaWarning;
         lua.Globals["error"] = (System.Action<DynValue>)LuaError;
 
+        lua.Globals["yield"] = (System.Func<DynValue>)Yield;
         lua.Globals["wait"] = (System.Func<double, DynValue>)Wait;
         lua.Globals["waitFrames"] = (System.Func<int, DynValue>)WaitFrames;
         lua.Globals["waitUntil"] = (System.Func<DynValue, DynValue>)WaitUntil;
@@ -148,23 +149,29 @@ public class LuaBehaviour : MonoBehaviour
         if (fn.Type != DataType.Function)
             return;
 
-        // Start a Unity coroutine that wraps the Lua function
-        StartCoroutine(RunLuaFunction(fn));
+        // Create a MoonSharp coroutine
+        Coroutine co = lua.CreateCoroutine(fn).Coroutine;
+        StartCoroutine(RunLuaCoroutine(co));
     }
 
     // WIP
-    private IEnumerator RunLuaFunction(DynValue luaFunction)
+    private IEnumerator RunLuaCoroutine(Coroutine co)
     {
-        while (true)
+        while (co.State != CoroutineState.Dead)
         {
-            DynValue result = lua.Call(luaFunction, luaObject); // pass self
+            // Resume the Lua coroutine
+            DynValue result = co.Resume(luaObject);
 
-            if (result.Type == DataType.Tuple && result.Tuple.Length >= 2 && result.Tuple[0].Type == DataType.String)
+            if (result.Type == DataType.Tuple && result.Tuple.Length >= 1 && result.Tuple[0].Type == DataType.String)
             {
                 string instr = result.Tuple[0].String;
 
                 switch (instr)
                 {
+                    case "yield":
+                        yield return null;
+                        break;
+
                     case "wait":
                         yield return new WaitForSeconds((float)result.Tuple[1].Number);
                         break;
@@ -177,8 +184,7 @@ public class LuaBehaviour : MonoBehaviour
 
                     case "waitUntil":
                         DynValue cond = result.Tuple[1];
-                        while (!lua.Call(cond).CastToBool())
-                            yield return null;
+                        yield return new WaitUntil(() => lua.Call(cond).CastToBool());
                         break;
 
                     default:
@@ -188,28 +194,34 @@ public class LuaBehaviour : MonoBehaviour
             }
             else
             {
-                // if the function didn't yield anything, continue next frame
+                // If nothing was yielded, just wait a frame
                 yield return null;
             }
         }
     }
 
     #region Global methods
+    private DynValue Yield()
+    {
+        // Pause one frame
+        return DynValue.NewYieldReq(new DynValue[] { DynValue.NewString("yield") });
+    }
+
     private DynValue Wait(double seconds)
     {
-        // Yield back to C# with a value describing the wait request
-        return DynValue.NewTuple(
-            DynValue.NewString("wait"),
-            DynValue.NewNumber(seconds)
-        );
+        // Pause for N seconds
+        return DynValue.NewYieldReq(new DynValue[] {
+        DynValue.NewString("wait"),
+        DynValue.NewNumber(seconds)
+    });
     }
 
     private DynValue WaitFrames(int frames)
     {
-        return DynValue.NewTuple(
-            DynValue.NewString("waitFrames"),
-            DynValue.NewNumber(frames)
-        );
+        return DynValue.NewYieldReq(new DynValue[] {
+        DynValue.NewString("waitFrames"),
+        DynValue.NewNumber(frames)
+    });
     }
 
     private DynValue WaitUntil(DynValue condition)
@@ -220,10 +232,10 @@ public class LuaBehaviour : MonoBehaviour
             return DynValue.Nil;
         }
 
-        return DynValue.NewTuple(
-            DynValue.NewString("waitUntil"),
-            condition
-        );
+        return DynValue.NewYieldReq(new DynValue[] {
+        DynValue.NewString("waitUntil"),
+        condition
+    });
     }
 
     private void LuaPrint(DynValue value)
