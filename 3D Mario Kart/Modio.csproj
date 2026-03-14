@@ -196,8 +196,8 @@
     <Compile Include="Assets\Plugins\Modio\Modio\ThirdParty\SharpZip\src\ICSharpCode.SharpZipLib\Zip\ZipNameTransform.cs" />
     <Compile Include="Assets\Plugins\Modio\Modio\API\Generated\Definitions\ResponseObjects\GuideTagObject.cs" />
     <Compile Include="Assets\Plugins\Modio\Modio\API\Generated\Endpoints\GetUserEvents.cs" />
-    <Compile Include="Assets\Plugins\Modio\Modio\Images\ImageReference.cs" />
     <Compile Include="Assets\Plugins\Modio\Modio\API\Generated\Definitions\ResponseObjects\AddReportResponse.cs" />
+    <Compile Include="Assets\Plugins\Modio\Modio\Images\ImageReference.cs" />
     <Compile Include="Assets\Plugins\Modio\Modio\Errors\Generated\TempModsError.cs" />
     <Compile Include="Assets\Plugins\Modio\Modio\API\Generated\Definitions\ResponseObjects\ModfileObject.cs" />
     <Compile Include="Assets\Plugins\Modio\Modio\FileIO\ModioDiskTestSettings.cs" />

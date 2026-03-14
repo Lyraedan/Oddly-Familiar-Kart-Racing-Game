@@ -19,6 +19,7 @@ public class MKWKartCustomization : MonoBehaviour
     public int currentKartIndex = 0;
     public int currentRacerIndex = 0;
     public int currentKartSkinIndex = 0;
+    public bool spawnOnStart = false;
 
     [Header("Randomization (On Spawn)")]
     public bool randomizeKart = false;
@@ -54,7 +55,8 @@ public class MKWKartCustomization : MonoBehaviour
     void Start()
     {
         RemoveVisual();
-        Spawn();
+        if(spawnOnStart)
+            Spawn();
     }
 
     public void RemoveVisual()

@@ -1,0 +1,29 @@
+return {
+
+Start = function(self)
+
+    print("Lantern started")
+
+    -- turn light on
+    self.lights.flame:SetEnabled(true)
+    self.lights.flame:SetIntensity(2.0)
+
+    -- start fire sound
+    --self.audio.fire:SetLoop(true)
+    --self.audio.fire:Play()
+
+end,
+
+Update = function(self, dt)
+    -- move forward
+    self.transforms.root:MoveForward(2 * dt)
+
+    -- slowly rotate
+    self.transforms.root:Rotate(0, 30 * dt, 0)
+
+    -- flicker the light every frame
+    local flicker = 1.8 + math.random() * 0.4
+    self.lights.flame:SetIntensity(flicker)
+end
+
+}

@@ -35,6 +35,42 @@ public class MultiplayerMenu : MonoBehaviour
         USteamClient.Instance.OnLobbyLeft += HandleLobbyLeft;
         USteamClient.Instance.OnLobbyListReceived += HandleLobbyListReceived;
         USteamClient.Instance.OnLobbyMembersUpdated += HandleLobbyMembersUpdated;
+        USteamClient.Instance.OnLobbyDataUpdated += HandleLobbyDataUpdated;
+    }
+
+    private void HandleLobbyDataUpdated()
+    {
+        CSteamID lobbyId = USteamClient.Instance.CurrentLobbyId;
+        if (!lobbyId.IsValid())
+            return;
+
+        CSteamID hostId = SteamMatchmaking.GetLobbyOwner(lobbyId);
+        bool isHost = hostId == SteamUser.GetSteamID();
+
+        string lobbyName = SteamMatchmaking.GetLobbyData(lobbyId, "lobby_name");
+        bool started = SteamMatchmaking.GetLobbyData(lobbyId, "started") == "1";
+        string sceneName = SteamMatchmaking.GetLobbyData(lobbyId, "scene_name");
+
+        if (started)
+        {
+            if(!isHost)
+            {
+                // Client should load the scene when the host starts the game
+                NetworkUtils.Instance.LoadMapAndStartClient(sceneName);
+            }
+        }
+    }
+
+    public void HostStartGame()
+    {
+        CSteamID lobbyId = USteamClient.Instance.CurrentLobbyId;
+        if (!lobbyId.IsValid())
+            return;
+        string sceneName = SteamMatchmaking.GetLobbyData(lobbyId, "scene_name");
+        if (string.IsNullOrEmpty(sceneName))
+            return;
+
+        NetworkUtils.Instance.LoadMapAndHost(sceneName);
     }
 
     private void HandleLobbyCreated(CSteamID id)
@@ -95,20 +131,15 @@ public class MultiplayerMenu : MonoBehaviour
 
         foreach (var member in list)
         {
-            for (int i = 0; i < 12; i++)
-            {
-                GameObject entry = SpawnMemberEntry();
+            GameObject entry = SpawnMemberEntry();
 
-                //SteamFriends.RequestUserInformation(member, true); // TODO Implement later for public lobbies
-                string name = SteamFriends.GetFriendPersonaName(member);
+            //SteamFriends.RequestUserInformation(member, true); // TODO Implement later for public lobbies
+            string name = SteamFriends.GetFriendPersonaName(member);
+            bool isHost = member == hostId;
 
-                bool isHost = member == hostId;
-
-
-                LobbyMemberEntry memberEntry = entry.GetComponent<LobbyMemberEntry>();
-                memberEntry.UpdateEntry(name, member.m_SteamID, isHost);
-                memberEntry.RequestAvatar(member);
-            }
+            LobbyMemberEntry memberEntry = entry.GetComponent<LobbyMemberEntry>();
+            memberEntry.UpdateEntry(name, member.m_SteamID, isHost);
+            memberEntry.RequestAvatar(member);
         }
     }
 

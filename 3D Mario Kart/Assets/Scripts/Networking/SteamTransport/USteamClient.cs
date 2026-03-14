@@ -25,11 +25,13 @@ public class USteamClient : MonoBehaviour
     public event Action OnLobbyLeft;
     public event Action<List<CSteamID>> OnLobbyListReceived;
     public event Action<List<CSteamID>> OnLobbyMembersUpdated;
+    public event Action OnLobbyDataUpdated;
 
     private Callback<LobbyCreated_t> _lobbyCreated;
     private Callback<LobbyEnter_t> _lobbyEntered;
     private Callback<LobbyMatchList_t> _lobbyMatchList;
     private Callback<GameLobbyJoinRequested_t> _joinRequested;
+    private Callback<LobbyDataUpdate_t> _lobbyDataUpdated;
 
     private bool _steamInitializedInternally;
 
@@ -92,6 +94,7 @@ public class USteamClient : MonoBehaviour
         _lobbyEntered = Callback<LobbyEnter_t>.Create(OnLobbyEnteredCallback);
         _lobbyMatchList = Callback<LobbyMatchList_t>.Create(OnLobbyMatchListCallback);
         _joinRequested = Callback<GameLobbyJoinRequested_t>.Create(OnJoinRequestedCallback);
+        _lobbyDataUpdated = Callback<LobbyDataUpdate_t>.Create(OnLobbyDataUpdatedCallback);
     }
 
     private void Update()
@@ -144,8 +147,9 @@ public class USteamClient : MonoBehaviour
 
     public void SearchLobbies()
     {
-        SteamMatchmaking.AddRequestLobbyListStringFilter("game", "OddlyFamiliarKartRacing", ELobbyComparison.k_ELobbyComparisonEqual);
-        SteamMatchmaking.AddRequestLobbyListStringFilter("version", MainMenu.Version, ELobbyComparison.k_ELobbyComparisonEqual);
+        // Filter to only this game
+        //SteamMatchmaking.AddRequestLobbyListStringFilter("game", "OddlyFamiliarKartRacing", ELobbyComparison.k_ELobbyComparisonEqual);
+        //SteamMatchmaking.AddRequestLobbyListStringFilter("version", MainMenu.Version, ELobbyComparison.k_ELobbyComparisonEqual);
         SteamMatchmaking.RequestLobbyList();
     }
 
@@ -232,6 +236,17 @@ public class USteamClient : MonoBehaviour
     private void OnJoinRequestedCallback(GameLobbyJoinRequested_t callback)
     {
         JoinLobby(callback.m_steamIDLobby);
+    }
+
+    private void OnLobbyDataUpdatedCallback(LobbyDataUpdate_t callback)
+    {
+        if (!CurrentLobbyId.IsValid() || callback.m_ulSteamIDLobby != CurrentLobbyId.m_SteamID)
+            return;
+
+        UpdateLobbyMembers();
+
+        Debug.Log("Lobby data updated!");
+        OnLobbyDataUpdated?.Invoke();
     }
 
     #endregion

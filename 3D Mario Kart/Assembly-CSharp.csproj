@@ -77,16 +77,21 @@
     <Compile Include="Assets\Scripts\ComputerDriver.cs" />
     <Compile Include="Assets\Scripts\Kart\KartType.cs" />
     <Compile Include="Assets\Scripts\Title\LobbyMemberEntry.cs" />
+    <Compile Include="Assets\Scripts\Lua\Wrappers\LuaTransform.cs" />
     <Compile Include="Assets\Scripts\ItemsUpdated\RedShellItem.cs" />
     <Compile Include="Assets\Scripts\General\UITextCornersGradient.cs" />
     <Compile Include="Assets\Scripts\Items\NameChildObjects.cs" />
+    <Compile Include="Assets\Scripts\Lua\Wrappers\LuaLight.cs" />
     <Compile Include="Assets\Scripts\Title\ScrollRawImage.cs" />
     <Compile Include="Assets\Scripts\Camera\AspectRatioFix.cs" />
     <Compile Include="Assets\Scripts\Camera\CameraLocationTracker.cs" />
+    <Compile Include="Assets\Scripts\Lua\Wrappers\LuaRigidbody.cs" />
     <Compile Include="Assets\Scripts\Pylon.cs" />
     <Compile Include="Assets\Scripts\Title\AudioCrossfade.cs" />
+    <Compile Include="Assets\Scripts\Lua\Wrappers\LuaGameObject.cs" />
     <Compile Include="Assets\Scripts\Map Selector\MapSelector.cs" />
     <Compile Include="Assets\SampleScenes\Scripts\LevelReset.cs" />
+    <Compile Include="Assets\Scripts\Lua\LuaBehaviour.cs" />
     <Compile Include="Assets\Scripts\TireTest.cs" />
     <Compile Include="Assets\Scripts\Camera\MirrorMainCamera.cs" />
     <Compile Include="Assets\Scripts\UI\IngameUIHolder.cs" />
@@ -102,9 +107,11 @@
     <Compile Include="Assets\Scripts\Camera\SetChild.cs" />
     <Compile Include="Assets\Scripts\TransformVisualizer.cs" />
     <Compile Include="Assets\Scripts\Path\AIPath.cs" />
+    <Compile Include="Assets\Scripts\Lua\LuaAPI.cs" />
     <Compile Include="Assets\Scripts\ChainChompBall.cs" />
     <Compile Include="Assets\Scripts\ItemsUpdated\ItemBase.cs" />
     <Compile Include="Assets\Scripts\ItemsUpdated\WaypointTracker.cs" />
+    <Compile Include="Assets\Scripts\Lua\Wrappers\LuaAudioSource.cs" />
     <Compile Include="Assets\Scripts\JumpToAnimationTime.cs" />
     <Compile Include="Assets\Scripts\CameraRotateAntigravity.cs" />
     <Compile Include="Assets\8K Skybox Pack Free\Example Scenes\Script\RotateCamera.cs" />
@@ -119,10 +126,12 @@
     <Compile Include="Assets\Scripts\Cow.cs" />
     <Compile Include="Assets\Scripts\OpponentItemManager.cs" />
     <Compile Include="Assets\Scripts\UI\CustomizableSprite.cs" />
+    <Compile Include="Assets\Scripts\Steamworks.NET\LobbyPlayer.cs" />
     <Compile Include="Assets\Scripts\UI\CustomizableSpriteLibrary.cs" />
     <Compile Include="Assets\Scripts\JumpPanelScript.cs" />
     <Compile Include="Assets\Scripts\Kart\RacerConfig.cs" />
     <Compile Include="Assets\Scripts\Camera\GetRes.cs" />
+    <Compile Include="Assets\Scripts\Lua\Wrappers\LuaAnimator.cs" />
     <Compile Include="Assets\Scripts\Items\PlayerBlueShellRaycast.cs" />
     <Compile Include="Assets\Models\Group of Toads\Wii U - Mario Kart 8 - Toads\Toads\ToadAnim.cs" />
     <Compile Include="Assets\Scripts\UI\ResultsEntry.cs" />
@@ -160,6 +169,7 @@
     <Compile Include="Assets\Samples\Shader Graph\17.3.0\UGUI Shaders\Scripts\Timer.cs" />
     <Compile Include="Assets\Scripts\ItemsUpdated\StarItem.cs" />
     <Compile Include="Assets\Scripts\Title\RandomSongPlayer.cs" />
+    <Compile Include="Assets\Scripts\Lua\LuaComponent.cs" />
     <Compile Include="Assets\Scripts\UI\MusicDisplay.cs" />
     <Compile Include="Assets\Scripts\Title\ServerEntry.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
@@ -195,6 +205,7 @@
     <Compile Include="Assets\Scenes\WaveRoad.cs" />
     <Compile Include="Assets\Scenes\TestFolderMats\EnterWater.cs" />
     <Compile Include="Assets\Scripts\UtilityFunctions.cs" />
+    <Compile Include="Assets\Scripts\Lua\LuaCoroutineEntry.cs" />
     <Compile Include="Assets\Scripts\WaterCameraEffectController.cs" />
     <Compile Include="Assets\Scripts\Map Selector\MapSelectorOption.cs" />
     <Compile Include="Assets\Scripts\Camera\ViewPanOffset.cs" />
@@ -219,6 +230,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile-2-Pass.shader" />
     <None Include="Assets\com.rlabrecque.steamworks.net\Plugins\steam_api.dll" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
+    <None Include="Assets\AssetBundles\TestCourse\TestCourseAssets\Switch Version\Scripts\TestScript_txt.txt" />
     <None Include="Assets\8K Skybox Pack Free\ReadMe.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
@@ -1534,6 +1546,10 @@
     </Reference>
     <Reference Include="Unity.Services.Core.Environments">
       <HintPath>Library\ScriptAssemblies\Unity.Services.Core.Environments.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="MoonSharp.Interpreter">
+      <HintPath>Library\ScriptAssemblies\MoonSharp.Interpreter.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.Services.Multiplayer">

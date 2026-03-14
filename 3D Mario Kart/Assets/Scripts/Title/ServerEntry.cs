@@ -11,7 +11,7 @@ public class ServerEntry : MonoBehaviour
 
     public void UpdateEntry(string lobbyName, int playerCount, int maxPlayers, int ping)
     {
-        SetLobbyName(lobbyName);
+        SetLobbyName(string.IsNullOrEmpty(lobbyName) ? "Invalid Lobby" : lobbyName);
         SetPlayerCount(playerCount, maxPlayers);
         SetPing(ping);
     }

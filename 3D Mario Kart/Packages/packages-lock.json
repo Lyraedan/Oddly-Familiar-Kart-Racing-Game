@@ -507,6 +507,12 @@
         "com.unity.render-pipelines.core": "17.3.0"
       }
     },
+    "org.moonsharp.moonsharp": {
+      "version": "file:D:/Downloads/org.moonsharp.moonsharp-3.0.0-beta.1.tgz",
+      "depth": 0,
+      "source": "local-tarball",
+      "dependencies": {}
+    },
     "com.unity.modules.accessibility": {
       "version": "1.0.0",
       "depth": 0,
