@@ -12,10 +12,7 @@ public class LuaBehaviour : MonoBehaviour
     private Script lua;
     private Table luaObject;
 
-    private DynValue startFunc;
-    private DynValue updateFunc;
-    private DynValue updateFixedFunc;
-    private DynValue updateLateFunc;
+    private Dictionary<string, DynValue> luaFuncs = new();
 
     private List<LuaCoroutineEntry> coroutines = new();
 
@@ -42,40 +39,29 @@ public class LuaBehaviour : MonoBehaviour
         BindLuaComponents();
     }
 
-    private void Start()
-    {
-        CallLuaFunction(startFunc);
-    }
+    private void Start() => CallLua("Start");
 
-    private void Update()
-    {
-        CallLuaFunction(updateFunc, Time.deltaTime);
-    }
+    private void Update() => CallLua("Update", Time.deltaTime);
 
-    private void FixedUpdate()
-    {
-        CallLuaFunction(updateFixedFunc, Time.fixedDeltaTime);
-    }
+    private void FixedUpdate() => CallLua("FixedUpdate", Time.fixedDeltaTime);
 
-    private void LateUpdate()
-    {
-        CallLuaFunction(updateLateFunc, Time.deltaTime);
-    }
+    private void LateUpdate() => CallLua("LateUpdate", Time.deltaTime);
 
-    private void CallLuaFunction(DynValue func, params object[] args)
+    private void OnCollisionEnter(Collision other) => CallLua("OnCollisionEnter", new LuaGameObject(other.gameObject));
+
+    private void OnTriggerEnter(Collider other) => CallLua("OnTriggerEnter", new LuaGameObject(other.gameObject));
+
+    private void CallLua(string funcName, params object[] args)
     {
-        if (func.IsNotNil() && func.Type == DataType.Function && luaObject != null)
+        if (luaFuncs.TryGetValue(funcName, out var func))
         {
             if (args == null || args.Length == 0)
-            {
                 lua.Call(func, luaObject);
-            }
             else
             {
                 var fullArgs = new object[args.Length + 1];
-                fullArgs[0] = luaObject; // Insert self
+                fullArgs[0] = luaObject; // self
                 System.Array.Copy(args, 0, fullArgs, 1, args.Length);
-
                 lua.Call(func, fullArgs);
             }
         }
@@ -98,11 +84,11 @@ public class LuaBehaviour : MonoBehaviour
 
         luaObject = result.Table;
 
-        startFunc = luaObject.Get("Start");
-
-        updateFunc = luaObject.Get("Update");
-        updateFixedFunc = luaObject.Get("UpdateFixed");
-        updateLateFunc = luaObject.Get("UpdateLate");
+        foreach (var pair in luaObject.Pairs)
+        {
+            if (pair.Value.Type == DataType.Function)
+                luaFuncs[pair.Key.String] = pair.Value;
+        }
     }
 
     void BindLuaComponents()

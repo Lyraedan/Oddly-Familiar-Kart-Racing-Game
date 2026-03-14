@@ -26,14 +26,29 @@ public class LuaGameObject
         }
     }
 
-    public void SetName(string name)
+    public string tag
     {
-        obj.name = name;
+        get => obj.tag;
+        set => obj.tag = value;
     }
 
-    public string GetName()
+    public string name 
     {
-        return obj.name;
+        get => obj.name;
+        set => obj.name = value;
+    }
+
+    public string layer
+    {
+        get => LayerMask.LayerToName(obj.layer);
+        set
+        {
+            int layerIndex = LayerMask.NameToLayer(value);
+            if (layerIndex != -1)
+                obj.layer = layerIndex;
+            else
+                Debug.LogError($"Layer '{value}' does not exist.");
+        }
     }
 
     public void SetActive(bool value)

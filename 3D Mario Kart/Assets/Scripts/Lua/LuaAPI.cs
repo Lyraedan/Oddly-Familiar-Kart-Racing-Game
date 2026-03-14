@@ -1,4 +1,5 @@
 using MoonSharp.Interpreter;
+using UnityEngine;
 
 public static class LuaAPI
 {
@@ -21,5 +22,10 @@ public static class LuaAPI
         UserData.RegisterType<LuaRigidbody>();
         UserData.RegisterType<LuaAudioSource>();
         UserData.RegisterType<LuaLight>();
+
+        // Unity
+        UserData.RegisterType<Vector3>();
+        UserData.RegisterType<Quaternion>();
+        UserData.RegisterType<Color>();
     }
 }
