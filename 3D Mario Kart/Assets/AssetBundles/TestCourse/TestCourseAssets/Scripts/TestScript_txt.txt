@@ -25,10 +25,14 @@ local function Start(self)
 end
 
 local function Update(self, dt)
-    -- Move and rotate the lantern
-    self.actor.transform:MoveForward(2 * dt)
-    self.actor.transform:Rotate(0, 30 * dt, 0)
-
+	--[[
+	-- Move and rotate the lantern
+	self.actor.transform:MoveForward(2 * dt)
+	self.actor.transform:Rotate(0, 30 * dt, 0)
+	]]
+	
+	self.pathtool:FollowPath(0.1, dt)
+	
     -- Flicker the flame
     local flicker = 1.8 + math.random() * 0.4
     self.flame:SetIntensity(flicker)

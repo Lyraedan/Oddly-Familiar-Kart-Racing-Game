@@ -214,6 +214,7 @@
     <Compile Include="Assets\Scripts\Path\Checkpoint.cs" />
     <Compile Include="Assets\Scripts\Kart\WheelSpawnDebug.cs" />
     <Compile Include="Assets\Scripts\Debug\MinimapVisualizer.cs" />
+    <Compile Include="Assets\Scripts\Lua\Wrappers\LuaPathTool.cs" />
     <Compile Include="Assets\Scripts\TrolleySystem.cs" />
     <Compile Include="Assets\Scripts\ItemsUpdated\GreenShellItem.cs" />
     <Compile Include="Assets\SampleScenes\Scripts\ParticleSceneControls.cs" />
