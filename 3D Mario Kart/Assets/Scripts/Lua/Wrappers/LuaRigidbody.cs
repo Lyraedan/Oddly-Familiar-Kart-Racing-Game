@@ -11,11 +11,6 @@ public class LuaRigidbody : LuaComponent
         rb = GetComponent<Rigidbody>();
     }
 
-    public override string GetLuaTable()
-    {
-        return "rigidbodies";
-    }
-
     public void SetVelocity(float x, float y, float z)
     {
         rb.linearVelocity = new Vector3(x, y, z);

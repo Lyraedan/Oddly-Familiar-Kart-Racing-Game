@@ -1,18 +1,12 @@
 using UnityEngine;
 
-public class LuaTransform : LuaComponent
+public class LuaTransform
 {
     private Transform t;
 
-    protected override void Awake()
+    public LuaTransform(Transform transform)
     {
-        base.Awake();
         t = transform;
-    }
-
-    public override string GetLuaTable()
-    {
-        return "transforms";
     }
 
     public void SetPosition(float x, float y, float z)
@@ -20,14 +14,13 @@ public class LuaTransform : LuaComponent
         t.position = new Vector3(x, y, z);
     }
 
-    public Vector3 GetPosition()
-    {
-        return t.position;
-    }
+    public float GetPositionX() => t.position.x;
+    public float GetPositionY() => t.position.y;
+    public float GetPositionZ() => t.position.z;
 
     public void Translate(float x, float y, float z)
     {
-        t.Translate(new Vector3(x, y, z));
+        t.Translate(x, y, z);
     }
 
     public void SetRotation(float x, float y, float z)
@@ -35,14 +28,13 @@ public class LuaTransform : LuaComponent
         t.rotation = Quaternion.Euler(x, y, z);
     }
 
-    public Vector3 GetRotation()
-    {
-        return t.eulerAngles;
-    }
+    public float GetRotationX() => t.eulerAngles.x;
+    public float GetRotationY() => t.eulerAngles.y;
+    public float GetRotationZ() => t.eulerAngles.z;
 
     public void Rotate(float x, float y, float z)
     {
-        t.Rotate(new Vector3(x, y, z));
+        t.Rotate(x, y, z);
     }
 
     public void SetScale(float x, float y, float z)
@@ -50,10 +42,9 @@ public class LuaTransform : LuaComponent
         t.localScale = new Vector3(x, y, z);
     }
 
-    public Vector3 GetScale()
-    {
-        return t.localScale;
-    }
+    public float GetScaleX() => t.localScale.x;
+    public float GetScaleY() => t.localScale.y;
+    public float GetScaleZ() => t.localScale.z;
 
     public void MoveForward(float amount)
     {
@@ -70,9 +61,20 @@ public class LuaTransform : LuaComponent
         t.Translate(Vector3.up * amount);
     }
 
-    public void SetParent(GameObject parent)
+    public void SetParent(LuaGameObject parent)
     {
-        if (parent != null)
-            t.SetParent(parent.transform);
+        if (parent == null) return;
+
+        var go = parent.GetInternal();
+        if (go != null)
+            t.SetParent(go.transform);
+    }
+
+    public LuaGameObject GetParent()
+    {
+        if (t.parent == null)
+            return null;
+
+        return new LuaGameObject(t.parent.gameObject);
     }
 }

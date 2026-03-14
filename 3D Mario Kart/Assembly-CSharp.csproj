@@ -176,6 +176,7 @@
     <Compile Include="Assets\Scripts\Kart\KartConfig.cs" />
     <Compile Include="Assets\Scripts\General\RandomRotation.cs" />
     <Compile Include="Assets\Scripts\ResultsUI.cs" />
+    <Compile Include="Assets\Scripts\Lua\LuaGlobals.cs" />
     <Compile Include="Assets\Scripts\General\RotationConstraint.cs" />
     <Compile Include="Assets\Scripts\General\Rotator.cs" />
     <Compile Include="Assets\Scripts\Networking\NetworkUtils.cs" />

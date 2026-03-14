@@ -11,11 +11,6 @@ public class LuaAudioSource : LuaComponent
         audioSource = GetComponent<AudioSource>();
     }
 
-    public override string GetLuaTable()
-    {
-        return "audio";
-    }
-
     public void Play()
     {
         audioSource.Play();

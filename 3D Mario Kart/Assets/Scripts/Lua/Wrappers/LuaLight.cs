@@ -11,11 +11,6 @@ public class LuaLight : LuaComponent
         lightComp = GetComponent<Light>();
     }
 
-    public override string GetLuaTable()
-    {
-        return "lights";
-    }
-
     public void SetEnabled(bool value)
     {
         lightComp.enabled = value;

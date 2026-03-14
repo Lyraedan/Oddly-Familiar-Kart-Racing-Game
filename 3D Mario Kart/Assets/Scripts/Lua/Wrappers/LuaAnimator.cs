@@ -11,11 +11,6 @@ public class LuaAnimator : LuaComponent
         anim = GetComponent<Animator>();
     }
 
-    public override string GetLuaTable()
-    {
-        return "animators";
-    }
-
     public void Play(string state)
     {
         anim.Play(state);

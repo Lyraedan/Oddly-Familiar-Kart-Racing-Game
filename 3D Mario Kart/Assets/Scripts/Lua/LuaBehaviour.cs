@@ -19,12 +19,24 @@ public class LuaBehaviour : MonoBehaviour
 
     private List<LuaCoroutineEntry> coroutines = new();
 
+    private LuaGameObject _actor;
+
+    public LuaGameObject actor
+    {
+        get
+        {
+            if (_actor == null)
+                _actor = new LuaGameObject(gameObject);
+            return _actor;
+        }
+    }
+
     private void Awake()
     {
         //UserData.RegisterAssembly();
         LuaAPI.Initialize();
         lua = new Script();
-        RegisterGlobals();
+        LuaGlobals.Register(lua, this);
 
         LoadScript();
         BindLuaComponents();
@@ -32,33 +44,40 @@ public class LuaBehaviour : MonoBehaviour
 
     private void Start()
     {
-        if (startFunc.IsNotNil() && startFunc.Type == DataType.Function && luaObject != null)
-        {
-            lua.Call(startFunc, luaObject);
-        }
+        CallLuaFunction(startFunc);
     }
 
     private void Update()
     {
-        if (updateFunc.IsNotNil() && updateFunc.Type == DataType.Function && luaObject != null)
-        {
-            lua.Call(updateFunc, luaObject, Time.deltaTime);
-        }
+        CallLuaFunction(updateFunc, Time.deltaTime);
     }
 
     private void FixedUpdate()
     {
-        if (updateFixedFunc.IsNotNil() && updateFixedFunc.Type == DataType.Function && luaObject != null)
-        {
-            lua.Call(updateFixedFunc, luaObject, Time.fixedDeltaTime);
-        }
+        CallLuaFunction(updateFixedFunc, Time.fixedDeltaTime);
     }
 
     private void LateUpdate()
     {
-        if (updateLateFunc.IsNotNil() && updateLateFunc.Type == DataType.Function && luaObject != null)
+        CallLuaFunction(updateLateFunc, Time.deltaTime);
+    }
+
+    private void CallLuaFunction(DynValue func, params object[] args)
+    {
+        if (func.IsNotNil() && func.Type == DataType.Function && luaObject != null)
         {
-            lua.Call(updateFunc, luaObject, Time.deltaTime);
+            if (args == null || args.Length == 0)
+            {
+                lua.Call(func, luaObject);
+            }
+            else
+            {
+                var fullArgs = new object[args.Length + 1];
+                fullArgs[0] = luaObject; // Insert self
+                System.Array.Copy(args, 0, fullArgs, 1, args.Length);
+
+                lua.Call(func, fullArgs);
+            }
         }
     }
 
@@ -86,65 +105,31 @@ public class LuaBehaviour : MonoBehaviour
         updateLateFunc = luaObject.Get("UpdateLate");
     }
 
-    void RegisterGlobals()
-    {
-        lua.Globals["print"] = (System.Action<DynValue>)LuaPrint;
-        lua.Globals["warning"] = (System.Action<DynValue>)LuaWarning;
-        lua.Globals["error"] = (System.Action<DynValue>)LuaError;
-
-        lua.Globals["yield"] = (System.Func<DynValue>)Yield;
-        lua.Globals["wait"] = (System.Func<double, DynValue>)Wait;
-        lua.Globals["waitFrames"] = (System.Func<int, DynValue>)WaitFrames;
-        lua.Globals["waitUntil"] = (System.Func<DynValue, DynValue>)WaitUntil;
-        lua.Globals["startCoroutine"] = (System.Action<DynValue>)((fn) => StartLuaCoroutine(fn)); // TODO: doesn't work yet, a while loop in this in lua crashes unity
-    }
-
     void BindLuaComponents()
     {
         if (luaObject == null) return;
 
-        // Bind all components to the Lua table
+        luaObject["actor"] = actor;
+
         LuaComponent[] components = GetComponentsInChildren<LuaComponent>(true);
 
-        foreach(var comp in components)
+        foreach (var comp in components)
         {
-            string key = comp.luaName;
-
-            if (string.IsNullOrEmpty(key))
-            {
-                key = comp.gameObject.name;
-            }
-
-            string tableName = comp.GetLuaTable();
-
-            DynValue existing = luaObject.Get(tableName);
-            Table table;
-
-            if(existing.Type == DataType.Table)
-            {
-                table = existing.Table;
-            }
-            else
-            {
-                table = new Table(lua);
-                luaObject[tableName] = table;
-            }
+            string key = string.IsNullOrEmpty(comp.luaName) ? comp.name : comp.luaName;
 
             // Handle duplicates
             int suffix = 1;
             string originalKey = key;
-
-            while(table.Get(key).Type != DataType.Nil)
-            {
+            while (luaObject.Get(key).Type != DataType.Nil)
                 key = $"{originalKey}_{suffix++}";
-            }
 
-            table[key] = comp;
+            DynValue compValue = DynValue.FromObject(lua, comp);
+
+            luaObject[key] = compValue;
         }
     }
 
-    // This shit should just work....
-    private void StartLuaCoroutine(DynValue fn)
+    public void StartLuaCoroutine(DynValue fn)
     {
         if (fn.Type != DataType.Function)
             return;
@@ -154,7 +139,6 @@ public class LuaBehaviour : MonoBehaviour
         StartCoroutine(RunLuaCoroutine(co));
     }
 
-    // WIP
     private IEnumerator RunLuaCoroutine(Coroutine co)
     {
         while (co.State != CoroutineState.Dead)
@@ -199,58 +183,4 @@ public class LuaBehaviour : MonoBehaviour
             }
         }
     }
-
-    #region Global methods
-    private DynValue Yield()
-    {
-        // Pause one frame
-        return DynValue.NewYieldReq(new DynValue[] { DynValue.NewString("yield") });
-    }
-
-    private DynValue Wait(double seconds)
-    {
-        // Pause for N seconds
-        return DynValue.NewYieldReq(new DynValue[] {
-        DynValue.NewString("wait"),
-        DynValue.NewNumber(seconds)
-    });
-    }
-
-    private DynValue WaitFrames(int frames)
-    {
-        return DynValue.NewYieldReq(new DynValue[] {
-        DynValue.NewString("waitFrames"),
-        DynValue.NewNumber(frames)
-    });
-    }
-
-    private DynValue WaitUntil(DynValue condition)
-    {
-        if (condition.Type != DataType.Function)
-        {
-            Debug.LogWarning("waitUntil expects a function.");
-            return DynValue.Nil;
-        }
-
-        return DynValue.NewYieldReq(new DynValue[] {
-        DynValue.NewString("waitUntil"),
-        condition
-    });
-    }
-
-    private void LuaPrint(DynValue value)
-    {
-        Debug.Log("[Lua] " + value.ToString());
-    }
-
-    private void LuaWarning(DynValue value)
-    {
-        Debug.LogWarning("[Lua] " + value.ToString());
-    }
-
-    private void LuaError(DynValue value)
-    {
-        Debug.LogError("[Lua] " + value.ToString());
-    }
-    #endregion
 }

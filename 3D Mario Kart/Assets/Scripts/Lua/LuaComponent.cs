@@ -7,6 +7,18 @@ public abstract class LuaComponent : MonoBehaviour
 
     protected LuaBehaviour luaBehaviour;
 
+    private LuaGameObject _actor;
+
+    public LuaGameObject actor
+    {
+        get
+        {
+            if (_actor == null)
+                _actor = new LuaGameObject(gameObject);
+            return _actor;
+        }
+    }
+
     protected virtual void Awake()
     {
         luaBehaviour = GetComponentInParent<LuaBehaviour>();
@@ -15,10 +27,5 @@ public abstract class LuaComponent : MonoBehaviour
         {
             Debug.LogError($"LuaComponent '{luaName}' requires a LuaBehaviour on the same GameObject or a parent GameObject.");
         }
-    }
-
-    public virtual string GetLuaTable()
-    {
-        return "components";
     }
 }
