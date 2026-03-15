@@ -6,6 +6,7 @@ public class LuaPathTool : LuaComponent
     public PathTool pathTool;
 
     public bool resetProgressOnFinish = true;
+    public bool startAtActorPosition = true;
 
     private float progress;
 
@@ -20,6 +21,14 @@ public class LuaPathTool : LuaComponent
         {
             Debug.LogError("LuaPathTool requires a PathTool reference.");
         }
+
+        if (startAtActorPosition)
+            SetProgressFromActorPosition();
+    }
+
+    public void SetProgressFromActorPosition()
+    {
+        progress = GetNearestT(transform.position);
     }
 
     private Spline GetSpline()
@@ -75,6 +84,11 @@ public class LuaPathTool : LuaComponent
             actor.transform.rotation = Quaternion.LookRotation(dir).eulerAngles;
     }
 
+    /// <summary>
+    /// Find the nearest point on the spline to the given world position and return its t value (0-1).
+    /// </summary>
+    /// <param name="worldPos"></param>
+    /// <returns></returns>
     public float GetNearestT(Vector3 worldPos)
     {
         var spline = GetSpline();
@@ -136,8 +150,53 @@ public class LuaPathTool : LuaComponent
         if (progress >= 1f)
         {
             luaBehaviour.CallLua($"{luaName}_OnPathFinished");
+            if (resetProgressOnFinish)
+                progress -= 1f;
+        }
+
+        MoveActor(progress);
+    }
+
+    public void FollowPathReversed(float speed, float deltaTime)
+    {
+        progress -= deltaTime * speed;
+        progress = Mathf.Clamp01(progress);
+
+        if (progress <= 0f)
+        {
+            luaBehaviour.CallLua($"{luaName}_OnPathFinished");
+            if (resetProgressOnFinish)
+                progress += 1f;
+        }
+
+        MoveActor(progress);
+    }
+
+    public void FollowPathAligned(float speed, float deltaTime)
+    {
+        progress += deltaTime * speed;
+        progress = Mathf.Clamp01(progress);
+
+        if (progress >= 1f)
+        {
+            luaBehaviour.CallLua($"{luaName}_OnPathFinished");
             if(resetProgressOnFinish)
                 progress -= 1f;
+        }
+
+        MoveActorAligned(progress);
+    }
+
+    public void FollowPathReversedAligned(float speed, float deltaTime)
+    {
+        progress -= deltaTime * speed;
+        progress = Mathf.Clamp01(progress);
+
+        if (progress <= 0f)
+        {
+            luaBehaviour.CallLua($"{luaName}_OnPathFinished");
+            if (resetProgressOnFinish)
+                progress += 1f;
         }
 
         MoveActorAligned(progress);
