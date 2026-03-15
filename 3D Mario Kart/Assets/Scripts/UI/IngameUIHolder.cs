@@ -53,7 +53,7 @@ public class IngameUIHolder : MonoBehaviour
     public Image MinimapBackground;
     public GameObject MiniMap;
     public GameObject MinimapIcon;
-    public RectTransform Map2dEnd;
+    public RectTransform MiniMapUI;
 
     [Header("Course Info")]
     public CanvasGroup CourseNameUI;
@@ -160,7 +160,6 @@ public class IngameUIHolder : MonoBehaviour
         if (minimap)
         {
             minimap.playerInMap = icon.transform.GetComponent<RectTransform>();
-            minimap.map2dEnd = Map2dEnd;
             if (minimap.config == null)
             {
                 Debug.LogWarning($"Racer {racer.name} has no MinimapConfig assigned! Defaulting to {MinimapIcon.name}");

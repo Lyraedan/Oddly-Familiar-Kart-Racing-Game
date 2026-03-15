@@ -27,6 +27,13 @@ public class RaceManager : MonoBehaviour
     public string Console = "Unity";
     public string Author = "Your Name Here";
     public Sprite MinimapBackground;
+    [Tooltip("The root object containing the track, used to calculate the dimensions for the minimap")]
+    public Transform TrackRoot;
+    /// <summary>
+    /// (-1, 0) means north is west, (1, 0) means north is east, (0, 1) means north is north, (0, -1) means north is south
+    /// </summary>
+    public Vector2 MinimapOrientation = new Vector2(0f, 1f);
+    public bool SpawnComputerRacers = true;
 
     public SongDetails courseMusic;
     public SongDetails finalLapCourseMusic;
@@ -153,7 +160,8 @@ public class RaceManager : MonoBehaviour
         // Wait for racers
         yield return new WaitUntil(() => LocalPlayer != null);
         yield return new WaitUntil(() => ReadyToStartGame());
-        RacerSpawn.Instance.SpawnComputerRacers(); // Disabled for testing
+        if(SpawnComputerRacers)
+            RacerSpawn.Instance.SpawnComputerRacers(); // Disabled for testing
         IngameUIHolder.Instance.FetchLapCounters();
 
         // Fade UI
