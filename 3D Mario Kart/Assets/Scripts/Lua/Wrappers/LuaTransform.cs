@@ -39,12 +39,11 @@ public class LuaTransform
 
     public Vector3 forward => t.forward;
 
+    public void LookAt(Vector3 lookAt) => t.LookAt(lookAt);
     public void LookAt(float x, float y, float z) => t.LookAt(new Vector3(x, y, z));
 
-    public void MoveTowards(float x, float y, float z, float maxDistanceDelta) 
-    { 
-        t.position = Vector3.MoveTowards(t.position, new Vector3(x, y, z), maxDistanceDelta);
-    }
+    public void MoveTowrads(Vector3 target, float maxDistanceDelta) => t.position = Vector3.MoveTowards(t.position, target, maxDistanceDelta);
+    public void MoveTowards(float x, float y, float z, float maxDistanceDelta) => t.position = Vector3.MoveTowards(t.position, new Vector3(x, y, z), maxDistanceDelta);
 
     public void Translate(float x, float y, float z) => t.Translate(x, y, z);
     public void MoveForward(float amount) => t.Translate(Vector3.forward * amount);
@@ -71,17 +70,20 @@ public class LuaTransform
         return new LuaGameObject(t.parent.gameObject);
     }
 
+    public void SetPosition(Vector3 position) => t.position = position;
     public void SetPosition(float x, float y, float z) => t.position = new Vector3(x, y, z);
     public float GetPositionX() => t.position.x;
     public float GetPositionY() => t.position.y;
     public float GetPositionZ() => t.position.z;
 
+    public void SetRotation(Vector3 eulars) => t.rotation = Quaternion.Euler(eulars);
     public void SetRotation(float x, float y, float z) => t.rotation = Quaternion.Euler(x, y, z);
     public float GetRotationX() => t.eulerAngles.x;
     public float GetRotationY() => t.eulerAngles.y;
     public float GetRotationZ() => t.eulerAngles.z;
 
     public void Rotate(float x, float y, float z) => t.Rotate(x, y, z);
+    public void Rotate(Vector3 eulars) => t.Rotate(eulars);
 
     public void SetScale(float x, float y, float z) => t.localScale = new Vector3(x, y, z);
     public float GetScaleX() => t.localScale.x;

@@ -24,7 +24,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 112}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 147
+  controlID: 10318
   draggingID: 0
 --- !u!114 &2
 MonoBehaviour:
@@ -154,7 +154,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 112}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 42
+  controlID: 10166
   draggingID: 0
 --- !u!114 &4
 MonoBehaviour:
@@ -180,7 +180,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 56}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 43
+  controlID: 10167
   draggingID: 0
 --- !u!114 &5
 MonoBehaviour:
@@ -249,21 +249,22 @@ MonoBehaviour:
     m_DynamicPanelBehavior: 0
   m_SceneHierarchy:
     m_TreeViewState:
-      scrollPos: {x: 0, y: 1499}
+      scrollPos: {x: 0, y: 0}
       m_SelectedIDs:
-      - m_Data: 102172
+      - m_Data: 101070
       m_LastClickedID:
-        m_Data: 102172
+        m_Data: 101070
       m_ExpandedIDs:
-      - m_Data: -19204
+      - m_Data: -16666
       - m_Data: -14458
       - m_Data: -1354
       - m_Data: -12
-      - m_Data: 101694
+      - m_Data: 100636
+      - m_Data: 101742
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: GliderTriggers
-        m_OriginalName: GliderTriggers
+        m_Name: 
+        m_OriginalName: 
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
@@ -271,10 +272,10 @@ MonoBehaviour:
           width: 0
           height: 0
         m_UserData:
-          m_Data: 101694
+          m_Data: 0
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 0
+        m_OriginalEventType: 11
         m_IsRenamingFilename: 0
         m_TrimLeadingAndTrailingWhitespace: 0
         m_ClientGUIView: {fileID: 5}
@@ -940,9 +941,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: -180.42603, y: -461.23053, z: -294.8418}
+    m_Target: {x: 269.15802, y: 761.1354, z: 34.928722}
     speed: 2
-    m_Value: {x: -180.42603, y: -461.23053, z: -294.8418}
+    m_Value: {x: 269.15802, y: 761.1354, z: 34.928722}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -988,13 +989,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.16726252, y: 0.8291074, z: -0.33149242, w: -0.41806683}
+    m_Target: {x: 0.0011034935, y: 0.99828666, z: -0.05485957, w: 0.021903064}
     speed: 2
-    m_Value: {x: -0.16725726, y: 0.8290813, z: -0.331482, w: -0.4180537}
+    m_Value: {x: 0.0011034935, y: 0.99828666, z: -0.05485957, w: 0.021903062}
   m_Size:
-    m_Target: 738.4081
+    m_Target: 1155.4697
     speed: 2
-    m_Value: 738.4081
+    m_Value: 1155.4697
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -1932,7 +1933,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 56}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 112
+  controlID: 10241
   draggingID: 0
 --- !u!114 &12
 MonoBehaviour:
@@ -2012,7 +2013,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/AssetBundles/TestCourse/TestCourseAssets/World Objects
+    - Assets/Scripts/Lua
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -2022,18 +2023,18 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/AssetBundles/TestCourse/TestCourseAssets/World Objects
+  - Assets/Scripts/Lua
   m_LastFoldersGridSize: -1
   m_LastProjectPath: D:\Github\Oddly-Familiar-Kart-Racing-Game\3D Mario Kart
   m_LockTracker:
     m_IsLocked: 0
   m_LastLocalAssetsSearchArea: 1
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 207}
+    scrollPos: {x: 0, y: 694}
     m_SelectedIDs:
-    - m_Data: 99224
+    - m_Data: 99230
     m_LastClickedID:
-      m_Data: 99224
+      m_Data: 99230
     m_ExpandedIDs:
     - m_Data: 0
     - m_Data: 99212
@@ -2046,7 +2047,6 @@ MonoBehaviour:
     - m_Data: 99226
     - m_Data: 99228
     - m_Data: 99230
-    - m_Data: 99702
     - m_Data: 1000000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -2090,6 +2090,7 @@ MonoBehaviour:
     - m_Data: 99226
     - m_Data: 99228
     - m_Data: 99230
+    - m_Data: 1000000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -2117,8 +2118,8 @@ MonoBehaviour:
       m_ResourceFile: 
   m_ListAreaState:
     m_SelectedInstanceIDs:
-    - m_Data: 102172
-    m_LastClickedInstanceID: 102172
+    - m_Data: 101070
+    m_LastClickedInstanceID: 101070
     m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs:
     - m_Data: 110892
@@ -2205,7 +2206,7 @@ MonoBehaviour:
     m_DynamicPanelBehavior: 0
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: 0
+  m_LastSelectedObjectID: 101070
 --- !u!114 &15
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -2333,7 +2334,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 112}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 148
+  controlID: 10319
   draggingID: 0
 --- !u!114 &19
 MonoBehaviour:
