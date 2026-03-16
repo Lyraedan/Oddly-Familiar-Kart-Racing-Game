@@ -119,7 +119,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 112}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 164
+  controlID: 6022
   draggingID: 0
 --- !u!114 &6
 MonoBehaviour:
@@ -145,7 +145,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 112}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 62
+  controlID: 6055
   draggingID: 0
 --- !u!114 &7
 MonoBehaviour:
@@ -171,7 +171,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 56}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 63
+  controlID: 6056
   draggingID: 0
 --- !u!114 &8
 MonoBehaviour:
@@ -251,7 +251,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 56}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 75
+  controlID: 6179
   draggingID: 0
 --- !u!114 &11
 MonoBehaviour:
@@ -331,7 +331,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 112}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 165
+  controlID: 6023
   draggingID: 0
 --- !u!114 &14
 MonoBehaviour:
@@ -811,12 +811,29 @@ MonoBehaviour:
     m_DynamicPanelBehavior: 0
   m_SceneHierarchy:
     m_TreeViewState:
-      scrollPos: {x: 0, y: 0}
+      scrollPos: {x: 0, y: 779}
       m_SelectedIDs: []
       m_LastClickedID:
         m_Data: 0
       m_ExpandedIDs:
-      - m_Data: -1374
+      - m_Data: -102756
+      - m_Data: -39444
+      - m_Data: -39140
+      - m_Data: -39138
+      - m_Data: -5164
+      - m_Data: -4974
+      - m_Data: -3942
+      - m_Data: -1502
+      - m_Data: -1354
+      - m_Data: -12
+      - m_Data: 76024
+      - m_Data: 145590
+      - m_Data: 146380
+      - m_Data: 148580
+      - m_Data: 149988
+      - m_Data: 152102
+      - m_Data: 153628
+      - m_Data: 155052
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -962,14 +979,14 @@ MonoBehaviour:
       size: {x: 0, y: 0}
       sizeOverridden: 0
     - dockPosition: 0
-      containerId: overlay-container--left
+      containerId: overlay-dynamic-panel--left
       displayed: 1
       id: unity-transform-toolbar
       index: 0
-      contents: '{"m_Layout":2,"m_Collapsed":false,"m_Folded":false,"m_Floating":false,"m_FloatingSnapOffset":{"x":0.0,"y":25.0},"m_SnapOffsetDelta":{"x":0.0,"y":0.0},"m_FloatingSnapCorner":0,"m_Size":{"x":0.0,"y":0.0},"m_SizeOverridden":false}'
+      contents: '{"m_Layout":2,"m_Collapsed":false,"m_Folded":false,"m_Floating":false,"m_FloatingSnapOffset":{"x":0.0,"y":26.0},"m_SnapOffsetDelta":{"x":0.0,"y":0.0},"m_FloatingSnapCorner":0,"m_Size":{"x":0.0,"y":0.0},"m_SizeOverridden":false}'
       floating: 0
       collapsed: 0
-      snapOffset: {x: 0, y: 25}
+      snapOffset: {x: 0, y: 26}
       snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 0
       layout: 2
@@ -1444,10 +1461,13 @@ MonoBehaviour:
       scrollOffset: 0
     m_DynamicPanelContainerData:
     - containerId: overlay-dynamic-panel--left
-      width: 56
+      width: 402.4
       saveData:
-        state: 0
-        overlayData: []
+        state: 1
+        overlayData:
+        - overlayId: unity-transform-toolbar
+          metaData:
+            currentHeight: 48
     - containerId: overlay-dynamic-panel--right
       width: 56
       saveData:
@@ -1466,9 +1486,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: 192.81511, y: 153.09624, z: -51.991577}
+    m_Target: {x: -16488.459, y: 23209.44, z: -12185.335}
     speed: 2
-    m_Value: {x: 192.81511, y: 153.09624, z: -51.991577}
+    m_Value: {x: -16488.459, y: 23209.44, z: -12185.335}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1514,13 +1534,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.006028633, y: -0.486064, z: 0.0033529333, w: -0.87389845}
+    m_Target: {x: 0.23676273, y: 0.58341634, z: -0.18301359, w: 0.7550731}
     speed: 2
-    m_Value: {x: 0.0060286326, y: 0.486064, z: -0.0033529333, w: 0.8738984}
+    m_Value: {x: 0.23676273, y: 0.58341634, z: -0.18301359, w: 0.7550731}
   m_Size:
-    m_Target: 550.2147
+    m_Target: 255.55872
     speed: 2
-    m_Value: 550.2147
+    m_Value: 255.55872
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -1576,9 +1596,9 @@ MonoBehaviour:
     m_TextWithWhitespace: "Animator\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 422
+    x: 447
     y: 87
-    width: 943
+    width: 1006
     height: 554
   m_SerializedDataModeController:
     m_DataMode: 0
@@ -1611,6 +1631,7 @@ MonoBehaviour:
     - {fileID: 9083275831007886468, guid: 531b4d71ec859cf4893b0815f48306d1, type: 2}
     - {fileID: -2067962693415924866, guid: 83d07d5fa54536849a30dc4a30cba89f, type: 2}
     - {fileID: 7146949304806158295, guid: c6dce4ccce19f11449b9cd45345b5d6e, type: 2}
+    - {fileID: 3071208718498041502, guid: ac62d3f929b74454b9a6e026d8a8469b, type: 2}
     m_ValueSerializationHelper:
     - e00: 0.76
       e01: 0
@@ -1868,9 +1889,29 @@ MonoBehaviour:
       e31: 0
       e32: 0
       e33: 1
+    - e00: 1
+      e01: 0
+      e02: 0
+      e03: 0
+      e10: 0
+      e11: 1
+      e12: 0
+      e13: 0
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
   m_PreviewAnimator: {fileID: 0}
-  m_AnimatorController: {fileID: 0}
-  m_BreadCrumbs: []
+  m_AnimatorController: {fileID: 9100000, guid: ac62d3f929b74454b9a6e026d8a8469b,
+    type: 2}
+  m_BreadCrumbs:
+  - m_Target: {fileID: 3071208718498041502, guid: ac62d3f929b74454b9a6e026d8a8469b,
+      type: 2}
+    m_ScrollPosition: {x: 0, y: 0}
   stateMachineGraph: {fileID: 0}
   stateMachineGraphGUI: {fileID: 0}
   blendTreeGraph: {fileID: 0}
@@ -2463,7 +2504,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/AssetBundles/TestCourse
+    - Assets/AssetBundles/TestCourse/TestCourseAssets/World Objects
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -2473,7 +2514,7 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/AssetBundles/TestCourse/TestCourseAssets/World Objects/Boo Painting/Anims
+  - Assets/AssetBundles/TestCourse/TestCourseAssets/World Objects
   m_LastFoldersGridSize: -1
   m_LastProjectPath: D:\Github\Oddly-Familiar-Kart-Racing-Game\3D Mario Kart
   m_LockTracker:
@@ -2482,21 +2523,21 @@ MonoBehaviour:
   m_FolderTreeState:
     scrollPos: {x: 0, y: 207}
     m_SelectedIDs:
-    - m_Data: 97076
+    - m_Data: 96978
     m_LastClickedID:
-      m_Data: 97076
+      m_Data: 96978
     m_ExpandedIDs:
     - m_Data: 0
-    - m_Data: 96700
-    - m_Data: 96702
-    - m_Data: 96704
-    - m_Data: 96706
-    - m_Data: 96708
-    - m_Data: 96710
-    - m_Data: 96712
-    - m_Data: 96714
-    - m_Data: 96716
-    - m_Data: 96718
+    - m_Data: 99212
+    - m_Data: 99214
+    - m_Data: 99216
+    - m_Data: 99218
+    - m_Data: 99220
+    - m_Data: 99222
+    - m_Data: 99224
+    - m_Data: 99226
+    - m_Data: 99228
+    - m_Data: 99230
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -2529,16 +2570,16 @@ MonoBehaviour:
       m_Data: 0
     m_ExpandedIDs:
     - m_Data: 0
-    - m_Data: 96700
-    - m_Data: 96702
-    - m_Data: 96704
-    - m_Data: 96706
-    - m_Data: 96708
-    - m_Data: 96710
-    - m_Data: 96712
-    - m_Data: 96714
-    - m_Data: 96716
-    - m_Data: 96718
+    - m_Data: 99212
+    - m_Data: 99214
+    - m_Data: 99216
+    - m_Data: 99218
+    - m_Data: 99220
+    - m_Data: 99222
+    - m_Data: 99224
+    - m_Data: 99226
+    - m_Data: 99228
+    - m_Data: 99230
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -2565,9 +2606,10 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: []
-    m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 0
+    m_SelectedInstanceIDs:
+    - m_Data: 146890
+    m_LastClickedInstanceID: 146890
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs:
     - m_Data: 110892
     - m_Data: 146506

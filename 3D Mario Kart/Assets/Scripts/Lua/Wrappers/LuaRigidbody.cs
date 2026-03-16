@@ -26,9 +26,19 @@ public class LuaRigidbody : LuaComponent
         rb.AddForce(new Vector3(x, y, z));
     }
 
+    public void AddForceRelative(float x, float y, float z)
+    {
+        rb.AddRelativeForce(new Vector3(x, y, z));
+    }
+
     public void AddImpulse(float x, float y, float z)
     {
         rb.AddForce(new Vector3(x, y, z), ForceMode.Impulse);
+    }
+
+    public void AddAcceleration(float x, float y, float z)
+    {
+        rb.AddForce(new Vector3(x, y, z), ForceMode.Acceleration);
     }
 
     public void SetAngularVelocity(float x, float y, float z)
@@ -54,5 +64,15 @@ public class LuaRigidbody : LuaComponent
     public void UseGravity(bool value)
     {
         rb.useGravity = value;
+    }
+
+    public void SetDrag(float value)
+    {
+        rb.linearDamping = value;
+    }
+
+    public void SetAngularDrag(float value)
+    {
+        rb.angularDamping = value;
     }
 }

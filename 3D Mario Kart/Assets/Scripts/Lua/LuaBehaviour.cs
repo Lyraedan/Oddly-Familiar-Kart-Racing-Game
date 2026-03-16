@@ -37,7 +37,11 @@ public class LuaBehaviour : MonoBehaviour
 
         LoadScript();
         BindLuaComponents();
+
+        CallLua("Awake"); // Call awake function in Lua
     }
+
+    private void OnEnable() => CallLua("OnEnable");
 
     private void Start() => CallLua("Start");
 
@@ -47,11 +51,19 @@ public class LuaBehaviour : MonoBehaviour
 
     private void LateUpdate() => CallLua("LateUpdate", Time.deltaTime);
 
+    private void OnDisable() => CallLua("OnDisable");
+
+    private void OnDestroy() => CallLua("OnDestroy");
+
     private void OnCollisionEnter(Collision other) => CallLua("OnCollisionEnter", new LuaGameObject(other.gameObject));
+
+    private void OnCollisionStay(Collision collision) => CallLua("OnCollisionStay", new LuaGameObject(collision.gameObject));
 
     private void OnCollisionExit(Collision collision) => CallLua("OnCollisionExit", new LuaGameObject(collision.gameObject));
     
     private void OnTriggerEnter(Collider other) => CallLua("OnTriggerEnter", new LuaGameObject(other.gameObject));
+
+    private void OnTriggerStay(Collider other) => CallLua("OnTriggerStay", new LuaGameObject(other.gameObject));
 
     private void OnTriggerExit(Collider other) => CallLua("OnTriggerExit", new LuaGameObject(other.gameObject));
 

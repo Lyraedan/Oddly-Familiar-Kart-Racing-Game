@@ -167,6 +167,7 @@
     <Compile Include="Assets\Models\Test\Rotate.cs" />
     <Compile Include="Assets\SampleScenes\Menu\Scripts\PauseMenu.cs" />
     <Compile Include="Assets\Samples\Shader Graph\17.3.0\UGUI Shaders\Scripts\Timer.cs" />
+    <Compile Include="Assets\Scripts\ItemsUpdated\LuaItemBase.cs" />
     <Compile Include="Assets\Scripts\ItemsUpdated\StarItem.cs" />
     <Compile Include="Assets\Scripts\Title\RandomSongPlayer.cs" />
     <Compile Include="Assets\Scripts\Lua\LuaComponent.cs" />
