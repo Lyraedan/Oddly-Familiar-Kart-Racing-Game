@@ -33,6 +33,12 @@ public class LuaTransform
         set => SetScale(value.x, value.y, value.z);
     }
 
+    public Vector3 up => t.up;
+
+    public Vector3 right => t.right;
+
+    public Vector3 forward => t.forward;
+
     public void LookAt(float x, float y, float z) => t.LookAt(new Vector3(x, y, z));
 
     public void MoveTowards(float x, float y, float z, float maxDistanceDelta) 

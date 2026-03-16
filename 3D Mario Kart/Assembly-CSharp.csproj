@@ -170,6 +170,7 @@
     <Compile Include="Assets\Scripts\ItemsUpdated\LuaItemBase.cs" />
     <Compile Include="Assets\Scripts\ItemsUpdated\StarItem.cs" />
     <Compile Include="Assets\Scripts\Title\RandomSongPlayer.cs" />
+    <Compile Include="Assets\Scripts\Lua\Wrappers\LuaPhysics.cs" />
     <Compile Include="Assets\Scripts\Lua\LuaComponent.cs" />
     <Compile Include="Assets\Scripts\UI\MusicDisplay.cs" />
     <Compile Include="Assets\Scripts\Title\ServerEntry.cs" />

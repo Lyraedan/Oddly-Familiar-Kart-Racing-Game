@@ -18,6 +18,8 @@ public static class LuaAPI
         UserData.RegisterType<LuaGameObject>();
         UserData.RegisterType<LuaTransform>();
 
+        UserData.RegisterType<LuaPhysics>();
+
         AutoRegisterLuaComponents();
 
         // Unity

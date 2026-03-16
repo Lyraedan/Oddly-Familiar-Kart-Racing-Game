@@ -32,7 +32,6 @@ local function Start(self)
 end
 
 local function Update(self, dt)
-
 	-- We're waiting
     if waitTime > 0 then
         waitTime = waitTime - dt

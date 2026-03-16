@@ -53,8 +53,6 @@ public class LuaBehaviour : MonoBehaviour
 
     private void OnDisable() => CallLua("OnDisable");
 
-    private void OnDestroy() => CallLua("OnDestroy");
-
     private void OnCollisionEnter(Collision other) => CallLua("OnCollisionEnter", new LuaGameObject(other.gameObject));
 
     private void OnCollisionStay(Collision collision) => CallLua("OnCollisionStay", new LuaGameObject(collision.gameObject));
@@ -135,6 +133,7 @@ public class LuaBehaviour : MonoBehaviour
 
     private void OnDestroy()
     {
+        CallLua("OnDestroy");
         StopAllLuaCoroutines();
     }
 
