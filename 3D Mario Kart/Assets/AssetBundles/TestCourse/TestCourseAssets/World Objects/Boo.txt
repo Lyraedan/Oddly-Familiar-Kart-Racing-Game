@@ -3,8 +3,8 @@ local target = nil
 local waitTime = 0
 
 local speed = 25
-local radius = 50
-local height = 5
+local radius = 25
+local height = 10
 
 local function RandomTarget()
     if math.random() < 0.25 then
@@ -33,9 +33,10 @@ end
 
 local function Update(self, dt)
 
+	-- We're waiting
     if waitTime > 0 then
         waitTime = waitTime - dt
-		self.animator:SetBool("Idle", true)
+        self.animator:SetBool("Idle", true)
         return
     end
 
@@ -47,29 +48,22 @@ local function Update(self, dt)
 
     local dist = math.sqrt(dx*dx + dy*dy + dz*dz)
 
+    -- Reached target
     if dist < 0.2 then
         waitTime = 1 + math.random() * 2
         target = RandomTarget()
-		self.animator:SetBool("Idle", true)
+        self.animator:SetBool("Idle", true)
         return
     end
 
-    -- Normalize direction
-    dx = dx / dist
-    dy = dy / dist
-    dz = dz / dist
+    self.actor.transform:LookAt(target.x, pos.y, target.z)
+    self.animator:SetBool("Idle", false)
 
-    -- Face the target horizontally
-    local angle = math.deg(math.atan2(dx, dz))
-    local rot = self.actor.transform.rotation
-    self.actor.transform:SetRotation(rot.x, angle, rot.z)
-
-	self.animator:SetBool("Idle", false)
-    -- Move in 3D
-    self.actor.transform:Translate(
-        dx * speed * dt,
-        dy * speed * dt,
-        dz * speed * dt
+    self.actor.transform:MoveTowards(
+        target.x,
+        target.y,
+        target.z,
+        speed * dt
     )
 end
 

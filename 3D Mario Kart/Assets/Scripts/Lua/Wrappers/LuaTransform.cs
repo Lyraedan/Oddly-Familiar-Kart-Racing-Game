@@ -33,6 +33,13 @@ public class LuaTransform
         set => SetScale(value.x, value.y, value.z);
     }
 
+    public void LookAt(float x, float y, float z) => t.LookAt(new Vector3(x, y, z));
+
+    public void MoveTowards(float x, float y, float z, float maxDistanceDelta) 
+    { 
+        t.position = Vector3.MoveTowards(t.position, new Vector3(x, y, z), maxDistanceDelta);
+    }
+
     public void Translate(float x, float y, float z) => t.Translate(x, y, z);
     public void MoveForward(float amount) => t.Translate(Vector3.forward * amount);
     public void MoveRight(float amount) => t.Translate(Vector3.right * amount);
