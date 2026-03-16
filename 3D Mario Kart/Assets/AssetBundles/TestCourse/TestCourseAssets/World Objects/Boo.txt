@@ -35,6 +35,7 @@ local function Update(self, dt)
 
     if waitTime > 0 then
         waitTime = waitTime - dt
+		self.animator:SetBool("Idle", true)
         return
     end
 
@@ -49,6 +50,7 @@ local function Update(self, dt)
     if dist < 0.2 then
         waitTime = 1 + math.random() * 2
         target = RandomTarget()
+		self.animator:SetBool("Idle", true)
         return
     end
 
@@ -62,6 +64,7 @@ local function Update(self, dt)
     local rot = self.actor.transform.rotation
     self.actor.transform:SetRotation(rot.x, angle, rot.z)
 
+	self.animator:SetBool("Idle", false)
     -- Move in 3D
     self.actor.transform:Translate(
         dx * speed * dt,

@@ -91,6 +91,14 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 7903379665944938131}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1468fedb6a29e3348bb17b76e5b8914c,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6831670522315125452}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1468fedb6a29e3348bb17b76e5b8914c,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6407549724620770028}
   m_SourcePrefab: {fileID: 100100000, guid: 1468fedb6a29e3348bb17b76e5b8914c, type: 3}
 --- !u!1 &6286424559369092336 stripped
 GameObject:
@@ -111,3 +119,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LuaBehaviour
   luaScript: {fileID: 4900000, guid: a8e230c2cef972743a4a42beb1858f48, type: 3}
+--- !u!95 &6831670522315125452
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6286424559369092336}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ac62d3f929b74454b9a6e026d8a8469b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6407549724620770028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6286424559369092336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f246bf9f6fe364498c797d4b32bc65a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LuaAnimator
+  luaName: animator
