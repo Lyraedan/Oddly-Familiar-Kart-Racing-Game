@@ -1,0 +1,76 @@
+local origin = nil
+local target = nil
+local waitTime = 0
+
+local speed = 25
+local radius = 50
+local height = 5
+
+local function RandomTarget()
+    if math.random() < 0.25 then
+        return { x = origin.x, y = origin.y, z = origin.z }
+    end
+
+    local rx = (math.random() * 2 - 1) * radius
+    local ry = (math.random() * 2 - 1) * height
+    local rz = (math.random() * 2 - 1) * radius
+
+    return {
+        x = origin.x + rx,
+        y = origin.y + ry,
+        z = origin.z + rz
+    }
+end
+
+local function Start(self)
+    self.actor.name = "Boo"
+
+    local pos = self.actor.transform.position
+    origin = { x = pos.x, y = pos.y, z = pos.z }
+
+    target = RandomTarget()
+end
+
+local function Update(self, dt)
+
+    if waitTime > 0 then
+        waitTime = waitTime - dt
+        return
+    end
+
+    local pos = self.actor.transform.position
+
+    local dx = target.x - pos.x
+    local dy = target.y - pos.y
+    local dz = target.z - pos.z
+
+    local dist = math.sqrt(dx*dx + dy*dy + dz*dz)
+
+    if dist < 0.2 then
+        waitTime = 1 + math.random() * 2
+        target = RandomTarget()
+        return
+    end
+
+    -- Normalize direction
+    dx = dx / dist
+    dy = dy / dist
+    dz = dz / dist
+
+    -- Face the target horizontally
+    local angle = math.deg(math.atan2(dx, dz))
+    local rot = self.actor.transform.rotation
+    self.actor.transform:SetRotation(rot.x, angle, rot.z)
+
+    -- Move in 3D
+    self.actor.transform:Translate(
+        dx * speed * dt,
+        dy * speed * dt,
+        dz * speed * dt
+    )
+end
+
+return {
+    Start = Start,
+    Update = Update,
+}

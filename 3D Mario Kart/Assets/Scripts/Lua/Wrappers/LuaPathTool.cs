@@ -142,63 +142,35 @@ public class LuaPathTool : LuaComponent
         return pathTool.pathRoot.childCount;
     }
 
-    public void FollowPath(float speed, float deltaTime)
+    public void FollowPath(float speed, float deltaTime, bool aligned, bool reversed)
     {
-        progress += deltaTime * speed;
-        progress = Mathf.Clamp01(progress);
-
-        if (progress >= 1f)
+        if (!reversed)
         {
-            luaBehaviour.CallLua($"{luaName}_OnPathFinished");
-            if (resetProgressOnFinish)
-                progress -= 1f;
+            progress += deltaTime * speed;
+            progress = Mathf.Clamp01(progress);
+
+            if (progress >= 1f)
+            {
+                luaBehaviour.CallLua($"{luaName}_OnPathFinished");
+                if (resetProgressOnFinish)
+                    progress -= 1f;
+            }
+        }
+        else
+        {
+            progress -= deltaTime * speed;
+            progress = Mathf.Clamp01(progress);
+            if (progress <= 0f)
+            {
+                luaBehaviour.CallLua($"{luaName}_OnPathFinished");
+                if (resetProgressOnFinish)
+                    progress += 1f;
+            }
         }
 
-        MoveActor(progress);
-    }
-
-    public void FollowPathReversed(float speed, float deltaTime)
-    {
-        progress -= deltaTime * speed;
-        progress = Mathf.Clamp01(progress);
-
-        if (progress <= 0f)
-        {
-            luaBehaviour.CallLua($"{luaName}_OnPathFinished");
-            if (resetProgressOnFinish)
-                progress += 1f;
-        }
-
-        MoveActor(progress);
-    }
-
-    public void FollowPathAligned(float speed, float deltaTime)
-    {
-        progress += deltaTime * speed;
-        progress = Mathf.Clamp01(progress);
-
-        if (progress >= 1f)
-        {
-            luaBehaviour.CallLua($"{luaName}_OnPathFinished");
-            if(resetProgressOnFinish)
-                progress -= 1f;
-        }
-
-        MoveActorAligned(progress);
-    }
-
-    public void FollowPathReversedAligned(float speed, float deltaTime)
-    {
-        progress -= deltaTime * speed;
-        progress = Mathf.Clamp01(progress);
-
-        if (progress <= 0f)
-        {
-            luaBehaviour.CallLua($"{luaName}_OnPathFinished");
-            if (resetProgressOnFinish)
-                progress += 1f;
-        }
-
-        MoveActorAligned(progress);
+        if (!aligned)
+            MoveActor(progress);
+        else
+            MoveActorAligned(progress);
     }
 }

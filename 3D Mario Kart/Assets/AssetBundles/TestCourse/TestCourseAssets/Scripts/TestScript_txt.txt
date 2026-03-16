@@ -39,7 +39,8 @@ local function Update(self, dt)
 	self.actor.transform:Rotate(0, 30 * dt, 0)
 	]]
 	
-	self.pathtool:FollowPath(0.1, dt)
+    -- Follow the path, be aligned, do not be reversed
+	self.pathtool:FollowPath(0.1, dt, true, false)
 	
     -- Flicker the flame
     local flicker = 1.8 + math.random() * 0.4
