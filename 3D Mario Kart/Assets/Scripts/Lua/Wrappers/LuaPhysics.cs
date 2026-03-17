@@ -2,7 +2,7 @@ using MoonSharp.Interpreter;
 using UnityEngine;
 
 [MoonSharpUserData]
-public class LuaPhysics
+public class LuaPhysics : LuaAutoRegister
 {
 
     public int defaultMask { get; private set; } = Physics.DefaultRaycastLayers;

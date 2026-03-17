@@ -105,6 +105,7 @@
     <Compile Include="Assets\Scripts\Kart\AxelConfig.cs" />
     <Compile Include="Assets\Models\Water Park\Track\WaterparkTV.cs" />
     <Compile Include="Assets\Scripts\Camera\SetChild.cs" />
+    <Compile Include="Assets\Scripts\Lua\LuaAutoRegister.cs" />
     <Compile Include="Assets\Scripts\TransformVisualizer.cs" />
     <Compile Include="Assets\Scripts\Path\AIPath.cs" />
     <Compile Include="Assets\Scripts\Lua\LuaAPI.cs" />
@@ -200,6 +201,7 @@
     <Compile Include="Assets\Scripts\Kart\MKW\MKWKartCustomization.cs" />
     <Compile Include="Assets\Scripts\Camera\SetRes.cs" />
     <Compile Include="Assets\Scripts\Minimap.cs" />
+    <Compile Include="Assets\Scripts\Lua\Wrappers\LuaVector3.cs" />
     <Compile Include="Assets\Scripts\Items\OrbitingItems.cs" />
     <Compile Include="Assets\SampleScenes\Scripts\SlowMoButton.cs" />
     <Compile Include="Assets\SampleScenes\Scripts\CameraSwitch.cs" />

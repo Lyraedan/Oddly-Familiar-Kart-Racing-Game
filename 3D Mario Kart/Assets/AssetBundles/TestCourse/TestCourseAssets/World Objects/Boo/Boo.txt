@@ -8,32 +8,27 @@ local height = 10
 
 local function RandomTarget()
     if math.random() < 0.25 then
-        return { x = origin.x, y = origin.y, z = origin.z }
+        return origin
     end
 
     local rx = (math.random() * 2 - 1) * radius
     local ry = (math.random() * 2 - 1) * height
     local rz = (math.random() * 2 - 1) * radius
 
-    return {
-        x = origin.x + rx,
-        y = origin.y + ry,
-        z = origin.z + rz
-    }
+    local offset = vector3:New(rx, ry, rz)
+    return origin + offset
 end
 
 local function Start(self)
     self.actor.name = "Boo"
 
-    local pos = self.actor.transform.position
-    origin = { x = pos.x, y = pos.y, z = pos.z }
-
+    origin = self.actor.transform.position
     target = RandomTarget()
 end
 
 local function Update(self, dt)
 
-	-- We're waiting
+    -- Waiting
     if waitTime > 0 then
         waitTime = waitTime - dt
         self.animator:SetBool("Idle", true)
@@ -41,12 +36,7 @@ local function Update(self, dt)
     end
 
     local pos = self.actor.transform.position
-
-    local dx = target.x - pos.x
-    local dy = target.y - pos.y
-    local dz = target.z - pos.z
-
-    local dist = math.sqrt(dx*dx + dy*dy + dz*dz)
+    local dist = vector3:Distance(pos, target)
 
     -- Reached target
     if dist < 0.2 then
@@ -56,15 +46,10 @@ local function Update(self, dt)
         return
     end
 
-    self.actor.transform:LookAt(target.x, pos.y, target.z)
+    self.actor.transform:LookAt(target)
     self.animator:SetBool("Idle", false)
 
-    self.actor.transform:MoveTowards(
-        target.x,
-        target.y,
-        target.z,
-        speed * dt
-    )
+    self.actor.transform:MoveTowards(target, speed * dt)
 end
 
 return {

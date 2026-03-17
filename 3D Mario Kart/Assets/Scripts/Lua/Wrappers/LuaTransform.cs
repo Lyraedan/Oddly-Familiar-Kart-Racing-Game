@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class LuaTransform
+public class LuaTransform : LuaAutoRegister
 {
     private Transform t;
 
@@ -15,34 +15,34 @@ public class LuaTransform
         set => SetParent(value);
     }
 
-    public Vector3 position
+    public LuaVector3 position
     {
-        get => new Vector3(GetPositionX(), GetPositionY(), GetPositionZ());
+        get => new LuaVector3(GetPositionX(), GetPositionY(), GetPositionZ());
         set => SetPosition(value.x, value.y, value.z);
     }
 
-    public Vector3 rotation
+    public LuaVector3 rotation
     {
-        get => new Vector3(GetRotationX(), GetRotationY(), GetRotationZ());
+        get => new LuaVector3(GetRotationX(), GetRotationY(), GetRotationZ());
         set => SetRotation(value.x, value.y, value.z);
     }
 
-    public Vector3 scale
+    public LuaVector3 scale
     {
-        get => new Vector3(GetScaleX(), GetScaleY(), GetScaleZ());
+        get => new LuaVector3(GetScaleX(), GetScaleY(), GetScaleZ());
         set => SetScale(value.x, value.y, value.z);
     }
 
-    public Vector3 up => t.up;
+    public LuaVector3 up => new LuaVector3(t.up);
 
-    public Vector3 right => t.right;
+    public LuaVector3 right => new LuaVector3(t.right);
 
-    public Vector3 forward => t.forward;
+    public LuaVector3 forward => new LuaVector3(t.forward);
 
-    public void LookAt(Vector3 lookAt) => t.LookAt(lookAt);
+    public void LookAt(LuaVector3 lookAt) => t.LookAt(lookAt.ToUnityVector());
     public void LookAt(float x, float y, float z) => t.LookAt(new Vector3(x, y, z));
 
-    public void MoveTowrads(Vector3 target, float maxDistanceDelta) => t.position = Vector3.MoveTowards(t.position, target, maxDistanceDelta);
+    public void MoveTowards(LuaVector3 target, float maxDistanceDelta) => t.position = Vector3.MoveTowards(t.position, target.ToUnityVector(), maxDistanceDelta);
     public void MoveTowards(float x, float y, float z, float maxDistanceDelta) => t.position = Vector3.MoveTowards(t.position, new Vector3(x, y, z), maxDistanceDelta);
 
     public void Translate(float x, float y, float z) => t.Translate(x, y, z);
@@ -70,21 +70,22 @@ public class LuaTransform
         return new LuaGameObject(t.parent.gameObject);
     }
 
-    public void SetPosition(Vector3 position) => t.position = position;
+    public void SetPosition(LuaVector3 position) => t.position = position.ToUnityVector();
     public void SetPosition(float x, float y, float z) => t.position = new Vector3(x, y, z);
     public float GetPositionX() => t.position.x;
     public float GetPositionY() => t.position.y;
     public float GetPositionZ() => t.position.z;
 
-    public void SetRotation(Vector3 eulars) => t.rotation = Quaternion.Euler(eulars);
+    public void SetRotation(LuaVector3 eulars) => t.rotation = Quaternion.Euler(eulars.ToUnityVector());
     public void SetRotation(float x, float y, float z) => t.rotation = Quaternion.Euler(x, y, z);
     public float GetRotationX() => t.eulerAngles.x;
     public float GetRotationY() => t.eulerAngles.y;
     public float GetRotationZ() => t.eulerAngles.z;
 
     public void Rotate(float x, float y, float z) => t.Rotate(x, y, z);
-    public void Rotate(Vector3 eulars) => t.Rotate(eulars);
+    public void Rotate(LuaVector3 eulars) => t.Rotate(eulars.ToUnityVector());
 
+    public void SetScale(LuaVector3 scale) => t.localScale = scale.ToUnityVector();
     public void SetScale(float x, float y, float z) => t.localScale = new Vector3(x, y, z);
     public float GetScaleX() => t.localScale.x;
     public float GetScaleY() => t.localScale.y;

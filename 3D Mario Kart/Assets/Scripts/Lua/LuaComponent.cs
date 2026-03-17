@@ -1,5 +1,7 @@
+using MoonSharp.Interpreter;
 using UnityEngine;
 
+[MoonSharpUserData]
 public abstract class LuaComponent : MonoBehaviour
 {
     [Tooltip("Name used in Lua")]

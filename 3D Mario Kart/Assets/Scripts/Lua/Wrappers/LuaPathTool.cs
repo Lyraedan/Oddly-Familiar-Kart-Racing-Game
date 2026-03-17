@@ -70,7 +70,7 @@ public class LuaPathTool : LuaComponent
 
     public void MoveActor(float t)
     {
-        actor.transform.position = GetPosition(t);
+        actor.transform.position = new LuaVector3(GetPosition(t));
     }
 
     public void MoveActorAligned(float t)
@@ -78,10 +78,10 @@ public class LuaPathTool : LuaComponent
         Vector3 pos = GetPosition(t);
         Vector3 dir = GetDirection(t);
 
-        actor.transform.position = pos;
+        actor.transform.position = new LuaVector3(pos);
 
         if (dir != Vector3.zero)
-            actor.transform.rotation = Quaternion.LookRotation(dir).eulerAngles;
+            actor.transform.rotation = new LuaVector3(Quaternion.LookRotation(dir).eulerAngles);
     }
 
     /// <summary>

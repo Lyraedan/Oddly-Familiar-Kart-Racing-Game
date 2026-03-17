@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class LuaGameObject
+public class LuaGameObject : LuaAutoRegister
 {
     private GameObject obj;
     private LuaTransform luaTransform;

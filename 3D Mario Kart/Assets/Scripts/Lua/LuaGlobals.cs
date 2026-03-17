@@ -26,6 +26,9 @@ public static class LuaGlobals
         LuaPhysics physicsTable = new LuaPhysics();
         lua.Globals["physics"] = physicsTable;
 
+        LuaVector3 vector3Table = new LuaVector3();
+        lua.Globals["vector3"] = vector3Table;
+
         Table raceTable = new Table(lua);
         raceTable["raceStarted"] = (Func<bool>)(() => RaceManager.RACE_STARTED);
         raceTable["raceCompleted"] = (Func<bool>)(() => RaceManager.RACE_COMPLETED);

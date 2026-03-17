@@ -13,25 +13,21 @@ public static class LuaAPI
             return;
 
         initialized = true;
-
-        // Core wrapper, these dont inherit LuaComponent
-        UserData.RegisterType<LuaGameObject>();
-        UserData.RegisterType<LuaTransform>();
-
-        UserData.RegisterType<LuaPhysics>();
-
         AutoRegisterLuaComponents();
 
-        // Unity
-        UserData.RegisterType<Vector3>();
-        UserData.RegisterType<Quaternion>();
-        UserData.RegisterType<Color>();
+        // Unity - Ideally I would like to use wrappers for this
+        //UserData.RegisterType<Vector3>();
+        //UserData.RegisterType<Quaternion>();
+        //UserData.RegisterType<Color>();
     }
 
     private static void AutoRegisterLuaComponents()
     {
-        // Using reflection auto register components that inherit LuaComponent
-        var baseType = typeof(LuaComponent);
+        var baseTypes = new[]
+        {
+            typeof(LuaComponent), // Lua Components that inherit from Monobehaviour
+            typeof(LuaAutoRegister) // Lua Components that do not inherit from Monobehaviour, but still want to be registered
+        };
 
         var types = AppDomain.CurrentDomain
             .GetAssemblies()
@@ -47,7 +43,7 @@ public static class LuaAPI
                 }
             })
             .Where(t =>
-                baseType.IsAssignableFrom(t) &&
+                baseTypes.Any(bt => bt.IsAssignableFrom(t)) &&
                 !t.IsAbstract &&
                 !t.IsGenericType
             );
