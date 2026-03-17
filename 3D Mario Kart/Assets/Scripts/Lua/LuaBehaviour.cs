@@ -95,18 +95,24 @@ public class LuaBehaviour : MonoBehaviour
     /// Calls a Lua function with the given name and arguments. The first argument is always the Lua object (self), followed by any additional arguments
     public bool CallLua(string funcName, params object[] args)
     {
-        if (luaFuncs.TryGetValue(funcName, out var func))
+        try
         {
-            if (args == null || args.Length == 0)
-                lua.Call(func, luaObject);
-            else
+            if (luaFuncs.TryGetValue(funcName, out var func))
             {
-                var fullArgs = new object[args.Length + 1];
-                fullArgs[0] = luaObject; // self
-                System.Array.Copy(args, 0, fullArgs, 1, args.Length);
-                lua.Call(func, fullArgs);
+                if (args == null || args.Length == 0)
+                    lua.Call(func, luaObject);
+                else
+                {
+                    var fullArgs = new object[args.Length + 1];
+                    fullArgs[0] = luaObject; // self
+                    System.Array.Copy(args, 0, fullArgs, 1, args.Length);
+                    lua.Call(func, fullArgs);
+                }
+                return true;
             }
-            return true;
+        } catch(ScriptRuntimeException e)
+        {
+            Debug.LogError($"Lua error in function '{funcName}' on {name}: {e.DecoratedMessage}");
         }
         return false;
     }

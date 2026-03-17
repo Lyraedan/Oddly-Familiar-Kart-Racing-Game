@@ -16,16 +16,11 @@ local function Start(self)
 end
 
 local function Update(self, dt)
-
     if waitTime > 0 then
         waitTime = waitTime - dt
         self.animator:SetBool("Idle", true)
         return
     end
-	
-	if input:GetKey(keycode.W) then
-		print("W pressed")
-	end
 
     local pos = self.actor.transform.position
     local dist = vector3:Distance(pos, target)
@@ -37,7 +32,7 @@ local function Update(self, dt)
         return
     end
 
-    self.actor.transform:LookAt(target)
+    self.actor.transform:LookAt(vector3:New(target.x, pos.y, target.z))
     self.animator:SetBool("Idle", false)
 
     self.actor.transform:MoveTowards(target, speed * dt)

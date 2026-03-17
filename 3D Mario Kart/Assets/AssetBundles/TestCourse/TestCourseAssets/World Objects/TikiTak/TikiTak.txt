@@ -1,0 +1,34 @@
+local speed = 0.1
+local wait_time = 0.1
+local wiating = false
+local wait_timer = 0
+
+local function Start(self)
+    self.actor.name = "Tikitak"
+end
+
+local function OnPathFinished(self)
+	print("Reached the end")
+	waiting = true
+	wait_timer = wait_time
+end
+
+local function Update(self, dt)
+	if waiting then
+		self.animator:SetBool("Idle", true)
+		wait_timer = wait_timer - dt
+		if wait_timer <= 0 then
+			waiting = false
+		end
+	else
+		self.animator:SetBool("Idle", false)
+		-- Follow the path, do NOT be aligned, do not be reversed
+		self.pathtool:FollowPath(speed, dt, false, false)
+	end
+end
+
+return {
+    Start = Start,
+    Update = Update,
+	pathtool_OnPathFinished = OnPathFinished
+}
