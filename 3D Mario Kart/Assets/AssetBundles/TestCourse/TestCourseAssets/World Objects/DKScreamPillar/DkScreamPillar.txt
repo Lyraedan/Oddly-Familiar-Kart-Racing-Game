@@ -44,7 +44,7 @@ function animator_PlayShakeSound(self)
 end
 
 local function Start(self)
-    self.actor.name = "DkScarePillar"
+    self.actor.name = "Chandelier"
 
     startCoroutine(function()
         while true do
