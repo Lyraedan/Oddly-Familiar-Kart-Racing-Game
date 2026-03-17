@@ -1,0 +1,16 @@
+local M = {}
+
+function M.get(origin, radius, height)
+    if math.random() < 0.25 then
+        return origin
+    end
+
+    local rx = (math.random() * 2 - 1) * radius
+    local ry = (math.random() * 2 - 1) * height
+    local rz = (math.random() * 2 - 1) * radius
+
+    local offset = vector3:New(rx, ry, rz)
+    return origin + offset
+end
+
+return M

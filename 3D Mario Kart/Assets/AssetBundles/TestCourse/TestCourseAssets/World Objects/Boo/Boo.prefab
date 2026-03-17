@@ -119,6 +119,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LuaBehaviour
   luaScript: {fileID: 4900000, guid: a8e230c2cef972743a4a42beb1858f48, type: 3}
+  modules:
+  - {fileID: 4900000, guid: 20b38b07b2bd2f945af21bfc0122b333, type: 3}
 --- !u!95 &6831670522315125452
 Animator:
   serializedVersion: 7

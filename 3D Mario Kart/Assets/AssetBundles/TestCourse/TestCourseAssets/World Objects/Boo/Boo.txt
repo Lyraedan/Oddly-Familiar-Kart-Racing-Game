@@ -1,3 +1,5 @@
+local random_target = require("random_target")
+
 local origin = nil
 local target = nil
 local waitTime = 0
@@ -6,29 +8,15 @@ local speed = 25
 local radius = 25
 local height = 10
 
-local function RandomTarget()
-    if math.random() < 0.25 then
-        return origin
-    end
-
-    local rx = (math.random() * 2 - 1) * radius
-    local ry = (math.random() * 2 - 1) * height
-    local rz = (math.random() * 2 - 1) * radius
-
-    local offset = vector3:New(rx, ry, rz)
-    return origin + offset
-end
-
 local function Start(self)
     self.actor.name = "Boo"
 
     origin = self.actor.transform.position
-    target = RandomTarget()
+    target = random_target.get(origin, radius, height)
 end
 
 local function Update(self, dt)
 
-    -- Waiting
     if waitTime > 0 then
         waitTime = waitTime - dt
         self.animator:SetBool("Idle", true)
@@ -38,10 +26,9 @@ local function Update(self, dt)
     local pos = self.actor.transform.position
     local dist = vector3:Distance(pos, target)
 
-    -- Reached target
     if dist < 0.2 then
         waitTime = 1 + math.random() * 2
-        target = RandomTarget()
+        target = random_target.get(origin, radius, height)
         self.animator:SetBool("Idle", true)
         return
     end

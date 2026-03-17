@@ -1,7 +1,6 @@
 using MoonSharp.Interpreter;
 using UnityEngine;
 
-[MoonSharpUserData]
 public class LuaVector3 : LuaAutoRegister
 {
     public float x { get; set; }

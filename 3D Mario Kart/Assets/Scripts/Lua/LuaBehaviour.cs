@@ -4,15 +4,21 @@ using System.Collections.Generic;
 using Coroutine = MoonSharp.Interpreter.Coroutine;
 using static LuaCoroutineEntry;
 using System.Collections;
+using System;
+using System.IO;
+using MoonSharp.Interpreter.CoreLib;
 
 public class LuaBehaviour : MonoBehaviour
 {
     public TextAsset luaScript;
 
+    public List<TextAsset> modules = new();
+
     private Script lua;
     private Table luaObject;
 
     private Dictionary<string, DynValue> luaFuncs = new();
+    private Dictionary<string, TextAsset> moduleLookup = new();
 
     private List<LuaCoroutineEntry> coroutines = new();
 
@@ -41,8 +47,20 @@ public class LuaBehaviour : MonoBehaviour
             CoreModules.Json;               // json library
 
         lua = new Script(modules);
+        // Custom require function to load modules from the assigned list of TextAssets
+        lua.Globals["require"] = (Func<string, DynValue>)(moduleName =>
+        {
+            if (!moduleLookup.TryGetValue(moduleName, out var asset))
+            {
+                Debug.LogError($"Module {moduleName} not found!");
+                return DynValue.Nil;
+            }
+            return lua.DoString(asset.text);
+        });
+
         LuaGlobals.Register(lua, this);
 
+        LoadModules();
         LoadScript();
         BindLuaComponents();
 
@@ -126,6 +144,23 @@ public class LuaBehaviour : MonoBehaviour
         }
     }
 
+    private void LoadModules()
+    {
+        if (modules == null || modules.Count == 0)
+            return;
+
+        foreach (var asset in modules)
+        {
+            if(asset == null)
+            {
+                Debug.LogWarning($"Null module in {name}'s module list.");
+                continue;
+            }
+
+            string moduleName = Path.GetFileNameWithoutExtension(asset.name);
+            moduleLookup[moduleName] = asset;
+        }
+    }
     private void BindLuaComponents()
     {
         if (luaObject == null) return;
