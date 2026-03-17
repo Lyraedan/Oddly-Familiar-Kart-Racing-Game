@@ -31,7 +31,16 @@ public class LuaBehaviour : MonoBehaviour
     private void Awake()
     {
         LuaAPI.Initialize();
-        lua = new Script();
+
+        CoreModules modules =
+            CoreModules.Basic |             // assert, type, tonumber, tostring
+            CoreModules.Table |             // table library (insert, remove, concat)
+            CoreModules.TableIterators |    // pairs, ipairs, next
+            CoreModules.String |            // string library
+            CoreModules.Math |              // math library (random, floor, sin, etc.)
+            CoreModules.Json;               // json library
+
+        lua = new Script(modules);
         LuaGlobals.Register(lua, this);
 
         LoadScript();
