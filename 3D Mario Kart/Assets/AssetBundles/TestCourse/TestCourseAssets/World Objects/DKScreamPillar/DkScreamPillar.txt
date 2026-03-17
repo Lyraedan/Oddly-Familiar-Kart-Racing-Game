@@ -1,12 +1,13 @@
 function PlayRandomAnimation(self)
-    if anim == 1 then
-		-- Remain Idle
-    elseif anim == 2 then
-        Drop(self)
-    elseif anim == 3 then
-        Shake(self)
-    elseif anim == 4 then
-        DropAndShake(self)
+    local roll = math.random(1, 100)
+	if roll <= 10 then
+		-- Remain Idle (10%)
+    elseif roll <= 30 then
+        Drop(self) -- 20%
+    elseif roll <= 80 then
+        Swing(self) -- 50%
+    else
+        DropAndSwing(self) -- 20%
     end
 end
 
@@ -17,19 +18,19 @@ function Drop(self)
     self.animator:SetBool("Drop", false)
 end
 
-function Shake(self)
-    local shakeLength = math.random(2, 3)
-    self.animator:SetBool("Shake", true)
-    wait(shakeLength)
-    self.animator:SetBool("Shake", false)
+function Swing(self)
+    local swingLength = math.random(2, 3)
+    self.animator:SetBool("Swing", true)
+    wait(swingLength)
+    self.animator:SetBool("Swing", false)
 end
 
-function DropAndShake(self)
+function DropAndSwing(self)
 	local length = math.random(3, 4)
-    self.animator:SetBool("Shake", true)
+    self.animator:SetBool("Swing", true)
 	self.animator:SetBool("Drop", true)
     wait(length)
-    self.animator:SetBool("Shake", false)
+    self.animator:SetBool("Swing", false)
 	self.animator:SetBool("Drop", false)
 end
 
@@ -38,9 +39,9 @@ function animator_PlayDropSound(self)
 	print("Drop sound")
 end
 
-function animator_PlayShakeSound(self)
+function animator_PlaySwingSound(self)
 	--self.shake:Play()
-	print("Shake sound")
+	print("Swing sound")
 end
 
 local function Start(self)
@@ -57,5 +58,5 @@ end
 return {
     Start = Start,
 	PlayDropSound = animator_PlayDropSound, -- Triggered via the animation
-	PlayShakeSound = animator_PlayShakeSound -- Triggered via the animation
+	PlayShakeSound = animator_PlaySwingSound -- Triggered via the animation
 }
