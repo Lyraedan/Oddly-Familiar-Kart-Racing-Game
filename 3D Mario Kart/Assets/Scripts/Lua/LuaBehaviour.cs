@@ -93,7 +93,7 @@ public class LuaBehaviour : MonoBehaviour
 
     /// <summary>
     /// Calls a Lua function with the given name and arguments. The first argument is always the Lua object (self), followed by any additional arguments
-    public void CallLua(string funcName, params object[] args)
+    public bool CallLua(string funcName, params object[] args)
     {
         if (luaFuncs.TryGetValue(funcName, out var func))
         {
@@ -106,16 +106,23 @@ public class LuaBehaviour : MonoBehaviour
                 System.Array.Copy(args, 0, fullArgs, 1, args.Length);
                 lua.Call(func, fullArgs);
             }
+            return true;
         }
+        return false;
     }
 
     /// <summary>
     /// Calls a Lua function without arguments. Useful for animation events or other cases where you just want to trigger a Lua function without needing to pass parameters.
     /// </summary>
     /// <param name="funcName"></param>
-    public void CallLuaFunction(string funcName)
+    public bool CallLuaFunction(string funcName)
     {
-        CallLua(funcName);
+        bool called = CallLua(funcName);
+        if(!called)
+        {
+            Debug.LogError($"Lua function '{funcName}' not defined in script for {name}! Did you forget to add it to the table?");
+        }
+        return called;
     }
 
     private void LoadScript()

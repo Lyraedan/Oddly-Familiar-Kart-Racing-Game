@@ -58,5 +58,5 @@ end
 return {
     Start = Start,
 	PlayDropSound = animator_PlayDropSound, -- Triggered via the animation
-	PlayShakeSound = animator_PlaySwingSound -- Triggered via the animation
+	PlaySwingSound = animator_PlaySwingSound -- Triggered via the animation
 }

@@ -29,6 +29,9 @@ public static class LuaGlobals
         LuaVector3 vector3Table = new LuaVector3();
         lua.Globals["vector3"] = vector3Table;
 
+        LuaInput inputTable = new LuaInput();
+        lua.Globals["input"] = inputTable;
+
         Table raceTable = new Table(lua);
         raceTable["raceStarted"] = (Func<bool>)(() => RaceManager.RACE_STARTED);
         raceTable["raceCompleted"] = (Func<bool>)(() => RaceManager.RACE_COMPLETED);

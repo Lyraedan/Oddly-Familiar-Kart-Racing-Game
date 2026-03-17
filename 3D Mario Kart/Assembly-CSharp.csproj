@@ -223,12 +223,13 @@
     <Compile Include="Assets\Scripts\TrolleySystem.cs" />
     <Compile Include="Assets\Scripts\ItemsUpdated\GreenShellItem.cs" />
     <Compile Include="Assets\SampleScenes\Scripts\ParticleSceneControls.cs" />
+    <Compile Include="Assets\Scripts\Lua\Wrappers\LuaInput.cs" />
     <Compile Include="Assets\Models\Rainbow Road N64\RingGround\Spin.cs" />
     <Compile Include="Assets\Scenes\LoadSceneTemp.cs" />
     <Compile Include="Assets\Samples\Shader Graph\17.3.0\UGUI Shaders\Scripts\BlurredHexagonController.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\AssetBundles\TestCourse\TestCourseAssets\World Objects\Boo\random_target.txt" />
+    <None Include="Assets\AssetBundles\TestCourse\TestCourseAssets\World Objects\random_target.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
     <None Include="Assets\AssetBundles\TestCourse\TestCourseAssets\World Objects\DKScreamPillar\DkScreamPillar.txt" />
     <None Include="Assets\Editor Default Resources\nu Assets\Shared\Shaders\CanvasSelection.shader" />

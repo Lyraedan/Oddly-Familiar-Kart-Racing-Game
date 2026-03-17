@@ -22,6 +22,10 @@ local function Update(self, dt)
         self.animator:SetBool("Idle", true)
         return
     end
+	
+	if input:GetKey(keycode.W) then
+		print("W pressed")
+	end
 
     local pos = self.actor.transform.position
     local dist = vector3:Distance(pos, target)
