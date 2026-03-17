@@ -7,8 +7,6 @@ public class LuaPhysics
 
     public int defaultMask { get; private set; } = Physics.DefaultRaycastLayers;
 
-    public void IgnoreLayerCollision(int layer1, int layer2, bool ignore) => Physics.IgnoreLayerCollision(layer1, layer2, ignore);
-
     public DynValue Raycast(Script lua, Vector3 origin, Vector3 direction, float distance, int layerMask)
     {
         if (Physics.Raycast(origin, direction, out RaycastHit hit, distance, layerMask))
