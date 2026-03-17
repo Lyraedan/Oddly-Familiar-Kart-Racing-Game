@@ -76,14 +76,6 @@ public class LuaPhysics
         return Raycast(lua, ox, oy, oz, dx, dy, dz, distance, defaultMask);
     }
 
-    public int LayerMask(params int[] layers)
-    {
-        int mask = 0;
-        foreach (var layer in layers)
-            mask |= (1 << layer);
-        return mask;
-    }
-
     public DynValue RaycastAll(Script lua, Vector3 origin, Vector3 direction, float distance, int layerMask)
     {
         RaycastHit[] hits = Physics.RaycastAll(origin, direction, distance, layerMask);
@@ -229,4 +221,18 @@ public class LuaPhysics
     {
         return Linecast(lua, start, end, defaultMask);
     }
+
+    public int LayerMaskFromNames(params string[] layerNames)
+    {
+        return LayerMask.GetMask(layerNames);
+    }
+
+    public int LayerMaskFromIndices(params int[] layers)
+    {
+        int mask = 0;
+        foreach (var layer in layers)
+            mask |= (1 << layer);
+        return mask;
+    }
+
 }

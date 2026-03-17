@@ -227,6 +227,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
+    <None Include="Assets\AssetBundles\TestCourse\TestCourseAssets\World Objects\DKScreamPillar\DkScreamPillar.txt" />
     <None Include="Assets\Editor Default Resources\nu Assets\Shared\Shaders\CanvasSelection.shader" />
     <None Include="Assets\Editor Default Resources\nu Assets\Shared\Shaders\Canvas.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />

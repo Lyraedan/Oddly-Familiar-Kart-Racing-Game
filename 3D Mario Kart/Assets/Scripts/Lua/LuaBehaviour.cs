@@ -64,6 +64,8 @@ public class LuaBehaviour : MonoBehaviour
 
     private void OnTriggerExit(Collider other) => CallLua("OnTriggerExit", new LuaGameObject(other.gameObject));
 
+    /// <summary>
+    /// Calls a Lua function with the given name and arguments. The first argument is always the Lua object (self), followed by any additional arguments
     public void CallLua(string funcName, params object[] args)
     {
         if (luaFuncs.TryGetValue(funcName, out var func))
@@ -80,7 +82,16 @@ public class LuaBehaviour : MonoBehaviour
         }
     }
 
-    void LoadScript()
+    /// <summary>
+    /// Calls a Lua function without arguments. Useful for animation events or other cases where you just want to trigger a Lua function without needing to pass parameters.
+    /// </summary>
+    /// <param name="funcName"></param>
+    public void CallLuaFunction(string funcName)
+    {
+        CallLua(funcName);
+    }
+
+    private void LoadScript()
     {
         if (luaScript == null)
         {
@@ -106,7 +117,7 @@ public class LuaBehaviour : MonoBehaviour
         }
     }
 
-    void BindLuaComponents()
+    private void BindLuaComponents()
     {
         if (luaObject == null) return;
 
