@@ -9,7 +9,7 @@ using UnityEngine.Splines;
 
 public class ComputerDriver : MonoBehaviour
 {
-    private OpponentItemManager item_manage;
+    private OpponentItemManager item_manager;
 
     private Rigidbody rb;
     public LayerMask mask;
@@ -128,7 +128,7 @@ public class ComputerDriver : MonoBehaviour
         kartMat.SetVector("Vector4_70BBF882", new Vector4(0, 0, 0, 0));
 
         rb = GetComponent<Rigidbody>();
-        item_manage = GetComponent<OpponentItemManager>();
+        item_manager = GetComponent<OpponentItemManager>();
 
         Right_Wheel_Drift_PS = DriftPS.transform.GetChild(0).gameObject;
         Left_Wheel_Drift_PS = DriftPS.transform.GetChild(1).gameObject;
@@ -250,7 +250,7 @@ public class ComputerDriver : MonoBehaviour
         }
 
         REALSPEED = transform.InverseTransformDirection(rb.velocity).z;
-        if (RaceManager.RACE_STARTED && !item_manage.isBullet)
+        if (RaceManager.RACE_STARTED && !item_manager.isBullet)
         {
             startBoostTime -= Time.deltaTime;
             if(startBoostTime > 0)
@@ -335,9 +335,9 @@ public class ComputerDriver : MonoBehaviour
             }
             
         }
-        else if (item_manage.isBullet)
+        else if (item_manager.isBullet)
         {
-            Vector3 lookat = item_manage.path.GetChild(item_manage.currentWayPoint).position;
+            Vector3 lookat = item_manager.path.GetChild(item_manager.currentWayPoint).position;
 
             float dir = 0;
             rb.AddRelativeForce(Vector3.down * 10000 * Time.deltaTime, ForceMode.Acceleration);
@@ -348,7 +348,7 @@ public class ComputerDriver : MonoBehaviour
                 //DIRECTION TO FACE
                 Quaternion rot = Quaternion.Lerp(transform.rotation, Quaternion.FromToRotation(transform.up * 2, hit.normal) * transform.rotation, 6 * Time.deltaTime);
                 //angle calc
-                Vector3 myangle = item_manage.path.GetChild(item_manage.currentWayPoint).position - transform.position;
+                Vector3 myangle = item_manager.path.GetChild(item_manager.currentWayPoint).position - transform.position;
                 Vector3 angle = Vector3.Cross(transform.forward, myangle);
                 dir = Vector3.Dot(angle, transform.up);
 
@@ -406,8 +406,8 @@ public class ComputerDriver : MonoBehaviour
     {
         collideCooldown -= Time.deltaTime;
 
-        item_manage.item_select_time += Time.deltaTime;
-        if(!item_manage.HitByShell_)
+        item_manager.item_select_time += Time.deltaTime;
+        if(!item_manager.HitByShell_)
             current_speed = Mathf.Lerp(current_speed, max_speed, 0.5f * Time.deltaTime);
 
 
@@ -435,11 +435,11 @@ public class ComputerDriver : MonoBehaviour
         else
             max_speed = Desired_Max_Speed;
 
-        if(item_manage.HitByShell_)
+        if(item_manager.HitByShell_)
         {
             current_speed = Mathf.Lerp(current_speed, 0, 2 * Time.deltaTime);
         }
-        if (item_manage.HitByBanana_)
+        if (item_manager.HitByBanana_)
         {
             
             current_speed = Mathf.Lerp(current_speed, 0, 3 * Time.deltaTime);
@@ -474,7 +474,7 @@ public class ComputerDriver : MonoBehaviour
         }
         
 
-        if (item_manage.StarPowerUp)
+        if (item_manager.StarPowerUp)
         {
             max_speed = Boost_Speed;
         }
@@ -871,12 +871,12 @@ public class ComputerDriver : MonoBehaviour
 
         if (other.gameObject.tag == "AntiGravity")
         {
-            if (!item_manage.StarPowerUp)
+            if (!item_manager.StarPowerUp)
                 StartCoroutine(antiGravityColor());
         }
         if (other.gameObject.tag == "AntiGravityFalse")
         {
-            if (!item_manage.StarPowerUp)
+            if (!item_manager.StarPowerUp)
                 StartCoroutine(exitAntiGravity());
         }
 
@@ -948,14 +948,14 @@ public class ComputerDriver : MonoBehaviour
 
         if(collision.gameObject.tag == "Player")
         {
-            if ((item_manage.StarPowerUp || item_manage.isBullet) && !collision.gameObject.GetComponent<ItemManager>().StarPowerUp )
+            if ((item_manager.StarPowerUp || item_manager.isBullet) && !collision.gameObject.GetComponent<ItemManager>().StarPowerUp )
             {
                 StartCoroutine(collision.gameObject.GetComponent<Player>().hitByShell()); //the player has the function that does all this work
                 if(!RaceManager.Instance.FrontFPCam.activeSelf)
                     GameObject.Find("Main Camera").GetComponent<Animator>().SetTrigger("ShellHit");
             }
         }
-        if(collision.gameObject.tag == "Opponent" && !collision.gameObject.GetComponent<OpponentItemManager>().StarPowerUp && item_manage.StarPowerUp)
+        if(collision.gameObject.tag == "Opponent" && !collision.gameObject.GetComponent<OpponentItemManager>().StarPowerUp && item_manager.StarPowerUp)
         {
             collision.gameObject.GetComponent<OpponentItemManager>().hitByShell(); //the opponent has the function that does all this work
         }
@@ -974,12 +974,12 @@ public class ComputerDriver : MonoBehaviour
                 force *= -1;
             }
 
-            if (REALSPEED > 35 && !item_manage.StarPowerUp && !item_manage.isBullet)
+            if (REALSPEED > 35 && !item_manager.StarPowerUp && !item_manager.isBullet)
             {
-                if (!item_manage.StarPowerUp && !item_manage.isBullet)
+                if (!item_manager.StarPowerUp && !item_manager.isBullet)
                 {
                    
-                    item_manage.hitByBanana();
+                    item_manager.hitByBanana();
                     for (int i = 0; i < 30; i++)
                     {
                         force = Mathf.Lerp(force, 0, 3 * Time.deltaTime);
@@ -987,7 +987,7 @@ public class ComputerDriver : MonoBehaviour
                     }
                 }
             }
-            else if(item_manage.StarPowerUp || item_manage.isBullet)
+            else if(item_manager.StarPowerUp || item_manager.isBullet)
             {
             }
         }
@@ -1005,12 +1005,12 @@ public class ComputerDriver : MonoBehaviour
                 force *= -1;
             }
 
-            if (REALSPEED > 60 && !item_manage.StarPowerUp && !item_manage.isBullet && collideCooldown > 10)
+            if (REALSPEED > 60 && !item_manager.StarPowerUp && !item_manager.isBullet && collideCooldown > 10)
             {
-                if (!item_manage.StarPowerUp && !item_manage.isBullet)
+                if (!item_manager.StarPowerUp && !item_manager.isBullet)
                 {
                     collideCooldown = 0;
-                    item_manage.hitByShell();
+                    item_manager.hitByShell();
                     for (int i = 0; i < 30; i++)
                     {
                         force = Mathf.Lerp(force, 0, 3 * Time.deltaTime);
@@ -1019,7 +1019,7 @@ public class ComputerDriver : MonoBehaviour
                     }
                 }
             }
-            else if (item_manage.StarPowerUp || item_manage.isBullet)
+            else if (item_manager.StarPowerUp || item_manager.isBullet)
             {
             }
         }
@@ -1041,7 +1041,7 @@ public class ComputerDriver : MonoBehaviour
                 float dir = Vector3.Dot(angle, transform.up);
 
                 float force;
-                if (current_speed > 50 && !item_manage.StarPowerUp)
+                if (current_speed > 50 && !item_manager.StarPowerUp)
                 {
                     force = 20000;
                 }

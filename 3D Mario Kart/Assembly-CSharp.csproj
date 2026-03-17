@@ -151,6 +151,7 @@
     <Compile Include="Assets\Scripts\Trolley.cs" />
     <Compile Include="Assets\Spherical Skybox\Move.cs" />
     <Compile Include="Assets\Scripts\ItemDistributionManager.cs" />
+    <Compile Include="Assets\Scripts\Lua\Wrappers\LuaParticleSystem.cs" />
     <Compile Include="Assets\Scripts\RacerSpawn.cs" />
     <Compile Include="Assets\Scripts\General\FaceCamera.cs" />
     <Compile Include="Assets\Spherical Skybox\Click.cs" />
