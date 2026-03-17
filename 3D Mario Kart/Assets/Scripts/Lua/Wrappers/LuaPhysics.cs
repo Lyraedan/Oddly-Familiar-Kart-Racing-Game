@@ -19,7 +19,7 @@ public class LuaPhysics
     /// - "point": table { x, y, z } representing the hit point
     /// - "normal": table { x, y, z } representing the surface normal
     /// - "distance": distance from the origin to the hit point
-    /// Returns nil if no object was hit.
+    /// Returns false if no object was hit.
     /// </returns>
     public DynValue Raycast(Script lua, Vector3 origin, Vector3 direction, float distance)
     {
@@ -46,7 +46,7 @@ public class LuaPhysics
             return DynValue.FromObject(lua, result);
         }
 
-        return DynValue.Nil;
+        return DynValue.False;
     }
 
     /// <summary>
@@ -67,7 +67,7 @@ public class LuaPhysics
     /// - "point": table { x, y, z } representing the hit point
     /// - "normal": table { x, y, z } representing the surface normal
     /// - "distance": distance from the origin to the hit point
-    /// Returns nil if no object was hit.
+    /// Returns false if no object was hit.
     /// </returns>
     public DynValue Raycast(Script lua, float ox, float oy, float oz, float dx, float dy, float dz, float distance)
     {
@@ -96,6 +96,6 @@ public class LuaPhysics
             return DynValue.FromObject(lua, result);
         }
 
-        return DynValue.Nil;
+        return DynValue.False;
     }
 }
