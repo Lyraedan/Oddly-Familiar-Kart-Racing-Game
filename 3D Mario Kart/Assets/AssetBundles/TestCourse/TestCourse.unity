@@ -17692,7 +17692,7 @@ MonoBehaviour:
   AIPaths: []
   music: {fileID: 1622641019}
   musicFast: {fileID: 1599061052}
-  MAXLAPS: 2
+  MAXLAPS: 3
   sortedRacers: []
   set1: []
   set2: []

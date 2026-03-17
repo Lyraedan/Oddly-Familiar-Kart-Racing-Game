@@ -126,6 +126,7 @@
     <Compile Include="Assets\Scripts\Cow.cs" />
     <Compile Include="Assets\Scripts\OpponentItemManager.cs" />
     <Compile Include="Assets\Scripts\UI\CustomizableSprite.cs" />
+    <Compile Include="Assets\Scripts\Lua\Wrappers\LuaItemBase.cs" />
     <Compile Include="Assets\Scripts\Steamworks.NET\LobbyPlayer.cs" />
     <Compile Include="Assets\Scripts\UI\CustomizableSpriteLibrary.cs" />
     <Compile Include="Assets\Scripts\JumpPanelScript.cs" />
@@ -167,7 +168,6 @@
     <Compile Include="Assets\Models\Test\Rotate.cs" />
     <Compile Include="Assets\SampleScenes\Menu\Scripts\PauseMenu.cs" />
     <Compile Include="Assets\Samples\Shader Graph\17.3.0\UGUI Shaders\Scripts\Timer.cs" />
-    <Compile Include="Assets\Scripts\ItemsUpdated\LuaItemBase.cs" />
     <Compile Include="Assets\Scripts\ItemsUpdated\StarItem.cs" />
     <Compile Include="Assets\Scripts\Title\RandomSongPlayer.cs" />
     <Compile Include="Assets\Scripts\Lua\Wrappers\LuaPhysics.cs" />

@@ -30,22 +30,4 @@ public class LuaItemBase : ItemBase
 
         luaBehaviour.CallLua("Use", forward, user);
     }
-
-    private void Start()
-    {
-        if (luaBehaviour != null)
-        {
-            luaBehaviour.CallLua("ItemStart", this);
-        }
-    }
-
-    private void Update()
-    {
-        base.Update();
-
-        if (luaBehaviour != null)
-        {
-            luaBehaviour.CallLua("ItemUpdate", Time.deltaTime);
-        }
-    }
 }

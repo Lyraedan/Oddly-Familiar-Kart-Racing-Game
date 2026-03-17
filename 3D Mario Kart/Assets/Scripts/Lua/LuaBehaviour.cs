@@ -30,7 +30,6 @@ public class LuaBehaviour : MonoBehaviour
 
     private void Awake()
     {
-        //UserData.RegisterAssembly();
         LuaAPI.Initialize();
         lua = new Script();
         LuaGlobals.Register(lua, this);

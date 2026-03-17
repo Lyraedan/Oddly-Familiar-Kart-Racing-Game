@@ -15,7 +15,6 @@ public class LuaGameObject
         return obj;
     }
 
-    // Transform wrapper
     public LuaTransform transform
     {
         get
@@ -27,21 +26,18 @@ public class LuaGameObject
         }
     }
 
-    // Tag
     public string tag
     {
         get => obj.tag;
         set => obj.tag = value;
     }
 
-    // Name
     public string name
     {
         get => obj.name;
         set => obj.name = value;
     }
 
-    // Layer
     public string layer
     {
         get => LayerMask.LayerToName(obj.layer);
