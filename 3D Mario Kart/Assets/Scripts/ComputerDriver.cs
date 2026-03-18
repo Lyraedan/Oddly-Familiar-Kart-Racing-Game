@@ -255,7 +255,7 @@ public class ComputerDriver : MonoBehaviour
             }
         }
 
-        REALSPEED = transform.InverseTransformDirection(rb.velocity).z;
+        REALSPEED = transform.InverseTransformDirection(rb.linearVelocity).z;
         if (RaceManager.RACE_STARTED && !item_manager.isBullet)
         {
             startBoostTime -= Time.deltaTime;
@@ -281,7 +281,6 @@ public class ComputerDriver : MonoBehaviour
             }
 
             carTires();
-            //steer();
             SteerFromSpline(SelectedPathTool);
             if (outOfBounds != null && !outOfBounds.FellInWater && !outOfBounds.OutOfBoundsState)
             {
@@ -290,8 +289,8 @@ public class ComputerDriver : MonoBehaviour
             }
 
             //drift_func();
-            animations();
-            lookAtOthers();
+            HandleTurnAnimations();
+            LookAtOthers();
 
             for(int i = 0; i < exhaustParticles.transform.childCount; i++)
             {
@@ -383,32 +382,6 @@ public class ComputerDriver : MonoBehaviour
                 exhaustParticles.transform.GetChild(i).GetComponent<ParticleSystem>().Play();
             }
         }
-    }
-
-
-
-
-    [Obsolete("Replaced by SteerFromSpline")]
-    void steer()
-    {
-
-        Vector3 lookat = path.GetChild(current_node % path.childCount).position;
-
-        
-        //angle calc
-        Vector3 myangle = lookat - transform.position;
-        Vector3 angle = Vector3.Cross(transform.forward, myangle);
-        dir = Vector3.Dot(angle, transform.up);
-
-
-        float none = 0;
-
-
-
-        y = Mathf.SmoothDamp(y, dir, ref none, 2.5f * Time.deltaTime);
-        transform.Rotate(0, y/turnSpeedDivider, 0, Space.Self);
-
-
     }
 
     public void SteerFromSpline(PathTool pathTool)
@@ -541,7 +514,7 @@ public class ComputerDriver : MonoBehaviour
         // Jump panel
         if (JUMP_PANEL)
         {
-            rb.velocity = transform.forward * current_speed;
+            rb.linearVelocity = transform.forward * current_speed;
 
             jumpPanelUpForce = Mathf.Lerp(
                 jumpPanelUpForce,
@@ -559,159 +532,20 @@ public class ComputerDriver : MonoBehaviour
                 ForceMode.Acceleration
             );
 
-            // Intentionally left empty
+            // Intentionally left empty - for now
             if (AntiGravity) { }
         }
     }
 
-    void drift_func()
+    void HandleTurnAnimations()
     {
-        
-        
+        bool turnLeft = dir <= -5f;
+        bool turnRight = dir >= 5f;
 
-        if(path.GetChild(current_node).tag == "DriftLeft" && transform.InverseTransformDirection(rb.velocity).z > 40) //left
-        {
-            if(hop_anim)
-            {
-                transform.GetChild(0).gameObject.GetComponent<Animator>().SetTrigger("Drift");
-                hop_anim = false;
-            }
-            driftleft = true;
-            driftright = false;
-            
-            transform.GetChild(0).localRotation = Quaternion.Lerp(transform.GetChild(0).localRotation, Quaternion.Euler(0, -30, 0), 8f * Time.deltaTime);
-            
-        }
-        if (path.GetChild(current_node).tag == "DriftRight" && transform.InverseTransformDirection(rb.velocity).z > 40) //right
-        {
-            if (hop_anim)
-            {
-                transform.GetChild(0).gameObject.GetComponent<Animator>().SetTrigger("Drift");
-                hop_anim = false;
-            }
-            driftleft = false;
-            driftright = true;
-            transform.GetChild(0).localRotation = Quaternion.Lerp(transform.GetChild(0).localRotation, Quaternion.Euler(0, 30, 0), 8 * Time.deltaTime);
-
-        }
-
-        if (driftright || driftleft)
-        {
-            drift_time += Time.deltaTime;
-            max_speed = Desired_Max_Speed - 15; //a little slower
-
-            //particle effects
-            if (drift_time >= 1 && drift_time < 3)
-            {
-                
-                for (int i = 0; i < 5; i++)
-                {
-                    //the two particle systems and their mai modules for drift effects
-                    ParticleSystem DriftPS = Right_Wheel_Drift_PS.transform.GetChild(i).gameObject.GetComponent<ParticleSystem>(); //right wheel particles
-                    ParticleSystem.MainModule PSMAIN = DriftPS.main;
-
-                    ParticleSystem DriftPS2 = Left_Wheel_Drift_PS.transform.GetChild(i).gameObject.GetComponent<ParticleSystem>(); //left wheel particles
-                    ParticleSystem.MainModule PSMAIN2 = DriftPS2.main;
-
-                    PSMAIN.startColor = RaceManager.Instance.LocalPlayer.drift1; //accessing them from playerscript because they are constants common to everyone
-                    PSMAIN2.startColor = RaceManager.Instance.LocalPlayer.drift1;
-
-                    if (!DriftPS.isPlaying && !DriftPS2.isPlaying)
-                    {
-                        DriftPS.Play();
-                        DriftPS2.Play();
-                    }
-
-                }
-                
-            }
-            if (drift_time >= 3 && drift_time < 6)
-            {
-                for (int i = 0; i < 5; i++)
-                {
-                    ParticleSystem DriftPS = Right_Wheel_Drift_PS.transform.GetChild(i).gameObject.GetComponent<ParticleSystem>();
-                    ParticleSystem.MainModule PSMAIN = DriftPS.main;
-                    ParticleSystem DriftPS2 = Left_Wheel_Drift_PS.transform.GetChild(i).gameObject.GetComponent<ParticleSystem>();
-                    ParticleSystem.MainModule PSMAIN2 = DriftPS2.main;
-                    PSMAIN.startColor = RaceManager.Instance.LocalPlayer.drift2;
-                    PSMAIN2.startColor = RaceManager.Instance.LocalPlayer.drift2;
-            }
-
-            }
-            if (drift_time >= 6)
-            {
-                for (int i = 0; i < 5; i++)
-                {
-
-                    ParticleSystem DriftPS = Right_Wheel_Drift_PS.transform.GetChild(i).gameObject.GetComponent<ParticleSystem>();
-                    ParticleSystem.MainModule PSMAIN = DriftPS.main;
-                    ParticleSystem DriftPS2 = Left_Wheel_Drift_PS.transform.GetChild(i).gameObject.GetComponent<ParticleSystem>();
-                    ParticleSystem.MainModule PSMAIN2 = DriftPS2.main;
-                    PSMAIN.startColor = RaceManager.Instance.LocalPlayer.drift3;
-                    PSMAIN2.startColor = RaceManager.Instance.LocalPlayer.drift3;
-
-                }
-;
-            }
-        }
-
-        if ((path.GetChild(current_node).tag != "DriftLeft" && path.GetChild(current_node).tag != "DriftRight") || transform.InverseTransformDirection(rb.velocity).z <= 40 || !grounded) //stop drifting
-        {
-            if(drift_time >= 1 && drift_time < 3)
-            {
-                boost = true;
-                boost_time = 0.5f;
-            }
-            if(drift_time >= 3 && drift_time < 6)
-            {
-                boost = true;
-                boost_time = 1.5f;
-            }
-            if (drift_time >= 6)
-            {
-                boost = true;
-                boost_time = 2.5f;
-            }
-
-            //reset
-            driftleft = false;
-            driftright = false;
-            hop_anim = true;
-            drift_time = 0;
-            transform.GetChild(0).localRotation = Quaternion.Lerp(transform.GetChild(0).localRotation, Quaternion.Euler(0, 0, 0), 8f * Time.deltaTime);
-            //stop particles
-            for (int i = 0; i < 5; i++)
-            {
-                ParticleSystem DriftPS = Right_Wheel_Drift_PS.transform.GetChild(i).gameObject.GetComponent<ParticleSystem>(); //right wheel particles
-                ParticleSystem.MainModule PSMAIN = DriftPS.main;
-
-                ParticleSystem DriftPS2 = Left_Wheel_Drift_PS.transform.GetChild(i).gameObject.GetComponent<ParticleSystem>(); //left wheel particles
-                ParticleSystem.MainModule PSMAIN2 = DriftPS2.main;
-
-                DriftPS.Stop();
-                DriftPS2.Stop();
-
-            }
-        } 
+        DriverAnim.SetBool("TurnLeft", turnLeft);
+        DriverAnim.SetBool("TurnRight", turnRight);
     }
-    void animations()
-    {
-        if(dir <= -5)
-        {
-            DriverAnim.SetBool("TurnLeft", true);
-            DriverAnim.SetBool("TurnRight", false);
-        }
-        else if (dir >= 5)
-        {
-            DriverAnim.SetBool("TurnLeft", false);
-            DriverAnim.SetBool("TurnRight", true);
-        }
-        else
-        {
-            DriverAnim.SetBool("TurnLeft", false);
-            DriverAnim.SetBool("TurnRight", false);
-        }
-    }
+
     void carTires()
     {
         if (!AntiGravity)
@@ -741,7 +575,7 @@ public class ComputerDriver : MonoBehaviour
         
 
         //spin
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < tires.Length; i++)
         {
 
             if (current_speed < 6.5 && current_speed > -6.5)
@@ -754,49 +588,61 @@ public class ComputerDriver : MonoBehaviour
             }
         }
     }
-    void lookAtOthers()
+
+    void LookAtOthers()
     {
         lookAtTime += Time.deltaTime;
 
-        if(lookAtTime > 5)
+        if (lookAtTime > 5f)
+            lookAtTime = 0f;
+
+        if (head == null)
+            return;
+
+        // Idle head movement
+        if (lookAtTime <= 2f)
         {
-            lookAtTime = 0;
+            head.localRotation = Quaternion.SlerpUnclamped(
+                head.localRotation,
+                Quaternion.Euler(0f, 0f, 3f),
+                5f * Time.deltaTime
+            );
+            return;
         }
 
-        if(head != null)
+        // Find closest player
+        float closestDist = float.MaxValue;
+        Transform closestPlayer = null;
+
+        for (int i = 0; i < allPlayers.Count; i++)
         {
+            float dist = Vector3.Distance(transform.position, allPlayers[i].position);
 
-            
-            //We also have to establish the condition to look at someone when a specific animation is not playing
-            if(lookAtTime > 2)
+            if (dist < closestDist)
             {
-                float dist = 9999;
-                //find closest player
-                for(int i = 0; i < allPlayers.Count; i++)
-                {
-                    if(Vector3.Distance(transform.position, allPlayers[i].position) < dist)
-                    {
-                        dist = Vector3.Distance(transform.position, allPlayers[i].position);
-                        personToLookAt = allPlayers[i];
-
-                        Vector3 Target = transform.InverseTransformPoint(personToLookAt.position);
-                        float targetAngle = Mathf.Atan2(Target.x, Target.z) * Mathf.Rad2Deg;
-                        targetAngle = Mathf.Clamp(targetAngle, -90, 90);
-
-                        if(Vector3.Distance(personToLookAt.position, transform.position) < 15)
-                        {
-                            head.localRotation = Quaternion.SlerpUnclamped(head.localRotation, Quaternion.Euler(new Vector3(0, -targetAngle, 0)), 5 * Time.deltaTime);
-                        }
-                    }
-                }
-            }
-            else
-            {
-                head.localRotation = Quaternion.SlerpUnclamped(head.localRotation ,Quaternion.Euler(new Vector3(0, 0, 3)), 5 * Time.deltaTime);
-
+                closestDist = dist;
+                closestPlayer = allPlayers[i];
             }
         }
-        
+
+        if (closestPlayer == null)
+            return;
+
+        personToLookAt = closestPlayer;
+
+        // Only look if within range
+        if (closestDist < 15f)
+        {
+            Vector3 localTarget = transform.InverseTransformPoint(closestPlayer.position);
+            float targetAngle = Mathf.Atan2(localTarget.x, localTarget.z) * Mathf.Rad2Deg;
+            targetAngle = Mathf.Clamp(targetAngle, -90f, 90f);
+
+            head.localRotation = Quaternion.SlerpUnclamped(
+                head.localRotation,
+                Quaternion.Euler(0f, -targetAngle, 0f),
+                5f * Time.deltaTime
+            );
+        }
     }
 
     void groundNormalRotation()
