@@ -117,6 +117,9 @@ public class ComputerDriver : MonoBehaviour
 
     public LapCounter myLap;
 
+    public float lookAhead = 0.03f;
+    public int samples = 40;
+
     private void Awake()
     {
         outOfBounds = GetComponent<OutOfBounds>();
@@ -275,7 +278,8 @@ public class ComputerDriver : MonoBehaviour
             }
 
             carTires();
-            steer();
+            //steer();
+            SteerFromSpline(SelectedPathTool);
             if (outOfBounds != null && !outOfBounds.FellInWater && !outOfBounds.OutOfBoundsState)
             {
                 Move();
@@ -402,6 +406,52 @@ public class ComputerDriver : MonoBehaviour
 
 
     }
+
+    public void SteerFromSpline(PathTool pathTool)
+    {
+        if (pathTool == null || pathTool.splineContainer == null)
+            return;
+
+        var spline = pathTool.splineContainer.Spline;
+
+        float closestT = 0f;
+        float closestDist = float.MaxValue;
+
+        // Find closest point on spline
+        for (int i = 0; i <= samples; i++)
+        {
+            float t = i / (float)samples;
+
+            Vector3 p = pathTool.transform.TransformPoint(
+                spline.EvaluatePosition(t)
+            );
+
+            float dist = (transform.position - p).sqrMagnitude;
+
+            if (dist < closestDist)
+            {
+                closestDist = dist;
+                closestT = t;
+            }
+        }
+
+        float lookT = (closestT + lookAhead) % 1f;
+
+        Vector3 worldTarget = pathTool.transform.TransformPoint(
+            spline.EvaluatePosition(lookT)
+        );
+
+        Vector3 toTarget = worldTarget - transform.position;
+
+        Vector3 cross = Vector3.Cross(transform.forward, toTarget);
+        float dir = Vector3.Dot(cross, transform.up);
+
+        float none = 0;
+        y = Mathf.SmoothDamp(y, dir, ref none, 2.5f * Time.deltaTime);
+
+        transform.Rotate(0, y / turnSpeedDivider, 0, Space.Self);
+    }
+
     void Move()
     {
         collideCooldown -= Time.deltaTime;
@@ -413,8 +463,8 @@ public class ComputerDriver : MonoBehaviour
 
         Vector3 vel = transform.forward * current_speed;
         if(!AntiGravity)
-            vel.y = rb.velocity.y;
-        rb.velocity = vel;
+            vel.y = rb.linearVelocity.y;
+        rb.linearVelocity = vel;
 
         rb.AddRelativeForce(Vector3.down * 5000 * Time.deltaTime, ForceMode.Acceleration);
 
