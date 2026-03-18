@@ -117,7 +117,10 @@ public class ComputerDriver : MonoBehaviour
 
     public LapCounter myLap;
 
-    public float lookAhead = 0.03f;
+    // Steering
+    public float minLookAhead = 0.01f;
+    public float maxLookAhead = 0.03f;
+
     public int samples = 40;
 
     private void Awake()
@@ -385,6 +388,7 @@ public class ComputerDriver : MonoBehaviour
 
 
 
+    [Obsolete("Replaced by SteerFromSpline")]
     void steer()
     {
 
@@ -417,7 +421,7 @@ public class ComputerDriver : MonoBehaviour
         float closestT = 0f;
         float closestDist = float.MaxValue;
 
-        // Find closest point on spline
+        // Get closest point
         for (int i = 0; i <= samples; i++)
         {
             float t = i / (float)samples;
@@ -435,12 +439,24 @@ public class ComputerDriver : MonoBehaviour
             }
         }
 
+        // Check the curvature around the closest point to adjust look-ahead
+        float t1 = closestT;
+        float t2 = (closestT + 0.02f) % 1f;
+
+        Vector3 dir1 = pathTool.transform.TransformDirection(spline.EvaluateTangent(t1)).normalized;
+        Vector3 dir2 = pathTool.transform.TransformDirection(spline.EvaluateTangent(t2)).normalized;
+
+        float turnAmount = Vector3.Angle(dir1, dir2); // degrees
+
+        float lookAhead = Mathf.Lerp(maxLookAhead, minLookAhead, turnAmount / 90f);
+
         float lookT = (closestT + lookAhead) % 1f;
 
         Vector3 worldTarget = pathTool.transform.TransformPoint(
             spline.EvaluatePosition(lookT)
         );
 
+        // Apply steering
         Vector3 toTarget = worldTarget - transform.position;
 
         Vector3 cross = Vector3.Cross(transform.forward, toTarget);
@@ -457,93 +473,97 @@ public class ComputerDriver : MonoBehaviour
         collideCooldown -= Time.deltaTime;
 
         item_manager.item_select_time += Time.deltaTime;
-        if(!item_manager.HitByShell_)
+
+        // Speed handling
+        if (!item_manager.HitByShell_)
             current_speed = Mathf.Lerp(current_speed, max_speed, 0.5f * Time.deltaTime);
 
+        if (item_manager.HitByShell_)
+            current_speed = Mathf.Lerp(current_speed, 0, 2f * Time.deltaTime);
 
+        if (item_manager.HitByBanana_)
+            current_speed = Mathf.Lerp(current_speed, 0, 3f * Time.deltaTime);
+
+        // Velocity
         Vector3 vel = transform.forward * current_speed;
-        if(!AntiGravity)
+
+        if (!AntiGravity)
             vel.y = rb.linearVelocity.y;
+
         rb.linearVelocity = vel;
 
+        // Gravity forces
         rb.AddRelativeForce(Vector3.down * 5000 * Time.deltaTime, ForceMode.Acceleration);
 
         if (AntiGravity)
-        {
-            if (AntiGravity)
-            {
-                rb.AddRelativeForce(Physics.gravity * 5, ForceMode.Acceleration);
-            }
-        }
+            rb.AddRelativeForce(Physics.gravity * 5, ForceMode.Acceleration);
 
-
+        // Air / ground speed
         if (!grounded && !boost)
-        {
             max_speed = 40;
-            //current_speed = Mathf.Lerp(current_speed, max_speed, 4);
-        }
         else
             max_speed = Desired_Max_Speed;
 
-        if(item_manager.HitByShell_)
+        // Gliding
+        if (GLIDER_FLY || aboutToFly)
         {
-            current_speed = Mathf.Lerp(current_speed, 0, 2 * Time.deltaTime);
-        }
-        if (item_manager.HitByBanana_)
-        {
-            
-            current_speed = Mathf.Lerp(current_speed, 0, 3 * Time.deltaTime);
-
-        }
-
-        if(GLIDER_FLY || aboutToFly)
-        {
-            Vector3 GlideVel = rb.velocity;
-            GlideVel.y *= 0.5f;
-            rb.velocity = GlideVel;
+            Vector3 glideVel = rb.velocity;
+            glideVel.y *= 0.5f;
+            rb.velocity = glideVel;
 
             if (GLIDER_FLY)
             {
-                //steering
-                if(y > 5)
-                {
-                    Quaternion targetRot = Quaternion.Euler(glideAngleX, transform.eulerAngles.y, glideAngleZ - 30);
-                    transform.rotation = Quaternion.SlerpUnclamped(transform.rotation, targetRot, 3 * Time.deltaTime);
-                }
-                else if(y <= -5)
-                {
-                    Quaternion targetRot = Quaternion.Euler(glideAngleX, transform.eulerAngles.y, glideAngleZ + 30);
-                    transform.rotation = Quaternion.SlerpUnclamped(transform.rotation, targetRot, 3 * Time.deltaTime);
-                }
-                else
-                {
-                    Quaternion targetRot = Quaternion.Euler(glideAngleX, transform.eulerAngles.y, glideAngleZ + 0);
-                    transform.rotation = Quaternion.SlerpUnclamped(transform.rotation, targetRot, 3 * Time.deltaTime);
-                }
+                float zOffset = 0f;
+
+                if (y > 5)
+                    zOffset = -30f;
+                else if (y <= -5)
+                    zOffset = 30f;
+
+                Quaternion targetRot = Quaternion.Euler(
+                    glideAngleX,
+                    transform.eulerAngles.y,
+                    glideAngleZ + zOffset
+                );
+
+                transform.rotation = Quaternion.SlerpUnclamped(
+                    transform.rotation,
+                    targetRot,
+                    3f * Time.deltaTime
+                );
             }
         }
-        
 
+        // Star power override
         if (item_manager.StarPowerUp)
-        {
             max_speed = Boost_Speed;
-        }
 
+        // Jump panel
         if (JUMP_PANEL)
         {
             rb.velocity = transform.forward * current_speed;
-            jumpPanelUpForce = Mathf.Lerp(jumpPanelUpForce, jumpPanelDownForce, 2.5f * Time.deltaTime);
-            rb.AddRelativeForce(Vector3.down * jumpPanelUpForce * Time.deltaTime, ForceMode.Acceleration);
-            rb.AddForce(transform.forward * 80000 * Time.deltaTime, ForceMode.Acceleration);
 
+            jumpPanelUpForce = Mathf.Lerp(
+                jumpPanelUpForce,
+                jumpPanelDownForce,
+                2.5f * Time.deltaTime
+            );
+
+            rb.AddRelativeForce(
+                Vector3.down * jumpPanelUpForce * Time.deltaTime,
+                ForceMode.Acceleration
+            );
+
+            rb.AddForce(
+                transform.forward * 80000 * Time.deltaTime,
+                ForceMode.Acceleration
+            );
+
+            // Intentionally left empty
             if (AntiGravity) { }
-                //transform.Rotate(5 * Time.deltaTime, 0, 0, Space.Self);
-
-            //Camera.main.transform.parent.parent.localEulerAngles += new Vector3(0.5f, 0, 0);
         }
-
-
     }
+
     void drift_func()
     {
         
